@@ -1,8 +1,10 @@
-<div id="resultset">
+<table class="table table-bordered table-striped" id="resultset">
   {{#each IWitness.ResultsetController.content}}
-    <div class="result">
-      <strong>@{{this.from_user}}</strong> at <em>{{this.created_at}}</em> from {{this.geo.coordinates}}
-      <p>{{this.text}}</p>
-    </div>
+    <tr>
+      <td>
+        <strong>@{{this.from_user}}</strong> at <em>{{this.created_at}}</em> from {{this.geo.coordinates}}
+        <p>{{this.text}}</p>
+      </td>
+    </tr>
   {{/each}}
-</div>
+</table>
