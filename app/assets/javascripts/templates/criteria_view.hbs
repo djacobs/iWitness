@@ -1,0 +1,28 @@
+<div id="criteria">
+  <div class="field">
+    <label for="keyword">Keyword</label>
+    {{view Ember.TextField id="keyword" valueBinding="keyword"}}
+  </div>
+
+  <div class="field">
+    <label for="start_time">Start Time</label>
+    {{view Ember.TextField id="start_time" valueBinding="start_time"}}
+  </div>
+
+  <div class="field">
+    <label for="end_time">End Time</label>
+    {{view Ember.TextField id="end_time" valueBinding="end_time"}}
+  </div>
+
+  <div class="field">
+    <label for="location">Location</label>
+    {{view Ember.TextField id="location" valueBinding="location"}}
+  </div>
+
+  <div class="field">
+    <label for="radius">Radius</label>
+    {{view Ember.TextField id="radius" valueBinding="radius"}}
+  </div>
+
+  <input type="submit" value="Search" {{action search}}>
+</div>
