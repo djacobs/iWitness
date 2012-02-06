@@ -3,11 +3,11 @@ IWitness.CriteriaView = Ember.View.extend({
   location: '39.76395,-86.1656,1km',
 
   search: function(e) {
-    Twitter.search(
-      this.getProperties('location', 'keyword'),
-      function(results){
-        IWitness.ResultsetController.set('content', results);
-      }
-    );
+    var params = this.getProperties('location', 'keyword', 'start_time', 'end_time');
+    var search = new TwitterSearch(params);
+
+    search.fetchResults(function(results){
+      IWitness.ResultsetController.set('content', results);
+    });
   }
 });
