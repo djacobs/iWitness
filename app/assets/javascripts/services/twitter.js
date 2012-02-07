@@ -1,7 +1,7 @@
 var TwitterSearch = function(params){
   this.params     = params;
-  this.start      = this.getTimeInUTC(params.start);
-  this.end        = this.getTimeInUTC(params.end);
+  this.start      = moment(params.start);
+  this.end        = moment(params.end);
   this.keyword    = params.keyword;
   this.location   = params.location;
   this.page       = 1;
@@ -59,17 +59,11 @@ _.extend(TwitterSearch.prototype, {
       result_type: 'recent',
       q:           this.keyword,
       geocode:     this.location,
-      since:       this.start.format('YYYY-MM-DD'),
-      until:       moment(this.end).add('days', 1).format('YYYY-MM-DD'),
+      since:       this.start.formatUTC('YYYY-MM-DD'),
+      until:       moment(this.end).add('days', 1).formatUTC('YYYY-MM-DD'),
       rpp:         100,
       page:        this.page
     };
-  },
-
-  getTimeInUTC: function(dateString) {
-    var date = moment(dateString)
-    date.add('minutes', date.zone());
-    return date;
   },
 
   done: function(){
