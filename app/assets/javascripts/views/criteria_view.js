@@ -1,11 +1,11 @@
 IWitness.CriteriaView = Ember.View.extend({
   templateName: 'criteria_template',
   location: '39.76395,-86.1656,1km',
-  start_date: '2/4/12',
-  start_time: '5:30 PM',
-  end_date: '2/4/12',
-  end_time: '10:00 PM',
-  keyword: 'test',
+  start_date: '2/5/12',
+  start_time: '6:00 PM',
+  end_date: '2/5/12',
+  end_time: '9:30 PM',
+  keyword: '*',
 
   search: function(e) {
     var params = this.getProperties('location', 'keyword', 'start', 'end');

@@ -4,16 +4,15 @@ var TwitterSearch = function(params){
   this.end        = moment(params.end);
   this.keyword    = params.keyword;
   this.location   = params.location;
-  this.page       = 1;
-  console.log('start at %s', this.start.format('MM/DD hh:mm a'));
-  console.log('end at %s', this.end.format('MM/DD hh:mm a'));
+  this.max_id     = null;
+
+  console.log('*** searching %s - %s ***', this.start.format('MM/DD hh:mm a'), this.end.format('MM/DD hh:mm a'));
 }
 
 MicroEvent.mixin(TwitterSearch);
 
 _.extend(TwitterSearch.prototype, {
   perform: function(){
-    console.log("fetching page "+this.page);
     $.getJSON(
       "http://search.twitter.com/search.json?callback=?",
       this.adaptParams(),
@@ -22,12 +21,20 @@ _.extend(TwitterSearch.prototype, {
   },
 
   parser: function(data){
-    var self = this;
+    var self   = this;
+    var max_id = this.max_id;
+
     this.fetchMoreResultsIfNeeded(data.results);
 
     var results = _.filter(data.results, function(result){
       return self.hasGeo(result) && self.inTimeframe(result);
     });
+
+    if (data.results.length) {
+      var start_time = moment(_.first(data.results).created_at).format('MM/DD hh:mma');
+      var end_time   = moment(_.last(data.results).created_at).format('MM/DD hh:mma');
+      console.log('%s to %s - %s found / %s passed', end_time, start_time, data.results.length, results.length);
+    }
 
     this.trigger('data', results);
   },
@@ -37,20 +44,23 @@ _.extend(TwitterSearch.prototype, {
   },
 
   inTimeframe: function(result) {
-    var resultTime = moment(result.created_at);
-    return resultTime.diff(this.start) > 0 && resultTime.diff(this.end) < 0;
+    var resultTime  = moment(result.created_at);
+    var inTimeframe = resultTime.diff(this.start) > 0 && resultTime.diff(this.end) < 0;
+    return inTimeframe;
   },
 
   fetchMoreResultsIfNeeded: function(results){
-    this.page += 1;
-    if (this.page > 15) return this.done();
     var last = _.last(results);
     if (!last) return this.done();
+
     var lastTime = moment(last.created_at);
-    if (lastTime > this.start){
-      this.perform();
-    } else {
+    if (lastTime < this.start){
       this.done();
+    } else if (this.max_id == last.id) {
+      this.done();
+    } else {
+      this.max_id = last.id;
+      this.perform();
     }
   },
 
@@ -62,11 +72,12 @@ _.extend(TwitterSearch.prototype, {
       since:       this.start.formatUTC('YYYY-MM-DD'),
       until:       moment(this.end).add('days', 1).formatUTC('YYYY-MM-DD'),
       rpp:         100,
-      page:        this.page
+      max_id:      this.max_id
     };
   },
 
   done: function(){
+    console.log('--- done ---');
     this.trigger('end');
   }
 });
