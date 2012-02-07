@@ -4,56 +4,65 @@ var TwitterSearch = function(params){
   this.end        = this.getTimeInUTC(params.end);
   this.keyword    = params.keyword;
   this.location   = params.location;
+  this.page       = 1;
+  console.log('start at %s', this.start.format('MM/DD hh:mm a'));
+  console.log('end at %s', this.end.format('MM/DD hh:mm a'));
 }
 
 MicroEvent.mixin(TwitterSearch);
 
 _.extend(TwitterSearch.prototype, {
   perform: function(){
-    var self = this,
-        page = 1;
-
-    self.bind('raw-data', function(results){
-      page += 1;
-      if (page > 15) return self.done();
-      var last = _.last(results);
-      if (!last) return self.done();
-      var lastTime = moment(last.created_at);
-      if (lastTime > self.start){
-        self.fetchResults(page);
-      } else {
-        self.done();
-      }
-    });
-    self.fetchResults(page);
-  },
-
-  parser: function(data){
-    this.trigger('raw-data', data.results);
-    var results = _.filter(data.results, function(result){
-      return result.geo != null;
-    });
-    this.trigger('data', results);
-  },
-
-  fetchResults: function(page){
-    console.log("fetching page "+page);
+    console.log("fetching page "+this.page);
     $.getJSON(
       "http://search.twitter.com/search.json?callback=?",
-      this.adaptParams(page),
+      this.adaptParams(),
       _.bind(this.parser, this)
     );
   },
 
-  adaptParams: function(page){
+  parser: function(data){
+    var self = this;
+    this.fetchMoreResultsIfNeeded(data.results);
+
+    var results = _.filter(data.results, function(result){
+      return self.hasGeo(result) && self.inTimeframe(result);
+    });
+
+    this.trigger('data', results);
+  },
+
+  hasGeo: function(result){
+    return result.geo != null;
+  },
+
+  inTimeframe: function(result) {
+    var resultTime = moment(result.created_at);
+    return resultTime.diff(this.start) > 0 && resultTime.diff(this.end) < 0;
+  },
+
+  fetchMoreResultsIfNeeded: function(results){
+    this.page += 1;
+    if (this.page > 15) return this.done();
+    var last = _.last(results);
+    if (!last) return this.done();
+    var lastTime = moment(last.created_at);
+    if (lastTime > this.start){
+      this.perform();
+    } else {
+      this.done();
+    }
+  },
+
+  adaptParams: function(){
     return {
       result_type: 'recent',
       q:           this.keyword,
       geocode:     this.location,
       since:       this.start.format('YYYY-MM-DD'),
-      until:       this.end.add('days', 1).format('YYYY-MM-DD'),
+      until:       moment(this.end).add('days', 1).format('YYYY-MM-DD'),
       rpp:         100,
-      page:        page
+      page:        this.page
     };
   },
 
