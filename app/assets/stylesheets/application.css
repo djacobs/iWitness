@@ -2,5 +2,8 @@
  *= require css/bootstrap
  *= require css/custom-theme/jquery-ui-1.8.16.custom
  *= require timePicker
+ *= require_self
  *= require_tree .
 */
+
+#map { width: 250px; height: 200px; margin: 20px 0; }

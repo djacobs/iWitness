@@ -1,6 +1,5 @@
 IWitness.CriteriaView = Ember.View.extend({
   templateName: 'criteria_template',
-  location: '39.76395,-86.1656,1km',
   start_date: '2/5/12',
   start_time: '6:00 PM',
   end_date: '2/5/12',
@@ -8,6 +7,9 @@ IWitness.CriteriaView = Ember.View.extend({
   keyword: '*',
 
   search: function(e) {
+    var center = this.map.getCenter();
+    this.set('location', center.lat() + "," + center.lng() + ",1km");
+
     var params = this.getProperties('location', 'keyword', 'start', 'end');
     var search = new TwitterSearch(params);
 
@@ -29,5 +31,13 @@ IWitness.CriteriaView = Ember.View.extend({
   didInsertElement: function() {
     this.$('.date').datepicker();
     this.$('.time').timePicker({show24Hours: false});
+
+    var myOptions = {
+      center: new google.maps.LatLng(39.76395,-86.1656),
+      zoom: 13,
+      mapTypeId: google.maps.MapTypeId.ROADMAP
+    };
+
+    this.map = new google.maps.Map(document.getElementById("map"), myOptions);
   }
 });

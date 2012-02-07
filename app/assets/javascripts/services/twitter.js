@@ -6,7 +6,7 @@ var TwitterSearch = function(params){
   this.location   = params.location;
   this.max_id     = null;
 
-  console.log('*** searching %s - %s ***', this.start.format('MM/DD hh:mm a'), this.end.format('MM/DD hh:mm a'));
+  console.log('*** searching %s - %s - %s ***', this.start.format('MM/DD hh:mm a'), this.end.format('MM/DD hh:mm a'), this.location);
 }
 
 MicroEvent.mixin(TwitterSearch);
