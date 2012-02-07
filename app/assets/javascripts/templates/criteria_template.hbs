@@ -5,13 +5,15 @@
   </div>
 
   <div class="field">
-    <label for="start_time">Start Time</label>
-    {{view Ember.TextField id="start_time" valueBinding="start_time"}}
+    <label for="start_date">Start Date</label>
+    {{view Ember.TextField id="start_date" valueBinding="start_date" class="date"}}
+    {{view Ember.TextField id="start_time" valueBinding="start_time" class="time"}}
   </div>
 
   <div class="field">
-    <label for="end_time">End Time</label>
-    {{view Ember.TextField id="end_time" valueBinding="end_time"}}
+    <label for="end_date">End Date</label>
+    {{view Ember.TextField id="end_date" valueBinding="end_date" class="date"}}
+    {{view Ember.TextField id="end_time" valueBinding="end_time" class="time"}}
   </div>
 
   <div class="field">

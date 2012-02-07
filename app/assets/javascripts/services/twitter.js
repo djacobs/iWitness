@@ -1,7 +1,7 @@
 var TwitterSearch = function(params){
   this.params     = params;
-  this.start_time = this.getTimeInUTC(params.start_time);
-  this.end_time   = this.getTimeInUTC(params.end_time);
+  this.start      = this.getTimeInUTC(params.start);
+  this.end        = this.getTimeInUTC(params.end);
   this.keyword    = params.keyword;
   this.location   = params.location;
 }
@@ -19,7 +19,7 @@ _.extend(TwitterSearch.prototype, {
       var last = _.last(results);
       if (!last) return self.done();
       var lastTime = moment(last.created_at);
-      if (lastTime > self.start_time){
+      if (lastTime > self.start){
         self.fetchResults(page);
       } else {
         self.done();
@@ -50,8 +50,8 @@ _.extend(TwitterSearch.prototype, {
       result_type: 'recent',
       q:           this.keyword,
       geocode:     this.location,
-      since:       this.start_time.format('YYYY-MM-DD'),
-      until:       this.end_time.add('days', 1).format('YYYY-MM-DD'),
+      since:       this.start.format('YYYY-MM-DD'),
+      until:       this.end.add('days', 1).format('YYYY-MM-DD'),
       rpp:         100,
       page:        page
     };
