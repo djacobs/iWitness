@@ -13,10 +13,38 @@ MicroEvent.mixin(TwitterSearch);
 
 _.extend(TwitterSearch.prototype, {
   perform: function(){
+    var self = this;
+
+    this.determineStartingPoint(function(){
+      self.fetchResults({}, _.bind(self.parser, self));
+    });
+  },
+
+  determineStartingPoint: function(callback) {
+    var self = this;
+
+    this.fetchResults({page: 15}, function(data) {
+      var lastTweet = _.last(data.results);
+      var lastTweetAt;
+
+      if (!lastTweet) return callback();
+      lastTweetAt = moment(lastTweet.created_at);
+
+      if (lastTweetAt.isAfter(self.end)) {
+        console.log('fast-forward 15 pages to id %s', lastTweetAt.format("hh:mm"));
+        self.max_id = lastTweet.id;
+        self.determineStartingPoint(callback);
+      } else {
+        callback();
+      }
+    });
+  },
+
+  fetchResults: function(params, callback) {
     $.getJSON(
       "http://search.twitter.com/search.json?callback=?",
-      this.adaptParams(),
-      _.bind(this.parser, this)
+      this.adaptParams(params),
+      callback
     );
   },
 
@@ -45,7 +73,7 @@ _.extend(TwitterSearch.prototype, {
 
   inTimeframe: function(result) {
     var resultTime  = moment(result.created_at);
-    var inTimeframe = resultTime.diff(this.start) > 0 && resultTime.diff(this.end) < 0;
+    var inTimeframe = resultTime.isAfter(this.start) && resultTime.isBefore(this.end);
     return inTimeframe;
   },
 
@@ -60,12 +88,12 @@ _.extend(TwitterSearch.prototype, {
       this.done();
     } else {
       this.max_id = last.id;
-      this.perform();
+      this.fetchResults({}, _.bind(this.parser, this));
     }
   },
 
-  adaptParams: function(){
-    return {
+  adaptParams: function(params){
+    return _.extend({
       result_type: 'recent',
       q:           this.keyword,
       geocode:     this.location,
@@ -73,7 +101,7 @@ _.extend(TwitterSearch.prototype, {
       until:       moment(this.end).add('days', 1).formatUTC('YYYY-MM-DD'),
       rpp:         100,
       max_id:      this.max_id
-    };
+    }, params);
   },
 
   done: function(){

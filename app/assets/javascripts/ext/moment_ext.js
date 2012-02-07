@@ -5,3 +5,11 @@ moment.fn.formatUTC = function(formatString) {
   m.add('minutes', m.zone());
   return m.format(formatString);
 }
+
+moment.fn.isAfter = function(m) {
+  return this.diff(m) > 0;
+}
+
+moment.fn.isBefore = function(m) {
+  return this.diff(m) < 0;
+}
