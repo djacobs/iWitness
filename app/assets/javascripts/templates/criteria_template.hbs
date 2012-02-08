@@ -18,5 +18,10 @@
 
   <div id="map"></div>
 
+  <div class="field">
+    <label for="radius">Radius (in km)</label>
+    {{view Ember.TextField type="number" id="radius" valueBinding="radius" class="span1"}}
+  </div>
+
   <input type="submit" value="Search" {{action search}}>
 </div>

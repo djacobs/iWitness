@@ -4,11 +4,12 @@ IWitness.CriteriaView = Ember.View.extend({
   start_time: '6:00 PM',
   end_date: '2/5/12',
   end_time: '6:30 PM',
+  radius: 1,
   keyword: '*',
 
   search: function(e) {
     var center = this.map.getCenter();
-    this.set('location', center.lat() + "," + center.lng() + ",1km");
+    this.set('location', center.lat() + "," + center.lng() + "," + this.get('radius') + "km");
 
     var params = this.getProperties('location', 'keyword', 'start', 'end');
     IWitness.ResultsetController.search(params);
