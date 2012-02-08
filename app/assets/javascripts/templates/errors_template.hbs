@@ -1,0 +1,5 @@
+<div id="errors" {{bindAttr class="hideErrors:hide"}}>
+  {{#each model.errors}}
+    <div class="error alert alert-error">{{this}}</div>
+  {{/each}}
+</div>

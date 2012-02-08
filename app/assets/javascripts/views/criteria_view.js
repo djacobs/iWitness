@@ -6,7 +6,8 @@ IWitness.CriteriaView = Ember.View.extend({
     var center = this.map.getCenter();
     IWitness.searchCriteria.set('location',
       center.lat() + "," + center.lng() + "," + this.get('radius') + "km");
-
+    IWitness.searchCriteria.set('searchSubmitted', true);
+    if (! IWitness.searchCriteria.get('isValid')) return;
     IWitness.ResultsetController.search();
   },
 

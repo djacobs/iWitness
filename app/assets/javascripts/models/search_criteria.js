@@ -1,4 +1,6 @@
 IWitness.searchCriteria = Ember.Object.create({
+  searchSubmitted: false,
+
   start: function() {
     return this.get('start_date') + ' ' + this.get('start_time');
   }.property('start_date', 'start_time'),
@@ -12,8 +14,8 @@ IWitness.searchCriteria = Ember.Object.create({
   },
 
   isValid: function() {
-    _.isEmpty(this.get('errors'));
-  },
+    return _.isEmpty(this.get('errors'));
+  }.property('errors'),
 
   errors: function() {
     var errors = [];
@@ -26,5 +28,5 @@ IWitness.searchCriteria = Ember.Object.create({
       errors.push("Select a start date that comes before the end date")
 
     return errors;
-  }.property('start_date', 'end_date', 'start_time', 'end_time')
+  }.property('start', 'end').cacheable()
 });
