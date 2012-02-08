@@ -78,13 +78,17 @@ _.extend(TwitterSearch.prototype, {
   },
 
   fetchMoreResultsIfNeeded: function(results){
-    var last = _.last(results);
-    if (!last) return this.done();
+    var last     = _.last(results);
+    var lastTime = last && moment(last.created_at);
 
-    var lastTime = moment(last.created_at);
-    if (lastTime < this.start){
+    if (!last) {
+      console.log('--- no more results ---');
+      this.done();
+    } else if (lastTime < this.start){
+      console.log('--- end of timeframe ---');
       this.done();
     } else if (this.max_id == last.id) {
+      console.log('--- consecutive search with same results ---');
       this.done();
     } else {
       this.max_id = last.id;
@@ -105,7 +109,6 @@ _.extend(TwitterSearch.prototype, {
   },
 
   done: function(){
-    console.log('--- done ---');
     this.trigger('done');
   }
 });
