@@ -7,9 +7,3 @@
 */
 
 .container { margin-top: 30px; }
-
-#map { width: 250px; height: 200px; margin: 20px 0; }
-
-#resultset td { position: relative; }
-#resultset td em { position: absolute; right: 8px; opacity: 0.5; }
-#resultset td.message { text-align: center; }
