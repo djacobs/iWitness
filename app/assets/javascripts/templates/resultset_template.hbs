@@ -2,7 +2,8 @@
   {{#each IWitness.ResultsetController.content}}
     <tr>
       <td>
-        <strong>@{{this.from_user}}</strong> at <em>{{this.created_at}}</em> from {{this.geo.coordinates}}
+        <strong>@{{this.from_user}}</strong>
+        <em>{{this.timestamp}}</em>
         <p>{{this.text}}</p>
       </td>
     </tr>
