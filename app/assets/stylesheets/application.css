@@ -6,6 +6,8 @@
  *= require_tree .
 */
 
+.container { margin-top: 30px; }
+
 #map { width: 250px; height: 200px; margin: 20px 0; }
 
 #resultset td { position: relative; }
