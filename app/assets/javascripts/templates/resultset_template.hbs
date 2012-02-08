@@ -1,10 +1,13 @@
 <table class="table table-bordered table-striped" id="resultset">
   {{#each IWitness.ResultsetController.content}}
     <tr>
+      <td class="pic">
+        <img {{bindAttr src="profile_image_url"}}>
+      </td>
       <td>
-        <strong>@{{this.from_user}}</strong>
-        <em>{{this.timestamp}}</em>
-        <p>{{this.text}}</p>
+        <strong><a target="_blank" {{bindAttr href="from_user_url"}}>@{{from_user}}</a></strong>
+        <em>{{timestamp}}</em>
+        <p>{{linkify text}}</p>
       </td>
     </tr>
   {{/each}}
