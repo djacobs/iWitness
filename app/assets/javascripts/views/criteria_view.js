@@ -1,11 +1,6 @@
 IWitness.CriteriaView = Ember.View.extend({
   templateName: 'criteria_template',
-  start_date: '2/5/12',
-  start_time: '6:00 PM',
-  end_date: '2/5/12',
-  end_time: '6:30 PM',
   radius: 1,
-  keyword: 'pats',
 
   search: function(e) {
     var center = this.map.getCenter();
