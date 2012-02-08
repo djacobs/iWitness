@@ -24,6 +24,6 @@ IWitness.ResultsetController = Ember.ArrayController.create({
       self.set('searching', false);
     });
 
-    search.perform();
+    search.fetch(100);
   }
 });

@@ -5,6 +5,7 @@ var TwitterSearch = function(params){
   this.keyword    = params.keyword;
   this.location   = params.location;
   this.max_id     = null;
+  this.total      = 0;
 
   console.log('*** searching %s - %s - %s ***', this.start.format('MM/DD hh:mm a'), this.end.format('MM/DD hh:mm a'), this.location);
 }
@@ -12,8 +13,10 @@ var TwitterSearch = function(params){
 MicroEvent.mixin(TwitterSearch);
 
 _.extend(TwitterSearch.prototype, {
-  perform: function(){
+  fetch: function(target){
     var self = this;
+
+    this.target = target;
 
     this.determineStartingPoint(function(){
       self.fetchResults({}, _.bind(self.parser, self));
@@ -52,8 +55,6 @@ _.extend(TwitterSearch.prototype, {
     var self   = this;
     var max_id = this.max_id;
 
-    this.fetchMoreResultsIfNeeded(data.results);
-
     var results = _.filter(data.results, function(result){
       return self.hasGeo(result) && self.inTimeframe(result);
     });
@@ -63,6 +64,10 @@ _.extend(TwitterSearch.prototype, {
       var end_time   = moment(_.last(data.results).created_at).format('MM/DD hh:mma');
       console.log('%s to %s - %s found / %s passed', end_time, start_time, data.results.length, results.length);
     }
+
+    this.total += results.length;
+
+    this.fetchMoreResultsIfNeeded(data.results);
 
     this.trigger('data', results);
   },
@@ -81,7 +86,10 @@ _.extend(TwitterSearch.prototype, {
     var last     = _.last(results);
     var lastTime = last && moment(last.created_at);
 
-    if (!last) {
+    if (this.total >= this.target) {
+      console.log('--- got %s total results ---', this.total);
+      this.done();
+    } else if (!last) {
       console.log('--- no more results ---');
       this.done();
     } else if (lastTime < this.start){
