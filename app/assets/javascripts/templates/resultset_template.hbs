@@ -9,7 +9,7 @@
     </tr>
   {{/each}}
 
-  {{#unless IWitness.ResultsetController.content}}
+  {{#unless IWitness.ResultsetController.content.length}}
     <tr>
       {{#if IWitness.ResultsetController.searching}}
         <td class="message">Searching...</td>
