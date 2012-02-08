@@ -4,19 +4,11 @@ IWitness.CriteriaView = Ember.View.extend({
 
   search: function(e) {
     var center = this.map.getCenter();
-    this.set('location', center.lat() + "," + center.lng() + "," + this.get('radius') + "km");
+    IWitness.searchCriteria.set('location',
+      center.lat() + "," + center.lng() + "," + this.get('radius') + "km");
 
-    var params = this.getProperties('location', 'keyword', 'start', 'end');
-    IWitness.ResultsetController.search(params);
+    IWitness.ResultsetController.search();
   },
-
-  start: function() {
-    return this.get('start_date') + ' ' + this.get('start_time');
-  }.property('start_date', 'start_time'),
-
-  end: function() {
-    return this.get('end_date') + ' ' + this.get('end_time');
-  }.property('end_date', 'end_time'),
 
   didInsertElement: function() {
     this.$('.date').datepicker();
