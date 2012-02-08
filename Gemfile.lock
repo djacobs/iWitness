@@ -134,7 +134,7 @@ PLATFORMS
 DEPENDENCIES
   jasmine
   jquery-rails
-  less-rails-bootstrap
+  less-rails-bootstrap (>= 2.0)
   rails (= 3.2.1)
   rasputin
   uglifier (>= 1.0.3)
