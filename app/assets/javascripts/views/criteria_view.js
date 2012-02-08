@@ -3,7 +3,7 @@ IWitness.CriteriaView = Ember.View.extend({
   start_date: '2/5/12',
   start_time: '6:00 PM',
   end_date: '2/5/12',
-  end_time: '9:30 PM',
+  end_time: '6:30 PM',
   keyword: '*',
 
   search: function(e) {
@@ -11,13 +11,7 @@ IWitness.CriteriaView = Ember.View.extend({
     this.set('location', center.lat() + "," + center.lng() + ",1km");
 
     var params = this.getProperties('location', 'keyword', 'start', 'end');
-    var search = new TwitterSearch(params);
-
-    IWitness.ResultsetController.set('content', []);
-    search.bind('data', function(results){
-      IWitness.ResultsetController.pushObjects(results);
-    });
-    search.perform();
+    IWitness.ResultsetController.search(params);
   },
 
   start: function() {
@@ -32,12 +26,10 @@ IWitness.CriteriaView = Ember.View.extend({
     this.$('.date').datepicker();
     this.$('.time').timePicker({show24Hours: false});
 
-    var myOptions = {
-      center: new google.maps.LatLng(39.76395,-86.1656),
-      zoom: 13,
+    this.map = new google.maps.Map(document.getElementById("map"), {
+      center:    new google.maps.LatLng(39.76395,-86.1656),
+      zoom:      13,
       mapTypeId: google.maps.MapTypeId.ROADMAP
-    };
-
-    this.map = new google.maps.Map(document.getElementById("map"), myOptions);
+    });
   }
 });
