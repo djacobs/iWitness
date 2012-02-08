@@ -2,6 +2,13 @@ IWitness.ResultsetController = Ember.ArrayController.create({
   content: [],
   searching: false,
 
+  pushTwitterResults: function(results){
+    var objects = results.map(function(result) {
+      return IWitness.TwitterResult.create(result)
+    });
+    this.pushObjects(objects);
+  },
+
   search: function(params) {
     this.set('content', []);
     this.set('searching', true);
@@ -10,10 +17,7 @@ IWitness.ResultsetController = Ember.ArrayController.create({
     var self   = this;
 
     search.bind('data', function(results){
-      results = results.map(function(result) {
-        return IWitness.TwitterResult.create(result)
-      });
-      self.pushObjects(results);
+      self.pushTwitterResults(results);
     });
 
     search.bind('done', function() {
