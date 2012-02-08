@@ -106,6 +106,6 @@ _.extend(TwitterSearch.prototype, {
 
   done: function(){
     console.log('--- done ---');
-    this.trigger('end');
+    this.trigger('done');
   }
 });

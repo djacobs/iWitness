@@ -12,3 +12,4 @@
 
 #resultset td { position: relative; }
 #resultset td em { position: absolute; right: 8px; opacity: 0.5; }
+#resultset td.message { text-align: center; }
