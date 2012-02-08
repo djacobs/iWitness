@@ -8,4 +8,5 @@
 
 #map { width: 250px; height: 200px; margin: 20px 0; }
 
-#resultset em { position: absolute; right: 20px; opacity: 0.5; }
+#resultset td { position: relative; }
+#resultset td em { position: absolute; right: 8px; opacity: 0.5; }
