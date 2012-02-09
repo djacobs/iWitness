@@ -16,7 +16,7 @@
     {{view Ember.TextField id="end_time" valueBinding="model.endTime" class="time"}}
   </div>
 
-  <div id="map"></div>
+  {{view mapView id="map"}}
 
   <input type="submit" value="Search" {{action search}}>
 </div>

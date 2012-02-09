@@ -1,13 +1,15 @@
 #result_set {
-  td.pic {
-    width: 48px;
-  }
-  td {
-    position: relative;
+  tr {
+    &.selected td { background-color: #ffc; }
 
-    &.message { text-align: center; }
-    em { position: absolute; right: 8px; opacity: 0.5; }
-    p { margin-bottom: 0; }
-    a.permalink { position: absolute; right: 10px; bottom: 5px; opacity: .5; }
+    td {
+      position: relative;
+
+      &.pic { width: 48px; }
+      &.message { text-align: center; }
+      em { position: absolute; right: 8px; opacity: 0.5; }
+      p { margin-bottom: 0; }
+      a.permalink { position: absolute; right: 10px; bottom: 5px; opacity: .5; }
+    }
   }
 }
