@@ -1,19 +1,6 @@
 <table class="table table-bordered table-striped" id="result_set">
   {{#each IWitness.resultSetController.content}}
-    <tr>
-      <td class="pic">
-        <img {{bindAttr src="profileImageUrl"}}>
-      </td>
-      <td>
-        <a target="_blank" {{bindAttr href="fromUserUrl"}}>
-            <strong>{{fromUserName}}</strong>
-            @{{fromUser}}
-        </a>
-        <em>{{timestamp}}</em>
-        <p>{{linkify text}}</p>
-        <a class="permalink" target="_blank" {{bindAttr href="permalinkUrl"}}>twitter</a>
-      </td>
-    </tr>
+    {{view IWitness.ResultView modelBinding="this"}}
   {{/each}}
 
   {{#unless IWitness.resultSetController.content.length}}

@@ -24,5 +24,15 @@ IWitness.searchController = Ember.Object.create({
     });
 
     search.fetch(100);
+  },
+
+  createMarkerForResult: function(result) {
+    var position = new google.maps.LatLng(result.getPath('geo.coordinates')[0], result.getPath('geo.coordinates')[1]);
+
+    if (this.get('marker')) {
+      this.get('marker').setPosition(position);
+    } else {
+      this.set('marker', new google.maps.Marker({position: position, map: this.map}));
+    }
   }
 });

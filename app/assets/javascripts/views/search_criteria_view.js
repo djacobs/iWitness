@@ -11,7 +11,7 @@ IWitness.SearchCriteriaView = Ember.View.extend({
     this.$('.date').datepicker();
     this.$('.time').timePicker({show24Hours: false});
 
-    this.map = new google.maps.Map(document.getElementById("map"), {
+    IWitness.searchController.map = this.map = new google.maps.Map(document.getElementById("map"), {
       center:    new google.maps.LatLng(39.76395,-86.1656),
       zoom:      15,
       mapTypeId: google.maps.MapTypeId.ROADMAP
