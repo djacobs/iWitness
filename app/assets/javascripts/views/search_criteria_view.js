@@ -1,12 +1,11 @@
 IWitness.SearchCriteriaView = Ember.View.extend({
   templateName: 'search_criteria_template',
-  contentBinding: 'IWitness.searchController',
+  modelBinding: 'IWitness.searchController.content',
   radius: 1,
 
   search: function(e) {
     var center = this.map.getCenter();
-    IWitness.searchCriteria.set('location',
-      center.lat() + "," + center.lng() + "," + IWitness.searchCriteria.get('radius') + "km");
+    this.setPath('model.location', center.lat() + "," + center.lng() + "," + this.getPath('model.radius') + "km");
 
     IWitness.searchController.search();
   },
