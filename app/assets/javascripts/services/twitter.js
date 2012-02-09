@@ -105,12 +105,18 @@ _.extend(TwitterSearch.prototype, {
   },
 
   adaptParams: function(params){
+    // twitter only allows searching by whole day, ending at midnight UTC
+    // make sure we include all possible results by adding a day.
+    // we subtract 1 second so that if a date falls exactly at midnight
+    // we do not load the extra day.
+    var searchEnd = moment(this.end).subtract('seconds', 1).add('days', 1);
+
     return _.extend({
       result_type: 'recent',
       q:           this.keyword,
       geocode:     this.location,
       since:       this.start.formatUTC('YYYY-MM-DD'),
-      until:       moment(this.end).add('days', 1).formatUTC('YYYY-MM-DD'),
+      until:       searchEnd.formatUTC('YYYY-MM-DD'),
       rpp:         100,
       max_id:      this.maxId
     }, params);
