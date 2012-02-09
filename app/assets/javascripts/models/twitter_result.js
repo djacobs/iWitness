@@ -5,7 +5,11 @@ IWitness.TwitterResult = Ember.Object.extend({
 
   fromUserUrl: function() {
     return "http://twitter.com/#!/" + this.get('fromUser');
-  }.property('fromUser')
+  }.property('fromUser'),
+
+  permalinkUrl: function() {
+    return this.get('fromUserUrl') + '/status/' + this.get('idStr');
+  }.property()
 });
 
 IWitness.TwitterResult.import = function(obj) {
