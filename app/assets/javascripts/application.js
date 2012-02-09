@@ -9,4 +9,5 @@
 //= require ext/moment_ext
 //= require_tree ./templates
 //= require base
+//= require_tree ./models
 //= require_tree .

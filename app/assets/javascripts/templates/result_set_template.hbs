@@ -1,5 +1,5 @@
-<table class="table table-bordered table-striped" id="resultset">
-  {{#each IWitness.ResultsetController.content}}
+<table class="table table-bordered table-striped" id="result_set">
+  {{#each IWitness.resultSetController.content}}
     <tr>
       <td class="pic">
         <img {{bindAttr src="profile_image_url"}}>
@@ -12,9 +12,9 @@
     </tr>
   {{/each}}
 
-  {{#unless IWitness.ResultsetController.content.length}}
+  {{#unless IWitness.resultSetController.content.length}}
     <tr>
-      {{#if IWitness.ResultsetController.searching}}
+      {{#if IWitness.searchController.searching}}
         <td class="message">Searching...</td>
       {{else}}
         <td class="message">No Results</td>

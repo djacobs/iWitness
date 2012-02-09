@@ -1,8 +1,8 @@
 IWitness.ErrorsView = Ember.View.extend({
   templateName: 'errors_template',
+  contentBinding: 'IWitness.searchController',
 
   hideErrors: function() {
-    console.log('laksj');
-    return this.model.get('isValid') || !this.model.get('searchSubmitted');
-  }.property('model.isValid', 'model.searchSubmitted')
+    return this.getPath('content.isValid') || !this.getPath('content.searchSubmitted');
+  }.property('content.isValid', 'content.searchSubmitted')
 });

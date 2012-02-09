@@ -1,6 +1,4 @@
 IWitness.searchCriteria = Ember.Object.create({
-  searchSubmitted: false,
-
   start: function() {
     return this.get('start_date') + ' ' + this.get('start_time');
   }.property('start_date', 'start_time'),

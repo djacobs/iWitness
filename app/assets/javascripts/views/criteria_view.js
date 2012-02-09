@@ -1,14 +1,14 @@
 IWitness.CriteriaView = Ember.View.extend({
   templateName: 'criteria_template',
+  contentBinding: 'IWitness.searchController',
   radius: 1,
 
   search: function(e) {
     var center = this.map.getCenter();
     IWitness.searchCriteria.set('location',
       center.lat() + "," + center.lng() + "," + this.get('radius') + "km");
-    IWitness.searchCriteria.set('searchSubmitted', true);
-    if (! IWitness.searchCriteria.get('isValid')) return;
-    IWitness.ResultsetController.search();
+
+    IWitness.searchController.search();
   },
 
   didInsertElement: function() {
