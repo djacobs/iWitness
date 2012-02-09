@@ -9,6 +9,10 @@ IWitness.searchCriteria = Ember.Object.create({
     return this.get('endDate') + ' ' + this.get('endTime');
   }.property('endDate', 'endTime'),
 
+  location: function() {
+    return this.get('lat') + "," + this.get('lng') + "," + this.get('radius') + "km";
+  }.property('lat', 'lng', 'radius'),
+
   searchParams: function() {
     return this.getProperties('location', 'keyword', 'start', 'end');
   },

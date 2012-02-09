@@ -4,9 +4,6 @@ IWitness.SearchCriteriaView = Ember.View.extend({
   radius: 1,
 
   search: function(e) {
-    var center = this.map.getCenter();
-    this.setPath('model.location', center.lat() + "," + center.lng() + "," + this.getPath('model.radius') + "km");
-
     IWitness.searchController.search();
   },
 
@@ -19,5 +16,15 @@ IWitness.SearchCriteriaView = Ember.View.extend({
       zoom:      13,
       mapTypeId: google.maps.MapTypeId.ROADMAP
     });
+
+    google.maps.event.addListener(this.map, 'zoom_changed', this.mapUpdate.bind(this));
+    google.maps.event.addListener(this.map, 'dragend', this.mapUpdate.bind(this));
+    this.mapUpdate();
+  },
+
+  mapUpdate: function() {
+    var center = this.map.getCenter();
+    this.setPath('model.lat', center.lat());
+    this.setPath('model.lng', center.lng());
   }
 });
