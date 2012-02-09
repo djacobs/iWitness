@@ -13,18 +13,17 @@ IWitness.SearchCriteriaView = Ember.View.extend({
 
     this.map = new google.maps.Map(document.getElementById("map"), {
       center:    new google.maps.LatLng(39.76395,-86.1656),
-      zoom:      13,
+      zoom:      15,
       mapTypeId: google.maps.MapTypeId.ROADMAP
     });
 
-    google.maps.event.addListener(this.map, 'zoom_changed', this.mapUpdate.bind(this));
-    google.maps.event.addListener(this.map, 'dragend', this.mapUpdate.bind(this));
-    this.mapUpdate();
+    google.maps.event.addListener(this.map, 'bounds_changed', _.debounce(this.mapUpdate, 100).bind(this));
   },
 
   mapUpdate: function() {
-    var center = this.map.getCenter();
-    this.setPath('model.lat', center.lat());
-    this.setPath('model.lng', center.lng());
+    var bounds = this.map.getBounds();
+    this.setPath('model.center', this.map.getCenter());
+    this.setPath('model.northEast', bounds.getNorthEast());
+    this.setPath('model.southWest', bounds.getSouthWest());
   }
 });
