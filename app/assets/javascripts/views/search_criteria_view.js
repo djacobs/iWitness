@@ -35,11 +35,11 @@ IWitness.SearchCriteriaView = Ember.View.extend({
 
     createMarkerForResult: function() {
       var coordinates = this.getPath('selectedResult.geo.coordinates');
-      var position = new google.maps.LatLng(coordinates[0], coordinates[1]);
-
       if (this.get('marker')) {
-        this.get('marker').setPosition(position);
-      } else {
+        this.get('marker').setMap(null);
+      }
+      if (coordinates) {
+        var position = new google.maps.LatLng(coordinates[0], coordinates[1]);
         this.set('marker', new google.maps.Marker({position: position, map: this.map}));
       }
     }.observes('selectedResult')

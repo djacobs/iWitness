@@ -8,7 +8,7 @@ IWitness.searchController = Ember.Object.create({
 
     if (!this.getPath('content.isValid')) return;
 
-    IWitness.resultSetController.set('content', []);
+    IWitness.resultSetController.clearResults();
     this.set('searching', true);
 
     var params = IWitness.searchCriteria.searchParams();
