@@ -3,7 +3,7 @@ IWitness.resultSetController = Ember.ArrayController.create({
 
   pushTwitterResults: function(results){
     var objects = results.map(function(result) {
-      return IWitness.TwitterResult.create(result)
+      return IWitness.TwitterResult.import(result)
     });
     this.pushObjects(objects);
   }

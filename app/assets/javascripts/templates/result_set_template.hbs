@@ -2,10 +2,10 @@
   {{#each IWitness.resultSetController.content}}
     <tr>
       <td class="pic">
-        <img {{bindAttr src="profile_image_url"}}>
+        <img {{bindAttr src="profileImageUrl"}}>
       </td>
       <td>
-        <strong><a target="_blank" {{bindAttr href="from_user_url"}}>@{{from_user}}</a></strong>
+        <strong><a target="_blank" {{bindAttr href="fromUserUrl"}}>@{{fromUser}}</a></strong>
         <em>{{timestamp}}</em>
         <p>{{linkify text}}</p>
       </td>
