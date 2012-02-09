@@ -47,8 +47,9 @@ _.extend(TwitterSearch.prototype, {
     $.getJSON(
       "http://search.twitter.com/search.json?callback=?",
       this.adaptParams(params),
-      callback
+      function(response) { if (response.results) callback(response) }
     );
+    //TODO handle when results property does not exist in response
   },
 
   parser: function(data){
