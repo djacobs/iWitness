@@ -9,11 +9,17 @@ IWitness.searchCriteria = Ember.Object.create({
 
   location: function() {
     var center = this.get('center');
-    var corner = this.get('northEast');
-    var radius = google.maps.geometry.spherical.computeDistanceBetween(center, corner);
-    radius = Math.ceil(radius / 1000);
+    var radius = this.get('radius');
 
     return center.lat() + "," + center.lng() + "," + radius + "km";
+  }.property('radius', 'center').cacheable(),
+
+  radius: function() {
+    var center = this.get('center');
+    var corner = this.get('northEast');
+    if (!(center && corner)) return 0;
+    var radius = google.maps.geometry.spherical.computeDistanceBetween(center, corner);
+    return Math.ceil(radius / 1000);
   }.property('center', 'northEast').cacheable(),
 
   searchParams: function() {
@@ -32,8 +38,10 @@ IWitness.searchCriteria = Ember.Object.create({
     if (_.isEmpty(this.get('endDate')) || _.isEmpty(this.get('endTime')))
       errors.push("Please select an end date.");
     if (_.isEmpty(errors) && moment(this.get('end')).isBefore(moment(this.get('start'))))
-      errors.push("Select a start date that comes before the end date")
+      errors.push("Select a start date that comes before the end date.");
+    if (this.get('radius') > 75)
+      errors.push("Increase the map zoom in order to provide more relevant results.");
 
     return errors;
-  }.property('start', 'end').cacheable()
+  }.property('start', 'end', 'radius').cacheable()
 });
