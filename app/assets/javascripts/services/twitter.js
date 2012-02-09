@@ -1,11 +1,12 @@
 var TwitterSearch = function(params){
-  this.params     = params;
-  this.start      = moment(params.start);
-  this.end        = moment(params.end);
-  this.keyword    = params.keyword;
-  this.location   = params.location;
-  this.maxId      = null;
-  this.total      = 0;
+  this.params      = params;
+  this.start       = moment(params.start);
+  this.end         = moment(params.end);
+  this.keyword     = params.keyword;
+  this.location    = params.location;
+  this.maxId       = null;
+  this.total       = 0;
+  this.boundingBox = new google.maps.LatLngBounds(params.southWest, params.northEast);
 
   console.log('*** searching %s - %s - %s ***', this.start.format('MM/DD hh:mm a'), this.end.format('MM/DD hh:mm a'), this.location);
 }
@@ -74,7 +75,10 @@ _.extend(TwitterSearch.prototype, {
   },
 
   hasGeo: function(result){
-    return result.geo != null;
+    if (result.geo == null) return false;
+    var coordinates = result.geo.coordinates;
+    var position = new google.maps.LatLng(coordinates[0], coordinates[1]);
+    return this.boundingBox.contains(position);
   },
 
   inTimeframe: function(result) {

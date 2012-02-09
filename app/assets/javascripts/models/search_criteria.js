@@ -17,7 +17,7 @@ IWitness.searchCriteria = Ember.Object.create({
   }.property('center', 'northEast').cacheable(),
 
   searchParams: function() {
-    return this.getProperties('location', 'keyword', 'start', 'end');
+    return this.getProperties('location', 'keyword', 'start', 'end', 'northEast', 'southWest');
   },
 
   isValid: function() {
