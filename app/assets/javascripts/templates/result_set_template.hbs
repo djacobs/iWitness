@@ -5,7 +5,10 @@
         <img {{bindAttr src="profileImageUrl"}}>
       </td>
       <td>
-        <strong><a target="_blank" {{bindAttr href="fromUserUrl"}}>@{{fromUser}}</a></strong>
+        <a target="_blank" {{bindAttr href="fromUserUrl"}}>
+            <strong>{{fromUserName}}</strong>
+            @{{fromUser}}
+        </a>
         <em>{{timestamp}}</em>
         <p>{{linkify text}}</p>
       </td>
