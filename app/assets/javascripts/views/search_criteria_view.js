@@ -1,5 +1,5 @@
-IWitness.CriteriaView = Ember.View.extend({
-  templateName: 'criteria_template',
+IWitness.SearchCriteriaView = Ember.View.extend({
+  templateName: 'search_criteria_template',
   contentBinding: 'IWitness.searchController',
   radius: 1,
 
