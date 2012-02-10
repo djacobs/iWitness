@@ -7,13 +7,6 @@ IWitness.searchCriteria = Ember.Object.create({
     return this.get('endDate') + ' ' + this.get('endTime');
   }.property('endDate', 'endTime'),
 
-  location: function() {
-    var center = this.get('center');
-    var radius = this.get('radius');
-
-    return center.join(',') + "," + radius + "km";
-  }.property('radius', 'center').cacheable(),
-
   radius: function() {
     var center = this.get('center');
     var corner = this.get('northEast');
@@ -24,7 +17,7 @@ IWitness.searchCriteria = Ember.Object.create({
   }.property('center', 'northEast').cacheable(),
 
   searchParams: function() {
-    return this.getProperties('location', 'keyword', 'start', 'end', 'northEast', 'southWest');
+    return this.getProperties('center', 'radius', 'keyword', 'start', 'end', 'northEast', 'southWest');
   },
 
   isValid: function() {

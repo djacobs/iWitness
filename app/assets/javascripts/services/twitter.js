@@ -3,12 +3,11 @@ var TwitterSearch = function(params){
   this.start       = moment(params.start);
   this.end         = moment(params.end);
   this.keyword     = params.keyword;
-  this.location    = params.location;
   this.maxId       = null;
   this.total       = 0;
   this.box         = new Map.Box(params.southWest, params.northEast);
 
-  console.log('*** searching %s - %s - %s ***', this.start.format('MM/DD hh:mm a'), this.end.format('MM/DD hh:mm a'), this.location);
+  console.log('*** searching %s - %s - %s ***', this.start.format('MM/DD hh:mm a'), this.end.format('MM/DD hh:mm a'), this.location());
 }
 
 MicroEvent.mixin(TwitterSearch);
@@ -119,12 +118,16 @@ _.extend(TwitterSearch.prototype, {
     return _.extend({
       result_type: 'recent',
       q:           this.keyword,
-      geocode:     this.location,
+      geocode:     this.location(),
       since:       this.start.formatUTC('YYYY-MM-DD'),
       until:       searchEnd.formatUTC('YYYY-MM-DD'),
       rpp:         100,
       max_id:      this.maxId
     }, params);
+  },
+
+  location: function() {
+    return this.params.center.join(',') + "," + this.params.radius + "km";
   },
 
   done: function(){
