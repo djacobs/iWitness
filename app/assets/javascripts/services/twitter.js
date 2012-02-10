@@ -1,26 +1,86 @@
 var TwitterSearch = function(params){
-  this.params      = params;
-  this.start       = moment(params.start);
-  this.end         = moment(params.end);
-  this.keyword     = params.keyword;
-  this.maxId       = null;
-  this.total       = 0;
-  this.box         = new Map.Box(params.southWest, params.northEast);
-
-  console.log('*** searching %s - %s - %s ***', this.start.format('MM/DD hh:mm a'), this.end.format('MM/DD hh:mm a'), this.location());
+  this.query       = new TwitterQuery(params);
+  this.filter      = new TwitterFilter(params);
+  console.log('*** searching %s - %s - %s ***', params.start, params.end);
 }
 
 MicroEvent.mixin(TwitterSearch);
 
 _.extend(TwitterSearch.prototype, {
   fetch: function(target){
-    var self = this;
+    var self  = this;
+    var total = 0;
 
-    this.target = target;
+    self.query.bind('data', function(data){
+      if(!data.results.length) return self.done();
+      var filtered = self.filter.filter(data.results);
 
-    this.determineStartingPoint(function(){
-      self.fetchResults({}, _.bind(self.parser, self));
+      console.log('%s to %s - %s found / %s passed',
+                  moment(_.first(data.results).created_at).format('MM/DD hh:mma'),
+                  moment(_.last(data.results).created_at).format('MM/DD hh:mma'),
+                  data.results.length,
+                  filtered.length);
+
+      if (filtered.length) self.trigger('data', filtered);
+      total += filtered.length;
+
+      if (total >= target) {
+        console.log('--- got %s total results ---', total);
+        self.done();
+      } else {
+        self.query.getNext();
+      }
     });
+
+    self.query.bind('done', function(){ self.done() })
+    self.query.getNext();
+  },
+
+  done: function(){
+    this.trigger('done');
+  }
+});
+
+var TwitterQuery = function(params){
+  this.params = params;
+  this.start       = moment(params.start);
+  this.end         = moment(params.end);
+  this.keyword     = params.keyword;
+  this.maxId       = null;
+  this.isDone      = false;
+}
+MicroEvent.mixin(TwitterQuery);
+_.extend(TwitterQuery.prototype, {
+  getNext: function() {
+    if(this.isDone) throw "Out of bounds";
+
+    if (!this.maxId) {
+      this.determineStartingPoint(this.fetchResultsTriggeringEvents.bind(this));
+    } else {
+      this.fetchResultsTriggeringEvents();
+    }
+  },
+
+  location: function() {
+    return this.params.center.join(',') + "," + this.params.radius + "km";
+  },
+
+  queryParams: function(params){
+    // twitter only allows searching by whole day, ending at midnight UTC
+    // make sure we include all possible results by adding a day.
+    // we subtract 1 second so that if a date falls exactly at midnight
+    // we do not load the extra day.
+    var searchEnd = moment(this.end).subtract('seconds', 1).add('days', 1);
+
+    return _.extend({
+      result_type: 'recent',
+      q:           this.keyword,
+      geocode:     this.location(),
+      since:       this.start.formatUTC('YYYY-MM-DD'),
+      until:       searchEnd.formatUTC('YYYY-MM-DD'),
+      rpp:         100,
+      max_id:      this.maxId
+    }, params);
   },
 
   determineStartingPoint: function(callback) {
@@ -46,37 +106,55 @@ _.extend(TwitterSearch.prototype, {
   fetchResults: function(params, callback) {
     $.getJSON(
       "http://search.twitter.com/search.json?callback=?",
-      this.adaptParams(params),
+      this.queryParams(params),
       function(response) { if (response.results) callback(response) }
     );
     //TODO handle when results property does not exist in response
   },
 
-  parser: function(data){
-    var self  = this;
-    var maxId = this.maxId;
+  fetchResultsTriggeringEvents: function(){
+    var self = this;
 
-    var results = _.filter(data.results, function(result){
-      return self.hasGeo(result) && self.inTimeframe(result);
+    self.fetchResults({}, function(data) {
+      var lastTweet = _.last(data.results);
+      self.checkForEnd(data.results);
+      if(lastTweet) self.maxId = lastTweet.id;
+      self.trigger('data', data);
     });
-
-    if (data.results.length) {
-      var startTime = moment(_.first(data.results).created_at).format('MM/DD hh:mma');
-      var endTime   = moment(_.last(data.results).created_at).format('MM/DD hh:mma');
-      console.log('%s to %s - %s found / %s passed', endTime, startTime, data.results.length, results.length);
-    }
-
-    this.total += results.length;
-
-    this.fetchMoreResultsIfNeeded(data.results);
-
-    this.trigger('data', results);
   },
 
+  checkForEnd: function(results){
+    var last     = _.last(results);
+    var lastTime = last && moment(last.created_at);
+
+    if (!last) {
+      console.log('--- no more results ---');
+      this.done();
+    } else if (lastTime < this.start){
+      console.log('--- end of timeframe ---');
+      this.done();
+    } else if (this.maxId == last.id) {
+      console.log('--- consecutive search with same results ---');
+      this.done();
+    }
+  },
+
+  done: function() {
+    this.isDone = true;
+    this.trigger('done');
+  }
+});
+
+var TwitterFilter = function(params) {
+  this.start = moment(params.start);
+  this.end   = moment(params.end);
+  this.box   = new Map.Box(params.southWest, params.northEast);
+};
+
+_.extend(TwitterFilter.prototype, {
   hasGeo: function(result){
     if (result.geo == null) return false;
     var coordinates = result.geo.coordinates;
-
     return this.box.contains(coordinates[0], coordinates[1]);
   },
 
@@ -86,51 +164,10 @@ _.extend(TwitterSearch.prototype, {
     return inTimeframe;
   },
 
-  fetchMoreResultsIfNeeded: function(results){
-    var last     = _.last(results);
-    var lastTime = last && moment(last.created_at);
-
-    if (this.total >= this.target) {
-      console.log('--- got %s total results ---', this.total);
-      this.done();
-    } else if (!last) {
-      console.log('--- no more results ---');
-      this.done();
-    } else if (lastTime < this.start){
-      console.log('--- end of timeframe ---');
-      this.done();
-    } else if (this.maxId == last.id) {
-      console.log('--- consecutive search with same results ---');
-      this.done();
-    } else {
-      this.maxId = last.id;
-      this.fetchResults({}, _.bind(this.parser, this));
-    }
-  },
-
-  adaptParams: function(params){
-    // twitter only allows searching by whole day, ending at midnight UTC
-    // make sure we include all possible results by adding a day.
-    // we subtract 1 second so that if a date falls exactly at midnight
-    // we do not load the extra day.
-    var searchEnd = moment(this.end).subtract('seconds', 1).add('days', 1);
-
-    return _.extend({
-      result_type: 'recent',
-      q:           this.keyword,
-      geocode:     this.location(),
-      since:       this.start.formatUTC('YYYY-MM-DD'),
-      until:       searchEnd.formatUTC('YYYY-MM-DD'),
-      rpp:         100,
-      max_id:      this.maxId
-    }, params);
-  },
-
-  location: function() {
-    return this.params.center.join(',') + "," + this.params.radius + "km";
-  },
-
-  done: function(){
-    this.trigger('done');
+  filter: function(results) {
+    var self = this;
+    return _.filter(results, function(result){
+      return self.hasGeo(result) && self.inTimeframe(result);
+    });
   }
 });
