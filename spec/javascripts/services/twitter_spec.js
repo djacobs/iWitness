@@ -4,8 +4,9 @@ describe("TwitterSearch", function() {
   describe("inTimeframe", function() {
     beforeEach(function() {
       params = {
-        start: "1/10/2012 10:00 +0000",
-        end:   "1/10/2012 12:00 +0000",
+        start:  "1/10/2012 10:00 +0000",
+        end:    "1/10/2012 12:00 +0000",
+        center: [],
       };
       spyOn(Map, 'Box');
       search = new TwitterSearch(params);
