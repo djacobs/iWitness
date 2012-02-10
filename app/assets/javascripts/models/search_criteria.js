@@ -11,15 +11,16 @@ IWitness.searchCriteria = Ember.Object.create({
     var center = this.get('center');
     var radius = this.get('radius');
 
-    return center.lat() + "," + center.lng() + "," + radius + "km";
+    return center.join(',') + "," + radius + "km";
   }.property('radius', 'center').cacheable(),
 
   radius: function() {
     var center = this.get('center');
     var corner = this.get('northEast');
     if (!(center && corner)) return 0;
-    var radius = google.maps.geometry.spherical.computeDistanceBetween(center, corner);
-    return Math.ceil(radius / 1000);
+
+    var radius = new Map.Line(center, corner);
+    return Math.ceil(radius.length() / 1000);
   }.property('center', 'northEast').cacheable(),
 
   searchParams: function() {
