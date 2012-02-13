@@ -8,7 +8,3 @@ group :assets do
   gem 'rasputin'
   gem 'jquery-rails'
 end
-
-group :test do
-  gem "jasmine"
-end
