@@ -1,7 +1,7 @@
 var TwitterSearch = function(params){
   this.query       = new TwitterQuery(params);
   this.filter      = new TwitterFilter(params);
-  console.log('*** searching %s - %s - %s ***', params.start, params.end);
+  console.log('*** searching %s - %s ***', params.start, params.end);
 }
 
 MicroEvent.mixin(TwitterSearch);
@@ -42,12 +42,12 @@ _.extend(TwitterSearch.prototype, {
 });
 
 var TwitterQuery = function(params){
-  this.params = params;
-  this.start       = moment(params.start);
-  this.end         = moment(params.end);
-  this.keyword     = params.keyword;
-  this.maxId       = null;
-  this.isDone      = false;
+  this.params  = params;
+  this.start   = moment(params.start);
+  this.end     = moment(params.end);
+  this.keyword = params.keyword;
+  this.maxId   = null;
+  this.isDone  = false;
 }
 MicroEvent.mixin(TwitterQuery);
 _.extend(TwitterQuery.prototype, {
