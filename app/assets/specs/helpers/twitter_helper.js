@@ -38,4 +38,19 @@
     _.times(num, function(){ a.push(tweet) });
     return a;
   };
+
+  window.spyOnTwitterCall = function(name){
+    var spy = spyOn($, 'getJSON');
+    spy.andCallFake(function(url, params, callback) {
+      if (url.match(/twitter/)) {
+        params.targetUrl   = url;
+        params.fixtureName = name;
+        url                = '/mocks/twitter';
+      }
+
+      spy.originalValue.apply(this, [url, params, callback]);
+    });
+    return spy;
+  }
+
 })();

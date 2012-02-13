@@ -21,16 +21,16 @@ describe("TwitterSearch", function() {
     });
 
     it("stops making requests once the requested number have been fetched", function() {
-      var querySpy = spyOn(fakeQuery, 'getNext').andCallFake(function(){
-        fakeQuery.trigger('data', {results: makeTweets(20)});
+      var querySpy = spyOn(fakeQuery, 'getNext').andCallFake(function(callback){
+        callback({results: makeTweets(20)});
       });
       search.fetch(20);
       expect(doneSpy).toHaveBeenCalled();
     });
 
     it("makes requests until the requested number have been fetched", function() {
-      var querySpy = spyOn(fakeQuery, 'getNext').andCallFake(function(){
-        fakeQuery.trigger('data', {results: makeTweets(10)});
+      var querySpy = spyOn(fakeQuery, 'getNext').andCallFake(function(callback){
+        callback({results: makeTweets(10)});
       });
       search.fetch(20);
       expect(doneSpy).toHaveBeenCalled();
@@ -38,15 +38,11 @@ describe("TwitterSearch", function() {
     });
 
     it("triggers a data event for each chunk of results", function() {
-      var querySpy = spyOn(fakeQuery, 'getNext').andCallFake(function(){
-        fakeQuery.trigger('data', {results: makeTweets(10)});
+      var querySpy = spyOn(fakeQuery, 'getNext').andCallFake(function(callback){
+        callback({results: makeTweets(10)});
       });
       search.fetch(20);
       expect(dataSpy.callCount).toEqual(2);
     });
-
-    // these specs move to TwitterQuery
-
-
   });
 });

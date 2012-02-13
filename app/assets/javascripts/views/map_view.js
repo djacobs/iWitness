@@ -3,7 +3,7 @@ IWitness.MapView = Ember.View.extend({
   selectedResultBinding: 'IWitness.resultSetController.selectedResult',
 
   didInsertElement: function() {
-    this.map = new Map(document.getElementById("map"), 39.76395, -86.1656);
+    this.map = new Map(document.getElementById("map"), 34.043127, -118.266953);
     this.map.bind('bounds_changed', _.debounce(this.mapUpdate, 100).bind(this));
   },
 
