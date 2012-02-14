@@ -11,10 +11,10 @@ MicroEvent.mixin(TwitterSearch);
 _.extend(TwitterSearch.prototype, {
   fetch: function(target){
     this.target += target;
-    this.query.getNext(this.gotData.bind(this));
+    this.query.getNext(this._gotData.bind(this));
   },
 
-  gotData: function(data){
+  _gotData: function(data){
     if(!data.results.length) return this.trigger('done');
     var filtered = this.filter.filter(data.results);
 
@@ -31,7 +31,7 @@ _.extend(TwitterSearch.prototype, {
       console.log('--- got %s total results ---', this.total);
       this.trigger('done');
     } else if ( !this.query.isDone ) {
-      this.query.getNext(this.gotData.bind(this));
+      this.query.getNext(this._gotData.bind(this));
     } else {
       this.trigger('done');
     }

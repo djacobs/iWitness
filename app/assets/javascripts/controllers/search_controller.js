@@ -12,11 +12,11 @@ IWitness.searchController = Ember.Object.create({
     this.set('searching', true);
 
     var params = IWitness.searchCriteria.searchParams();
-    var search = new TwitterSearch(params);
+    var search = new FlickrSearch(params);
     var self   = this;
 
     search.bind('data', function(results){
-      IWitness.resultSetController.pushTwitterResults(results);
+      IWitness.resultSetController.pushFlickrResults(results);
     });
 
     search.bind('done', function() {

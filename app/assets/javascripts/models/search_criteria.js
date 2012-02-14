@@ -1,4 +1,6 @@
 IWitness.searchCriteria = Ember.Object.create({
+  flickrKey: 'd8e03d0c91caffad9c85eccb1a54dc18',
+
   start: function() {
     return this.get('startDate') + ' ' + this.get('startTime');
   }.property('startDate', 'startTime'),
@@ -17,7 +19,7 @@ IWitness.searchCriteria = Ember.Object.create({
   }.property('center', 'northEast').cacheable(),
 
   searchParams: function() {
-    return this.getProperties('center', 'radius', 'keyword', 'start', 'end', 'northEast', 'southWest');
+    return this.getProperties('flickrKey', 'center', 'radius', 'keyword', 'start', 'end', 'northEast', 'southWest');
   },
 
   isValid: function() {
