@@ -7,6 +7,10 @@ IWitness.FlickrResult = Ember.Object.extend({
     return moment(this.get('datetaken')).format('M/D h:mma');
   }.property('datetaken'),
 
+  uploadTimestamp: function() {
+    return moment(parseInt(this.get('dateupload') + ' PST') * 1000).format('M/D h:mma z');
+  }.property('dateupload'),
+
   profileUrl: function(){
     return "http://www.flickr.com/photos/" + this.get('owner');
   }.property('owner'),
