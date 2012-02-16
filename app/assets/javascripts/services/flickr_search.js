@@ -78,7 +78,7 @@ _.extend(FlickrSearch.prototype, {
       text:           this.keyword,
       method:         'flickr.photos.search',
       format:         'json',
-      extras:         'geo,url_s,date_taken,date_upload,owner_name'
+      extras:         'geo,url_s,date_taken,date_upload,owner_name,description'
     }
   }
 });

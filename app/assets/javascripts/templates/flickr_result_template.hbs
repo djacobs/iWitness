@@ -8,6 +8,9 @@
     {{model.ownername}}
   </a>
   <em>taken {{model.timestamp}}<br>uploaded {{model.uploadTimestamp}}</em>
-  <p><img {{bindAttr src="model.urlS"}}></p>
+  <div class="flickr_photo">
+    <img {{bindAttr src="model.urlS"}}>
+    <p>{{model.description._content}}</p>
+  </div>
   <a class="permalink" target="_blank" {{bindAttr href="model.permalinkUrl"}}>flickr</a>
 </td>
