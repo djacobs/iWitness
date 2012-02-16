@@ -1,4 +1,6 @@
 IWitness.TwitterResult = Ember.Object.extend({
+  isTwitter: true,
+
   timestamp: function() {
     return moment(this.get('createdAt')).format('h:mma');
   }.property('createdAt'),
@@ -9,7 +11,19 @@ IWitness.TwitterResult = Ember.Object.extend({
 
   permalinkUrl: function() {
     return this.get('fromUserUrl') + '/status/' + this.get('idStr');
-  }.property()
+  }.property(),
+
+  coordinates: function() {
+    return this.getPath('geo.coordinates') || [];
+  }.property('geo').cacheable(),
+
+  lat: function() {
+    return this.get('coordinates')[0];
+  }.property('coordinates').cacheable(),
+
+  lng: function() {
+    return this.get('coordinates')[1];
+  }.property('coordinates').cacheable()
 });
 
 IWitness.TwitterResult.import = function(obj) {

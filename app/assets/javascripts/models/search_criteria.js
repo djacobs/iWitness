@@ -1,4 +1,22 @@
 IWitness.searchCriteria = Ember.Object.create({
+  flickrKey: 'd8e03d0c91caffad9c85eccb1a54dc18',
+
+  timezoneOffset: function() {
+    return parseInt(moment().format('ZZZ'), 10) / 100;
+  }.property().cacheable(),
+
+  mapTimezoneOffset: function() {
+    if (!this.get('center')) return;
+
+    var lng = this.get('center')[1];
+    var offset = Math.abs(Math.round(lng * 24 / 360)) * -1;
+    return offset;
+  }.property('center').cacheable(),
+
+  timezoneDifference: function() {
+    return this.get('timezoneOffset') - this.get('mapTimezoneOffset');
+  }.property('timezoneOffset', 'mapTimezoneOffset').cacheable(),
+
   start: function() {
     return this.get('startDate') + ' ' + this.get('startTime');
   }.property('startDate', 'startTime'),
@@ -17,7 +35,7 @@ IWitness.searchCriteria = Ember.Object.create({
   }.property('center', 'northEast').cacheable(),
 
   searchParams: function() {
-    return this.getProperties('center', 'radius', 'keyword', 'start', 'end', 'northEast', 'southWest');
+    return this.getProperties('timezoneDifference', 'flickrKey', 'center', 'radius', 'keyword', 'start', 'end', 'northEast', 'southWest');
   },
 
   isValid: function() {

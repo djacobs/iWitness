@@ -1,6 +1,11 @@
 <table class="table table-bordered table-striped" id="result_set">
   {{#each IWitness.resultSetController.content}}
-    {{view IWitness.ResultView modelBinding="this"}}
+    {{#if isTwitter}}
+      {{view IWitness.TwitterResultView modelBinding="this"}}
+    {{/if}}
+    {{#if isFlickr}}
+      {{view IWitness.FlickrResultView modelBinding="this"}}
+    {{/if}}
   {{/each}}
 
   {{#unless IWitness.resultSetController.content.length}}

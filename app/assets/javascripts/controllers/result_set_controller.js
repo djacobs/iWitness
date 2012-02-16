@@ -9,6 +9,13 @@ IWitness.resultSetController = Ember.ArrayController.create({
     this.pushObjects(objects);
   },
 
+  pushFlickrResults: function(results){
+    var objects = results.map(function(result) {
+      return IWitness.FlickrResult.import(result)
+    });
+    this.pushObjects(objects);
+  },
+
   clearResults: function() {
     this.set('content', []);
     this.set('selectedResult', null);

@@ -1,0 +1,13 @@
+<td class="pic">
+  <img {{bindAttr src="model.profilePicUrl"}}>
+</td>
+<td>
+  <strong>{{model.title}}</strong>
+  by
+  <a target="_blank" {{bindAttr href="model.profileUrl"}}>
+    {{model.ownername}}
+  </a>
+  <em>taken {{model.timestamp}}<br>uploaded {{model.uploadTimestamp}}</em>
+  <p><img {{bindAttr src="model.urlS"}}></p>
+  <a class="permalink" target="_blank" {{bindAttr href="model.permalinkUrl"}}>flickr</a>
+</td>

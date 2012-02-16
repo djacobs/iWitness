@@ -1,5 +1,5 @@
-IWitness.ResultView = Ember.View.extend({
-  templateName: 'result_template',
+IWitness.TwitterResultView = Ember.View.extend({
+  templateName: 'twitter_result_template',
   tagName: 'tr',
   classNameBindings: 'isSelected:selected',
 
