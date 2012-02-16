@@ -1,8 +1,8 @@
-<div id="errors" {{bindAttr class="hideErrors:hide"}}>
+{{#if showErrors}}
   {{#each model.errors}}
     <div class="error alert alert-error">{{this}}</div>
   {{/each}}
-</div>
+{{/if}}
 
 {{#if IWitness.searchController.searching}}
   <div class="alert alert-info">Searching...</div>
