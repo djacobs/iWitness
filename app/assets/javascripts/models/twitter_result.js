@@ -25,17 +25,3 @@ IWitness.TwitterResult = Ember.Object.extend({
     return this.get('coordinates')[1];
   }.property('coordinates').cacheable()
 });
-
-IWitness.TwitterResult.import = function(obj) {
-  var camelCased = {};
-  var newKey;
-
-  for (var k in obj) {
-    newKey = k.replace(/_(\w)/g, function(match, char) {
-      return char.toUpperCase();
-    });
-    camelCased[newKey] = obj[k];
-  }
-
-  return IWitness.TwitterResult.create(camelCased);
-};

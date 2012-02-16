@@ -23,17 +23,3 @@ IWitness.FlickrResult = Ember.Object.extend({
     return "http://flickr.com/photos/" + this.get('owner') + "/" + this.get('id');
   }.property('owner', 'id')
 });
-
-IWitness.FlickrResult.import = function(obj) {
-  var camelCased = {};
-  var newKey;
-
-  for (var k in obj) {
-    newKey = k.replace(/_(\w)/g, function(match, char) {
-      return char.toUpperCase();
-    });
-    camelCased[newKey] = obj[k];
-  }
-
-  return IWitness.FlickrResult.create(camelCased);
-};

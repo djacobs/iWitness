@@ -24,8 +24,8 @@ _.extend(FlickrSearch.prototype, {
 
   _gotData: function(data){
     console.log(data);
-    this.trigger('data', data.photos.photo);
-    this.trigger('done');
+    this.trigger('data', 'flickr', data.photos.photo);
+    this.trigger('done', 'flickr');
   },
 
   _adjustTime: function(time) {

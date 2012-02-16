@@ -2,9 +2,9 @@ IWitness.resultSetController = Ember.ArrayController.create({
   content: [],
   selectedResult: null,
 
-  pushResults: function(resultType, results){
+  pushResults: function(type, results){
     var objects = results.map(function(result) {
-      return IWitness[resultType].import(result)
+      return IWitness.resultFactory.create(type, result);
     });
     this.pushObjects(objects);
   },

@@ -15,7 +15,7 @@ _.extend(TwitterSearch.prototype, {
   },
 
   _gotData: function(data){
-    if(!data.results.length) return this.trigger('done');
+    if(!data.results.length) return this.trigger('done', 'twitter');
     var filtered = this.filter.filter(data.results);
 
     console.log('%s to %s - %s found / %s passed',
@@ -24,16 +24,16 @@ _.extend(TwitterSearch.prototype, {
                 data.results.length,
                 filtered.length);
 
-    if (filtered.length) this.trigger('data', filtered);
+    if (filtered.length) this.trigger('data', 'twitter', filtered);
     this.total += filtered.length;
 
     if (this.total >= this.target) {
       console.log('--- got %s total results ---', this.total);
-      this.trigger('done');
+      this.trigger('done', 'twitter');
     } else if ( !this.query.isDone ) {
       this.query.getNext(this._gotData.bind(this));
     } else {
-      this.trigger('done');
+      this.trigger('done', 'twitter');
     }
   }
 });

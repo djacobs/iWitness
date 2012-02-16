@@ -8,9 +8,16 @@ describe("searchController", function(){
       isValid: true
     });
     controller.set('content', content);
+    twitterSearch = new MicroEvent();
+    twitterSearch.fetch = jasmine.createSpy("twitterSearch.fetch");
+    spyOn(window, 'TwitterSearch').andReturn(twitterSearch);
     flickrSearch = new MicroEvent();
     flickrSearch.fetch = jasmine.createSpy("flickrSearch.fetch");
     spyOn(window, 'FlickrSearch').andReturn(flickrSearch);
+  });
+
+  afterEach(function() {
+    controller.set('activeSearches', 0);
   });
 
   it("sets searchAttempted = true", function(){
@@ -26,13 +33,6 @@ describe("searchController", function(){
     expect(clearResultsSpy).toHaveBeenCalled();
   });
 
-  it("adds flickr results to the result set", function(){
-    resultSetSpy = spyOn(IWitness.resultSetController, 'pushResults');
-    controller.search();
-    flickrSearch.trigger('data', "photos");
-    expect(resultSetSpy).toHaveBeenCalledWith('FlickrResult', "photos");
-  });
-
   it("sets searching to true", function(){
     controller.search();
     expect(controller.get('searching')).toBeTruthy();
@@ -41,11 +41,37 @@ describe("searchController", function(){
   it("sets searching to false when flickr and twitter searches complete", function(){
     controller.search();
     flickrSearch.trigger('done');
+    expect(controller.get('searching')).toBeTruthy();
+    twitterSearch.trigger('done');
     expect(controller.get('searching')).toBeFalsy();
   });
 
-  it("calls fetch on flickr", function(){
-    controller.search();
-    expect(flickrSearch.fetch).toHaveBeenCalled();
+  describe('twitter results', function() {
+    it("adds twitter results to the result set", function(){
+      resultSetSpy = spyOn(IWitness.resultSetController, 'pushResults');
+      controller.search();
+      twitterSearch.trigger('data', 'twitter', "tweets");
+      expect(resultSetSpy).toHaveBeenCalledWith('twitter', "tweets");
+    });
+
+    it("calls fetch on twitter", function(){
+      controller.search();
+      expect(twitterSearch.fetch).toHaveBeenCalled();
+    });
   });
+
+  describe('flickr results', function() {
+    it("adds flickr results to the result set", function(){
+      resultSetSpy = spyOn(IWitness.resultSetController, 'pushResults');
+      controller.search();
+      flickrSearch.trigger('data', 'flickr', "photos");
+      expect(resultSetSpy).toHaveBeenCalledWith('flickr', "photos");
+    });
+
+    it("calls fetch on flickr", function(){
+      controller.search();
+      expect(flickrSearch.fetch).toHaveBeenCalled();
+    });
+  });
+
 });
