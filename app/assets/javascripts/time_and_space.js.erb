@@ -1,0 +1,21 @@
+(function(module){
+  var kdTree, zoneOffsets;
+
+  $(function(){
+    $.getJSON("<%= asset_path 'timezones.json' %>", function(zones){
+      console.log("got %s zones!", zones.length);
+      kdTree = new KDTree(zones);
+    });
+
+    $.getJSON("<%= asset_path 'zone_offsets.json' %>", function(zones){
+      console.log("got zone offsets!");
+      zoneOffsets = zones;
+    });
+  });
+
+  module.utcOffset = function(lat, lng){
+    if ( !kdTree || !zoneOffsets ) throw "Time zones are not loaded yet";
+    var zone = kdTree.getNearestNeighbour({x:lat, y:lng});
+    return zoneOffsets[zone.z];
+  }
+})(window);
