@@ -1,20 +1,12 @@
-<table class="table table-bordered table-striped" id="result_set">
-  {{#each IWitness.resultSetController.content}}
-    {{#if isTwitter}}
-      {{view IWitness.TwitterResultView modelBinding="this"}}
-    {{/if}}
-    {{#if isFlickr}}
-      {{view IWitness.FlickrResultView modelBinding="this"}}
-    {{/if}}
-  {{/each}}
-
-  {{#unless IWitness.resultSetController.content.length}}
-    <tr>
-      {{#if IWitness.searchController.searching}}
-        <td class="message">Searching...</td>
-      {{else}}
-        <td class="message">No Results</td>
+{{#if IWitness.resultSetController.content.length}}
+  <table class="table table-bordered table-striped" id="result_set">
+    {{#each IWitness.resultSetController.content}}
+      {{#if isTwitter}}
+        {{view IWitness.TwitterResultView modelBinding="this"}}
       {{/if}}
-    </tr>
-  {{/unless}}
-</table>
+      {{#if isFlickr}}
+        {{view IWitness.FlickrResultView modelBinding="this"}}
+      {{/if}}
+    {{/each}}
+  </table>
+{{/if}}

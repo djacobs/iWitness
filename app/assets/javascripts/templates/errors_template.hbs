@@ -3,3 +3,11 @@
     <div class="error alert alert-error">{{this}}</div>
   {{/each}}
 </div>
+
+{{#if IWitness.searchController.searching}}
+  <div class="alert alert-info">Searching...</div>
+{{else}}
+  {{#unless IWitness.resultSetController.content.length}}
+    <div class="alert alert-info">No Results</div>
+  {{/unless}}
+{{/if}}
