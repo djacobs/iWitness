@@ -18,6 +18,6 @@ IWitness.MapView = Ember.View.extend({
   createMarkerForResult: function() {
     var lat = this.getPath('selectedResult.lat');
     var lng = this.getPath('selectedResult.lng');
-    if(lat && lng) this.map.moveMarkerTo(lat, lng);
+    if (this.map) this.map.moveMarkerTo(lat, lng);
   }.observes('selectedResult')
 });
