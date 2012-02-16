@@ -13,9 +13,9 @@
     });
   });
 
-  module.utcOffset = function(lat, lng){
+  module.utcOffset = function(point){
     if ( !kdTree || !zoneOffsets ) throw "Time zones are not loaded yet";
-    var zone = kdTree.getNearestNeighbour({x:lat, y:lng});
+    var zone = kdTree.getNearestNeighbour({x:point[0], y:point[1]});
     return zoneOffsets[zone.z];
   }
 })(window);
