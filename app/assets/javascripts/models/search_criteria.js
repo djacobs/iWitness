@@ -32,7 +32,15 @@ IWitness.searchCriteria = Ember.Object.create({
   }.property('center', 'northEast').cacheable(),
 
   searchParams: function() {
-    return this.getProperties('timezoneDifference', 'flickrKey', 'center', 'radius', 'keyword', 'start', 'end', 'northEast', 'southWest');
+    return this.getProperties('timezoneDifference',
+                              'flickrKey',
+                              'center',
+                              'radius',
+                              'keyword',
+                              'start',
+                              'end',
+                              'northEast',
+                              'southWest');
   },
 
   isValid: function() {

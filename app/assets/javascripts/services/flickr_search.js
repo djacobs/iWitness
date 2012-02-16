@@ -3,9 +3,7 @@ var FlickrSearch = function(params){
   this.end                = moment(params.end);
   this.keyword            = params.keyword;
   this.flickrKey          = params.flickrKey;
-  this.lat                = params.center[0];
-  this.lng                = params.center[1];
-  this.radius             = params.radius;
+  this.boundingBox        = [params.southWest[1], params.southWest[0], params.northEast[1], params.northEast[0]].join(',');
   this.timezoneDifference = params.timezoneDifference;
   this.target             = 0;
   this.total              = 0;
@@ -40,11 +38,7 @@ _.extend(FlickrSearch.prototype, {
 
     return {
       api_key:        this.flickrKey,
-      lat:            this.lat,
-      lon:            this.lng,
-      radius:         this.radius,
-      radius_units:   'km',
-      per_page:       100, // max 500
+      bbox:           this.boundingBox,
       sort:           'date-taken-desc',
 
       // min_upload_date: Math.ceil(this.start.valueOf() / 1000), // results match criteria
