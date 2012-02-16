@@ -1,28 +1,29 @@
 IWitness.searchController = Ember.Object.create({
   searching:         false,
-  searchSubmitted:   false,
+  searchAttempted:   false,
   contentBinding:    'IWitness.searchCriteria',
 
   search: function() {
-    this.set('searchSubmitted', true);
+    this.set('searchAttempted', true);
 
-    if (!this.getPath('content.isValid')) return;
+    if (this.getPath('content.isValid')) {
+      this.set('searching', true);
+      IWitness.resultSetController.clearResults();
 
-    IWitness.resultSetController.clearResults();
-    this.set('searching', true);
+      var params = this.get('content').searchParams();
+      var search = new FlickrSearch(params);
 
-    var params = IWitness.searchCriteria.searchParams();
-    var search = new FlickrSearch(params);
-    var self   = this;
+      search.bind('data', this.handleResults.bind(this, 'FlickrResult'));
+      search.bind('done', this.searchServiceIsDone.bind(this));
+      search.fetch(100);
+    }
+  },
 
-    search.bind('data', function(results){
-      IWitness.resultSetController.pushFlickrResults(results);
-    });
+  handleResults: function(resultType, results){
+    IWitness.resultSetController.pushResults(resultType, results);
+  },
 
-    search.bind('done', function() {
-      self.set('searching', false);
-    });
-
-    search.fetch(100);
+  searchServiceIsDone: function() {
+    this.set('searching', false);
   }
 });

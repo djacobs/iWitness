@@ -3,6 +3,6 @@ IWitness.ErrorsView = Ember.View.extend({
   modelBinding: 'IWitness.searchController.content',
 
   hideErrors: function() {
-    return this.getPath('model.isValid') || !IWitness.searchController.get('searchSubmitted');
-  }.property('model.isValid', 'IWitness.searchController.searchSubmitted')
+    return this.getPath('model.isValid') || !IWitness.searchController.get('searchAttempted');
+  }.property('model.isValid', 'IWitness.searchController.searchAttempted')
 });

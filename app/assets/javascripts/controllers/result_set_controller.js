@@ -2,16 +2,9 @@ IWitness.resultSetController = Ember.ArrayController.create({
   content: [],
   selectedResult: null,
 
-  pushTwitterResults: function(results){
+  pushResults: function(resultType, results){
     var objects = results.map(function(result) {
-      return IWitness.TwitterResult.import(result)
-    });
-    this.pushObjects(objects);
-  },
-
-  pushFlickrResults: function(results){
-    var objects = results.map(function(result) {
-      return IWitness.FlickrResult.import(result)
+      return IWitness[resultType].import(result)
     });
     this.pushObjects(objects);
   },
