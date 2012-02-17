@@ -5,7 +5,9 @@
 {{/if}}
 
 {{#if IWitness.searchController.searching}}
-  <div class="alert alert-info">Searching...</div>
+  <div class="alert alert-info">
+    {{IWitness.searchController.searchMessage}}
+  </div>
 {{else}}
   {{#unless IWitness.resultSetController.content.length}}
     <div class="alert alert-info">No Results</div>

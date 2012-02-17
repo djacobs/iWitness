@@ -1,4 +1,5 @@
 var TwitterSearch = function(params){
+  this.type = 'twitter';
   this.query       = new TwitterQuery(params);
   this.filter      = new TwitterFilter(params);
   console.log('*** searching %s - %s ***', params.start, params.end);
@@ -15,7 +16,7 @@ _.extend(TwitterSearch.prototype, {
   },
 
   _gotData: function(data){
-    if(!data.results.length) return this.trigger('done', 'twitter');
+    if(!data.results.length) return this.trigger('done', this.type);
     var filtered = this.filter.filter(data.results);
 
     console.log('%s to %s - %s found / %s passed',
@@ -24,16 +25,16 @@ _.extend(TwitterSearch.prototype, {
                 data.results.length,
                 filtered.length);
 
-    if (filtered.length) this.trigger('data', 'twitter', filtered);
+    if (filtered.length) this.trigger('data', this.type, filtered);
     this.total += filtered.length;
 
     if (this.total >= this.target) {
       console.log('--- got %s total results ---', this.total);
-      this.trigger('done', 'twitter');
+      this.trigger('done', this.type);
     } else if ( !this.query.isDone ) {
       this.query.getNext(this._gotData.bind(this));
     } else {
-      this.trigger('done', 'twitter');
+      this.trigger('done', this.type);
     }
   }
 });

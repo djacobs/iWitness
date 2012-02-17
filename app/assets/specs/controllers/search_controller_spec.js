@@ -9,15 +9,17 @@ describe("searchController", function(){
     });
     controller.set('content', content);
     twitterSearch = new MicroEvent();
+    twitterSearch.type = 'twitter';
     twitterSearch.fetch = jasmine.createSpy("twitterSearch.fetch");
     spyOn(window, 'TwitterSearch').andReturn(twitterSearch);
     flickrSearch = new MicroEvent();
+    flickrSearch.type = 'flickr';
     flickrSearch.fetch = jasmine.createSpy("flickrSearch.fetch");
     spyOn(window, 'FlickrSearch').andReturn(flickrSearch);
   });
 
   afterEach(function() {
-    controller.set('activeSearches', 0);
+    controller.get('activeSearches').clear();
   });
 
   it("sets searchAttempted = true", function(){
@@ -40,9 +42,9 @@ describe("searchController", function(){
 
   it("sets searching to false when flickr and twitter searches complete", function(){
     controller.search();
-    flickrSearch.trigger('done');
+    flickrSearch.trigger('done', 'flickr');
     expect(controller.get('searching')).toBeTruthy();
-    twitterSearch.trigger('done');
+    twitterSearch.trigger('done', 'twitter');
     expect(controller.get('searching')).toBeFalsy();
   });
 

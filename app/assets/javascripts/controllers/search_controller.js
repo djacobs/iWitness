@@ -2,7 +2,13 @@ IWitness.searchController = Ember.Object.create({
   searching:         false,
   searchAttempted:   false,
   contentBinding:    'IWitness.searchCriteria',
-  activeSearches:    0,
+  activeSearches:    new Ember.Set(),
+
+  searchMessage: function() {
+    return this.get('activeSearches').map(function(searchType) {
+      return 'searching ' + searchType + '...';
+    }).join(' ');
+  }.property('activeSearches.length'),
 
   search: function() {
     this.set('searchAttempted', true);
@@ -19,8 +25,8 @@ IWitness.searchController = Ember.Object.create({
     }
   },
 
-  searchService: function(search, type){
-    this.incrementProperty('activeSearches');
+  searchService: function(search){
+    this.get('activeSearches').add(search.type);
     search.bind('data', this.handleResults.bind(this));
     search.bind('done', this.searchServiceIsDone.bind(this));
     search.fetch(100);
@@ -31,8 +37,8 @@ IWitness.searchController = Ember.Object.create({
   },
 
   searchServiceIsDone: function(type) {
-    this.decrementProperty('activeSearches');
-    if (this.get('activeSearches') == 0) {
+    this.get('activeSearches').remove(type);
+    if (this.get('activeSearches').length === 0) {
       this.set('searching', false);
     }
   }

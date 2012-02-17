@@ -1,4 +1,5 @@
 var FlickrSearch = function(params){
+  this.type = 'flickr'
   this.start              = moment(params.start);
   this.end                = moment(params.end);
   this.keyword            = params.keyword;
@@ -22,8 +23,8 @@ _.extend(FlickrSearch.prototype, {
 
   _gotData: function(data){
     console.log(data);
-    this.trigger('data', 'flickr', data.photos.photo);
-    this.trigger('done', 'flickr');
+    this.trigger('data', this.type, data.photos.photo);
+    this.trigger('done', this.type);
   },
 
   _adjustTime: function(time) {
