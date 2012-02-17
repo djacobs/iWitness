@@ -11,7 +11,7 @@
 
   module.utcOffset = function(point){
     if ( !kdTree || !zoneOffsets ) {
-      console && console.log && console.log("Time zones are not loaded yet");
+      IWitness.log("Time zones are not loaded yet");
       return 0;
     }
     var zone = kdTree.getNearestNeighbour({x:point[0], y:point[1]});

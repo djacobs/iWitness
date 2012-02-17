@@ -8,7 +8,7 @@ var FlickrSearch = function(params){
   this.timezoneDifference = params.timezoneDifference;
   this.target             = 0;
   this.total              = 0;
-  console.log('*** searching Flickr %s - %s ***', params.start, params.end);
+  IWitness.log('*** searching Flickr %s - %s ***', params.start, params.end);
 }
 
 MicroEvent.mixin(FlickrSearch);
@@ -22,7 +22,6 @@ _.extend(FlickrSearch.prototype, {
   },
 
   _gotData: function(data){
-    console.log(data);
     this.trigger('data', this.type, data.photos.photo);
     this.trigger('done', this.type);
   },

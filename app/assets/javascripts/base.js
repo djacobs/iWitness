@@ -1,5 +1,7 @@
 window.IWitness = Ember.Application.create();
 
+IWitness.log = _.bind(Ember.Logger.log, Ember.Logger);
+
 // fill in test data
 $(function(){
   _.delay(function(){
