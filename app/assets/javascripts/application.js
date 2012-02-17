@@ -3,7 +3,7 @@
 //= require ui/jquery.ui.datepicker
 //= require jquery.timePicker
 //= require underscore
-//= require ember-0.9.4
+//= require ember
 //= require microevent
 //= require moment
 //= require ext/moment_ext
