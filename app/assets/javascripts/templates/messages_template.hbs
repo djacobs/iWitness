@@ -4,12 +4,9 @@
   {{/each}}
 {{/if}}
 
-{{#if IWitness.searchController.searching}}
-  <div class="alert alert-info">
-    {{IWitness.searchController.searchMessage}}
-  </div>
-{{else}}
-  {{#unless IWitness.resultSetController.content.length}}
-    <div class="alert alert-info">No Results</div>
-  {{/unless}}
-{{/if}}
+<div class="alert alert-info">
+  Twitter status: {{twitterStatus}}
+  &nbsp; &nbsp; &nbsp;
+  Flickr status:  {{flickrStatus}}
+</div>
+

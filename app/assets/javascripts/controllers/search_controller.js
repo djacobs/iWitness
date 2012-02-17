@@ -10,6 +10,10 @@ IWitness.searchController = Ember.Object.create({
     }).join(' ');
   }.property('activeSearches.length'),
 
+  isSearchingService: function(type) {
+    return this.get('activeSearches').contains(type);
+  },
+
   search: function() {
     this.set('searchAttempted', true);
 
