@@ -7,8 +7,8 @@ IWitness.searchCriteria = Ember.Object.create({
 
   mapTimezoneOffset: function() {
     if (!this.get('center')) return;
-    return utcOffset(this.get('center')) / 3600;
-  }.property('center').cacheable(),
+    return IWitness.spaceAndTime.utcOffset(this.get('center')) / 3600;
+  }.property('center', 'IWitness.spaceAndTime.isLoaded').cacheable(),
 
   timezoneDifference: function() {
     return this.get('timezoneOffset') - this.get('mapTimezoneOffset');
