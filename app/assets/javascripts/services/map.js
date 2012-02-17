@@ -4,6 +4,8 @@ var Map = function(element, lat, lng) {
     zoom:      15,
     mapTypeId: google.maps.MapTypeId.ROADMAP
   });
+
+  this.geocoder = new google.maps.Geocoder();
 };
 
 _.extend(Map.prototype, {
@@ -33,6 +35,16 @@ _.extend(Map.prototype, {
       var position = new google.maps.LatLng(lat, lng);
       this.marker  = new google.maps.Marker({position: position, map: this.map});
     }
+  },
+
+  findAddress: function(address) {
+    var self = this;
+
+    this.geocoder.geocode({address: address}, function(results, status) {
+      if (status == google.maps.GeocoderStatus.OK) {
+        self.map.setCenter(results[0].geometry.location);
+      }
+    });
   }
 });
 
