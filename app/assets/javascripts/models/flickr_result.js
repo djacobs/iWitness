@@ -4,11 +4,11 @@ IWitness.FlickrResult = Ember.Object.extend({
   lngBinding: 'longitude',
 
   timestamp: function() {
-    return moment(this.get('datetaken')).format('M/D h:mma');
+    return moment(this.get('datetaken'), 'YYYY-MM-DD hh:mm:ss').format('M/D h:mma');
   }.property('datetaken'),
 
   uploadTimestamp: function() {
-    return moment(parseInt(this.get('dateupload') + ' PST') * 1000).format('M/D h:mma z');
+    return moment(parseInt(this.get('dateupload')) * 1000).format('M/D h:mma z');
   }.property('dateupload'),
 
   profileUrl: function(){
