@@ -19,7 +19,8 @@ describe("searchController", function(){
   });
 
   afterEach(function() {
-    controller.get('activeSearches').clear();
+    controller.get('servicesBeingSearched').clear();
+    controller.get('servicesWithResults').clear();
   });
 
   it("sets searchAttempted = true", function(){
@@ -35,19 +36,6 @@ describe("searchController", function(){
     expect(clearResultsSpy).toHaveBeenCalled();
   });
 
-  it("sets searching to true", function(){
-    controller.search();
-    expect(controller.get('searching')).toBeTruthy();
-  });
-
-  it("sets searching to false when flickr and twitter searches complete", function(){
-    controller.search();
-    flickrSearch.trigger('done', 'flickr');
-    expect(controller.get('searching')).toBeTruthy();
-    twitterSearch.trigger('done', 'twitter');
-    expect(controller.get('searching')).toBeFalsy();
-  });
-
   describe('twitter results', function() {
     it("adds twitter results to the result set", function(){
       resultSetSpy = spyOn(IWitness.resultSetController, 'pushResults');
@@ -59,6 +47,56 @@ describe("searchController", function(){
     it("calls fetch on twitter", function(){
       controller.search();
       expect(twitterSearch.fetch).toHaveBeenCalled();
+    });
+  });
+
+  describe('twiterStatus', function(){
+    it("starts with 'no results'", function(){
+      expect(controller.get('twitterStatus')).toEqual("no results");
+    });
+
+    it("searching", function(){
+      controller.search();
+      expect(controller.get('twitterStatus')).toEqual("searching");
+    });
+
+    it("completed with no results", function(){
+      controller.search();
+      twitterSearch.trigger('done', 'twitter');
+      expect(controller.get('twitterStatus')).toEqual("no results");
+    });
+
+    it("completed after results have come in", function(){
+      controller.search();
+      spyOn(IWitness.resultSetController, 'pushResults');
+      twitterSearch.trigger('data', 'twitter', "tweetz");
+      twitterSearch.trigger('done', 'twitter');
+      expect(controller.get('twitterStatus')).toEqual("completed");
+    });
+  });
+
+  describe('flickrStatus', function(){
+    it("starts with 'no results'", function(){
+      expect(controller.get('flickrStatus')).toEqual("no results");
+    });
+
+    it("searching", function(){
+      controller.search();
+      expect(controller.get('flickrStatus')).toEqual("searching");
+    });
+
+    it("completed with no results", function(){
+      controller.search();
+      flickrSearch.trigger('done', 'flickr');
+      expect(controller.get('flickrStatus')).toEqual("no results");
+    });
+
+    it("completed after results have come in", function(){
+      controller.search();
+      spyOn(IWitness.resultSetController, 'pushResults');
+      flickrSearch.trigger('data', 'flickr', "photos");
+      flickrSearch.trigger('done', 'flickr');
+      expect(controller.get('flickrStatus')).toEqual("completed");
     });
   });
 

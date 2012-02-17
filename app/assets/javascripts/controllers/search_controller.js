@@ -1,49 +1,60 @@
 IWitness.searchController = Ember.Object.create({
-  searching:         false,
-  searchAttempted:   false,
-  contentBinding:    'IWitness.searchCriteria',
-  activeSearches:    new Ember.Set(),
+  searchAttempted:       false,
+  contentBinding:        'IWitness.searchCriteria',
+  servicesBeingSearched: new Ember.Set(),
+  servicesWithResults:   new Ember.Set(),
 
-  searchMessage: function() {
-    return this.get('activeSearches').map(function(searchType) {
-      return 'searching ' + searchType + '...';
-    }).join(' ');
-  }.property('activeSearches.length'),
+  flickrStatus: function(){
+    return this._statusForService('flickr');
+  }.property('servicesBeingSearched.length', 'servicesWithResults.length'),
 
-  isSearchingService: function(type) {
-    return this.get('activeSearches').contains(type);
-  },
+  twitterStatus: function(){
+    return this._statusForService('twitter');
+  }.property('servicesBeingSearched.length', 'servicesWithResults.length'),
 
   search: function() {
     this.set('searchAttempted', true);
 
     if (this.getPath('content.isValid')) {
-      this.set('searching', true);
       IWitness.resultSetController.clearResults();
-
+      this.get('servicesWithResults').clear();
       var params = this.get('content').searchParams();
-      var flickrSearch = new FlickrSearch(params);
-      var twitterSearch = new TwitterSearch(params);
-      this.searchService(new FlickrSearch(params));
-      this.searchService(new TwitterSearch(params));
+      this._searchService(new FlickrSearch(params));
+      this._searchService(new TwitterSearch(params));
     }
   },
 
-  searchService: function(search){
-    this.get('activeSearches').add(search.type);
-    search.bind('data', this.handleResults.bind(this));
-    search.bind('done', this.searchServiceIsDone.bind(this));
+  _searchService: function(search){
+    this.get('servicesBeingSearched').add(search.type);
+    search.bind('data', this._handleResults.bind(this));
+    search.bind('done', this._searchServiceIsDone.bind(this));
     search.fetch(100);
   },
 
-  handleResults: function(type, results){
+  _handleResults: function(type, results){
     IWitness.resultSetController.pushResults(type, results);
+    if (results.length) this.get('servicesWithResults').add(type);
   },
 
-  searchServiceIsDone: function(type) {
-    this.get('activeSearches').remove(type);
-    if (this.get('activeSearches').length === 0) {
-      this.set('searching', false);
+  _searchServiceIsDone: function(type) {
+    this.get('servicesBeingSearched').remove(type);
+  },
+
+  _statusForService: function(type) {
+    if (this._isSearchingService(type)) {
+      return 'searching';
+    } else if (this._hasResultsFor(type)) {
+      return 'completed';
+    } else {
+      return 'no results';
     }
+  },
+
+  _hasResultsFor: function(type) {
+    return this.get('servicesWithResults').contains(type);
+  },
+
+  _isSearchingService: function(type) {
+    return this.get('servicesBeingSearched').contains(type);
   }
 });
