@@ -7,8 +7,6 @@ var TwitterSearch = function(params){
   this.target = 0;
 }
 
-MicroEvent.mixin(TwitterSearch);
-
 _.extend(TwitterSearch.prototype, {
   fetch: function(target){
     this.target += target;
@@ -16,7 +14,7 @@ _.extend(TwitterSearch.prototype, {
   },
 
   _gotData: function(data){
-    if(!data.results.length) return this.trigger('done', this.type);
+    if(!data.results.length) return Ember.sendEvent(this, 'done');
     var filtered = this.filter.filter(data.results);
 
     IWitness.log('%s to %s - %s found / %s passed',
@@ -25,16 +23,18 @@ _.extend(TwitterSearch.prototype, {
                 data.results.length,
                 filtered.length);
 
-    if (filtered.length) this.trigger('data', this.type, filtered);
+    if (filtered.length)
+      Ember.sendEvent(this, 'data', filtered);
+
     this.total += filtered.length;
 
     if (this.total >= this.target) {
       IWitness.log('--- got %s total results ---', this.total);
-      this.trigger('done', this.type);
+      Ember.sendEvent(this, 'done');
     } else if ( !this.query.isDone ) {
       this.query.getNext(_.bind(this._gotData, this));
     } else {
-      this.trigger('done', this.type);
+      Ember.sendEvent(this, 'done');
     }
   }
 });

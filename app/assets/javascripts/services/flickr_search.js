@@ -11,8 +11,6 @@ var FlickrSearch = function(params){
   IWitness.log('*** searching Flickr %s - %s ***', params.start, params.end);
 }
 
-MicroEvent.mixin(FlickrSearch);
-
 _.extend(FlickrSearch.prototype, {
   fetch: function(target){
     this.target += target;
@@ -22,8 +20,8 @@ _.extend(FlickrSearch.prototype, {
   },
 
   _gotData: function(data){
-    this.trigger('data', this.type, data.photos.photo);
-    this.trigger('done', this.type);
+    Ember.sendEvent(this, 'data', data.photos.photo);
+    Ember.sendEvent(this, 'done');
   },
 
   _adjustTime: function(time) {

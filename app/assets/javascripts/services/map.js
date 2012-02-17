@@ -9,7 +9,7 @@ var Map = function(element, lat, lng) {
 };
 
 _.extend(Map.prototype, {
-  bind: function(type, handler) {
+  addListener: function(type, handler) {
     google.maps.event.addListener(this.map, type, handler);
   },
 

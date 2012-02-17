@@ -26,18 +26,18 @@ IWitness.searchController = Ember.Object.create({
 
   _searchService: function(search){
     this.get('servicesBeingSearched').add(search.type);
-    search.bind('data', _.bind(this._handleResults, this));
-    search.bind('done', _.bind(this._searchServiceIsDone, this));
+    Ember.addListener(search, 'data', this, this._handleResults);
+    Ember.addListener(search, 'done', this, this._searchServiceIsDone);
     search.fetch(100);
   },
 
-  _handleResults: function(type, results){
-    IWitness.resultSetController.pushResults(type, results);
-    if (results.length) this.get('servicesWithResults').add(type);
+  _handleResults: function(search, e, results){
+    IWitness.resultSetController.pushResults(search.type, results);
+    if (results.length) this.get('servicesWithResults').add(search.type);
   },
 
-  _searchServiceIsDone: function(type) {
-    this.get('servicesBeingSearched').remove(type);
+  _searchServiceIsDone: function(search, e) {
+    this.get('servicesBeingSearched').remove(search.type);
   },
 
   _statusForService: function(type) {

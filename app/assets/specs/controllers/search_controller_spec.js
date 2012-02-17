@@ -8,13 +8,16 @@ describe("searchController", function(){
       isValid: true
     });
     controller.set('content', content);
-    twitterSearch = new MicroEvent();
-    twitterSearch.type = 'twitter';
-    twitterSearch.fetch = jasmine.createSpy("twitterSearch.fetch");
+    twitterSearch = {
+      type: 'twitter',
+      fetch: jasmine.createSpy("twitterSearch.fetch")
+    }
     spyOn(window, 'TwitterSearch').andReturn(twitterSearch);
-    flickrSearch = new MicroEvent();
-    flickrSearch.type = 'flickr';
-    flickrSearch.fetch = jasmine.createSpy("flickrSearch.fetch");
+
+    flickrSearch = {
+      type: 'flickr',
+      fetch: jasmine.createSpy("flickrSearch.fetch")
+    }
     spyOn(window, 'FlickrSearch').andReturn(flickrSearch);
   });
 
@@ -40,7 +43,7 @@ describe("searchController", function(){
     it("adds twitter results to the result set", function(){
       resultSetSpy = spyOn(IWitness.resultSetController, 'pushResults');
       controller.search();
-      twitterSearch.trigger('data', 'twitter', "tweets");
+      Ember.sendEvent(twitterSearch, 'data', "tweets");
       expect(resultSetSpy).toHaveBeenCalledWith('twitter', "tweets");
     });
 
@@ -62,15 +65,15 @@ describe("searchController", function(){
 
     it("completed with no results", function(){
       controller.search();
-      twitterSearch.trigger('done', 'twitter');
+      Ember.sendEvent(twitterSearch, 'done');
       expect(controller.get('twitterStatus')).toEqual("no results");
     });
 
     it("completed after results have come in", function(){
       controller.search();
       spyOn(IWitness.resultSetController, 'pushResults');
-      twitterSearch.trigger('data', 'twitter', "tweetz");
-      twitterSearch.trigger('done', 'twitter');
+      Ember.sendEvent(twitterSearch, 'data', 'tweets');
+      Ember.sendEvent(twitterSearch, 'done');
       expect(controller.get('twitterStatus')).toEqual("completed");
     });
   });
@@ -87,15 +90,15 @@ describe("searchController", function(){
 
     it("completed with no results", function(){
       controller.search();
-      flickrSearch.trigger('done', 'flickr');
+      Ember.sendEvent(flickrSearch, 'done');
       expect(controller.get('flickrStatus')).toEqual("no results");
     });
 
     it("completed after results have come in", function(){
       controller.search();
       spyOn(IWitness.resultSetController, 'pushResults');
-      flickrSearch.trigger('data', 'flickr', "photos");
-      flickrSearch.trigger('done', 'flickr');
+      Ember.sendEvent(flickrSearch, 'data', 'photos');
+      Ember.sendEvent(flickrSearch, 'done');
       expect(controller.get('flickrStatus')).toEqual("completed");
     });
   });
@@ -104,7 +107,7 @@ describe("searchController", function(){
     it("adds flickr results to the result set", function(){
       resultSetSpy = spyOn(IWitness.resultSetController, 'pushResults');
       controller.search();
-      flickrSearch.trigger('data', 'flickr', "photos");
+      Ember.sendEvent(flickrSearch, 'data', 'photos');
       expect(resultSetSpy).toHaveBeenCalledWith('flickr', "photos");
     });
 

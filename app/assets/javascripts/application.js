@@ -4,7 +4,6 @@
 //= require jquery.timePicker
 //= require underscore
 //= require ember
-//= require microevent
 //= require moment
 //= require ext/moment_ext
 //= require_tree ./templates

@@ -5,7 +5,7 @@ IWitness.MapView = Ember.View.extend({
 
   didInsertElement: function() {
     this.map = new Map(document.getElementById("map"), 34.043127, -118.266953); // LA
-    this.map.bind('bounds_changed', _.bind(_.debounce(this._mapUpdate, 100), this));
+    this.map.addListener('bounds_changed', _.bind(_.debounce(this._mapUpdate, 100), this));
   },
 
   createMarkerForResult: function() {

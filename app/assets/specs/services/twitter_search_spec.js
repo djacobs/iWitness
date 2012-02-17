@@ -10,8 +10,8 @@ describe("TwitterSearch", function() {
       search = new TwitterSearch(params);
       dataSpy = new jasmine.createSpy('dataSpy');
       doneSpy = new jasmine.createSpy('doneSpy');
-      search.bind('data', dataSpy);
-      search.bind('done', doneSpy);
+      Ember.addListener(search, 'data', dataSpy);
+      Ember.addListener(search, 'done', doneSpy);
     });
 
     it("calls query.getNext", function() {

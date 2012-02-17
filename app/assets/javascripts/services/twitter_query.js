@@ -7,7 +7,6 @@ var TwitterQuery = function(params){
   this.isDone  = false;
 }
 
-MicroEvent.mixin(TwitterQuery);
 _.extend(TwitterQuery.prototype, {
   getNext: function(callback) {
     if(this.isDone) throw "Out of bounds";
