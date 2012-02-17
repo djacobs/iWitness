@@ -12,7 +12,7 @@ MicroEvent.mixin(TwitterSearch);
 _.extend(TwitterSearch.prototype, {
   fetch: function(target){
     this.target += target;
-    this.query.getNext(this._gotData.bind(this));
+    this.query.getNext(_.bind(this._gotData, this));
   },
 
   _gotData: function(data){
@@ -32,7 +32,7 @@ _.extend(TwitterSearch.prototype, {
       console.log('--- got %s total results ---', this.total);
       this.trigger('done', this.type);
     } else if ( !this.query.isDone ) {
-      this.query.getNext(this._gotData.bind(this));
+      this.query.getNext(_.bind(this._gotData, this));
     } else {
       this.trigger('done', this.type);
     }

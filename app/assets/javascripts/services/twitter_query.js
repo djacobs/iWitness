@@ -13,7 +13,7 @@ _.extend(TwitterQuery.prototype, {
     if(this.isDone) throw "Out of bounds";
 
     if (!this.maxId) {
-      this.determineStartingPoint(this.fetchResultsPage.bind(this, callback));
+      this.determineStartingPoint(_.bind(this.fetchResultsPage, this, callback));
     } else {
       this.fetchResultsPage(callback);
     }

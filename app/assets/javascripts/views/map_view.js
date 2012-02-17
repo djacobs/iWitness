@@ -7,7 +7,7 @@ IWitness.MapView = Ember.View.extend({
     this.map = new Map(document.getElementById("map"), 33.592744,-117.870255); // Newport Beach
     // this.map = new Map(document.getElementById("map"), 34.043127, -118.266953); // LA
     // this.map = new Map(document.getElementById("map"), 40.772742,-73.972321); // NY
-    this.map.bind('bounds_changed', _.debounce(this._mapUpdate, 100).bind(this));
+    this.map.bind('bounds_changed', _.bind(_.debounce(this._mapUpdate, 100), this));
   },
 
   createMarkerForResult: function() {

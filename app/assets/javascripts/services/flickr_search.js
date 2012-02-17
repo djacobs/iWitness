@@ -18,7 +18,7 @@ _.extend(FlickrSearch.prototype, {
     this.target += target;
 
     var url = 'http://api.flickr.com/services/rest/?jsoncallback=?'
-    $.getJSON(url, this._flickrParams(), this._gotData.bind(this));
+    $.getJSON(url, this._flickrParams(), _.bind(this._gotData, this));
   },
 
   _gotData: function(data){

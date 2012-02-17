@@ -26,8 +26,8 @@ IWitness.searchController = Ember.Object.create({
 
   _searchService: function(search){
     this.get('servicesBeingSearched').add(search.type);
-    search.bind('data', this._handleResults.bind(this));
-    search.bind('done', this._searchServiceIsDone.bind(this));
+    search.bind('data', _.bind(this._handleResults, this));
+    search.bind('done', _.bind(this._searchServiceIsDone, this));
     search.fetch(100);
   },
 
