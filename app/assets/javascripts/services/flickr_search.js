@@ -5,7 +5,7 @@ var FlickrSearch = function(params){
   this.keyword            = params.keyword;
   this.flickrKey          = params.flickrKey;
   this.boundingBox        = [params.southWest[1], params.southWest[0], params.northEast[1], params.northEast[0]].join(',');
-  this.timezoneDifference = params.timezoneDifference;
+  this.mapTimezoneOffset  = params.mapTimezoneOffset;
   this.target             = 0;
   this.total              = 0;
   IWitness.log('*** searching Flickr %s - %s ***', params.start, params.end);
@@ -26,8 +26,8 @@ _.extend(FlickrSearch.prototype, {
 
   _adjustTime: function(time) {
     var time = moment(time); // don't mutate the original time
-    time.subtract('hours', 5); // compensate for flickr offset
-    time.subtract('hours', this.timezoneDifference); // compensate for map time zone
+
+    time.add('hours', this.mapTimezoneOffset);
 
     return Math.ceil(time.valueOf() / 1000); // provide a unix timestamp without milliseconds
   },

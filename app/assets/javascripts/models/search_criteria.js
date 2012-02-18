@@ -10,10 +10,6 @@ IWitness.searchCriteria = Ember.Object.create({
     return IWitness.spaceAndTime.utcOffset(this.get('center')) / 3600;
   }.property('center', 'IWitness.spaceAndTime.isLoaded').cacheable(),
 
-  timezoneDifference: function() {
-    return this.get('timezoneOffset') - this.get('mapTimezoneOffset');
-  }.property('timezoneOffset', 'mapTimezoneOffset').cacheable(),
-
   start: function() {
     return this.get('startDate') + ' ' + this.get('startTime');
   }.property('startDate', 'startTime'),
@@ -32,7 +28,7 @@ IWitness.searchCriteria = Ember.Object.create({
   }.property('center', 'northEast').cacheable(),
 
   searchParams: function() {
-    return this.getProperties('timezoneDifference',
+    return this.getProperties('mapTimezoneOffset',
                               'flickrKey',
                               'center',
                               'radius',

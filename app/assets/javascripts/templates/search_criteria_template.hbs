@@ -16,11 +16,6 @@
     {{view Ember.TextField id="end_time" valueBinding="model.endTime" class="time"}}
   </div>
 
-  <div id="zone_info">
-    Searching in {{model.timezoneOffset}}<br>
-    Map is (approximately) in {{model.mapTimezoneOffset}}
-  </div>
-
   {{view IWitness.MapView}}
 
   <input type="submit" value="Search" {{action search}}>
