@@ -1,7 +1,7 @@
 //= require jquery-1.7
-//= require ui/jquery.ui.core
-//= require ui/jquery.ui.datepicker
-//= require jquery.timePicker
+//= require jquery-ui/ui/jquery.ui.core
+//= require jquery-ui/ui/jquery.ui.datepicker
+//= require timePicker/jquery.timePicker
 //= require underscore
 //= require ember
 //= require moment
