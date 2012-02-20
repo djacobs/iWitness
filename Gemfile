@@ -8,3 +8,5 @@ group :assets do
   gem 'rasputin'
   gem 'jquery-rails'
 end
+
+gem "airbrake"

@@ -28,6 +28,9 @@ GEM
     activesupport (3.2.1)
       i18n (~> 0.6)
       multi_json (~> 1.0)
+    airbrake (3.0.9)
+      activesupport
+      builder
     arel (3.0.0)
     builder (3.0.0)
     commonjs (0.2.0)
@@ -108,6 +111,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  airbrake
   jquery-rails
   less-rails-bootstrap (>= 2.0)
   rails (= 3.2.1)
