@@ -24,25 +24,12 @@ IWitness.searchCriteria = Ember.Object.create({
   }.property('endDate', 'endTime').cacheable(),
 
   start: function() {
-    return this.getAdjustedForMap('rawStart');
+    return this._getAdjustedForMap('rawStart');
   }.property('rawStart', 'useTimezone').cacheable(),
 
   end: function() {
-    return this.getAdjustedForMap('rawEnd');
+    return this._getAdjustedForMap('rawEnd');
   }.property('rawEnd', 'useTimezone').cacheable(),
-
-  getAdjustedForMap: function(prop) {
-    var rawTime = this.get(prop);
-    var adjustedTime = rawTime;
-
-    if (this.get('useTimezone') != 'mine') {
-      var m = moment(rawTime);
-      m.add('hours', this.get('timezoneDifference'));
-      adjustedTime = m.format('MM/DD/YYYY h:mm A');
-    }
-
-    return adjustedTime;
-  },
 
   radius: function() {
     var center = this.get('center');
@@ -82,5 +69,18 @@ IWitness.searchCriteria = Ember.Object.create({
       errors.push("Increase the map zoom in order to provide more relevant results.");
 
     return errors;
-  }.property('start', 'end', 'radius').cacheable()
+  }.property('start', 'end', 'radius').cacheable(),
+
+  _getAdjustedForMap: function(prop) {
+    var rawTime = this.get(prop);
+    var adjustedTime = rawTime;
+
+    if (this.get('useTimezone') != 'mine') {
+      var m = moment(rawTime);
+      m.add('hours', this.get('timezoneDifference'));
+      adjustedTime = m.format('M/D/YYYY h:mm A');
+    }
+
+    return adjustedTime;
+  }
 });

@@ -3,7 +3,7 @@ describe("SearchCriteria", function() {
 
   beforeEach(function() {
     subject = IWitness.searchCriteria;
-    subject.setProperties({center: null, northEast: null});
+    subject.setProperties({center: null, northEast: null, useTimezone: 'mine'});
 
     validProps = {
       startDate: '1/1/2012',
@@ -11,6 +11,48 @@ describe("SearchCriteria", function() {
       endDate:   '1/1/2012',
       endTime:   '10:00 AM'
     };
+  });
+
+  describe("start", function() {
+    describe("when using my timezone", function() {
+      it("is the date/time as I entered it", function() {
+        subject.setProperties(_.extend(validProps,
+          {startDate: '1/1/2012', startTime: '2:30 PM'}));
+        expect(subject.get('start')).toEqual('1/1/2012 2:30 PM');
+      });
+    });
+
+    describe("when using the map's timezone", function() {
+      beforeEach(function() { subject.set('useTimezone', 'map') });
+
+      it("is the date/time adjusted for the map", function() {
+        spyOnProperties(subject, {timezoneDifference: -4});
+        subject.setProperties(_.extend(validProps,
+          {startDate: '1/1/2012', startTime: '2:30 PM'}));
+        expect(subject.get('start')).toEqual('1/1/2012 10:30 AM');
+      });
+    });
+  });
+
+  describe("end", function() {
+    describe("when using my timezone", function() {
+      it("is the date/time as I entered it", function() {
+        subject.setProperties(_.extend(validProps,
+          {endDate: '1/1/2012', endTime: '2:30 PM'}));
+        expect(subject.get('end')).toEqual('1/1/2012 2:30 PM');
+      });
+    });
+
+    describe("when using the map's timezone", function() {
+      beforeEach(function() { subject.set('useTimezone', 'map') });
+
+      it("is the date/time adjusted for the map", function() {
+        spyOnProperties(subject, {timezoneDifference: -4});
+        subject.setProperties(_.extend(validProps,
+          {endDate: '1/1/2012', endTime: '2:30 PM'}));
+        expect(subject.get('end')).toEqual('1/1/2012 10:30 AM');
+      });
+    });
   });
 
   describe("radius", function() {
