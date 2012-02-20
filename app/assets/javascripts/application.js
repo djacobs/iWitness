@@ -1,4 +1,4 @@
-//= require jquery-1.7
+//= require jquery
 //= require jquery-ui/ui/jquery.ui.core
 //= require jquery-ui/ui/jquery.ui.datepicker
 //= require timePicker/jquery.timePicker
