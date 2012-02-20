@@ -17,9 +17,18 @@ IWitness.MapView = Ember.View.extend({
 
   _mapUpdate: function() {
     this.setPath('model.center', this.map.getCenter());
+    this.setPath('model.zoom', this.map.getZoom());
     this.setPath('model.northEast', this.map.getNorthEast());
     this.setPath('model.southWest', this.map.getSouthWest());
   },
+
+  zoom: function() {
+    if (this.map) this.map.setZoom(this.getPath('model.zoom'));
+  }.observes('model.zoom'),
+
+  recenter: function() {
+    if (this.map) this.map.setCenter(this.getPath('model.center'));
+  }.observes('model.center'),
 
   addressField: Ember.TextField.extend({
     placeholder: 'enter address and press enter',

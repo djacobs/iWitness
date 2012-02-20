@@ -18,6 +18,19 @@ _.extend(Map.prototype, {
     return [point.lat(), point.lng()];
   },
 
+  setCenter: function(bounds) {
+    var point = new google.maps.LatLng(bounds[0], bounds[1]);
+    this.map.setCenter(point);
+  },
+
+  getZoom: function() {
+    return this.map.getZoom();
+  },
+
+  setZoom: function(zoom) {
+    this.map.setZoom(zoom);
+  },
+
   getNorthEast: function() {
     var point = this.map.getBounds().getNorthEast();
     return [point.lat(), point.lng()];

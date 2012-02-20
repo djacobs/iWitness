@@ -19,11 +19,11 @@ window.IWitness = Ember.Application.create({
     params.zoom      = parseInt(params.zoom);
     params.radius    = parseInt(params.radius);
 
+    console.log('searching ', params);
+
     IWitness.searchCriteria.setProperties(params);
 
     // set the flickr key in the params
-
-    console.log('searching ', params);
 
     IWitness.searchController.search();
   }
