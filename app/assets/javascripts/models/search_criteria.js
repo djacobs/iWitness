@@ -1,5 +1,4 @@
 IWitness.searchCriteria = Ember.Object.create({
-  flickrKey:   'd8e03d0c91caffad9c85eccb1a54dc18',
   useTimezone: 'mine',
 
   timezoneOffset: function() {
@@ -42,7 +41,6 @@ IWitness.searchCriteria = Ember.Object.create({
 
   searchParams: function() {
     return this.getProperties('mapTimezoneOffset',
-                              'flickrKey',
                               'center',
                               'radius',
                               'keyword',

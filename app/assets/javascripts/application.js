@@ -4,6 +4,7 @@
 //= require jquery.timePicker
 //= require underscore
 //= require ember
+//= require sproutcore-routing/lib/core.js
 //= require moment
 //= require ext/moment_ext
 //= require_tree ./templates

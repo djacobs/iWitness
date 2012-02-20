@@ -4,7 +4,18 @@ IWitness.SearchCriteriaView = Ember.View.extend({
   radius: 1,
 
   search: function(e) {
-    IWitness.searchController.search();
+    SC.routes.set('location', {
+      route: '/search',
+      startDate: this.getPath('model.startDate'),
+      startTime: this.getPath('model.startTime'),
+      endDate: this.getPath('model.endDate'),
+      endTime: this.getPath('model.endTime'),
+      keyword: this.getPath('model.keyword'),
+      center: this.getPath('model.center'),
+      northEast: this.getPath('model.northEast'),
+      southWest: this.getPath('model.southWest'),
+      radius: this.getPath('model.radius')
+    });
   },
 
   didInsertElement: function() {
