@@ -19,6 +19,8 @@ _.extend(FlickrSearch.prototype, {
     $.getJSON(url, this._flickrParams(), _.bind(this._gotData, this));
   },
 
+  stop: function() { },
+
   _gotData: function(data){
     Ember.sendEvent(this, 'data', data.photos.photo);
     Ember.sendEvent(this, 'done');

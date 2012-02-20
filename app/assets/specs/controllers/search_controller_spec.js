@@ -10,13 +10,15 @@ describe("searchController", function(){
     controller.set('content', content);
     twitterSearch = {
       type: 'twitter',
-      fetch: jasmine.createSpy("twitterSearch.fetch")
+      fetch: jasmine.createSpy("twitterSearch.fetch"),
+      stop:  jasmine.createSpy("twitterSearch.stop")
     }
     spyOn(window, 'TwitterSearch').andReturn(twitterSearch);
 
     flickrSearch = {
       type: 'flickr',
-      fetch: jasmine.createSpy("flickrSearch.fetch")
+      fetch: jasmine.createSpy("flickrSearch.fetch"),
+      stop:  jasmine.createSpy("flickrSearch.stop")
     }
     spyOn(window, 'FlickrSearch').andReturn(flickrSearch);
   });

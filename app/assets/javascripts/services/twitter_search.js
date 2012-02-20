@@ -1,16 +1,23 @@
 var TwitterSearch = function(params){
-  this.type = 'twitter';
-  this.query       = new TwitterQuery(params);
-  this.filter      = new TwitterFilter(params);
+  this.type      = 'twitter';
+  this.query     = new TwitterQuery(params);
+  this.filter    = new TwitterFilter(params);
+  this.total     = 0;
+  this.target    = 0;
+  this.isStopped = false;
   IWitness.log('*** searching %s - %s ***', params.start, params.end);
-  this.total = 0;
-  this.target = 0;
 }
 
 _.extend(TwitterSearch.prototype, {
   fetch: function(target){
+    if( this.isStopped ) return Ember.sendEvent(this, 'done');
+    
     this.target += target;
     this.query.getNext(_.bind(this._gotData, this));
+  },
+
+  stop: function() {
+    this.isStopped = true;
   },
 
   _gotData: function(data){
@@ -31,7 +38,7 @@ _.extend(TwitterSearch.prototype, {
     if (this.total >= this.target) {
       IWitness.log('--- got %s total results ---', this.total);
       Ember.sendEvent(this, 'done');
-    } else if ( !this.query.isDone ) {
+    } else if ( !this.query.isDone && !this.isStopped ) {
       this.query.getNext(_.bind(this._gotData, this));
     } else {
       Ember.sendEvent(this, 'done');

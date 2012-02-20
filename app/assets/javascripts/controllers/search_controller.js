@@ -1,6 +1,7 @@
 IWitness.searchController = Ember.Object.create({
   searchAttempted:       false,
   contentBinding:        'IWitness.searchCriteria',
+  searches:              [],
   servicesBeingSearched: new Ember.Set(),
   servicesWithResults:   new Ember.Set(),
 
@@ -13,22 +14,40 @@ IWitness.searchController = Ember.Object.create({
   }.property('servicesBeingSearched.length', 'servicesWithResults.length'),
 
   search: function() {
+    var self = this;
     this.set('searchAttempted', true);
 
     if (this.getPath('content.isValid')) {
       IWitness.resultSetController.clearResults();
       this.get('servicesWithResults').clear();
       var params = this.get('content').searchParams();
-      this._searchService(new FlickrSearch(params));
-      this._searchService(new TwitterSearch(params));
+
+      this._stopExecutingSearches();
+
+      this.searches = [
+        new FlickrSearch(params),
+        new TwitterSearch(params)
+      ];
+
+      _.each(this.searches, function(search) {
+        self._executeSearch(search);
+      });
     }
   },
 
-  _searchService: function(search){
+  _executeSearch: function(search){
     this.get('servicesBeingSearched').add(search.type);
     Ember.addListener(search, 'data', this, this._handleResults);
     Ember.addListener(search, 'done', this, this._searchServiceIsDone);
     search.fetch(100);
+  },
+
+  _stopExecutingSearches: function(){
+    _.each(this.services, function(service) {
+      service.stop();
+      Ember.removeListener(service, 'data', this, this._handleResults);
+      Ember.removeListener(service, 'done', this, this._searchServiceIsDone);
+    });
   },
 
   _handleResults: function(search, e, results){

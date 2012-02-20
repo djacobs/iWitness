@@ -37,6 +37,26 @@ describe("TwitterSearch", function() {
       expect(querySpy.callCount).toEqual(2);
     });
 
+    it("does not fetch results if the search has been stopped", function() {
+      var querySpy = spyOn(fakeQuery, 'getNext');
+      search.stop();
+      search.fetch(20);
+      expect(doneSpy).toHaveBeenCalled();
+      expect(querySpy).not.toHaveBeenCalled();
+    });
+
+    it("does not fetch more results if the search is stopped after results received", function() {
+      // we're asserting that query.getNext does not get called
+      // after we have called stop.
+      var querySpy = spyOn(fakeQuery, 'getNext').andCallFake(function(callback){
+        search.stop();
+        callback({results: makeTweets(5)});
+      });
+      search.fetch(20);
+      expect(doneSpy).toHaveBeenCalled();
+      expect(querySpy.callCount).toEqual(1);
+    });
+
     it("triggers a data event for each chunk of results", function() {
       var querySpy = spyOn(fakeQuery, 'getNext').andCallFake(function(callback){
         callback({results: makeTweets(10)});
