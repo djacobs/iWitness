@@ -1,11 +1,15 @@
-IWitness.TwitterResultView = Ember.View.extend({
-  templateName: 'twitter_result_template',
-  tagName: 'tr',
+IWitness.ResultView = Ember.View.extend({
+  templateName:      'result_template',
+  tagName:           'tr',
   classNameBindings: 'isSelected:selected',
 
   isSelected: function() {
     return this.get('model') == IWitness.resultSetController.get('selectedResult');
   }.property('IWitness.resultSetController.selectedResult'),
+
+  postedTime: function() {
+    return this.getPath('model.postedMoment').format('M/D h:mma z');
+  }.property('model.postedMoment'),
 
   click: function(e) {
     if (e.target.tagName.toLowerCase() == 'a') return;
