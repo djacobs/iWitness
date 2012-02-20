@@ -2,7 +2,7 @@ IWitness.TwitterResult = Ember.Object.extend({
   isTwitter: true,
 
   timestamp: function() {
-    return moment(this.get('createdAt')).format('h:mma');
+    return moment(this.get('createdAt')).format('M/D h:mma z');
   }.property('createdAt'),
 
   fromUserUrl: function() {

@@ -1,5 +1,6 @@
 IWitness.searchCriteria = Ember.Object.create({
-  flickrKey: 'd8e03d0c91caffad9c85eccb1a54dc18',
+  flickrKey:   'd8e03d0c91caffad9c85eccb1a54dc18',
+  useTimezone: 'mine',
 
   timezoneOffset: function() {
     return parseInt(moment().format('ZZZ'), 10) / 100;
@@ -10,13 +11,25 @@ IWitness.searchCriteria = Ember.Object.create({
     return IWitness.spaceAndTime.utcOffset(this.get('center')) / 3600;
   }.property('center', 'IWitness.spaceAndTime.isLoaded').cacheable(),
 
-  start: function() {
+  timezoneDifference: function() {
+    return this.get('timezoneOffset') - this.get('mapTimezoneOffset');
+  }.property('timezoneOffset', 'mapTimezoneOffset').cacheable(),
+
+  rawStart: function() {
     return this.get('startDate') + ' ' + this.get('startTime');
-  }.property('startDate', 'startTime'),
+  }.property('startDate', 'startTime').cacheable(),
+
+  rawEnd: function() {
+    return this.get('endDate') + ' ' + this.get('endTime');
+  }.property('endDate', 'endTime').cacheable(),
+
+  start: function() {
+    return this._getAdjustedForMap('rawStart');
+  }.property('rawStart', 'useTimezone').cacheable(),
 
   end: function() {
-    return this.get('endDate') + ' ' + this.get('endTime');
-  }.property('endDate', 'endTime'),
+    return this._getAdjustedForMap('rawEnd');
+  }.property('rawEnd', 'useTimezone').cacheable(),
 
   radius: function() {
     var center = this.get('center');
@@ -56,5 +69,18 @@ IWitness.searchCriteria = Ember.Object.create({
       errors.push("Increase the map zoom in order to provide more relevant results.");
 
     return errors;
-  }.property('start', 'end', 'radius').cacheable()
+  }.property('start', 'end', 'radius').cacheable(),
+
+  _getAdjustedForMap: function(prop) {
+    var rawTime = this.get(prop);
+    var adjustedTime = rawTime;
+
+    if (this.get('useTimezone') != 'mine') {
+      var m = moment(rawTime);
+      m.add('hours', this.get('timezoneDifference'));
+      adjustedTime = m.format('M/D/YYYY h:mm A');
+    }
+
+    return adjustedTime;
+  }
 });

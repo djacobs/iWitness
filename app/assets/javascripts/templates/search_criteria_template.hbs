@@ -16,6 +16,19 @@
     {{view Ember.TextField id="end_time" valueBinding="model.endTime" class="time"}}
   </div>
 
+  <div class="field">
+    <label class="radio">
+      {{view timezoneSelector timezone="mine"}}
+      Search using my time zone
+    </label>
+    <label class="radio">
+      {{view timezoneSelector timezone="map"}}
+      Search using map's time zone
+    </label>
+  </div>
+
+  <hr>
+
   {{view IWitness.MapView}}
 
   <input type="submit" value="Search" {{action search}}>
