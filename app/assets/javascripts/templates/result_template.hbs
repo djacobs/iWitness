@@ -1,0 +1,30 @@
+<td class="pic">
+  <img {{bindAttr src="model.avatarSrc"}}>
+</td>
+
+<td>
+  {{#if model.title}}
+    <strong>{{model.title}}</strong>
+    by
+  {{/if}}
+
+  <strong>
+    <a target="_blank" {{bindAttr href="model.userUrl"}}>{{model.userNamePrimary}}</a>
+  </strong>
+
+  {{#if model.userNameSecondary}}
+    {{model.userNameSecondary}}
+  {{/if}}
+
+  <em>{{postedTime}}</em>
+
+  <div class="result_content">
+    {{#if model.contentSrc}}
+      <img {{bindAttr src="model.contentSrc"}}>
+    {{/if}}
+
+    <p>{{linkify model.contentText}}</p>
+  </div>
+
+  <a class="permalink" target="_blank" {{bindAttr href="model.permalinkUrl"}}>{{model.permalinkText}}</a>
+</td>

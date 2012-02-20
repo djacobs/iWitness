@@ -1,17 +1,17 @@
 IWitness.FlickrResult = Ember.Object.extend({
-  isFlickr: true,
-  latBinding: 'latitude',
-  lngBinding: 'longitude',
+  permalinkText:          'flickr',
+  latBinding:             'latitude',
+  lngBinding:             'longitude',
+  avatarSrcBinding:       'profilePicUrl',
+  userNamePrimaryBinding: 'ownername',
+  contentSrcBinding:      'urlS',
+  contentTextBinding:     'description._content',
 
-  timestamp: function() {
-    return moment(this.get('datetaken'), 'YYYY-MM-DD hh:mm:ss').format('M/D h:mma');
+  postedMoment: function() {
+    return moment(this.get('datetaken'), 'YYYY-MM-DD hh:mm:ss');
   }.property('datetaken'),
 
-  uploadTimestamp: function() {
-    return moment(parseInt(this.get('dateupload')) * 1000).format('M/D h:mma z');
-  }.property('dateupload'),
-
-  profileUrl: function(){
+  userUrl: function(){
     return "http://www.flickr.com/photos/" + this.get('owner');
   }.property('owner'),
 

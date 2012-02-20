@@ -1,16 +1,23 @@
-IWitness.TwitterResult = Ember.Object.extend({
-  isTwitter: true,
+IWitness.TwitterResult = IWitness.Result.extend({
+  permalinkText:          'twitter',
+  avatarSrcBinding:       'profileImageUrl',
+  userNamePrimaryBinding: 'fromUserName',
+  contentTextBinding:     'text',
 
-  timestamp: function() {
-    return moment(this.get('createdAt')).format('M/D h:mma z');
+  userNameSecondary: function() {
+    return '@' + this.get('fromUser');
+  }.property('fromUser'),
+
+  postedMoment: function() {
+    return moment(this.get('createdAt'));
   }.property('createdAt'),
 
-  fromUserUrl: function() {
+  userUrl: function() {
     return "http://twitter.com/#!/" + this.get('fromUser');
   }.property('fromUser'),
 
   permalinkUrl: function() {
-    return this.get('fromUserUrl') + '/status/' + this.get('idStr');
+    return this.get('userUrl') + '/status/' + this.get('idStr');
   }.property(),
 
   coordinates: function() {
