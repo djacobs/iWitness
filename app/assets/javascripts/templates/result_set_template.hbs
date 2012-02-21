@@ -1,6 +1,6 @@
 {{#if IWitness.resultSetController.content.length}}
   <table class="table table-bordered table-striped" id="result_set">
-    {{#each IWitness.resultSetController.sortedContent}}
+    {{#each IWitness.resultSetController.content}}
       {{view IWitness.ResultView modelBinding="this"}}
     {{/each}}
   </table>
