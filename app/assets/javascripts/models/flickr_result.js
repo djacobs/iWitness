@@ -1,4 +1,4 @@
-IWitness.FlickrResult = Ember.Object.extend({
+IWitness.FlickrResult = IWitness.Result.extend({
   permalinkText:          'flickr',
   latBinding:             'latitude',
   lngBinding:             'longitude',
