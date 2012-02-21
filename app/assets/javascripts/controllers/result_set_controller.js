@@ -3,14 +3,29 @@ IWitness.resultSetController = Ember.ArrayController.create({
   selectedResult: null,
 
   pushResults: function(type, results){
-    var objects = results.map(function(result) {
-      return IWitness.resultFactory.create(type, result);
+    var self = this;
+    results.forEach(function(result) {
+      var result = IWitness.resultFactory.create(type, result);
+      var idx = self._findInsertionPoint(result);
+      self.insertAt(idx, result);
     });
-    this.pushObjects(objects);
   },
 
   clearResults: function() {
     this.set('content', []);
     this.set('selectedResult', null);
+  },
+
+  _findInsertionPoint: function(obj) {
+    var idx = 0;
+    var len = this.get("length");
+    if (len === 0) return 0;
+
+    var comp = Ember.compare(obj, this.objectAt(idx));
+    while (comp > 0 && idx < len) {
+      idx++;
+      comp = Ember.compare(obj, this.objectAt(idx));
+    }
+    return idx;
   }
 });

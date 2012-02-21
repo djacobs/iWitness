@@ -1,4 +1,4 @@
-IWitness.Result = Ember.Object.extend({
+IWitness.Result = Ember.Object.extend(Ember.Comparable, {
   avatarSrc:         null,
   title:             null,
   userUrl:           null,
@@ -11,4 +11,12 @@ IWitness.Result = Ember.Object.extend({
   permalinkText:     null,
   lat:               null,
   lng:               null,
+
+  compare: function(a,b) {
+    if (a.get("postedMoment").isBefore(b.get("postedMoment"))) {
+      return 1;
+    } else {
+      return -1;
+    }
+  }
 });
