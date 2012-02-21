@@ -1,7 +1,6 @@
 IWitness.routes = {
   draw: function() {
-    SC.routes.add('/search/:keyword/:rawStart/:rawEnd', this, this.search);
-    // /search/foo/2012-01-12T12:23/2012-01-12T4:00/?...
+    SC.routes.add('/search/:keyword/:rawStart/:rawEnd/:useTimezone', this, this.search);
   },
 
   search: function(params) {
@@ -24,7 +23,8 @@ IWitness.routes = {
     var route = '/search' +
       '/' + criteria.get('keyword') +
       '/' + criteria.get('rawStart').format('YYYY-MM-DDTHH:mm') +
-      '/' + criteria.get('rawEnd').format('YYYY-MM-DDTHH:mm');
+      '/' + criteria.get('rawEnd').format('YYYY-MM-DDTHH:mm') +
+      '/' + criteria.get('useTimezone');
     SC.routes.set('location', _.extend(props, {route: route}));
   }
 }
