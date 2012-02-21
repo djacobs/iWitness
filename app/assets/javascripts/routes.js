@@ -1,6 +1,7 @@
 IWitness.routes = {
   draw: function() {
-    SC.routes.add('/search', this, this.search);
+    SC.routes.add('/search/:keyword/:rawStart/:rawEnd', this, this.search);
+    // /search/foo/2012-01-12T12:23/2012-01-12T4:00/?...
   },
 
   search: function(params) {
@@ -10,14 +11,20 @@ IWitness.routes = {
     params.zoom      = parseInt(params.zoom);
     params.radius    = parseInt(params.radius);
 
+    params.rawStart = moment(params.rawStart, "YYYY-MM-DDTHH:mm");
+    params.rawEnd   = moment(params.rawEnd, "YYYY-MM-DDTHH:mm");
+
     IWitness.searchCriteria.setProperties(params);
 
     IWitness.searchController.search();
   },
 
   visitSearch: function(criteria) {
-    var props = criteria.getProperties('startDate', 'startTime', 'endDate', 'endTime',
-                  'keyword', 'zoom', 'center', 'northEast', 'southWest', 'radius');
-    SC.routes.set('location', _.extend(props, {route: '/search'}));
+    var props = criteria.getProperties('zoom', 'center', 'northEast', 'southWest', 'radius');
+    var route = '/search' +
+      '/' + criteria.get('keyword') +
+      '/' + criteria.get('rawStart').format('YYYY-MM-DDTHH:mm') +
+      '/' + criteria.get('rawEnd').format('YYYY-MM-DDTHH:mm');
+    SC.routes.set('location', _.extend(props, {route: route}));
   }
 }
