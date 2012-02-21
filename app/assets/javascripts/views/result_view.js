@@ -8,8 +8,14 @@ IWitness.ResultView = Ember.View.extend({
   }.property('IWitness.resultSetController.selectedResult'),
 
   postedTime: function() {
-    return this.getPath('model.postedMoment').format('M/D h:mma z');
-  }.property('model.postedMoment'),
+    var m = this.getPath('model.postedMoment');
+    if (IWitness.searchCriteria.get('useTimezone') == 'mine') {
+      return m.format('M/D h:mma');
+    } else {
+      var offset = IWitness.searchCriteria.get('mapTimezoneOffset');
+      return m.formatWithTimezoneOffset(offset, 'M/D h:mma');
+    }
+  }.property('model.postedMoment', 'IWitness.searchCriteria.useTimezone'),
 
   click: function(e) {
     if (e.target.tagName.toLowerCase() == 'a') return;

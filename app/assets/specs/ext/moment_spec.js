@@ -23,6 +23,25 @@ describe("Moment", function(){
     });
   });
 
+  describe("formatWithTimezoneOffset", function(){
+    beforeEach(function() {
+      m = moment("1/1/2012 15:00 +0000");
+    });
+
+    it("represents a time based on the timezone offset", function(){
+      expect(m.formatWithTimezoneOffset(-8, 'hh:mm')).toEqual('07:00')
+    });
+
+    it("throws an error if timezone is specified in the format string", function(){
+      expect(function() { m.formatWithTimezoneOffset(2, 'hh:mm ZZ') }).toThrow();
+    });
+
+    it("does not mutate the time", function(){
+      m.formatWithTimezoneOffset(-8, 'MM/DD');
+      expect(m.diff(moment("1/1/2012 15:00 +0000"))).toEqual(0);
+    });
+  });
+
   describe("isAfter", function(){
     it("returns true when later than the moment passed in", function() {
       var earlyMoment = moment('1/1/2012 9:00 AM');
