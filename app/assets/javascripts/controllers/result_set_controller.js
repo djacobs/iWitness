@@ -16,7 +16,7 @@ IWitness.resultSetController = Ember.ArrayController.create({
     this.set('selectedResult', null);
   },
 
-  sortFn: function(a,b) {
+  _sortFn: function(a,b) {
     if (!a || !b) return 1;
     if (a.get("postedMoment").isBefore(b.get("postedMoment"))) {
       return 1;
@@ -30,10 +30,10 @@ IWitness.resultSetController = Ember.ArrayController.create({
     var len = this.get("length");
     if (len === 0) return 0;
 
-    var comp = this.sortFn(obj, this.objectAt(idx));
+    var comp = this._sortFn(obj, this.objectAt(idx));
     while (comp > 0 && idx < len) {
       idx++;
-      comp = this.sortFn(obj, this.objectAt(idx));
+      comp = this._sortFn(obj, this.objectAt(idx));
     }
     return idx;
   }
