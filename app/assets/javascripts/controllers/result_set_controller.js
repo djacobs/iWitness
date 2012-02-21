@@ -16,24 +16,15 @@ IWitness.resultSetController = Ember.ArrayController.create({
     this.set('selectedResult', null);
   },
 
-  _sortFn: function(a,b) {
-    if (!a || !b) return 1;
-    if (a.get("postedMoment").isBefore(b.get("postedMoment"))) {
-      return 1;
-    } else {
-      return -1;
-    }
-  },
-
   _findInsertionPoint: function(obj) {
     var idx = 0;
     var len = this.get("length");
     if (len === 0) return 0;
 
-    var comp = this._sortFn(obj, this.objectAt(idx));
+    var comp = Ember.compare(obj, this.objectAt(idx));
     while (comp > 0 && idx < len) {
       idx++;
-      comp = this._sortFn(obj, this.objectAt(idx));
+      comp = Ember.compare(obj, this.objectAt(idx));
     }
     return idx;
   }
