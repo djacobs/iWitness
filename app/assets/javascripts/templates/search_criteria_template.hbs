@@ -4,16 +4,25 @@
     {{view Ember.TextField id="keyword" valueBinding="model.keyword"}}
   </div>
 
+  <hr>
+
+  <div class="field stream_selector">
+    <label class="checkbox">
+      {{view streamSelector}}
+      Watch the live stream
+    </label>
+  </div>
+
   <div class="field">
     <label for="start_date">Start Date</label>
-    {{view Ember.TextField id="start_date" valueBinding="model.startDateString" class="date"}}
-    {{view Ember.TextField id="start_time" valueBinding="model.startTimeString" class="time"}}
+    {{view dateField id="start_date" valueBinding="model.startDateString" class="date input-small"}}
+    {{view dateField id="start_time" valueBinding="model.startTimeString" class="time input-small"}}
   </div>
 
   <div class="field">
     <label for="end_date">End Date</label>
-    {{view Ember.TextField id="end_date" valueBinding="model.endDateString" class="date"}}
-    {{view Ember.TextField id="end_time" valueBinding="model.endTimeString" class="time"}}
+    {{view dateField id="end_date" valueBinding="model.endDateString" class="date input-small"}}
+    {{view dateField id="end_time" valueBinding="model.endTimeString" class="time input-small"}}
   </div>
 
   <div class="field">
@@ -31,5 +40,7 @@
 
   {{view IWitness.MapView}}
 
-  <input type="submit" value="Search" {{action search}}>
+  <button class="btn btn-primary" {{action "search"}}>
+    {{buttonText}}
+  </button>
 </div>

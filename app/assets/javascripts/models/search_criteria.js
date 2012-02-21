@@ -1,5 +1,6 @@
 IWitness.searchCriteria = Ember.Object.create({
   useTimezone: 'mine',
+  stream: false,
 
   timezoneOffset: function() {
     return parseInt(moment().format('ZZZ'), 10) / 100;

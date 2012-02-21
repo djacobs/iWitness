@@ -3,6 +3,14 @@ IWitness.SearchCriteriaView = Ember.View.extend({
   modelBinding: 'IWitness.searchController.content',
   radius: 1,
 
+  buttonText: function() {
+    if (this.getPath('model.stream')) {
+      return 'Begin Streaming';
+    } else {
+      return 'Search';
+    }
+  }.property('model.stream'),
+
   search: function(e) {
     IWitness.routes.visitSearch(this.get('model'));
   },
@@ -12,11 +20,29 @@ IWitness.SearchCriteriaView = Ember.View.extend({
     this.$('.time').timePicker({show24Hours: false});
   },
 
-  timezoneSelector: Ember.View.extend({
+  streamSelector: Ember.View.extend({
     attributeBindings: ['type', 'checked'],
+    tagName: 'input',
+    type: 'checkbox',
+    checkedBinding: 'model.stream',
+    modelBinding: 'IWitness.searchController.content',
+
+    change: function() {
+      this.setPath('model.stream', this.$().is(':checked'));
+    }
+  }),
+
+  dateField: Ember.TextField.extend({
+    disabledBinding: 'model.stream',
+    modelBinding: 'IWitness.searchController.content'
+  }),
+
+  timezoneSelector: Ember.View.extend({
+    attributeBindings: ['type', 'checked', 'disabled'],
     tagName:           'input',
     type:              'radio',
     checkedBinding:    'isSelected',
+    disabledBinding: 'model.stream',
     modelBinding:      'IWitness.searchController.content',
 
     isSelected: function() {
