@@ -4,7 +4,7 @@ IWitness.SearchCriteriaView = Ember.View.extend({
   radius: 1,
 
   search: function(e) {
-    IWitness.searchController.search();
+    IWitness.routes.visitSearch(this.get('model'));
   },
 
   didInsertElement: function() {

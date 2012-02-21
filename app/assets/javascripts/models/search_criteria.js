@@ -1,5 +1,4 @@
 IWitness.searchCriteria = Ember.Object.create({
-  flickrKey:   'd8e03d0c91caffad9c85eccb1a54dc18',
   useTimezone: 'mine',
 
   timezoneOffset: function() {
@@ -15,13 +14,27 @@ IWitness.searchCriteria = Ember.Object.create({
     return this.get('timezoneOffset') - this.get('mapTimezoneOffset');
   }.property('timezoneOffset', 'mapTimezoneOffset').cacheable(),
 
-  rawStart: function() {
-    return this.get('startDate') + ' ' + this.get('startTime');
-  }.property('startDate', 'startTime').cacheable(),
+  rawStart: function(key, value) {
+    if (arguments.length === 1) {
+      return moment(this.get('startDateString') + ' ' + this.get('startTimeString'));
+    } else {
+      value = moment(value);
+      this.set('startDateString', value.format('M/D/YYYY'));
+      this.set('startTimeString', value.format('h:mm A'));
+      return value;
+    }
+  }.property('startDateString', 'startTimeString').cacheable(),
 
-  rawEnd: function() {
-    return this.get('endDate') + ' ' + this.get('endTime');
-  }.property('endDate', 'endTime').cacheable(),
+  rawEnd: function(key, value) {
+    if (arguments.length === 1) {
+      return moment(this.get('endDateString') + ' ' + this.get('endTimeString'));
+    } else {
+      value = moment(value);
+      this.set('endDateString', value.format('M/D/YYYY'));
+      this.set('endTimeString', value.format('h:mm A'));
+      return value;
+    }
+  }.property('endDateString', 'endTimeString').cacheable(),
 
   start: function() {
     return this._getAdjustedForMap('rawStart');
@@ -42,7 +55,6 @@ IWitness.searchCriteria = Ember.Object.create({
 
   searchParams: function() {
     return this.getProperties('mapTimezoneOffset',
-                              'flickrKey',
                               'center',
                               'radius',
                               'keyword',
@@ -59,9 +71,9 @@ IWitness.searchCriteria = Ember.Object.create({
   errors: function() {
     var errors = [];
 
-    if (_.isEmpty(this.get('startDate')) || _.isEmpty(this.get('startTime')))
+    if (_.isEmpty(this.get('startDateString')) || _.isEmpty(this.get('startTimeString')))
       errors.push("Please select a start date.");
-    if (_.isEmpty(this.get('endDate')) || _.isEmpty(this.get('endTime')))
+    if (_.isEmpty(this.get('endDateString')) || _.isEmpty(this.get('endTimeString')))
       errors.push("Please select an end date.");
     if (_.isEmpty(errors) && moment(this.get('end')).isBefore(moment(this.get('start'))))
       errors.push("Select a start date that comes before the end date.");
@@ -72,15 +84,12 @@ IWitness.searchCriteria = Ember.Object.create({
   }.property('start', 'end', 'radius').cacheable(),
 
   _getAdjustedForMap: function(prop) {
-    var rawTime = this.get(prop);
-    var adjustedTime = rawTime;
-
     if (this.get('useTimezone') != 'mine') {
-      var m = moment(rawTime);
-      m.add('hours', this.get('timezoneDifference'));
-      adjustedTime = m.format('M/D/YYYY h:mm A');
+      var adjustedTime = moment(this.get(prop));
+      adjustedTime.add('hours', this.get('timezoneDifference'));
+      return adjustedTime;
+    } else {
+      return this.get(prop);
     }
-
-    return adjustedTime;
   }
 });

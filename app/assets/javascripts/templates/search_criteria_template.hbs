@@ -6,14 +6,14 @@
 
   <div class="field">
     <label for="start_date">Start Date</label>
-    {{view Ember.TextField id="start_date" valueBinding="model.startDate" class="date"}}
-    {{view Ember.TextField id="start_time" valueBinding="model.startTime" class="time"}}
+    {{view Ember.TextField id="start_date" valueBinding="model.startDateString" class="date"}}
+    {{view Ember.TextField id="start_time" valueBinding="model.startTimeString" class="time"}}
   </div>
 
   <div class="field">
     <label for="end_date">End Date</label>
-    {{view Ember.TextField id="end_date" valueBinding="model.endDate" class="date"}}
-    {{view Ember.TextField id="end_time" valueBinding="model.endTime" class="time"}}
+    {{view Ember.TextField id="end_date" valueBinding="model.endDateString" class="date"}}
+    {{view Ember.TextField id="end_time" valueBinding="model.endTimeString" class="time"}}
   </div>
 
   <div class="field">

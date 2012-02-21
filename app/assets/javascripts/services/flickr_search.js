@@ -3,7 +3,6 @@ var FlickrSearch = function(params){
   this.start              = moment(params.start);
   this.end                = moment(params.end);
   this.keyword            = params.keyword;
-  this.flickrKey          = params.flickrKey;
   this.boundingBox        = [params.southWest[1], params.southWest[0], params.northEast[1], params.northEast[0]].join(',');
   this.mapTimezoneOffset  = params.mapTimezoneOffset;
   this.target             = 0;
@@ -37,7 +36,7 @@ _.extend(FlickrSearch.prototype, {
   _flickrParams: function(){
 
     return {
-      api_key:        this.flickrKey,
+      api_key:        'd8e03d0c91caffad9c85eccb1a54dc18',
       bbox:           this.boundingBox,
       sort:           'date-taken-desc',
       min_taken_date: this._adjustTime(this.start),
