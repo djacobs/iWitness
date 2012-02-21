@@ -8,7 +8,21 @@ IWitness.FlickrResult = Ember.Object.extend({
   contentTextBinding:     'description._content',
 
   postedMoment: function() {
-    return moment(this.get('datetaken'), 'YYYY-MM-DD hh:mm:ss');
+    var offset   = IWitness.searchCriteria.get('mapTimezoneOffset') || 0;
+    var timezone = '+0000';
+
+    if (offset > 9) {
+      timezone = '+' + Math.abs(offset) + '00';
+    } else if (offset > 0) {
+      timezone = '+0' + Math.abs(offset) + '00';
+    } else if (offset < -9) {
+      timezone = '-' + Math.abs(offset) + '00';
+    } else if (offset < 0) {
+      timezone = '-0' + Math.abs(offset) + '00';
+    }
+
+    var datetaken = this.get('datetaken') + ' ' + timezone;
+    return moment(datetaken, 'YYYY-MM-DD HH:mm:ss Z');
   }.property('datetaken'),
 
   userUrl: function(){
