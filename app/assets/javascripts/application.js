@@ -7,6 +7,7 @@
 //= require sproutcore-routing/lib/core.js
 //= require moment
 //= require ext/moment_ext
+//= require kdtree
 //= require_tree ./templates
 //= require base
 //= require ./models/space_and_time
