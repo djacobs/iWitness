@@ -12,7 +12,17 @@ IWitness.SearchCriteriaView = Ember.View.extend({
   }.property('model.stream'),
 
   search: function(e) {
-    IWitness.routes.visitSearch(this.get('model'));
+    var model = this.get('model');
+
+    IWitness.searchController.set('searchAttempted', true);
+
+    if (model.get('isValid')) {
+      if (this.getPath('model.stream')) {
+        IWitness.routes.visitStream(model);
+      } else {
+        IWitness.routes.visitSearch(model);
+      }
+    }
   },
 
   didInsertElement: function() {

@@ -72,17 +72,20 @@ IWitness.searchCriteria = Ember.Object.create({
   errors: function() {
     var errors = [];
 
-    if (_.isEmpty(this.get('startDateString')) || _.isEmpty(this.get('startTimeString')))
-      errors.push("Please select a start date.");
-    if (_.isEmpty(this.get('endDateString')) || _.isEmpty(this.get('endTimeString')))
-      errors.push("Please select an end date.");
-    if (_.isEmpty(errors) && moment(this.get('end')).isBefore(moment(this.get('start'))))
-      errors.push("Select a start date that comes before the end date.");
+    if (!this.get('stream')) {
+      if (_.isEmpty(this.get('startDateString')) || _.isEmpty(this.get('startTimeString')))
+        errors.push("Please select a start date.");
+      if (_.isEmpty(this.get('endDateString')) || _.isEmpty(this.get('endTimeString')))
+        errors.push("Please select an end date.");
+      if (_.isEmpty(errors) && moment(this.get('end')).isBefore(moment(this.get('start'))))
+        errors.push("Select a start date that comes before the end date.");
+    }
+
     if (this.get('radius') > 75)
       errors.push("Increase the map zoom in order to provide more relevant results.");
 
     return errors;
-  }.property('start', 'end', 'radius').cacheable(),
+  }.property('start', 'end', 'radius', 'stream').cacheable(),
 
   _getAdjustedForMap: function(prop) {
     if (this.get('useTimezone') != 'mine') {

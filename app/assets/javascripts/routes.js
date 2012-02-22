@@ -1,6 +1,7 @@
 IWitness.routes = {
   draw: function() {
     SC.routes.add('/search/:keyword/:rawStart/:rawEnd/:useTimezone', this, this.search);
+    SC.routes.add('/stream/:keyword', this, this.stream);
   },
 
   search: function(params) {
@@ -18,6 +19,11 @@ IWitness.routes = {
     IWitness.searchController.search();
   },
 
+  stream: function(params) {
+    // do stuff
+    console.log('streaming!', params);
+  },
+
   visitSearch: function(criteria) {
     var props = criteria.getProperties('zoom', 'center', 'northEast', 'southWest', 'radius');
     var route = '/search' +
@@ -25,6 +31,13 @@ IWitness.routes = {
       '/' + criteria.get('rawStart').format('YYYY-MM-DDTHH:mm') +
       '/' + criteria.get('rawEnd').format('YYYY-MM-DDTHH:mm') +
       '/' + criteria.get('useTimezone');
+    SC.routes.set('location', _.extend(props, {route: route}));
+  },
+
+  visitStream: function(criteria) {
+    var props = criteria.getProperties('zoom', 'center', 'northEast', 'southWest', 'radius');
+    var route = '/stream' +
+      '/' + criteria.get('keyword');
     SC.routes.set('location', _.extend(props, {route: route}));
   }
 }
