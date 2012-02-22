@@ -5,6 +5,7 @@ var LiveTwitterSearch = function(params){
   this.filter    = new TwitterFilter(params);
   this.total     = 0;
   this.isStopped = false;
+  this.currentPage = 1;
   IWitness.log('*** Live searching %s - %s ***', params.start, params.end);
 };
 
@@ -12,25 +13,33 @@ _.extend(LiveTwitterSearch.prototype, {
   start: function(pollingInterval) {
     var self = this;
     self.fetchResults(_.bind(self._gotData, self));
-    setInterval(function(){
+    this.interval = setInterval(function(){
       self.fetchResults(_.bind(self._gotData, self));
     }, pollingInterval*1000);
   },
 
   _gotData: function(data){
-    console.log('gotdata', data);
-    if(data.results.length) this.sinceId = data.results[0].id_str;
+    this.sinceId = data.max_id_str;
+
     var filtered = this.filter.filterGeo(data.results);
     if (!_.isEmpty(filtered)){
       Ember.sendEvent(this, 'data', filtered);
     }
+
+    if (this.currentPage < 15 && data.results.length) {
+      this.currentPage++;
+      this.fetchResults(_.bind(this._gotData, this));
+    } else {
+      this.currentPage = 1;
+    }
   },
 
   stop: function(){
+    clearInterval(this.interval);
   },
 
   fetchResults: function(callback) {
-    console.log('fetching...');
+    IWitness.log('requesting', this.queryParams());
     $.getJSON(
       "http://search.twitter.com/search.json?callback=?",
       this.queryParams(),
@@ -45,7 +54,8 @@ _.extend(LiveTwitterSearch.prototype, {
       q:           this.params.keyword,
       geocode:     this.location(),
       rpp:         100,
-      since_id:    this.sinceId
+      since_id:    this.sinceId,
+      page:        this.currentPage
     };
   },
 

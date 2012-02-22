@@ -84,7 +84,6 @@ _.extend(TwitterQuery.prototype, {
   checkForEnd: function(results){
     var last     = _.last(results);
     var lastTime = last && moment(last.created_at);
-    console.log("maxId: %s && last.id_str: %s", this.maxId, last && last.id_str);
 
     if (!last) {
       IWitness.log('--- no more results ---');
