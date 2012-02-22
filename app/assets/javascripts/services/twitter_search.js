@@ -22,6 +22,8 @@ _.extend(TwitterSearch.prototype, {
 
   _gotData: function(data){
     if(!data.results.length) return Ember.sendEvent(this, 'done');
+    if(!this.maxId) this.maxId = data.results[0].id_str;
+
     var filtered = this.filter.filter(data.results);
 
     IWitness.log('%s to %s - %s found / %s passed',

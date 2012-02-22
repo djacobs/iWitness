@@ -35,6 +35,30 @@ IWitness.searchController = Ember.Object.create({
     }
   },
 
+  liveSearch: function() {
+    var self = this;
+    this.set('searchAttempted', true);
+    this.set('doingItLive', true);
+
+    if (this.getPath('content.isValid')) {
+      IWitness.resultSetController.clearResults();
+      this.get('servicesWithResults').clear();
+      var params = this.get('content').searchParams();
+      params.start = moment().subtract('days', 7);
+      params.end = moment().add('days', 1);
+
+      this._stopExecutingSearches();
+
+      this.searches = [
+        new TwitterSearch(params)
+      ];
+
+      _.each(this.searches, function(search) {
+        self._executeSearch(search);
+      });
+    }
+  },
+
   _executeSearch: function(search){
     this.get('servicesBeingSearched').add(search.type);
     Ember.addListener(search, 'data', this, this._handleResults);
@@ -56,7 +80,17 @@ IWitness.searchController = Ember.Object.create({
   },
 
   _searchServiceIsDone: function(search, e) {
-    this.get('servicesBeingSearched').remove(search.type);
+    if(this.get("doingItLive")){
+      this._initializeLiveSearch(search);
+    } else {
+      this.get('servicesBeingSearched').remove(search.type);
+    }
+  },
+
+  _initializeLiveSearch: function(staticSearch){
+    var search = new LiveTwitterSearch(_.extend(IWitness.searchCriteria.searchParams(), {sinceId: staticSearch.maxId}));
+    Ember.addListener(search, 'data', this, this._handleResults);
+    search.start(90);
   },
 
   _statusForService: function(type) {

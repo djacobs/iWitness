@@ -19,7 +19,6 @@ describe("IWitness.FlickrResult", function() {
       var dateTakenPSTString = '2012-02-12 09:00:00';
       spyOnProperties(IWitness.searchCriteria, {mapTimezoneOffset: -8});
       subject.set('datetaken', dateTakenPSTString);
-      console.log('postedMoment', subject.get('postedMoment'));
       expect(subject.get('postedMoment').toString()).toEqual(dateTaken.toString());
     });
   });

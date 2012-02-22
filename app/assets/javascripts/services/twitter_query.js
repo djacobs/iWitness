@@ -52,7 +52,7 @@ _.extend(TwitterQuery.prototype, {
 
       if (lastTweetAt.isAfter(self.end)) {
         IWitness.log('fast-forward 15 pages to id %s', lastTweetAt.format("hh:mm"));
-        self.maxId = lastTweet.id;
+        self.maxId = lastTweet.id_str;
         self.determineStartingPoint(callback);
       } else {
         callback();
@@ -76,7 +76,7 @@ _.extend(TwitterQuery.prototype, {
       var lastTweet = _.last(data.results);
 
       self.checkForEnd(data.results);
-      if(lastTweet) self.maxId = lastTweet.id;
+      if(lastTweet) self.maxId = lastTweet.id_str;
       callback(data);
     });
   },
@@ -84,6 +84,7 @@ _.extend(TwitterQuery.prototype, {
   checkForEnd: function(results){
     var last     = _.last(results);
     var lastTime = last && moment(last.created_at);
+    console.log("maxId: %s && last.id_str: %s", this.maxId, last && last.id_str);
 
     if (!last) {
       IWitness.log('--- no more results ---');
@@ -91,7 +92,7 @@ _.extend(TwitterQuery.prototype, {
     } else if (lastTime < this.start){
       IWitness.log('--- end of timeframe ---');
       this.isDone = true;
-    } else if (this.maxId == last.id) {
+    } else if (this.maxId == last.id_str) {
       IWitness.log('--- consecutive search with same results ---');
       this.isDone = true;
     }

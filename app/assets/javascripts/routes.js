@@ -20,8 +20,15 @@ IWitness.routes = {
   },
 
   stream: function(params) {
-    // do stuff
-    console.log('streaming!', params);
+    params.center    = params.center.split(',');
+    params.northEast = params.northEast.split(',');
+    params.southWest = params.southWest.split(',');
+    params.zoom      = parseInt(params.zoom);
+    params.radius    = parseInt(params.radius);
+
+    IWitness.searchCriteria.setProperties(params);
+
+    IWitness.searchController.liveSearch();
   },
 
   visitSearch: function(criteria) {

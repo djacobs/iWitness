@@ -17,6 +17,13 @@ _.extend(TwitterFilter.prototype, {
     return inTimeframe;
   },
 
+  filterGeo: function(results){
+    var self = this;
+    return _.filter(results, function(result){
+      return self.hasGeo(result);
+    });
+  },
+
   filter: function(results) {
     var self = this;
     return _.filter(results, function(result){
