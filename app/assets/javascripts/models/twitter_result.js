@@ -1,8 +1,13 @@
 IWitness.TwitterResult = IWitness.Result.extend({
+  resultType:             'twitter',
   permalinkText:          'twitter',
   avatarSrcBinding:       'profileImageUrl',
   userNamePrimaryBinding: 'fromUserName',
   contentTextBinding:     'text',
+
+  resultId: function(){
+    return this.get('resultType') +'-'+ this.get('idStr');
+  }.property('idStr'),
 
   userNameSecondary: function() {
     return '@' + this.get('fromUser');

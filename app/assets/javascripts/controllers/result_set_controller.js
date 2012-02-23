@@ -7,7 +7,8 @@ IWitness.resultSetController = Ember.ArrayController.create({
     results.forEach(function(result) {
       var result = IWitness.resultFactory.create(type, result);
       var idx = self._findInsertionPoint(result);
-      self.insertAt(idx, result);
+      if (idx !== null)
+        self.insertAt(idx, result);
     });
   },
 
@@ -26,6 +27,7 @@ IWitness.resultSetController = Ember.ArrayController.create({
       idx++;
       comp = Ember.compare(obj, this.objectAt(idx));
     }
+    if (comp === 0) return null;
     return idx;
   }
 });
