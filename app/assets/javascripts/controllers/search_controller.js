@@ -4,6 +4,7 @@ IWitness.searchController = Ember.Object.create({
   searches:              [],
   servicesBeingSearched: new Ember.Set(),
   servicesWithResults:   new Ember.Set(),
+  doingItLive:           false,
 
   flickrStatus: function(){
     return this._statusForService('flickr');
@@ -16,6 +17,7 @@ IWitness.searchController = Ember.Object.create({
   search: function() {
     var self = this;
     this.set('searchAttempted', true);
+    this.set('doingItLive', false);
 
     if (this.getPath('content.isValid')) {
       IWitness.resultSetController.clearResults();
