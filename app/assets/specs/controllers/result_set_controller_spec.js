@@ -26,5 +26,11 @@ describe("IWitness.ResultSetController", function() {
         return time.format("MM/DD/YYYY");
       })).toEqual(["01/03/2012", "01/02/2012", "01/01/2012"]);
     });
+
+    it("does not insert duplicate results", function(){
+      controller.pushResults("twitter", [makeTweet({id_str: "123"})]);
+      controller.pushResults("twitter", [makeTweet({id_str: "123"})]);
+      expect(controller.get("length")).toEqual(1);
+    });
   });
 });
