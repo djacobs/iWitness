@@ -9,20 +9,22 @@ var FlickrSearch = function(params){
   this.total              = 0;
   this.minUploadDate      = null;
   this.url                = 'http://api.flickr.com/services/rest/?jsoncallback=?'
+  this.stream             = params.stream;
   IWitness.log('*** searching Flickr %s - %s ***', params.start, params.end);
 }
 
 _.extend(FlickrSearch.prototype, {
   fetch: function(target){
     this.target += target;
-
     $.getJSON(this.url, this._searchParams(), _.bind(this._gotData, this));
+    if (this.stream) {
+      this._startStreaming(30);
+    }
   },
 
-  startStreaming: function(pollInterval){
+  _startStreaming: function(pollInterval){
     IWitness.log("start flickr stream");
     var self = this;
-    self.streaming = true;
     self.minUploadDate = self.minUploadDate || self._adjustTime(moment());
     self.interval = setInterval(function(){
       IWitness.log('minUploadDate:', self.minUploadDate);
@@ -32,6 +34,7 @@ _.extend(FlickrSearch.prototype, {
 
   stop: function() {
     clearInterval(this.interval);
+    Ember.sendEvent(this, 'done');
   },
 
   _gotData: function(data){
@@ -43,7 +46,7 @@ _.extend(FlickrSearch.prototype, {
       this.minUploadDate = parseInt(maxPhoto.dateupload)+1;
     }
     Ember.sendEvent(this, 'data', data.photos.photo);
-    if(!this.streaming){
+    if(!this.stream){
       Ember.sendEvent(this, 'done');
     }
   },

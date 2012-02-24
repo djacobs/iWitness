@@ -70,7 +70,8 @@ IWitness.searchCriteria = Ember.Object.create({
                               'start',
                               'end',
                               'northEast',
-                              'southWest');
+                              'southWest',
+                              'stream');
   },
 
   isValid: function() {

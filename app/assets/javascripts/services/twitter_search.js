@@ -6,18 +6,17 @@ var TwitterSearch = function(params){
   this.total     = 0;
   this.target    = 0;
   this.isStopped = false;
+  this.stream    = params.stream;
   IWitness.log('*** searching %s - %s ***', params.start, params.end);
 }
 
 _.extend(TwitterSearch.prototype, {
   fetch: function(target){
-    if( this.isStopped ) return Ember.sendEvent(this, 'done');
-    
     this.target += target;
     this.query.getNext(_.bind(this._gotData, this));
   },
 
-  startStreaming: function(pollingInterval) {
+  _startStreaming: function(pollingInterval) {
     if (this.isStopped) return;
     IWitness.log("starting live twitter stream");
     this.liveSearch = new LiveTwitterSearch(this.params)
@@ -31,6 +30,7 @@ _.extend(TwitterSearch.prototype, {
     if (this.liveSearch) {
       Ember.removeListener(this.liveSearch, 'data', this._reSendEvent);
       this.liveSearch.stop();
+      Ember.sendEvent(this, 'done');
     }
   },
 
@@ -38,12 +38,20 @@ _.extend(TwitterSearch.prototype, {
     Ember.sendEvent(this, 'data', data);
   },
 
+  _doneSearching: function(){
+    if (this.stream){
+      this._startStreaming(30);
+    } else {
+      Ember.sendEvent(this, 'done');
+    }
+  },
+
   _gotData: function(data){
     if(data.error) {
       IWitness.log("Twitter error: %s", data.error);
-      return Ember.sendEvent(this, 'done');
+      return this._doneSearching();
     }
-    if(!data.results.length) return Ember.sendEvent(this, 'done');
+    if(!data.results.length) return this._doneSearching();
     if(!this.maxId) this.maxId = data.results[0].id_str;
 
     var filtered = this.filter.filter(data.results);
@@ -61,11 +69,11 @@ _.extend(TwitterSearch.prototype, {
 
     if (this.total >= this.target) {
       IWitness.log('--- got %s total results ---', this.total);
-      Ember.sendEvent(this, 'done');
+      this._doneSearching();
     } else if ( !this.query.isDone && !this.isStopped ) {
       this.query.getNext(_.bind(this._gotData, this));
     } else {
-      Ember.sendEvent(this, 'done');
+      this._doneSearching();
     }
   }
 
