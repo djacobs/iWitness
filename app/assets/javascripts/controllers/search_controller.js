@@ -14,6 +14,10 @@ IWitness.searchController = Ember.Object.create({
     return this._statusForService('twitter');
   }.property('servicesBeingSearched.length', 'servicesWithResults.length'),
 
+  stopSearch: function(){
+    this._stopExecutingSearches();
+  }.observes('content.stream'),
+
   search: function() {
     var self = this;
     this.set('searchAttempted', true);
@@ -52,7 +56,7 @@ IWitness.searchController = Ember.Object.create({
       this._stopExecutingSearches();
 
       this.searches = [
-        // new TwitterSearch(params),
+        new TwitterSearch(params),
         new FlickrSearch(params)
       ];
 
@@ -70,6 +74,7 @@ IWitness.searchController = Ember.Object.create({
   },
 
   _stopExecutingSearches: function(){
+    this.set("doingItLive", false);
     _.each(this.searches, function(search) {
       search.stop();
       Ember.removeListener(search, 'data', this, this._handleResults);

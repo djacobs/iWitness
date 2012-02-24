@@ -18,6 +18,8 @@ _.extend(TwitterSearch.prototype, {
   },
 
   startStreaming: function(pollingInterval) {
+    if (this.isStopped) return;
+    IWitness.log("starting live twitter stream");
     this.liveSearch = new LiveTwitterSearch(this.params)
     this.liveSearch.sinceId = this.maxId;
     Ember.addListener(this.liveSearch, 'data', this, this._reSendEvent);
