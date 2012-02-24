@@ -1,4 +1,5 @@
 var TwitterSearch = function(params){
+  this.params    = params;
   this.type      = 'twitter';
   this.query     = new TwitterQuery(params);
   this.filter    = new TwitterFilter(params);
@@ -16,8 +17,23 @@ _.extend(TwitterSearch.prototype, {
     this.query.getNext(_.bind(this._gotData, this));
   },
 
+  startStreaming: function(pollingInterval) {
+    this.liveSearch = new LiveTwitterSearch(this.params)
+    this.liveSearch.sinceId = this.maxId;
+    Ember.addListener(this.liveSearch, 'data', this, this._reSendEvent);
+    this.liveSearch.start(pollingInterval);
+  },
+
   stop: function() {
     this.isStopped = true;
+    if (this.liveSearch) {
+      Ember.removeListener(this.liveSearch, 'data', this._reSendEvent);
+      this.liveSearch.stop();
+    }
+  },
+
+  _reSendEvent: function(search, e, data){
+    Ember.sendEvent(this, 'data', data);
   },
 
   _gotData: function(data){
@@ -46,5 +62,6 @@ _.extend(TwitterSearch.prototype, {
       Ember.sendEvent(this, 'done');
     }
   }
+
 });
 

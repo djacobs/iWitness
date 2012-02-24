@@ -20,11 +20,12 @@ _.extend(FlickrSearch.prototype, {
   },
 
   startStreaming: function(pollInterval){
+    IWitness.log("start flickr stream");
     var self = this;
     self.streaming = true;
     self.minUploadDate = self.minUploadDate || self._adjustTime(moment());
     self.interval = setInterval(function(){
-      IWitness.log('request:', self._streamParams());
+      IWitness.log('minUploadDate:', self.minUploadDate);
       $.getJSON(self.url, self._streamParams(), _.bind(self._gotData, self));
     }, pollInterval*1000);
   },
@@ -34,7 +35,7 @@ _.extend(FlickrSearch.prototype, {
   },
 
   _gotData: function(data){
-    IWitness.log("got flickr results: %o", data);
+    IWitness.log("got flickr data");
     if (data.photos.photo.length){
       var maxPhoto = _.max(data.photos.photo, function(photo){
         return parseInt(photo.dateupload);

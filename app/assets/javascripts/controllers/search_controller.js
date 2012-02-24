@@ -83,19 +83,12 @@ IWitness.searchController = Ember.Object.create({
   },
 
   _searchServiceIsDone: function(search, e) {
+    IWitness.log("%s search is done", search.type);
     if(this.get("doingItLive")){
-      this._initializeLiveSearch(search);
+      search.startStreaming(30)
     } else {
       this.get('servicesBeingSearched').remove(search.type);
     }
-  },
-
-  _initializeLiveSearch: function(staticSearch){
-    // var search = new LiveTwitterSearch(_.extend(IWitness.searchCriteria.searchParams(), {sinceId: staticSearch.maxId}));
-    staticSearch.startStreaming(30)
-    // this.searches.push(search);
-    // Ember.addListener(search, 'data', this, this._handleResults);
-    // search.start(90);
   },
 
   _statusForService: function(type) {
