@@ -6,7 +6,6 @@ var LiveTwitterSearch = function(params){
   this.total     = 0;
   this.isStopped = false;
   this.currentPage = 1;
-  IWitness.log('*** Live searching %s - %s ***', params.start, params.end);
 };
 
 _.extend(LiveTwitterSearch.prototype, {
@@ -19,6 +18,9 @@ _.extend(LiveTwitterSearch.prototype, {
   },
 
   _gotData: function(data){
+    if(data.error) {
+      IWitness.log("Twitter error: %s", data.error);
+    }
     this.sinceId = data.max_id_str;
 
     var filtered = this.filter.filterGeo(data.results);

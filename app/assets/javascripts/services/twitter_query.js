@@ -64,7 +64,7 @@ _.extend(TwitterQuery.prototype, {
     $.getJSON(
       "http://search.twitter.com/search.json?callback=?",
       this.queryParams(params),
-      function(response) { if (response.results) callback(response) }
+      function(response) { callback(response) }
     );
     //TODO handle when results property does not exist in response
   },
@@ -73,10 +73,11 @@ _.extend(TwitterQuery.prototype, {
     var self = this;
 
     self.fetchResults({}, function(data) {
-      var lastTweet = _.last(data.results);
-
-      self.checkForEnd(data.results);
-      if(lastTweet) self.maxId = lastTweet.id_str;
+      if (!data.error) {
+        var lastTweet = _.last(data.results);
+        self.checkForEnd(data.results);
+        if(lastTweet) self.maxId = lastTweet.id_str;
+      }
       callback(data);
     });
   },

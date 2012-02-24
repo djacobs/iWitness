@@ -39,6 +39,10 @@ _.extend(TwitterSearch.prototype, {
   },
 
   _gotData: function(data){
+    if(data.error) {
+      IWitness.log("Twitter error: %s", data.error);
+      return Ember.sendEvent(this, 'done');
+    }
     if(!data.results.length) return Ember.sendEvent(this, 'done');
     if(!this.maxId) this.maxId = data.results[0].id_str;
 
