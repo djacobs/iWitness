@@ -17,25 +17,33 @@ IWitness.searchCriteria = Ember.Object.create({
 
   rawStart: function(key, value) {
     if (arguments.length === 1) {
-      return moment(this.get('startDateString') + ' ' + this.get('startTimeString'));
+      if (this.get('stream')) {
+        return moment().subtract('days', 7);
+      } else {
+        return moment(this.get('startDateString') + ' ' + this.get('startTimeString'));
+      }
     } else {
       value = moment(value);
       this.set('startDateString', value.format('M/D/YYYY'));
       this.set('startTimeString', value.format('h:mm A'));
       return value;
     }
-  }.property('startDateString', 'startTimeString').cacheable(),
+  }.property('startDateString', 'startTimeString', 'stream').cacheable(),
 
   rawEnd: function(key, value) {
     if (arguments.length === 1) {
-      return moment(this.get('endDateString') + ' ' + this.get('endTimeString'));
+      if (this.get('stream')) {
+        return moment().add('days', 1);
+      } else {
+        return moment(this.get('endDateString') + ' ' + this.get('endTimeString'));
+      }
     } else {
       value = moment(value);
       this.set('endDateString', value.format('M/D/YYYY'));
       this.set('endTimeString', value.format('h:mm A'));
       return value;
     }
-  }.property('endDateString', 'endTimeString').cacheable(),
+  }.property('endDateString', 'endTimeString', 'stream').cacheable(),
 
   start: function() {
     return this._getAdjustedForMap('rawStart');

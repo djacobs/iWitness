@@ -4,7 +4,6 @@ IWitness.searchController = Ember.Object.create({
   searches:              [],
   servicesBeingSearched: new Ember.Set(),
   servicesWithResults:   new Ember.Set(),
-  doingItLive:           false,
 
   flickrStatus: function(){
     return this._statusForService('flickr');
@@ -21,7 +20,6 @@ IWitness.searchController = Ember.Object.create({
   search: function() {
     var self = this;
     this.set('searchAttempted', true);
-    this.set('doingItLive', false);
 
     if (this.getPath('content.isValid')) {
       IWitness.resultSetController.clearResults();
@@ -41,31 +39,6 @@ IWitness.searchController = Ember.Object.create({
     }
   },
 
-  liveSearch: function() {
-    var self = this;
-    this.set('searchAttempted', true);
-    this.set('doingItLive', true);
-
-    if (this.getPath('content.isValid')) {
-      IWitness.resultSetController.clearResults();
-      this.get('servicesWithResults').clear();
-      var params = this.get('content').searchParams();
-      params.start = moment().subtract('days', 7);
-      params.end = moment().add('days', 1);
-
-      this._stopExecutingSearches();
-
-      this.searches = [
-        new TwitterSearch(params),
-        new FlickrSearch(params)
-      ];
-
-      _.each(this.searches, function(search) {
-        self._executeSearch(search);
-      });
-    }
-  },
-
   _executeSearch: function(search){
     this.get('servicesBeingSearched').add(search.type);
     Ember.addListener(search, 'data', this, this._handleResults);
@@ -74,7 +47,6 @@ IWitness.searchController = Ember.Object.create({
   },
 
   _stopExecutingSearches: function(){
-    this.set("doingItLive", false);
     _.each(this.searches, function(search) {
       search.stop();
       Ember.removeListener(search, 'data', this, this._handleResults);
@@ -89,7 +61,7 @@ IWitness.searchController = Ember.Object.create({
 
   _searchServiceIsDone: function(search, e) {
     IWitness.log("%s search is done", search.type);
-    if(this.get("doingItLive")){
+    if(this.getPath("content.stream")){
       search.startStreaming(30)
     } else {
       this.get('servicesBeingSearched').remove(search.type);

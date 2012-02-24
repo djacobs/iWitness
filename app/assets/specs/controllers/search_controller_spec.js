@@ -11,14 +11,16 @@ describe("searchController", function(){
     twitterSearch = {
       type: 'twitter',
       fetch: jasmine.createSpy("twitterSearch.fetch"),
-      stop:  jasmine.createSpy("twitterSearch.stop")
+      stop:  jasmine.createSpy("twitterSearch.stop"),
+      startStreaming: jasmine.createSpy("twitterSearch.startStreaming")
     }
     spyOn(window, 'TwitterSearch').andReturn(twitterSearch);
 
     flickrSearch = {
       type: 'flickr',
       fetch: jasmine.createSpy("flickrSearch.fetch"),
-      stop:  jasmine.createSpy("flickrSearch.stop")
+      stop:  jasmine.createSpy("flickrSearch.stop"),
+      startStreaming: jasmine.createSpy("flickrSearch.startStreaming")
     }
     spyOn(window, 'FlickrSearch').andReturn(flickrSearch);
   });
@@ -80,6 +82,20 @@ describe("searchController", function(){
     });
   });
 
+  describe('flickr results', function() {
+    it("adds flickr results to the result set", function(){
+      resultSetSpy = spyOn(IWitness.resultSetController, 'pushResults');
+      controller.search();
+      Ember.sendEvent(flickrSearch, 'data', 'photos');
+      expect(resultSetSpy).toHaveBeenCalledWith('flickr', "photos");
+    });
+
+    it("calls fetch on flickr", function(){
+      controller.search();
+      expect(flickrSearch.fetch).toHaveBeenCalled();
+    });
+  });
+
   describe('flickrStatus', function(){
     it("starts with 'no results'", function(){
       expect(controller.get('flickrStatus')).toEqual("no results");
@@ -105,18 +121,23 @@ describe("searchController", function(){
     });
   });
 
-  describe('flickr results', function() {
-    it("adds flickr results to the result set", function(){
-      resultSetSpy = spyOn(IWitness.resultSetController, 'pushResults');
+  describe('live stream', function(){
+    beforeEach(function(){ content.set('stream', true) });
+
+    it("starts twitter stream after 'done' event", function(){
       controller.search();
-      Ember.sendEvent(flickrSearch, 'data', 'photos');
-      expect(resultSetSpy).toHaveBeenCalledWith('flickr', "photos");
+      spyOn(IWitness.resultSetController, 'pushResults');
+      Ember.sendEvent(twitterSearch, 'done');
+      expect(twitterSearch.startStreaming).toHaveBeenCalled();
+      expect(controller.get('twitterStatus')).toEqual("searching");
     });
 
-    it("calls fetch on flickr", function(){
+    it("starts flickr stream after 'done' event", function(){
       controller.search();
-      expect(flickrSearch.fetch).toHaveBeenCalled();
+      spyOn(IWitness.resultSetController, 'pushResults');
+      Ember.sendEvent(flickrSearch, 'done');
+      expect(flickrSearch.startStreaming).toHaveBeenCalled();
+      expect(controller.get('flickrStatus')).toEqual("searching");
     });
   });
-
 });
