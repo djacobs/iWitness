@@ -120,24 +120,4 @@ describe("searchController", function(){
       expect(controller.get('flickrStatus')).toEqual("completed");
     });
   });
-
-  describe('live stream', function(){
-    beforeEach(function(){ content.set('stream', true) });
-
-    it("starts twitter stream after 'done' event", function(){
-      controller.search();
-      spyOn(IWitness.resultSetController, 'pushResults');
-      Ember.sendEvent(twitterSearch, 'done');
-      expect(twitterSearch.startStreaming).toHaveBeenCalled();
-      expect(controller.get('twitterStatus')).toEqual("searching");
-    });
-
-    it("starts flickr stream after 'done' event", function(){
-      controller.search();
-      spyOn(IWitness.resultSetController, 'pushResults');
-      Ember.sendEvent(flickrSearch, 'done');
-      expect(flickrSearch.startStreaming).toHaveBeenCalled();
-      expect(controller.get('flickrStatus')).toEqual("searching");
-    });
-  });
 });

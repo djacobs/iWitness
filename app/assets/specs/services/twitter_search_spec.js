@@ -37,14 +37,6 @@ describe("TwitterSearch", function() {
       expect(querySpy.callCount).toEqual(2);
     });
 
-    it("does not fetch results if the search has been stopped", function() {
-      var querySpy = spyOn(fakeQuery, 'getNext');
-      search.stop();
-      search.fetch(20);
-      expect(doneSpy).toHaveBeenCalled();
-      expect(querySpy).not.toHaveBeenCalled();
-    });
-
     it("does not fetch more results if the search is stopped after results received", function() {
       // we're asserting that query.getNext does not get called
       // after we have called stop.
