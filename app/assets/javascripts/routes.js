@@ -12,6 +12,7 @@ IWitness.routes = {
   },
 
   stream: function(params) {
+    params.stream = true;
     this._setSearchParams(params);
     IWitness.searchController.search();
   },
