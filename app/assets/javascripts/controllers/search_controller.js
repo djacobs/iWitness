@@ -22,16 +22,37 @@ IWitness.searchController = Ember.Object.create({
     this._stopExecutingSearches();
   }.observes('content.stream'),
 
+  oldSearch: function() {
+    this.set('searchAttempted', true);
+
+    this._stopExecutingSearches();
+    IWitness.resultSetController.clearResults();
+    this.get('servicesWithResults').clear();
+
+    console.log('oldSearch');
+    this.changeUrl();
+  }.observes('content.stream'),
+
+  changeUrl: _.debounce( function() {
+    console.log('running');
+    Ember.run.sync();
+
+    if (this.getPath('content.isValid')) {
+      console.log('valid');
+      if (this.getPath('content.stream')) {
+        IWitness.routes.visitStream(this.get('content'));
+      } else {
+        IWitness.routes.visitSearch(this.get('content'));
+      }
+    }
+  }, 3000),
+
   search: function() {
     var self = this;
     this.set('searchAttempted', true);
 
     if (this.getPath('content.isValid')) {
-      IWitness.resultSetController.clearResults();
-      this.get('servicesWithResults').clear();
       var params = this.get('content').searchParams();
-
-      this._stopExecutingSearches();
 
       this.searches = [
         new FlickrSearch(params),

@@ -1,7 +1,7 @@
 <div id="criteria">
   <div class="field">
     <label for="keyword">Keyword</label>
-    {{view Ember.TextField id="keyword" valueBinding="model.keyword"}}
+    {{view keywordField id="keyword" valueBinding="model.keyword"}}
   </div>
 
   <hr>
@@ -39,8 +39,4 @@
   <hr>
 
   {{view IWitness.MapView}}
-
-  <button class="btn btn-primary" {{action "search"}}>
-    {{buttonText}}
-  </button>
 </div>

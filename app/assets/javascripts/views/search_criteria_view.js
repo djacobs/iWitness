@@ -3,28 +3,6 @@ IWitness.SearchCriteriaView = Ember.View.extend({
   modelBinding: 'IWitness.searchController.content',
   radius: 1,
 
-  buttonText: function() {
-    if (this.getPath('model.stream')) {
-      return 'Begin Streaming';
-    } else {
-      return 'Search';
-    }
-  }.property('model.stream'),
-
-  search: function(e) {
-    var model = this.get('model');
-
-    IWitness.searchController.set('searchAttempted', true);
-
-    if (model.get('isValid')) {
-      if (this.getPath('model.stream')) {
-        IWitness.routes.visitStream(model);
-      } else {
-        IWitness.routes.visitSearch(model);
-      }
-    }
-  },
-
   didInsertElement: function() {
     this.$('.date').datepicker();
     this.$('.time').timePicker({show24Hours: false});
@@ -42,9 +20,21 @@ IWitness.SearchCriteriaView = Ember.View.extend({
     }
   }),
 
+  keywordField: Ember.TextField.extend({
+    change: function(e) {
+      this._super();
+      IWitness.searchController.oldSearch();
+    }
+  }),
+
   dateField: Ember.TextField.extend({
     disabledBinding: 'model.stream',
-    modelBinding: 'IWitness.searchController.content'
+    modelBinding: 'IWitness.searchController.content',
+
+    change: function(e) {
+      this._super();
+      IWitness.searchController.oldSearch();
+    }
   }),
 
   timezoneSelector: Ember.View.extend({

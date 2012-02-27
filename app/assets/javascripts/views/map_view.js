@@ -5,7 +5,8 @@ IWitness.MapView = Ember.View.extend({
 
   didInsertElement: function() {
     // this.map = new Map(document.getElementById("map"), 34.043127, -118.266953); // LA
-    this.map = new Map(document.getElementById("map"), 37.754837,-122.430782); // SF
+    // this.map = new Map(document.getElementById("map"), 37.754837,-122.430782); // SF
+    this.map = new Map(document.getElementById("map"), 34.102022,-118.34043500000001); // Oscars
     this.map.addListener('bounds_changed', _.bind(_.debounce(this._mapUpdate, 100), this));
   },
 
@@ -20,6 +21,7 @@ IWitness.MapView = Ember.View.extend({
     this.setPath('model.zoom', this.map.getZoom());
     this.setPath('model.northEast', this.map.getNorthEast());
     this.setPath('model.southWest', this.map.getSouthWest());
+    IWitness.searchController.oldSearch();
   },
 
   zoom: function() {
