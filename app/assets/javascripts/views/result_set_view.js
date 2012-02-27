@@ -6,17 +6,28 @@ IWitness.resultSetView = Ember.View.extend({
   },
 
   _renderLoadMore: function(){
+    self = this;
     $('.load-more').remove();
-    console.log('calling callbacks!!!@#@!#!@#!@#');
+
     _.defer(function() {
       if(IWitness.searchController.serviceHasMorePages('twitter')) {
-        console.log($('tr.twitter').length, 'tweets');
-        $('tr.twitter:last').after("<tr class='load-more'><td></td><td> LOAD MOAR </td></tr>");
+        $row = self._loadMoreRow('twitter', 'Load More from Twitter');
+        $('tr.twitter:last').after($row);
       }
+
       if(IWitness.searchController.serviceHasMorePages('flickr')) {
-        console.log($('tr.flickr').length, 'flicks');
-        $('tr.flickr:last').after("<tr class='load-more'><td></td><td> LOAD MOAR </td></tr>");
+        $row = self._loadMoreRow('flickr', 'Load More from Flickr');
+        $('tr.flickr:last').after($row);
       }
     });
+  },
+
+  _loadMoreRow: function(serviceType, buttonText) {
+    $loadMoreLink = $('<a href="#" class="btn btn-info btn-large">').html(buttonText).click(function(e) {
+      e.preventDefault();
+      $('.load-more').remove();
+      IWitness.searchController.getNextPageForService(serviceType);
+    });
+    return $('<tr class="load-more">').append($('<td colspan="2">').append($loadMoreLink));
   }
 });

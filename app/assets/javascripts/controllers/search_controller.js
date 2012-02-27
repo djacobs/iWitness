@@ -44,6 +44,12 @@ IWitness.searchController = Ember.Object.create({
     }
   },
 
+  getNextPageForService: function(type) {
+    var search = _.detect(this.searches, function(search){ return search.type == type})
+    this.get('servicesBeingSearched').add(search.type);
+    search.fetch(IWitness.config.perPage);
+  },
+
   _executeSearch: function(search){
     this.get('servicesBeingSearched').add(search.type);
     Ember.addListener(search, 'data', this, this._handleResults);
