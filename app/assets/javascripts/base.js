@@ -5,3 +5,8 @@ window.IWitness = Ember.Application.create({
 });
 
 IWitness.log = _.bind(Ember.Logger.log, Ember.Logger);
+
+IWitness.config = {
+  perPage: 10,
+  pollInterval: 30 //seconds
+};

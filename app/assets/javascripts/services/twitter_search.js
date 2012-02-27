@@ -7,6 +7,7 @@ var TwitterSearch = function(params){
   this.target    = 0;
   this.isStopped = false;
   this.stream    = params.stream;
+  this._hasMorePages = true;
   IWitness.log('*** searching %s - %s ***', params.start, params.end);
 }
 
@@ -16,13 +17,13 @@ _.extend(TwitterSearch.prototype, {
     this.query.getNext(_.bind(this._gotData, this));
   },
 
-  _startStreaming: function(pollingInterval) {
+  _startStreaming: function() {
     if (this.isStopped) return;
     IWitness.log("starting live twitter stream");
     this.liveSearch = new LiveTwitterSearch(this.params)
     this.liveSearch.sinceId = this.maxId;
     Ember.addListener(this.liveSearch, 'data', this, this._reSendEvent);
-    this.liveSearch.start(pollingInterval);
+    this.liveSearch.start();
   },
 
   stop: function() {
@@ -34,13 +35,17 @@ _.extend(TwitterSearch.prototype, {
     }
   },
 
+  hasMorePages: function(){
+    return !this.query.isDone;
+  },
+
   _reSendEvent: function(search, e, data){
     Ember.sendEvent(this, 'data', data);
   },
 
   _doneSearching: function(){
     if (this.stream){
-      this._startStreaming(30);
+      this._startStreaming();
     } else {
       Ember.sendEvent(this, 'done');
     }

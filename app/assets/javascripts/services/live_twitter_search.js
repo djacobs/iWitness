@@ -9,12 +9,12 @@ var LiveTwitterSearch = function(params){
 };
 
 _.extend(LiveTwitterSearch.prototype, {
-  start: function(pollingInterval) {
+  start: function() {
     var self = this;
     self.fetchResults(_.bind(self._gotData, self));
     this.interval = setInterval(function(){
       self.fetchResults(_.bind(self._gotData, self));
-    }, pollingInterval*1000);
+    }, IWitness.config.pollInterval*1000);
   },
 
   _gotData: function(data){

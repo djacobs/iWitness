@@ -1,7 +1,8 @@
 IWitness.ResultView = Ember.View.extend({
   templateName:      'result_template',
   tagName:           'tr',
-  classNameBindings: 'isSelected:selected',
+  typeBinding:       'model.resultType',
+  classNameBindings: ['isSelected:selected', 'type'],
 
   isSelected: function() {
     return this.get('model') == IWitness.resultSetController.get('selectedResult');

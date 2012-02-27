@@ -1,15 +1,20 @@
 IWitness.resultSetController = Ember.ArrayController.create({
   content: [],
   selectedResult: null,
+  isDone: false,
 
   pushResults: function(type, results){
     var self = this;
+    this.set('isDone', false);
+
     results.forEach(function(result) {
       var result = IWitness.resultFactory.create(type, result);
       var idx = self._findInsertionPoint(result);
       if (idx !== null)
         self.insertAt(idx, result);
     });
+
+    this.set('isDone', true);
   },
 
   clearResults: function() {

@@ -13,6 +13,11 @@ IWitness.searchController = Ember.Object.create({
     return this._statusForService('twitter');
   }.property('servicesBeingSearched.length', 'servicesWithResults.length'),
 
+  serviceHasMorePages: function(type){
+    var search = _.detect(this.searches, function(search){ return search.type == type})
+    return search && this.get(type+'Status') != 'searching' && search.hasMorePages();
+  },
+
   stopSearch: function(){
     this._stopExecutingSearches();
   }.observes('content.stream'),
@@ -43,7 +48,7 @@ IWitness.searchController = Ember.Object.create({
     this.get('servicesBeingSearched').add(search.type);
     Ember.addListener(search, 'data', this, this._handleResults);
     Ember.addListener(search, 'done', this, this._searchServiceIsDone);
-    search.fetch(100);
+    search.fetch(IWitness.config.perPage);
   },
 
   _stopExecutingSearches: function(){
@@ -62,6 +67,7 @@ IWitness.searchController = Ember.Object.create({
   _searchServiceIsDone: function(search, e) {
     IWitness.log("%s search is done", search.type);
     this.get('servicesBeingSearched').remove(search.type);
+    Ember.sendEvent(this, 'searchComplete', search);
   },
 
   _statusForService: function(type) {

@@ -5,36 +5,30 @@ var FlickrSearch = function(params){
   this.keyword            = params.keyword;
   this.boundingBox        = [params.southWest[1], params.southWest[0], params.northEast[1], params.northEast[0]].join(',');
   this.mapTimezoneOffset  = params.mapTimezoneOffset;
-  this.target             = 0;
-  this.total              = 0;
   this.minUploadDate      = null;
   this.url                = 'http://api.flickr.com/services/rest/?jsoncallback=?'
   this.stream             = params.stream;
+  this.page               = 0;
   IWitness.log('*** searching Flickr %s - %s ***', params.start, params.end);
 }
 
 _.extend(FlickrSearch.prototype, {
   fetch: function(target){
-    this.target += target;
+    this.perPage = target;
+    this.page++;
     $.getJSON(this.url, this._searchParams(), _.bind(this._gotData, this));
     if (this.stream) {
       this._startStreaming(30);
     }
   },
 
-  _startStreaming: function(pollInterval){
-    IWitness.log("start flickr stream");
-    var self = this;
-    self.minUploadDate = self.minUploadDate || self._adjustTime(moment());
-    self.interval = setInterval(function(){
-      IWitness.log('minUploadDate:', self.minUploadDate);
-      $.getJSON(self.url, self._streamParams(), _.bind(self._gotData, self));
-    }, pollInterval*1000);
-  },
-
   stop: function() {
     clearInterval(this.interval);
     Ember.sendEvent(this, 'done');
+  },
+
+  hasMorePages: function(){
+    return this.pages > this.page;
   },
 
   _gotData: function(data){
@@ -45,10 +39,21 @@ _.extend(FlickrSearch.prototype, {
       });
       this.minUploadDate = parseInt(maxPhoto.dateupload)+1;
     }
+    this.pages = data.photos.pages;
     Ember.sendEvent(this, 'data', data.photos.photo);
     if(!this.stream){
       Ember.sendEvent(this, 'done');
     }
+  },
+
+  _startStreaming: function(){
+    IWitness.log("start flickr stream");
+    var self = this;
+    self.minUploadDate = self.minUploadDate || self._adjustTime(moment());
+    self.interval = setInterval(function(){
+      IWitness.log('minUploadDate:', self.minUploadDate);
+      $.getJSON(self.url, self._streamParams(), _.bind(self._gotData, self));
+    }, IWitness.config.pollInterval*1000);
   },
 
   _adjustTime: function(time) {
@@ -69,6 +74,8 @@ _.extend(FlickrSearch.prototype, {
       text:            this.keyword,
       method:          'flickr.photos.search',
       format:          'json',
+      page:            this.page,
+      per_page:        this.perPage,
       extras:          'geo,url_s,date_taken,date_upload,owner_name,description',
     }
   },
