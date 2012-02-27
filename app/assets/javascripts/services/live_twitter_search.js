@@ -18,6 +18,7 @@ _.extend(LiveTwitterSearch.prototype, {
   },
 
   _gotData: function(data){
+    IWitness.log("got twitter data", data);
     if(data.error) {
       IWitness.log("Twitter error: %s", data.error);
     }
@@ -41,7 +42,6 @@ _.extend(LiveTwitterSearch.prototype, {
   },
 
   fetchResults: function(callback) {
-    IWitness.log('requesting', this.queryParams());
     $.getJSON(
       "http://search.twitter.com/search.json?callback=?",
       this.queryParams(),

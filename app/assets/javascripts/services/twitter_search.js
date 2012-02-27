@@ -18,7 +18,6 @@ _.extend(TwitterSearch.prototype, {
   },
 
   _startStreaming: function() {
-    if (this.isStopped) return;
     IWitness.log("starting live twitter stream");
     this.liveSearch = new LiveTwitterSearch(this.params)
     this.liveSearch.sinceId = this.maxId;

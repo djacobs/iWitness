@@ -32,7 +32,7 @@ _.extend(FlickrSearch.prototype, {
   },
 
   _gotData: function(data){
-    IWitness.log("got flickr data");
+    IWitness.log("got flickr data", data);
     if (data.photos.photo.length){
       var maxPhoto = _.max(data.photos.photo, function(photo){
         return parseInt(photo.dateupload);
@@ -51,7 +51,6 @@ _.extend(FlickrSearch.prototype, {
     var self = this;
     self.minUploadDate = self.minUploadDate || self._adjustTime(moment());
     self.interval = setInterval(function(){
-      IWitness.log('minUploadDate:', self.minUploadDate);
       $.getJSON(self.url, self._streamParams(), _.bind(self._gotData, self));
     }, IWitness.config.pollInterval*1000);
   },
