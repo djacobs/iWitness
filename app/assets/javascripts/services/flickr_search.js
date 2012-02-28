@@ -14,6 +14,7 @@ var FlickrSearch = function(params){
 
 _.extend(FlickrSearch.prototype, {
   fetch: function(target){
+    Ember.sendEvent(this, 'fetch');
     this.perPage = target;
     this.page++;
     $.getJSON(this.url, this._searchParams(), _.bind(this._gotData, this));

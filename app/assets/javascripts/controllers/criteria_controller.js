@@ -2,13 +2,13 @@ IWitness.criteriaController = Ember.Object.create({
   contentBinding: 'IWitness.criteria',
 
   initiateSearch: function() {
-    IWitness.searchController.stop();
+    IWitness.searchController.reset();
     IWitness.resultSetController.clearResults();
 
     console.log('initiateSearch');
     this.changeUrl();
 
-  }.observes('content.stream'),
+  },
 
   changeUrl: _.debounce( function() {
     console.log('running debounced changeUrl');

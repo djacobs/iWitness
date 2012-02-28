@@ -27,7 +27,6 @@ describe("criteriaController", function(){
 
   afterEach(function() {
     controller.get('servicesBeingSearched').clear();
-    controller.get('servicesWithResults').clear();
   });
 
   it("clears result set", function(){

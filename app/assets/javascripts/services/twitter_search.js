@@ -13,6 +13,7 @@ var TwitterSearch = function(params){
 
 _.extend(TwitterSearch.prototype, {
   fetch: function(target){
+    Ember.sendEvent(this, 'fetch');
     this.target += target;
     this.query.getNext(_.bind(this._gotData, this));
   },

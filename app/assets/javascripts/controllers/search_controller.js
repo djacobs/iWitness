@@ -1,24 +1,17 @@
 IWitness.searchController = Ember.Object.create({
-  searches:              [],
-  servicesBeingSearched: new Ember.Set(),
-  servicesWithResults:   new Ember.Set(),
-
-  flickrStatus: function(){
-    return this._statusForService('flickr');
-  }.property('servicesBeingSearched.length', 'servicesWithResults.length'),
-
-  twitterStatus: function(){
-    return this._statusForService('twitter');
-  }.property('servicesBeingSearched.length', 'servicesWithResults.length'),
+  searches: [],
+  monitors: Ember.Object.create({
+    twitter: IWitness.ServiceMonitor.create(),
+    flickr:  IWitness.ServiceMonitor.create()
+  }),
 
   serviceHasMorePages: function(type){
-    var search = _.detect(this.searches, function(search){ return search.type == type})
-    return search && this.get(type+'Status') != 'searching' && search.hasMorePages();
+    var monitor =  this.getPath('monitors.'+type);
+    return monitor.get('status') == 'completed' && monitor.get('hasMorePages');
   },
 
   getNextPageForService: function(type) {
     var search = _.detect(this.searches, function(search){ return search.type == type})
-    this.get('servicesBeingSearched').add(search.type);
     search.fetch(IWitness.config.perPage);
   },
 
@@ -36,13 +29,14 @@ IWitness.searchController = Ember.Object.create({
     });
   },
 
-  stop: function(){
+  reset: function(){
     this._stopExecutingSearches();
-    this.get('servicesWithResults').clear();
+    this.getPath('monitors.twitter').reset();
+    this.getPath('monitors.flickr').reset();
   },
 
   _executeSearch: function(search){
-    this.get('servicesBeingSearched').add(search.type);
+    this.getPath('monitors.'+search.type).set('search', search);
     Ember.addListener(search, 'data', this, this._handleResults);
     Ember.addListener(search, 'done', this, this._searchServiceIsDone);
     search.fetch(IWitness.config.perPage);
@@ -58,31 +52,12 @@ IWitness.searchController = Ember.Object.create({
 
   _handleResults: function(search, e, results){
     IWitness.resultSetController.pushResults(search.type, results);
-    if (results.length) this.get('servicesWithResults').add(search.type);
   },
 
   _searchServiceIsDone: function(search, e) {
     IWitness.log("%s search is done", search.type);
-    this.get('servicesBeingSearched').remove(search.type);
     Ember.sendEvent(this, 'searchComplete', search);
-  },
-
-  _statusForService: function(type) {
-    if (this._isSearchingService(type)) {
-      return 'searching';
-    } else if (this._hasResultsFor(type)) {
-      return 'completed';
-    } else {
-      return 'no results';
-    }
-  },
-
-  _hasResultsFor: function(type) {
-    return this.get('servicesWithResults').contains(type);
-  },
-
-  _isSearchingService: function(type) {
-    return this.get('servicesBeingSearched').contains(type);
   }
+
 
 });
