@@ -77,8 +77,13 @@ IWitness.searchController = Ember.Object.create({
   },
 
   _statusForService: function(type) {
+
     if (this._isSearchingService(type)) {
-      return 'searching';
+      if (this.getPath('content.stream')) {
+        return 'streaming';
+      } else {
+        return 'searching';
+      }
     } else if (this._hasResultsFor(type)) {
       return 'completed';
     } else {
