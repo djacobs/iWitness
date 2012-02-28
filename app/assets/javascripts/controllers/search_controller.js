@@ -59,5 +59,4 @@ IWitness.searchController = Ember.Object.create({
     Ember.sendEvent(this, 'searchComplete', search);
   }
 
-
 });

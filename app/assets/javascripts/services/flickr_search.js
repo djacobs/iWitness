@@ -14,12 +14,14 @@ var FlickrSearch = function(params){
 
 _.extend(FlickrSearch.prototype, {
   fetch: function(target){
-    Ember.sendEvent(this, 'fetch');
     this.perPage = target;
     this.page++;
-    $.getJSON(this.url, this._searchParams(), _.bind(this._gotData, this));
     if (this.stream) {
+      Ember.sendEvent(this, 'streaming');
       this._startStreaming(30);
+    } else {
+      Ember.sendEvent(this, 'fetch');
+      $.getJSON(this.url, this._searchParams(), _.bind(this._gotData, this));
     }
   },
 
@@ -50,7 +52,8 @@ _.extend(FlickrSearch.prototype, {
   _startStreaming: function(){
     IWitness.log("start flickr stream");
     var self = this;
-    self.minUploadDate = self.minUploadDate || self._adjustTime(moment());
+    self.minUploadDate = self.minUploadDate || Math.ceil(moment().valueOf() / 1000);
+    $.getJSON(self.url, self._streamParams(), _.bind(self._gotData, self));
     self.interval = setInterval(function(){
       $.getJSON(self.url, self._streamParams(), _.bind(self._gotData, self));
     }, IWitness.config.pollInterval*1000);

@@ -7,6 +7,7 @@ IWitness.ServiceMonitor = Ember.Object.extend({
     if(arguments.length > 1) { // setter
       this.reset();
       Ember.addListener(search, 'fetch', this, this._startFetch);
+      Ember.addListener(search, 'streaming', this, this._startStreaming);
       Ember.addListener(search, 'data', this, this._handleResults);
       Ember.addListener(search, 'done', this, this._endFetch);
       this.set('_search', search);
@@ -19,6 +20,7 @@ IWitness.ServiceMonitor = Ember.Object.extend({
     var search = this.get('search');
     if (search){
       Ember.removeListener(search, 'fetch', this, this._startFetch);
+      Ember.removeListener(search, 'streaming', this, this._startStreaming);
       Ember.removeListener(search, 'data', this, this._handleResults);
       Ember.removeListener(search, 'done', this, this._endFetch);
     }
@@ -33,6 +35,10 @@ IWitness.ServiceMonitor = Ember.Object.extend({
 
   _startFetch: function(search){
     this.set('status', 'searching');
+  },
+
+  _startStreaming: function(search){
+    this.set('status', 'streaming');
   },
 
   _endFetch: function(search, e) {

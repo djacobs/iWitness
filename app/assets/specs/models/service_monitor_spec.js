@@ -28,6 +28,12 @@ describe("ServiceMonitor", function(){
         expect(monitor.get('status')).toEqual("searching");
       });
 
+      it("streaming", function(){
+        expect(monitor.get('status')).toEqual("pending");
+        Ember.sendEvent(twitterSearch, 'streaming');
+        expect(monitor.get('status')).toEqual("streaming");
+      });
+
       it("resetting", function(){
         expect(monitor.get('status')).toEqual("pending");
         monitor.reset();
@@ -53,6 +59,7 @@ describe("ServiceMonitor", function(){
     });
 
   });
+
 
   describe("after search completes", function(){
     it("sets hasMorePages equal to search.hasMorePages", function(){

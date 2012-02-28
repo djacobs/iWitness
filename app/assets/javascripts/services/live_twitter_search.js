@@ -10,8 +10,29 @@ var LiveTwitterSearch = function(params){
 
 _.extend(LiveTwitterSearch.prototype, {
   start: function() {
+    this._fetchInitial(_.bind(this._gotInitialData, this));
+  },
+
+  _fetchInitial: function(callback) {
+    $.getJSON(
+      "http://search.twitter.com/search.json?callback=?",
+      {
+        result_type: 'recent',
+        q:           this.params.keyword,
+        geocode:     this.location(),
+        rpp:         1,
+        until:       moment().add('days', 1).format('YYYY-MM-DD'),
+        page:        this.currentPage
+      },
+      function(response) { if (response.results) callback(response) }
+    );
+  },
+
+  _gotInitialData: function(response) {
+    this.sinceId = response.results[0].id_str;
+
     var self = this;
-    self.fetchResults(_.bind(self._gotData, self));
+    this.fetchResults(_.bind(this._gotData, this));
     this.interval = setInterval(function(){
       self.fetchResults(_.bind(self._gotData, self));
     }, IWitness.config.pollInterval*1000);
