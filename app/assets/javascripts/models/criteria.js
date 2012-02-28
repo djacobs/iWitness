@@ -1,4 +1,4 @@
-IWitness.searchCriteria = Ember.Object.create({
+IWitness.criteria = Ember.Object.create({
   useTimezone: 'mine',
   stream: false,
   keyword: "",
@@ -63,7 +63,7 @@ IWitness.searchCriteria = Ember.Object.create({
     return Math.ceil(radius.length() / 1000);
   }.property('center', 'northEast').cacheable(),
 
-  searchParams: function() {
+  getParams: function() {
     return this.getProperties('mapTimezoneOffset',
                               'center',
                               'radius',

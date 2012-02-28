@@ -1,6 +1,6 @@
 IWitness.MapView = Ember.View.extend({
   templateName:          'map_template',
-  modelBinding:          'IWitness.searchController.content',
+  modelBinding:          'IWitness.criteriaController.content',
   selectedResultBinding: 'IWitness.resultSetController.selectedResult',
 
   didInsertElement: function() {
@@ -21,7 +21,7 @@ IWitness.MapView = Ember.View.extend({
     this.setPath('model.zoom', this.map.getZoom());
     this.setPath('model.northEast', this.map.getNorthEast());
     this.setPath('model.southWest', this.map.getSouthWest());
-    IWitness.searchController.oldSearch();
+    IWitness.criteriaController.initiateSearch();
   },
 
   zoom: function() {

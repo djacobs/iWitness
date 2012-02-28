@@ -10,13 +10,13 @@ IWitness.ResultView = Ember.View.extend({
 
   postedTime: function() {
     var m = this.getPath('model.postedMoment');
-    if (IWitness.searchCriteria.get('useTimezone') == 'mine') {
+    if (IWitness.criteria.get('useTimezone') == 'mine') {
       return m.format('M/D h:mma');
     } else {
-      var offset = IWitness.searchCriteria.get('mapTimezoneOffset');
+      var offset = IWitness.criteria.get('mapTimezoneOffset');
       return m.formatWithTimezoneOffset(offset, 'M/D h:mma');
     }
-  }.property('model.postedMoment', 'IWitness.searchCriteria.useTimezone'),
+  }.property('model.postedMoment', 'IWitness.criteria.useTimezone'),
 
   click: function(e) {
     if (e.target.tagName.toLowerCase() == 'a') return;

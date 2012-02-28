@@ -1,6 +1,6 @@
-IWitness.SearchCriteriaView = Ember.View.extend({
-  templateName: 'search_criteria_template',
-  modelBinding: 'IWitness.searchController.content',
+IWitness.CriteriaView = Ember.View.extend({
+  templateName: 'criteria_template',
+  modelBinding: 'IWitness.criteriaController.content',
   radius: 1,
 
   didInsertElement: function() {
@@ -13,7 +13,7 @@ IWitness.SearchCriteriaView = Ember.View.extend({
     tagName: 'input',
     type: 'checkbox',
     checkedBinding: 'model.stream',
-    modelBinding: 'IWitness.searchController.content',
+    modelBinding: 'IWitness.criteriaController.content',
 
     change: function() {
       this.setPath('model.stream', this.$().is(':checked'));
@@ -23,17 +23,17 @@ IWitness.SearchCriteriaView = Ember.View.extend({
   keywordField: Ember.TextField.extend({
     change: function(e) {
       this._super();
-      IWitness.searchController.oldSearch();
+      IWitness.criteriaController.initiateSearch();
     }
   }),
 
   dateField: Ember.TextField.extend({
     disabledBinding: 'model.stream',
-    modelBinding: 'IWitness.searchController.content',
+    modelBinding: 'IWitness.criteriaController.content',
 
     change: function(e) {
       this._super();
-      IWitness.searchController.oldSearch();
+      IWitness.criteriaController.initiateSearch();
     }
   }),
 
@@ -43,7 +43,7 @@ IWitness.SearchCriteriaView = Ember.View.extend({
     type:              'radio',
     checkedBinding:    'isSelected',
     disabledBinding: 'model.stream',
-    modelBinding:      'IWitness.searchController.content',
+    modelBinding:      'IWitness.criteriaController.content',
 
     isSelected: function() {
       return this.getPath('model.useTimezone') == this.get('timezone');

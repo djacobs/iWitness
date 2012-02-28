@@ -8,13 +8,13 @@ IWitness.routes = {
     params.rawStart = moment(params.rawStart, "YYYY-MM-DDTHH:mm");
     params.rawEnd   = moment(params.rawEnd, "YYYY-MM-DDTHH:mm");
     this._setSearchParams(params);
-    IWitness.searchController.search();
+    IWitness.searchController.search(IWitness.criteria.getParams());
   },
 
   stream: function(params) {
     params.stream = true;
     this._setSearchParams(params);
-    IWitness.searchController.search();
+    IWitness.searchController.search(IWitness.criteria.getParams());
   },
 
   visitSearch: function(criteria) {
@@ -40,6 +40,6 @@ IWitness.routes = {
     params.southWest = params.southWest.split(',');
     params.zoom      = parseInt(params.zoom);
     params.radius    = parseInt(params.radius);
-    IWitness.searchCriteria.setProperties(params);
+    IWitness.criteria.setProperties(params);
   }
 }

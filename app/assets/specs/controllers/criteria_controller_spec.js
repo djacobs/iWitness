@@ -1,8 +1,8 @@
-describe("searchController", function(){
+describe("criteriaController", function(){
   var controller, flickrSearch, twitterSearch, content;
 
   beforeEach(function(){
-    controller = IWitness.searchController;
+    controller = IWitness.criteriaController;
     content = Ember.Object.create({
       searchParams: function(){return {}},
       isValid: true
@@ -28,18 +28,19 @@ describe("searchController", function(){
   afterEach(function() {
     controller.get('servicesBeingSearched').clear();
     controller.get('servicesWithResults').clear();
+    controller.set('searchAttempted', false);
   });
 
   it("sets searchAttempted = true", function(){
     expect(controller.get('searchAttempted')).toBeFalsy();
-    controller.search();
+    controller.initiateSearch();
     expect(controller.get('searchAttempted')).toBeTruthy();
   });
 
   it("clears result set", function(){
     var clearResultsSpy = spyOn(IWitness.resultSetController, 'clearResults');
     expect(controller.getPath('content.isValid')).toBeTruthy();
-    controller.search();
+    controller.initiateSearch();
     expect(clearResultsSpy).toHaveBeenCalled();
   });
 

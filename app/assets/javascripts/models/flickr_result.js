@@ -13,7 +13,7 @@ IWitness.FlickrResult = IWitness.Result.extend({
   }.property('id'),
 
   postedMoment: function() {
-    var offset   = IWitness.searchCriteria.get('mapTimezoneOffset') || 0;
+    var offset   = IWitness.criteria.get('mapTimezoneOffset') || 0;
     var timezone = '+0000';
 
     if (offset > 9) {

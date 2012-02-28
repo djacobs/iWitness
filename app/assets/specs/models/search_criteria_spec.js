@@ -1,8 +1,8 @@
-describe("SearchCriteria", function() {
+describe("Criteria", function() {
   var subject, validSearchProps;
 
   beforeEach(function() {
-    subject = IWitness.searchCriteria;
+    subject = IWitness.criteria;
 
     validSearchProps = {
       startDateString: '1/1/2012',

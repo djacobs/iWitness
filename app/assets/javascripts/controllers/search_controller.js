@@ -1,6 +1,5 @@
 IWitness.searchController = Ember.Object.create({
   searchAttempted:       false,
-  contentBinding:        'IWitness.searchCriteria',
   searches:              [],
   servicesBeingSearched: new Ember.Set(),
   servicesWithResults:   new Ember.Set(),
@@ -18,57 +17,24 @@ IWitness.searchController = Ember.Object.create({
     return search && this.get(type+'Status') != 'searching' && search.hasMorePages();
   },
 
-  stopSearch: function(){
-    this._stopExecutingSearches();
-  }.observes('content.stream'),
-
-  oldSearch: function() {
-    this.set('searchAttempted', true);
-
-    this._stopExecutingSearches();
-    IWitness.resultSetController.clearResults();
-    this.get('servicesWithResults').clear();
-
-    console.log('oldSearch');
-    this.changeUrl();
-  }.observes('content.stream'),
-
-  changeUrl: _.debounce( function() {
-    console.log('running');
-    Ember.run.sync();
-
-    if (this.getPath('content.isValid')) {
-      console.log('valid');
-      if (this.getPath('content.stream')) {
-        IWitness.routes.visitStream(this.get('content'));
-      } else {
-        IWitness.routes.visitSearch(this.get('content'));
-      }
-    }
-  }, 3000),
-
-  search: function() {
-    var self = this;
-    this.set('searchAttempted', true);
-
-    if (this.getPath('content.isValid')) {
-      var params = this.get('content').searchParams();
-
-      this.searches = [
-        new FlickrSearch(params),
-        new TwitterSearch(params)
-      ];
-
-      _.each(this.searches, function(search) {
-        self._executeSearch(search);
-      });
-    }
-  },
-
   getNextPageForService: function(type) {
     var search = _.detect(this.searches, function(search){ return search.type == type})
     this.get('servicesBeingSearched').add(search.type);
     search.fetch(IWitness.config.perPage);
+  },
+
+  search: function(params) {
+    var self = this;
+    this.set('searchAttempted', true);
+
+    this.searches = [
+      new FlickrSearch(params),
+      new TwitterSearch(params)
+    ];
+
+    _.each(this.searches, function(search) {
+      self._executeSearch(search);
+    });
   },
 
   _executeSearch: function(search){
@@ -114,4 +80,5 @@ IWitness.searchController = Ember.Object.create({
   _isSearchingService: function(type) {
     return this.get('servicesBeingSearched').contains(type);
   }
+
 });
