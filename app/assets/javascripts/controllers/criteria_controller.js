@@ -4,24 +4,19 @@ IWitness.criteriaController = Ember.Object.create({
   initiateSearch: function() {
     IWitness.searchController.reset();
     IWitness.resultSetController.clearResults();
-
-    console.log('initiateSearch');
     this.changeUrl();
-
   },
 
   changeUrl: _.debounce( function() {
-    console.log('running debounced changeUrl');
     Ember.run.sync();
 
     if (this.getPath('content.isValid')) {
-      console.log('valid! commencing search!');
       if (this.getPath('content.stream')) {
         IWitness.routes.visitStream(this.get('content'));
       } else {
         IWitness.routes.visitSearch(this.get('content'));
       }
     }
-  }, 3000)
+  }, IWitness.config.searchDelay)
 
 });

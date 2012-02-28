@@ -8,5 +8,6 @@ IWitness.log = _.bind(Ember.Logger.log, Ember.Logger);
 
 IWitness.config = {
   perPage: 10,
-  pollInterval: 30 //seconds
+  pollInterval: 30, //seconds
+  searchDelay: 3000
 };
