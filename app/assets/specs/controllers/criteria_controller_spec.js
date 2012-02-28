@@ -28,13 +28,6 @@ describe("criteriaController", function(){
   afterEach(function() {
     controller.get('servicesBeingSearched').clear();
     controller.get('servicesWithResults').clear();
-    controller.set('searchAttempted', false);
-  });
-
-  it("sets searchAttempted = true", function(){
-    expect(controller.get('searchAttempted')).toBeFalsy();
-    controller.initiateSearch();
-    expect(controller.get('searchAttempted')).toBeTruthy();
   });
 
   it("clears result set", function(){

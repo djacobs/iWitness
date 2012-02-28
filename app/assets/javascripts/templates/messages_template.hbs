@@ -1,8 +1,6 @@
-{{#if showErrors}}
-  {{#each model.errors}}
-    <div class="error alert alert-error">{{this}}</div>
-  {{/each}}
-{{/if}}
+{{#each model.errors}}
+  <div class="error alert alert-error">{{this}}</div>
+{{/each}}
 
 <div class="alert alert-info">
   Twitter status: {{twitterStatus}}

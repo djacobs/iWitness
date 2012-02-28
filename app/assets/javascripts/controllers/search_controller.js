@@ -1,5 +1,4 @@
 IWitness.searchController = Ember.Object.create({
-  searchAttempted:       false,
   searches:              [],
   servicesBeingSearched: new Ember.Set(),
   servicesWithResults:   new Ember.Set(),
@@ -23,9 +22,9 @@ IWitness.searchController = Ember.Object.create({
     search.fetch(IWitness.config.perPage);
   },
 
+  // called from routes.js when URL changes
   search: function(params) {
     var self = this;
-    this.set('searchAttempted', true);
 
     this.searches = [
       new FlickrSearch(params),
@@ -35,6 +34,11 @@ IWitness.searchController = Ember.Object.create({
     _.each(this.searches, function(search) {
       self._executeSearch(search);
     });
+  },
+
+  stop: function(){
+    this._stopExecutingSearches();
+    this.get('servicesWithResults').clear();
   },
 
   _executeSearch: function(search){

@@ -17,6 +17,7 @@ IWitness.CriteriaView = Ember.View.extend({
 
     change: function() {
       this.setPath('model.stream', this.$().is(':checked'));
+      IWitness.criteriaController.initiateSearch();
     }
   }),
 
