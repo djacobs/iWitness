@@ -2,8 +2,10 @@ IWitness.resultSetController = Ember.ArrayController.create({
   content: [],
   selectedResult: null,
   isDone: false,
+  pause: false,
 
   pushResults: function(type, results){
+    if (this.get('pause')) return;
     var self = this;
     this.set('isDone', false);
 
@@ -20,6 +22,11 @@ IWitness.resultSetController = Ember.ArrayController.create({
   clearResults: function() {
     this.set('content', []);
     this.set('selectedResult', null);
+    this.set('pause', true);
+  },
+
+  unpause: function(){
+    this.set('pause', false);
   },
 
   _findInsertionPoint: function(obj) {
