@@ -3,12 +3,9 @@ IWitness.criteriaController = Ember.Object.create({
 
   initiateSearch: function() {
     IWitness.resultSetController.clearResults();
+    IWitness.searchController.reset();
 
-    Ember.run.sync();
-    if (this.getPath('content.isValid')) {
-      IWitness.searchController.reset();
-      this.changeUrl();
-    }
+    this.changeUrl();
   },
 
   changeUrl: _.debounce( function() {
