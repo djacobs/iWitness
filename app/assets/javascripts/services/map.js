@@ -13,6 +13,10 @@ _.extend(Map.prototype, {
     google.maps.event.addListener(this.map, type, handler);
   },
 
+  removeListeners: function(type) {
+    google.maps.event.clearListeners(this.map, type);
+  },
+
   getCenter: function() {
     var point = this.map.getCenter();
     return [point.lat(), point.lng()];
