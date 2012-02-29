@@ -1,4 +1,4 @@
-IWitness.criteria = Ember.Object.create({
+IWitness.Criteria = Ember.Object.extend({
   useTimezone: 'mine',
   stream: false,
   keyword: "",

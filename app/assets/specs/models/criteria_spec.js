@@ -2,34 +2,18 @@ describe("Criteria", function() {
   var subject, validSearchProps;
 
   beforeEach(function() {
-    subject = IWitness.criteria;
-
-    validSearchProps = {
+    subject = IWitness.Criteria.create({
       startDateString: '1/1/2012',
       startTimeString: '9:00 AM',
       endDateString:   '1/1/2012',
       endTimeString:   '10:00 AM'
-    };
-  });
-
-  afterEach(function() {
-    subject.setProperties({
-      startDateString: null,
-      startTimeString: null,
-      endDateString:   null,
-      endTimeString:   null,
-      stream:          false,
-      center:          null,
-      northEast:       null,
-      useTimezone:     'mine'
     });
   });
 
   describe("start", function() {
     describe("when using my timezone", function() {
       it("is the date/time as I entered it", function() {
-        subject.setProperties(_.extend(validSearchProps,
-          {startDateString: '1/1/2012', startTimeString: '2:30 PM'}));
+        subject.setProperties({startDateString: '1/1/2012', startTimeString: '2:30 PM'});
         expect(subject.get('start').format('M/D/YYYY h:m A')).toEqual('1/1/2012 2:30 PM');
       });
     });
@@ -39,8 +23,7 @@ describe("Criteria", function() {
 
       it("is the date/time adjusted for the map", function() {
         spyOnProperties(subject, {timezoneDifference: -4});
-        subject.setProperties(_.extend(validSearchProps,
-          {startDateString: '1/1/2012', startTimeString: '2:30 PM'}));
+        subject.setProperties({startDateString: '1/1/2012', startTimeString: '2:30 PM'});
         expect(subject.get('start').format('M/D/YYYY h:m A')).toEqual('1/1/2012 10:30 AM');
       });
     });
@@ -49,8 +32,7 @@ describe("Criteria", function() {
   describe("end", function() {
     describe("when using my timezone", function() {
       it("is the date/time as I entered it", function() {
-        subject.setProperties(_.extend(validSearchProps,
-          {endDateString: '1/1/2012', endTimeString: '2:30 PM'}));
+        subject.setProperties({endDateString: '1/1/2012', endTimeString: '2:30 PM'});
         expect(subject.get('end').format('M/D/YYYY h:m A')).toEqual('1/1/2012 2:30 PM');
       });
     });
@@ -60,8 +42,7 @@ describe("Criteria", function() {
 
       it("is the date/time adjusted for the map", function() {
         spyOnProperties(subject, {timezoneDifference: -4});
-        subject.setProperties(_.extend(validSearchProps,
-          {endDateString: '1/1/2012', endTimeString: '2:30 PM'}));
+        subject.setProperties({endDateString: '1/1/2012', endTimeString: '2:30 PM'});
         expect(subject.get('end').format('M/D/YYYY h:m A')).toEqual('1/1/2012 10:30 AM');
       });
     });
@@ -85,44 +66,41 @@ describe("Criteria", function() {
   describe("errors", function() {
     describe("when searching events", function() {
       it("returns an empty array for valid criteria", function() {
-        subject.setProperties(validSearchProps);
         expect(subject.get('errors')).toEqual([]);
       });
 
       it("includes an error if startDateString is empty", function() {
-        subject.setProperties(_.extend(validSearchProps, {startDateString: ''}));
+        subject.set('startDateString', '');
         expect(subject.get('errors').length).toEqual(1);
         expect(subject.get('errors')[0]).toMatch(/start date/i);
       });
 
       it("includes an error if startTimeString is empty", function() {
-        subject.setProperties(_.extend(validSearchProps, {startTimeString: ''}));
+        subject.set('startTimeString', '');
         expect(subject.get('errors').length).toEqual(1);
         expect(subject.get('errors')[0]).toMatch(/start date/i);
       });
 
       it("includes an error if endDateString is empty", function() {
-        subject.setProperties(_.extend(validSearchProps, {endDateString: ''}));
+        subject.set('endDateString', '');
         expect(subject.get('errors').length).toEqual(1);
         expect(subject.get('errors')[0]).toMatch(/end date/i);
       });
 
       it("includes an error if endTimeString is empty", function() {
-        subject.setProperties(_.extend(validSearchProps, {endTimeString: ''}));
+        subject.set('endTimeString', '');
         expect(subject.get('errors').length).toEqual(1);
         expect(subject.get('errors')[0]).toMatch(/end date/i);
       });
 
       it("includes an error if the start comes before the end", function() {
-        subject.setProperties(_.extend(validSearchProps, {endTimeString: '8:00 AM'}));
+        subject.set('endTimeString', '8:00 AM');
         expect(subject.get('errors').length).toEqual(1);
         expect(subject.get('errors')[0]).toMatch(/before/i);
       });
 
       it("includes an error if the radius is more than 75km", function() {
-        subject.setProperties(validSearchProps);
         spyOnProperties(subject, {radius: 76});
-
         expect(subject.get('errors').length).toEqual(1);
         expect(subject.get('errors')[0]).toMatch(/zoom/i);
       });
