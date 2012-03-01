@@ -42,6 +42,22 @@ describe("Moment", function(){
     });
   });
 
+  describe("eodUTC", function(){
+    it("adjusts the moment to the end of the day according to UTC time", function(){
+      var m = moment("1/1/2012 2:00 -0500").eodUTC();
+      expect(m.format('M/D HH:mm')).toEqual('1/1 18:59')
+
+      var m = moment("1/1/2012 22:00 -0500").eodUTC();
+      expect(m.format('M/D HH:mm')).toEqual('1/2 18:59')
+    });
+
+    it("mutates and returns itself", function(){
+      var original = moment("1/1/2012 22:00 -0500");
+      var mutated  = original.eodUTC();
+      expect(mutated.format('M/D HH:mm')).toEqual(original.format('M/D HH:mm'));
+    });
+  });
+
   describe("isAfter", function(){
     it("returns true when later than the moment passed in", function() {
       var earlyMoment = moment('1/1/2012 9:00 AM');

@@ -10,6 +10,14 @@ moment.fn.formatUTC = function(formatString) {
   return this.formatWithTimezoneOffset(0, formatString);
 }
 
+moment.fn.eodUTC = function() {
+  var utcHours  = moment(this).add('minutes', this.zone()).hours();
+  var hoursDiff = 23 - utcHours;
+
+  this.add('hours', hoursDiff).minutes(59).seconds(59).milliseconds(999);
+  return this;
+}
+
 moment.fn.isAfter = function(m) {
   return this.diff(m) > 0;
 }
