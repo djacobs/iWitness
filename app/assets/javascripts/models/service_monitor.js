@@ -2,6 +2,7 @@ IWitness.ServiceMonitor = Ember.Object.extend({
   status: 'no results',
   hasData: false,
   hasMorePages: true,
+  total: 0,
 
   search: function(key, search){
     if(arguments.length > 1) { // setter
@@ -30,7 +31,10 @@ IWitness.ServiceMonitor = Ember.Object.extend({
   },
 
   _handleResults: function(search, e, results){
-    if (results.length) this.set('hasData', true);
+    if (results.length) {
+      this.set('hasData', true);
+      this.incrementProperty('total', results.length);
+    }
   },
 
   _startFetch: function(search){

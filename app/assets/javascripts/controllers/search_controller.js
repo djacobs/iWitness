@@ -18,11 +18,17 @@ IWitness.searchController = Ember.Object.create({
   // called from routes.js when URL changes
   search: function(params) {
     var self = this;
+    var timeframeLength = params.end.diff(params.start) / 1000 / 60;
+    var timeframeRecency = moment().diff(params.end) / 1000 / 60;
 
     this.searches = [
       new FlickrSearch(params),
       new TwitterSearch(params)
     ];
+
+    Analytics.track('search', 'initiated', 'length of timeframe', timeframeLength);
+    Analytics.track('search', 'initiated', 'recency of timeframe', timeframeRecency);
+    Analytics.track('search', 'initiated', 'zoom level', params.zoom);
 
     _.each(this.searches, function(search) {
       self._executeSearch(search);
@@ -57,6 +63,8 @@ IWitness.searchController = Ember.Object.create({
   _searchServiceIsDone: function(search, e) {
     IWitness.log("%s search is done", search.type);
     Ember.sendEvent(this, 'searchComplete', search);
+    Analytics.track(search.type + ' search', 'completed', 'total', this.monitors[search.type].get('total'));
+    Analytics.track(search.type + ' search', 'completed', 'results present', this.monitors[search.type].get('total') > 0);
   }
 
 });

@@ -73,6 +73,7 @@ IWitness.Criteria = Ember.Object.extend({
                               'end',
                               'northEast',
                               'southWest',
+                              'zoom',
                               'stream');
   },
 
