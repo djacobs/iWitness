@@ -46,4 +46,20 @@ describe("TwitterCache", function() {
       expect(TwitterCache.getClosestTweetId(target)).toBeNull();
     });
   });
+
+  describe("expire", function() {
+    it("deletes tweets older than 9 days", function() {
+      var too_old = moment().subtract('days', 9).subtract('hours', 1);
+      var recent  = moment().subtract('days', 9).add('hours', 1);
+
+      TwitterCache.storeTweet('too_old', too_old);
+      TwitterCache.storeTweet('recent', recent);
+      TwitterCache.expire();
+
+      expect(localStorage.length).toEqual(1);
+      for (var key in localStorage) {
+        expect(localStorage[key]).toEqual('recent');
+      }
+    });
+  });
 });
