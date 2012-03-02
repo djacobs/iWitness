@@ -2,7 +2,6 @@
 <html>
 <head>
   <title>iWitness</title>
-  <%= airbrake_javascript_notifier %>
   <%= stylesheet_link_tag    "application", :media => "all" %>
   <%= javascript_include_tag "application" %>
   <%= javascript_include_tag "http://maps.googleapis.com/maps/api/js?key=#{GMAPS['api_key']}&sensor=false&libraries=geometry" %>
@@ -10,7 +9,17 @@
 <body>
 
   <div class="container">
-    <%= yield %>
+    <script type="text/x-handlebars">
+      <div class="row">
+        <div class="span4">
+          {{view IWitness.CriteriaView}}
+        </div>
+        <div class="span8">
+          {{view IWitness.MessagesView}}
+          {{view IWitness.resultSetView}}
+        </div>
+      </div>
+    </script>
   </div>
 
 </body>

@@ -2,11 +2,11 @@ IWitness.spaceAndTime = Ember.Object.create({
   init: function() {
     var self = this;
 
-    $.getJSON("<%= asset_path 'timezones.json' %>", function(zones){
+    $.getJSON('/assets/timezones.json', function(zones){
       self.set('kdTree', new KDTree(zones));
     });
 
-    $.getJSON("<%= asset_path 'zone_offsets.json' %>", function(zones){
+    $.getJSON('/assets/zone_offsets.json', function(zones){
       self.set('zoneOffsets', zones);
     });
   },
