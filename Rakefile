@@ -2,14 +2,14 @@
 # Add your own tasks in files placed in lib/tasks ending in .rake,
 # for example lib/tasks/capistrano.rake, and they will automatically be available to Rake.
 
-require 'rubygems'
 require 'bundler'
-require 'pathname'
-require 'logger'
-require 'fileutils'
 require 'ap'
 
 Bundler.require
+
+require 'pathname'
+require 'logger'
+require 'fileutils'
 
 ROOT        = Pathname(File.dirname(__FILE__))
 LOGGER      = Logger.new(STDOUT)
@@ -25,8 +25,9 @@ end
 task :compile => :cleanup do
   sprockets = Sprockets::Environment.new(ROOT) do |env|
     env.logger = LOGGER
+    env.js_compressor = Uglifier.new if ENV = :production
+    env.css_compressor = YUI::CssCompressor.new
   end
-
   sprockets.append_path(SOURCE_DIR.to_s)
 
   BUNDLES.each do |bundle|
@@ -36,10 +37,5 @@ task :compile => :cleanup do
     FileUtils.mkpath BUILD_DIR.join(prefix)
 
     assets.write_to(BUILD_DIR.join(prefix, basename))
-    # assets.to_a.each do |asset|
-    #   # strip filename.css.foo.bar.css multiple extensions
-    #   realname = asset.pathname.basename.to_s.split(".")[0..1].join(".")
-    #   asset.write_to(BUILD_DIR.join(prefix, realname))
-    # end
   end
 end
