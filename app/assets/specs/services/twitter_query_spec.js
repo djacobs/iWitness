@@ -10,6 +10,10 @@ describe("TwitterQuery", function() {
     query = new TwitterQuery(params);
   };
 
+  beforeEach(function() {
+    localStorage.clear();
+  });
+
   describe("getNext", function() {
     it("sets isDone when it runs out of results", function() {
       init({
