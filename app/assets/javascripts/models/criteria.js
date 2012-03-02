@@ -2,6 +2,7 @@ IWitness.Criteria = Ember.Object.extend({
   useTimezone: 'mine',
   stream: false,
   keyword: "",
+  address: "",
 
   timezoneOffset: function() {
     return parseInt(moment().format('ZZZ'), 10) / 100;

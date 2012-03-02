@@ -18,7 +18,7 @@ IWitness.routes = {
   },
 
   visitSearch: function(criteria) {
-    var props = criteria.getProperties('zoom', 'center', 'northEast', 'southWest', 'radius');
+    var props = criteria.getProperties('zoom', 'center', 'northEast', 'southWest', 'radius', 'address');
     var route = '/search' +
       '/' + criteria.get('keyword') +
       '/' + criteria.get('rawStart').format('YYYY-MM-DDTHH:mm') +
@@ -28,7 +28,7 @@ IWitness.routes = {
   },
 
   visitStream: function(criteria) {
-    var props = criteria.getProperties('zoom', 'center', 'northEast', 'southWest', 'radius');
+    var props = criteria.getProperties('zoom', 'center', 'northEast', 'southWest', 'radius', 'address');
     var route = '/stream' +
       '/' + criteria.get('keyword');
     SC.routes.set('location', _.extend(props, {route: route}));

@@ -42,11 +42,17 @@ IWitness.MapView = Ember.View.extend({
     if (this.map) this.map.setCenter(this.getPath('model.center'));
   }.observes('model.center'),
 
+  findAddress: function() {
+    var address = this.getPath('model.address');
+    if (address) this.map.findAddress(address);
+  },
+
   addressField: Ember.TextField.extend({
     placeholder: 'enter address and press enter',
+    valueBinding: 'parentView.model.address',
 
     insertNewline: function(e) {
-      this.get('parentView').map.findAddress(this.$().val());
+      this.get('parentView').findAddress();
     }
   })
 });
