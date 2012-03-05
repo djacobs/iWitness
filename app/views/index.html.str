@@ -2,13 +2,14 @@
 <html>
 <head>
   <title>iWitness</title>
-  <script src="/assets/stylesheets/application.css"></script>
-  <script src="/assets/javascripts/application.js"></script>
+  <link type='text/css' rel='stylesheet' href="/assets/stylesheets/application.css"/>
+  <script type='text/javascript' src="/assets/javascripts/application.js"></script>
+  <script type='text/javascript' src="http://maps.googleapis.com/maps/api/js?key=#{ maps['api_key'] }&sensor=false&libraries=geometry"></script>
 </head>
 <body>
 
   <div class="container">
-    <script type="text/x-handlebars">
+    <script type='text/x-handlebars'>
       <div class="row">
         <div class="span4">
           {{view IWitness.CriteriaView}}

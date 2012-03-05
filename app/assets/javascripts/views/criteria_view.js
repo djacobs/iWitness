@@ -1,5 +1,5 @@
 IWitness.CriteriaView = Ember.View.extend({
-  templateName: 'criteria_template',
+  templateName: 'javascripts/criteria_template',
   modelBinding: 'IWitness.criteriaController.content',
   radius: 1,
 

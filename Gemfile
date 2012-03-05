@@ -3,7 +3,9 @@ source 'https://rubygems.org'
 gem 'less'
 gem 'uglifier'
 gem 'yui-compressor', :require => 'yui/compressor'
-gem 'handlebars_assets'
+
+
+gem 'rasputin', :path => '/Users/pairing/projects/oss/rasputin'
 
 gem 'sprockets'
 

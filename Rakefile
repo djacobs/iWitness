@@ -13,19 +13,19 @@ require 'fileutils'
 
 ROOT        = Pathname(File.dirname(__FILE__))
 LOGGER      = Logger.new(STDOUT)
-BUNDLES     = %w( stylesheets/application.css javascripts/application.js )
+BUNDLES     = %w( stylesheets/application.css javascripts/application.js)
 BUILD_DIR   = ROOT.join("assets")
 SOURCE_DIR  = ROOT.join("app", "assets")
 
-task :cleanup do
+task :clean do
   FileUtils.rm_r(BUILD_DIR.children)
   touch(BUILD_DIR.join('.gitkeep'))
 end
 
-task :compile => :cleanup do
+task :compile => :clean do
   sprockets = Sprockets::Environment.new(ROOT) do |env|
     env.logger = LOGGER
-    env.js_compressor = Uglifier.new if ENV = :production
+    env.js_compressor = Uglifier.new
     env.css_compressor = YUI::CssCompressor.new
   end
   sprockets.append_path(SOURCE_DIR.to_s)

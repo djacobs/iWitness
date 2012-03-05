@@ -1,5 +1,5 @@
 IWitness.MapView = Ember.View.extend({
-  templateName:          'map_template',
+  templateName:          'javascripts/map_template',
   modelBinding:          'IWitness.criteriaController.content',
   selectedResultBinding: 'IWitness.resultSetController.selectedResult',
 
