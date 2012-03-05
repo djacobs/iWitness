@@ -1,5 +1,7 @@
-PATH
-  remote: /Users/pairing/projects/oss/rasputin
+GIT
+  remote: git@github.com:edgecase/rasputin.git
+  revision: 615eed46371f41b5b1ec51c8cb3e962708ef019d
+  branch: sprockets
   specs:
     rasputin (0.14.1)
       sprockets (~> 2.0)
