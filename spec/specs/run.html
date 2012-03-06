@@ -2,11 +2,10 @@
 <html>
 <head>
   <title>Jasmine Specs</title>
-  <%= stylesheet_link_tag    "jasmine" %>
-  <%= javascript_include_tag "jasmine" %>
-  <%= javascript_include_tag "specs" %>
-  <%= javascript_include_tag "application" %>
-  <%= javascript_tag do %>
+  <link type='text/css' rel='stylesheet' href="/specs/specs.css"/>
+  <script type='text/javascript' src="/specs/specs.js"></script>
+  <script type='text/javascript' src="/assets/application.js"></script>
+  <script type='text/javascript'>
     (function() {
       var jasmineEnv = jasmine.getEnv();
       jasmineEnv.updateInterval = 1000;
@@ -33,7 +32,7 @@
       }
 
     })();
-  <% end %>
+  </script>
 </head>
 <body>
 

@@ -9,6 +9,7 @@ require 'logger'
 ROOT        = Pathname(File.dirname(__FILE__))
 LOGGER      = Logger.new(STDOUT)
 SOURCE_DIR  = ROOT.join("app")
+SPECS_DIR  = ROOT.join("spec", 'specs')
 VENDOR_DIR  = ROOT.join("vendor")
 
 GMAPS = if ENV['GMAPS_API']
@@ -35,6 +36,41 @@ end
 
 map '/assets/zone_offsets.json' do |name|
   run Rack::File.new("app/json/zone_offsets.json")
+end
+
+map '/specs/specs.js' do
+  sprockets = Sprockets::Environment.new(ROOT) do |env|
+    env.logger = LOGGER
+  end
+
+  sprockets.append_path(SPECS_DIR.to_s)
+  sprockets.append_path(VENDOR_DIR.to_s)
+
+  run proc { |env| [200, { 'Content-Type' => 'text/javascript' }, [sprockets['specs.js'].to_s]] }
+end
+
+map '/specs/specs.css' do
+  sprockets = Sprockets::Environment.new(ROOT) do |env|
+    env.logger = LOGGER
+  end
+
+  sprockets.append_path(SPECS_DIR.to_s)
+  sprockets.append_path(VENDOR_DIR.to_s)
+
+  run proc { |env| [200, { 'Content-Type' => 'text/css' }, [sprockets['specs.css'].to_s]] }
+end
+
+map '/specs' do
+  sprockets = Sprockets::Environment.new(ROOT) do |env|
+    env.register_engine '.hbs', Rasputin::HandlebarsTemplate
+    env.logger = LOGGER
+  end
+
+  sprockets.append_path(SOURCE_DIR.to_s)
+  sprockets.append_path(SPECS_DIR.to_s)
+  sprockets.append_path(VENDOR_DIR.to_s)
+
+  run proc { |env| [200, { 'Content-Type' => 'text/html' }, [sprockets['run.html'].to_s]] }
 end
 
 map '/' do
