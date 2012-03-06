@@ -1,5 +1,5 @@
 IWitness.MessagesView = Ember.View.extend({
-  templateName:         'javascripts/messages_template',
+  templateName:         'messages_template',
   modelBinding:         'IWitness.criteriaController.content',
 
   translateStatus: function(service){

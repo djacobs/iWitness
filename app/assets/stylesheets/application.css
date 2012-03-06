@@ -1,9 +1,0 @@
-/*
- *= require vendor/bootstrap/css/bootstrap.css
- *= require vendor/jquery-ui-bootstrap/jquery-ui-bootstrap/css/custom-theme/jquery-ui-1.8.16.custom
- *= require vendor/timePicker/timePicker/timePicker.css
- *= require_self
- *= require_tree .
-*/
-
-.container { margin-top: 30px; }

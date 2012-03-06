@@ -1,5 +1,5 @@
 IWitness.resultSetView = Ember.View.extend({
-  templateName: 'javascripts/result_set_template',
+  templateName: 'result_set_template',
 
   didInsertElement: function(){
     Ember.addListener(IWitness.searchController, 'searchComplete', this, this._renderLoadMore);

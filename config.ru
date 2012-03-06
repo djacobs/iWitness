@@ -8,8 +8,8 @@ require 'logger'
 
 ROOT        = Pathname(File.dirname(__FILE__))
 LOGGER      = Logger.new(STDOUT)
-# BUNDLES     = %w( stylesheets/application.css javascripts/application.js )
-SOURCE_DIR  = ROOT.join("app", "assets")
+SOURCE_DIR  = ROOT.join("app")
+VENDOR_DIR  = ROOT.join("vendor")
 
 GMAPS = if ENV['GMAPS_API']
           { 'api_key' => ENV['GMAPS_API'] }
@@ -25,15 +25,16 @@ map '/assets' do
   end
 
   sprockets.append_path(SOURCE_DIR.to_s)
+  sprockets.append_path(VENDOR_DIR.to_s)
   run sprockets
 end
 
 map '/assets/timezones.json' do |name|
-  run Rack::File.new("app/assets/json/timezones.json")
+  run Rack::File.new("app/json/timezones.json")
 end
 
 map '/assets/zone_offsets.json' do |name|
-  run Rack::File.new("app/assets/json/zone_offsets.json")
+  run Rack::File.new("app/json/zone_offsets.json")
 end
 
 map '/' do
@@ -41,7 +42,7 @@ map '/' do
     env.logger = LOGGER
   end
 
-  sprockets.append_path(ROOT.join('app', 'views'))
+  sprockets.append_path(ROOT.join('app'))
 
   sprockets.context_class.class_eval do
     def maps
