@@ -11,11 +11,17 @@ require 'pathname'
 require 'logger'
 require 'fileutils'
 
-ROOT        = Pathname(File.dirname(__FILE__))
 LOGGER      = Logger.new(STDOUT)
-BUNDLES     = %w( stylesheets/application.css javascripts/application.js)
+
+ROOT        = Pathname(File.dirname(__FILE__))
 BUILD_DIR   = ROOT.join("assets")
-SOURCE_DIR  = ROOT.join("app", "assets")
+SOURCE_DIR  = ROOT.join("app")
+CSS_DIR     = ROOT.join("app", 'stylesheets')
+JSON_DIR    = ROOT.join("app", 'json')
+SPECS_DIR   = ROOT.join("spec", 'specs')
+VENDOR_DIR  = ROOT.join("vendor")
+
+BUNDLES     = [ 'index.html', 'application.css', 'application.js', 'timezones.json', 'zone_offsets.json' ]
 
 task :clean do
   FileUtils.rm_r(BUILD_DIR.children)
@@ -27,15 +33,25 @@ task :compile => :clean do
     env.logger = LOGGER
     env.js_compressor = Uglifier.new
     env.css_compressor = YUI::CssCompressor.new
+    env.register_engine '.hbs', Rasputin::HandlebarsTemplate
   end
   sprockets.append_path(SOURCE_DIR.to_s)
+  sprockets.append_path(CSS_DIR.to_s)
+  sprockets.append_path(JSON_DIR.to_s)
+  sprockets.append_path(VENDOR_DIR.to_s)
+  sprockets.context_class.class_eval do
+    def maps
+      if ENV['GMAPS_API']
+        { 'api_key' => ENV['GMAPS_API'] }
+      elsif File.exists?(ROOT.join("config", "gmaps.yml"))
+        YAML.load_file(ROOT.join("config", "gmaps.yml"))
+      end
+    end
+  end
 
   BUNDLES.each do |bundle|
     assets = sprockets.find_asset(bundle)
 
-    prefix, basename = assets.pathname.to_s.split('/')[-2..-1]
-    FileUtils.mkpath BUILD_DIR.join(prefix)
-
-    assets.write_to(BUILD_DIR.join(prefix, basename))
+    assets.write_to(BUILD_DIR.join(bundle).to_s)
   end
 end

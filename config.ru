@@ -6,86 +6,76 @@ Bundler.require
 
 require 'logger'
 
-ROOT        = Pathname(File.dirname(__FILE__))
-LOGGER      = Logger.new(STDOUT)
-SOURCE_DIR  = ROOT.join("app")
+### Paths
+ROOT       = Pathname(File.dirname(__FILE__))
+LOGGER     = Logger.new(STDOUT)
+SOURCE_DIR = ROOT.join("app")
+CSS_DIR    = ROOT.join("app", 'stylesheets')
+JSON_DIR   = ROOT.join("app", 'json')
 SPECS_DIR  = ROOT.join("spec", 'specs')
-VENDOR_DIR  = ROOT.join("vendor")
+VENDOR_DIR = ROOT.join("vendor")
 
-GMAPS = if ENV['GMAPS_API']
-          { 'api_key' => ENV['GMAPS_API'] }
-        elsif File.exists?(ROOT.join("config", "gmaps.yml"))
-          YAML.load_file(ROOT.join("config", "gmaps.yml"))
-        end
-puts GMAPS
+### Application Sprockets
+sprockets = Sprockets::Environment.new(ROOT) do |env|
+  env.register_engine '.hbs', Rasputin::HandlebarsTemplate
+  env.logger = LOGGER
+end
 
-map '/assets' do
-  sprockets = Sprockets::Environment.new(ROOT) do |env|
-    env.register_engine '.hbs', Rasputin::HandlebarsTemplate
-    env.logger = LOGGER
+sprockets.append_path(SOURCE_DIR.to_s)
+sprockets.append_path(CSS_DIR.to_s)
+sprockets.append_path(JSON_DIR.to_s)
+sprockets.append_path(VENDOR_DIR.to_s)
+
+sprockets.context_class.class_eval do
+  def maps
+    if ENV['GMAPS_API']
+      { 'api_key' => ENV['GMAPS_API'] }
+    elsif File.exists?(ROOT.join("config", "gmaps.yml"))
+      YAML.load_file(ROOT.join("config", "gmaps.yml"))
+    end
   end
-
-  sprockets.append_path(SOURCE_DIR.to_s)
-  sprockets.append_path(VENDOR_DIR.to_s)
-  run sprockets
 end
 
-map '/assets/timezones.json' do |name|
-  run Rack::File.new("app/json/timezones.json")
+### Specs Sprockets
+sprockets_specs = Sprockets::Environment.new(ROOT) do |env|
+  env.register_engine '.hbs', Rasputin::HandlebarsTemplate
+  env.logger = LOGGER
 end
 
-map '/assets/zone_offsets.json' do |name|
-  run Rack::File.new("app/json/zone_offsets.json")
-end
+sprockets_specs.append_path(SOURCE_DIR.to_s)
+sprockets_specs.append_path(SPECS_DIR.to_s)
+sprockets_specs.append_path(JSON_DIR.to_s)
+sprockets_specs.append_path(VENDOR_DIR.to_s)
 
-map '/specs/specs.js' do
-  sprockets = Sprockets::Environment.new(ROOT) do |env|
-    env.logger = LOGGER
-  end
-
-  sprockets.append_path(SPECS_DIR.to_s)
-  sprockets.append_path(VENDOR_DIR.to_s)
-
-  run proc { |env| [200, { 'Content-Type' => 'text/javascript' }, [sprockets['specs.js'].to_s]] }
-end
-
-map '/specs/specs.css' do
-  sprockets = Sprockets::Environment.new(ROOT) do |env|
-    env.logger = LOGGER
-  end
-
-  sprockets.append_path(SPECS_DIR.to_s)
-  sprockets.append_path(VENDOR_DIR.to_s)
-
-  run proc { |env| [200, { 'Content-Type' => 'text/css' }, [sprockets['specs.css'].to_s]] }
+### Routes
+map '/' do
+  run proc { |env|
+    if env['PATH_INFO'] == '/'
+      [200, { 'Content-Type' => 'text/html' }, [sprockets['index.html'].to_s]]
+    else
+      sprockets.call(env)
+    end
+  }
 end
 
 map '/specs' do
-  sprockets = Sprockets::Environment.new(ROOT) do |env|
-    env.register_engine '.hbs', Rasputin::HandlebarsTemplate
-    env.logger = LOGGER
-  end
-
-  sprockets.append_path(SOURCE_DIR.to_s)
-  sprockets.append_path(SPECS_DIR.to_s)
-  sprockets.append_path(VENDOR_DIR.to_s)
-
-  run proc { |env| [200, { 'Content-Type' => 'text/html' }, [sprockets['run.html'].to_s]] }
-end
-
-map '/' do
-  sprockets = Sprockets::Environment.new(ROOT) do |env|
-    env.logger = LOGGER
-  end
-
-  sprockets.append_path(ROOT.join('app'))
-
-  sprockets.context_class.class_eval do
-    def maps
-      GMAPS
+  run proc { |env|
+    if env['PATH_INFO'] == ''
+      [200, { 'Content-Type' => 'text/html' }, [sprockets_specs['run.html'].to_s]]
+    else
+      sprockets_specs.call(env)
     end
-  end
-
-  run proc { |env| [200, { 'Content-Type' => 'text/html' }, [sprockets['index.html'].to_s]] }
+  }
 end
 
+map '/mocks/twitter' do
+  run proc { |env|
+    req = Rack::Request.new(env)
+    file_name = req.params.values_at('fixtureName', 'page', 'max_id').join('_')
+    file_path = ROOT.join('spec', 'fixtures', file_name)
+    if File.exists?(file_path)
+      puts "reading file at #{file_path}"
+      [200, { 'Content-Type' => 'text/javascript' }, [File.read(file_path)]]
+    end
+  }
+end
