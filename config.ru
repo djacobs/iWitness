@@ -49,6 +49,6 @@ map '/' do
     end
   end
 
-  run sprockets
+  run proc { |env| [200, { 'Content-Type' => 'text/html' }, [sprockets['index.html'].to_s]] }
 end
 
