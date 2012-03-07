@@ -35,5 +35,18 @@ IWitness.TwitterResult = IWitness.Result.extend({
 
   lng: function() {
     return this.get('coordinates')[1];
-  }.property('coordinates').cacheable()
+  }.property('coordinates').cacheable(),
+
+  contentSrc: function(){
+    var entities = this.get("entities"); // returns a normal JS object
+    if (entities && entities.urls.length) {
+      IWitness.log(entities.urls);
+      var url = entities.urls[0].expanded_url;
+      var match = url.match(/instagr\.am\/p\/(\w+)\//);
+      if (match) {
+        return "http://instagr.am/p/"+ match[1] +"/media/?size=m";
+      }
+    }
+    return null;
+  }.property("entities")
 });
