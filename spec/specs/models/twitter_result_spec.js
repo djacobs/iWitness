@@ -11,8 +11,8 @@ describe("TwitterResult", function() {
     });
 
     it("returns an instagram url", function() {
-      entities.urls.push({expanded_url: "http://instagr.am/p/aasdfASDFSD/"});
-      expect(result.get("contentSrc")).toEqual("http://instagr.am/p/aasdfASDFSD/media/?size=m");
+      entities.urls.push({expanded_url: "http://instagr.am/p/HxOi-1wLe_/"});
+      expect(result.get("contentSrc")).toEqual("http://instagr.am/p/HxOi-1wLe_/media/?size=m");
     });
 
     it("returns an instagram url", function() {

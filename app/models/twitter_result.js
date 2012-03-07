@@ -40,15 +40,14 @@ IWitness.TwitterResult = IWitness.Result.extend({
   contentSrc: function(){
     var entities = this.get("entities"); // returns a normal JS object
     if (entities && entities.urls.length) {
-      IWitness.log(entities.urls);
       var url = entities.urls[0].expanded_url;
-      var match = url.match(/instagr\.am\/p\/(\w+)\//);
-      if (match) {
+      var match;
+      if (match = url.match(/instagr\.am\/p\/(.*?)\//)) {
         return "http://instagr.am/p/"+ match[1] +"/media/?size=m";
-      }
-      match = url.match(/twitpic\.com\/(\w+)/);
-      if (match) {
+      } else if (match = url.match(/twitpic\.com\/(\w+)/)) {
         return "http://twitpic.com/show/large/"+ match[1];
+      } else {
+        IWitness.log(url);
       }
     }
     return null;
