@@ -1,12 +1,15 @@
 source 'https://rubygems.org'
 
-gem 'rails', '3.2.1'
+gem 'sprockets'
 
-group :assets do
-  gem 'less-rails-bootstrap', '>= 2.0'
-  gem 'uglifier', '>= 1.0.3'
-  gem 'rasputin'
-  gem 'jquery-rails'
+gem 'less'
+gem 'uglifier'
+gem 'yui-compressor', :require => 'yui/compressor'
+
+gem 'rasputin', :git => 'git@github.com:edgecase/rasputin.git', :branch => 'sprockets'
+
+
+group :development do
+  gem 'ruby-debug19', :require => 'ruby-debug'
+  gem 'awesome_print', :require => 'ap'
 end
-
-gem "airbrake"
