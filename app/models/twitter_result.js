@@ -46,6 +46,10 @@ IWitness.TwitterResult = IWitness.Result.extend({
       if (match) {
         return "http://instagr.am/p/"+ match[1] +"/media/?size=m";
       }
+      match = url.match(/twitpic\.com\/(\w+)/);
+      if (match) {
+        return "http://twitpic.com/show/large/"+ match[1];
+      }
     }
     return null;
   }.property("entities")
