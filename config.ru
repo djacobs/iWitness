@@ -36,7 +36,7 @@ sprockets.context_class.class_eval do
   end
 
   def env
-    :development
+    ENV['RACK_ENV'] || 'development'
   end
 end
 

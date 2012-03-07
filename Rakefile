@@ -47,6 +47,10 @@ task :compile => :clean do
         YAML.load_file(ROOT.join("config", "gmaps.yml"))
       end
     end
+
+    def env
+      ENV['RACK_ENV'] || 'development'
+    end
   end
 
   BUNDLES.each do |bundle|
