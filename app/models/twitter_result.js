@@ -37,19 +37,44 @@ IWitness.TwitterResult = IWitness.Result.extend({
     return this.get('coordinates')[1];
   }.property('coordinates').cacheable(),
 
-  contentSrc: function(){
+  contentSrc: function() {
+    return this.get("media").mediaUrl;
+  }.property("media"),
+
+  contentLink: function(){
+    return this.get("media").url;
+  }.property("media"),
+
+  media: function(){
     var entities = this.get("entities"); // returns a normal JS object
-    if (entities && entities.urls.length) {
-      var url = entities.urls[0].expanded_url;
-      var match;
-      if (match = url.match(/instagr\.am\/p\/(.*?)\//)) {
-        return "http://instagr.am/p/"+ match[1] +"/media/?size=m";
-      } else if (match = url.match(/twitpic\.com\/(\w+)/)) {
-        return "http://twitpic.com/show/large/"+ match[1];
-      } else {
-        IWitness.log(url);
+    var url, match;
+
+    // twitter pics show up in entities.media
+    if (entities && entities.media) {
+      url = _(entities.media).chain().filter(function(item) {
+        return item.type == "photo";
+      }).first().value();
+      if (url){
+        return this._media(url.url, url.media_url+":small");
       }
     }
-    return null;
-  }.property("entities")
+
+    // other links show up in entities.urls
+    if (entities && entities.urls.length) {
+      url = entities.urls[0].expanded_url;
+      if (match = url.match(/instagr\.am\/p\/(.*?)\//)) {
+        return this._media(url, "http://instagr.am/p/"+ match[1] +"/media/?size=m");
+      } else if (match = url.match(/twitpic\.com\/(\w+)/)) {
+        return this._media(url, "http://twitpic.com/show/large/"+ match[1]);
+      }
+    }
+    return {};
+  }.property("entities").cacheable(),
+
+  _media: function(url, mediaUrl){
+    return {
+      url:      url,
+      mediaUrl: mediaUrl
+    };
+  }
 });

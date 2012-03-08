@@ -6,6 +6,7 @@ IWitness.FlickrResult = IWitness.Result.extend({
   avatarSrcBinding:       'profilePicUrl',
   userNamePrimaryBinding: 'ownername',
   contentSrcBinding:      'urlS',
+  contentLinkBinding:     'permalinkUrl',
   contentTextBinding:     'description._content',
 
   resultId: function(){
