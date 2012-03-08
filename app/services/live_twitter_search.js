@@ -78,7 +78,8 @@ _.extend(LiveTwitterSearch.prototype, {
       geocode:     this.location(),
       rpp:         100,
       since_id:    this.sinceId,
-      page:        this.currentPage
+      page:        this.currentPage,
+      include_entities: true
     };
   },
 
