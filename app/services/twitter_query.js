@@ -36,7 +36,8 @@ _.extend(TwitterQuery.prototype, {
       since:       this.start.formatUTC('YYYY-MM-DD'),
       until:       searchEnd.formatUTC('YYYY-MM-DD'),
       rpp:         100,
-      max_id:      this.maxId
+      max_id:      this.maxId,
+      include_entities: true
     }, params);
   },
 

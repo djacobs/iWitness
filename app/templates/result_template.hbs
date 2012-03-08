@@ -20,7 +20,9 @@
 
   <div class="result_content">
     {{#if model.contentSrc}}
-      <img {{bindAttr src="model.contentSrc"}}>
+      <a {{bindAttr href="model.contentLink"}}>
+        <img {{bindAttr src="model.contentSrc"}}>
+      </a>
     {{/if}}
 
     <p>{{linkify model.contentText}}</p>
