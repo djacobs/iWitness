@@ -11,22 +11,18 @@ var Analytics = Ember.Object.create({
   },
 
   startSession: function(stream) {
-    console.log("Session started!");
-    var wait = (stream ? 10 : 3) * 1 * 1000;
+    var wait = (stream ? 10 : 3) * 60 * 1000;
     if(this.session) {
       this._resetSession(wait);
     } else {
       this.session = true;
-      console.log("Session = ", this.session);
-      // this.track('session', 'started', 'sessionCount', this.sessionCount++);
-      console.log("reported event to Google Analytics.");
+      this.track('session', 'started', 'sessionCount', this.sessionCount++);
       this._resetSession(wait);
     }
   },
 
   _resetSession: _variableDebounce( function() {
     this.session = false;
-    console.log("Session = ", this.session);
   })
 
 });
@@ -41,7 +37,6 @@ function _variableDebounce(func) {
       func.apply(context, args);
     };
     clearTimeout(timeout);
-    console.log("Waiting ", newWait);
     timeout = setTimeout(later, newWait);
   };
 }
