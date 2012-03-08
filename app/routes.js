@@ -5,6 +5,8 @@ IWitness.routes = {
   },
 
   search: function(params) {
+    Analytics.startSession(false);
+
     params.rawStart = moment(params.rawStart, "YYYY-MM-DDTHH:mm");
     params.rawEnd   = moment(params.rawEnd, "YYYY-MM-DDTHH:mm");
     this._setSearchParams(params);
@@ -12,6 +14,8 @@ IWitness.routes = {
   },
 
   stream: function(params) {
+    Analytics.startSession(true);
+
     params.stream = true;
     this._setSearchParams(params);
     IWitness.searchController.search(IWitness.criteria.getParams());

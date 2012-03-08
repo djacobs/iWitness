@@ -18,8 +18,8 @@ IWitness.searchController = Ember.Object.create({
   // called from routes.js when URL changes
   search: function(params) {
     var self = this;
-    var timeframeLength = params.end.diff(params.start) / 1000 / 60;
-    var timeframeRecency = moment().diff(params.end) / 1000 / 60;
+    var timeframeLength = params.end.diff(params.start) / 1000 / 60; // in minutes
+    var timeframeRecency = moment().diff(params.end) / 1000 / 60;    // in minutes
 
     this.searches = [
       new FlickrSearch(params),
@@ -63,8 +63,8 @@ IWitness.searchController = Ember.Object.create({
   _searchServiceIsDone: function(search, e) {
     IWitness.log("%s search is done", search.type);
     Ember.sendEvent(this, 'searchComplete', search);
-    Analytics.track(search.type + ' search', 'completed', 'total', this.monitors[search.type].get('total'));
-    Analytics.track(search.type + ' search', 'completed', 'results present', this.monitors[search.type].get('total') > 0);
+    Analytics.track(search.type + ' search', 'completed', 'results count', this.monitors[search.type].get('total'));
+    Analytics.track(search.type + ' search', 'completed', 'results present', this.monitors[search.type].get('total') > 0 ? 1 : 0);
   }
 
 });

@@ -3,6 +3,7 @@ window.IWitness = Ember.Application.create({
     IWitness.routes.draw();
     this.set('criteria', IWitness.Criteria.create());
     TwitterCache.expire();
+    Analytics.startSession(false);
   }
 });
 
