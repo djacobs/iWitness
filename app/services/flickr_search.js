@@ -92,8 +92,8 @@ _.extend(FlickrSearch.prototype, {
       method:          'flickr.photos.search',
       format:          'json',
       extras:          'geo,url_s,date_taken,date_upload,owner_name,description',
-      min_upload_date: this.minUploadDate
+      min_upload_date: this.minUploadDate,
+      max_taken_date:  this._adjustTime(moment().add("minutes", 29))
     }
   }
 });
-
