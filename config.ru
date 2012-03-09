@@ -24,6 +24,9 @@ end
 sprockets.append_path(SOURCE_DIR.to_s)
 sprockets.append_path(CSS_DIR.to_s)
 sprockets.append_path(JSON_DIR.to_s)
+sprockets.append_path(VENDOR_DIR.join('bootstrap').to_s)
+sprockets.append_path(VENDOR_DIR.join('jquery-ui-bootstrap').to_s)
+sprockets.append_path(VENDOR_DIR.join('jquery-ui-bootstrap', 'jquery-ui-bootstrap').to_s)
 sprockets.append_path(VENDOR_DIR.to_s)
 
 sprockets.context_class.class_eval do

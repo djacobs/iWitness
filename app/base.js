@@ -2,6 +2,7 @@ window.IWitness = Ember.Application.create({
   ready: function() {
     IWitness.routes.draw();
     this.set('criteria', IWitness.Criteria.create());
+    this.set('curatedResults', new IWitness.CuratedResults());
     TwitterCache.expire();
     Analytics.startSession(false);
   }
