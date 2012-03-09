@@ -14,3 +14,7 @@ IWitness.config = {
   pollInterval: 30, //seconds
   searchDelay: 3000
 };
+
+window.onbeforeunload = function() {
+  Analytics.stopSession();
+}

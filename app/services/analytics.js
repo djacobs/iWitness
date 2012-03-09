@@ -1,4 +1,5 @@
 var Analytics = Ember.Object.create({
+  sessionStart: null,
   session: false,
   sessionCount: 0,
 
@@ -15,14 +16,22 @@ var Analytics = Ember.Object.create({
     if(this.session) {
       this._resetSession(wait);
     } else {
+      this.sessionStart = moment();
       this.session = true;
       this.track('session', 'started', 'sessionCount', this.sessionCount++);
       this._resetSession(wait);
     }
   },
 
-  _resetSession: _variableDebounce( function() {
+  stopSession: function() {
+    var sessionTime = moment().diff(this.sessionStart, 'seconds');
     this.session = false;
+    this.track('session', 'ended', 'sessionCompleted', sessionTime);
+    console.log('session stopped', sessionTime);
+  },
+
+  _resetSession: _variableDebounce(function() {
+    this.stopSession();
   })
 
 });
