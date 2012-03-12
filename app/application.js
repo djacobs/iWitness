@@ -2,6 +2,7 @@
 //= require jquery-ui/jquery-ui/ui/jquery.ui.core
 //= require jquery-ui/jquery-ui/ui/jquery.ui.datepicker
 //= require timePicker/timePicker/jquery.timePicker
+//= require bootstrap/js/bootstrap.js
 //= require javascripts/underscore
 //= require javascripts/ember
 //= require sproutcore-routing/sproutcore-routing/lib/core.js

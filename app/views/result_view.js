@@ -23,30 +23,18 @@ IWitness.ResultView = Ember.View.extend({
     IWitness.resultSetController.set('selectedResult', this.get('model'));
   },
 
-  curatedIcon: Ember.View.extend({
-    tagName: 'i',
+  toggleCuration: function() {
+    IWitness.curatedSetController.toggleCuration(this.get('model'));
+    return false;
+  },
 
-    didInsertElement: function(){
-      var isCurated = IWitness.curatedResults.contains( this.getPath('parentView.model.resultId') );
-      this._toggleIcon(isCurated);
-    },
+  curateButtonClass: function() {
+    var model = this.get('model');
 
-    click: function(e) {
-      e.stopPropagation();
-      var model = this.getPath('parentView.model');
-      var isCurrentlyCurated = IWitness.curatedResults.contains( model.get('resultId') );
-      var newToggleState = !isCurrentlyCurated;
-
-      if(isCurrentlyCurated) {
-        IWitness.curatedResults.removeResult( model );
-      } else {
-        IWitness.curatedResults.addResult( model );
-      }
-      this._toggleIcon(newToggleState);
-    },
-
-    _toggleIcon: function(isCurated){
-      this.$().toggleClass('icon-star', isCurated).toggleClass('icon-star-empty', !isCurated);
+    if (IWitness.curatedSetController.isCurated(model)) {
+      return 'icon-star';
+    } else {
+      return 'icon-star-empty';
     }
-  })
+  }.property('IWitness.curatedSetController.@each')
 });
