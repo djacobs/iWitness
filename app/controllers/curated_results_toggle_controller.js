@@ -7,6 +7,10 @@ IWitness.curatedResultsToggleController = Ember.Object.create({
 
   showingCuratedResults: function(){
     return this.get('currentView') === 'curated_results';
-  }.property('currentView')
+  }.property('currentView'),
+
+  clearSelected: function(){
+    IWitness.resultSetController.set('selectedResult', null);
+  }.observes('currentView')
 
 });
