@@ -8,24 +8,24 @@ IWitness.resultSetView = Ember.View.extend({
   },
 
   _renderLoadMore: function(){
-    self = this;
+    var self = this;
     $('.load-more').remove();
 
     _.defer(function() {
       if(IWitness.searchController.serviceHasMorePages('twitter')) {
         $row = self._loadMoreRow('twitter', 'Load More from Twitter');
-        $('tr.twitter:last').after($row);
+        self.$('tr.twitter:last').after($row);
       } else {
         $row = self._finishedRow('No more Twitter results');
-        $('tr.twitter:last').after($row);
+        self.$('tr.twitter:last').after($row);
       }
 
       if(IWitness.searchController.serviceHasMorePages('flickr')) {
         $row = self._loadMoreRow('flickr', 'Load More from Flickr');
-        $('tr.flickr:last').after($row);
+        self.$('tr.flickr:last').after($row);
       } else {
         $row = self._finishedRow('No more Flickr results');
-        $('tr.flickr:last').after($row);
+        self.$('tr.flickr:last').after($row);
       }
     });
   },
