@@ -2,7 +2,10 @@ IWitness.resultFactory = {
   create: function(type, obj) {
     var params     = this._camelCase(obj);
     var resultType = this._resultTypes[type];
-    return IWitness[resultType].create(params);
+
+    var emberObj = IWitness[resultType].create(params);
+    emberObj.set('originalParams', params);
+    return emberObj;
   },
 
   _resultTypes: {

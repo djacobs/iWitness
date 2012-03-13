@@ -13,6 +13,12 @@ IWitness.Result = Ember.Object.extend(Ember.Comparable, {
   lng:               null,
   resultType:        null,
 
+  serialize: function() {
+    var origParams = this.get('originalParams');
+    origParams.resultType = this.get('resultType');
+    return JSON.stringify(origParams);
+  },
+
   compare: function(a,b) {
     if (a.get('resultId') === b.get('resultId')){
       return 0;
