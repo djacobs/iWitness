@@ -3,24 +3,22 @@ IWitness.curatedSetController = Ember.ArrayController.create({
   _resultIds: [],
 
   init: function() {
+    var self = this;
+
     this._super();
-    for (var key in localStorage) {
-      if(this._isKey(key)) {
-        var obj = JSON.parse(localStorage[key]);
-        var result = IWitness.resultFactory.create(obj.resultType, obj);
-        this._addResult(result);
-      }
-    }
+
+    CuratedResultsCache.forEach(function(result) {
+      self._addResult(result);
+    });
   },
 
   toggleCuration: function(result) {
     if(this.isCurated(result)) {
       this._removeResult(result);
-      delete localStorage[this._key(result)];
+      CuratedResultsCache.remove(result);
     } else {
       this._addResult(result);
-
-      localStorage[this._key(result)] = result.serialize();
+      CuratedResultsCache.add(result);
     }
   },
 
@@ -41,12 +39,4 @@ IWitness.curatedSetController = Ember.ArrayController.create({
     });
     this.removeObject(curatedResult);
   },
-
-  _key: function(result){
-    return 'curated_' + result.get('resultId');
-  },
-
-  _isKey: function(key) {
-    return key.substring(0,8) == 'curated_';
-  }
 });

@@ -3,10 +3,15 @@ describe("IWitness.curatedSetController", function() {
 
   beforeEach(function() {
     controller = IWitness.curatedSetController;
+    spyOn(CuratedResultsCache, 'add');
+    spyOn(CuratedResultsCache, 'remove');
+    spyOn(CuratedResultsCache, 'forEach');
     controller.set('content', []);
     controller.set('_resultIds', []);
-    result    = { get: function() { return 1; }, name: 'result' };
-    duplicate = { get: function() { return 1; }, name: 'duplicate' };
+    result    = { get: function(){ return 1;}
+                , name: 'result' };
+    duplicate = { get: function(){ return 1;}
+                , name: 'duplicate' };
   });
 
   describe("an uncurated result", function(){

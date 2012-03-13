@@ -11,6 +11,7 @@
 //= require javascripts/kdtree
 //= require_tree ./templates
 //= require base
+//= require_tree ./services
 //= require models/space_and_time
 //= require models/result
 //= require_tree ./models
