@@ -12,6 +12,7 @@
 //= require_tree ./templates
 //= require base
 //= require_tree ./services
+//= require_tree ./mixins
 //= require models/space_and_time
 //= require models/result
 //= require_tree ./models

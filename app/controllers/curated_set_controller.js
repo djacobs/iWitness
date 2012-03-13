@@ -1,4 +1,4 @@
-IWitness.curatedSetController = Ember.ArrayController.create({
+IWitness.curatedSetController = Ember.ArrayController.create(IWitness.ResultSorting, {
   content: [],
   _resultIds: [],
 
@@ -39,8 +39,11 @@ IWitness.curatedSetController = Ember.ArrayController.create({
   },
 
   _addResult: function(result){
-    this._resultIds.push(result.get('resultId'));
-    this.pushObject(result);
+    var idx = this._findInsertionPoint(result);
+    if (idx !== null) {
+      this._resultIds.push(result.get('resultId'));
+      this.insertAt(idx, result);
+    }
   },
 
   _removeResult: function(result){

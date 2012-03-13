@@ -3,6 +3,10 @@ describe("TwitterTimestampCache", function() {
     localStorage.clear();
   });
 
+  afterEach(function() {
+    localStorage.clear();
+  });
+
   describe("storeTweet", function() {
     it("stores in localStorage", function() {
       TwitterTimestampCache.storeTweet('test', moment());

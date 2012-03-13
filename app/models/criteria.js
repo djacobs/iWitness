@@ -109,3 +109,5 @@ IWitness.Criteria = Ember.Object.extend({
     }
   }
 });
+
+IWitness.criteria = IWitness.Criteria.create();
