@@ -17,6 +17,14 @@ var CuratedResultsCache = {
     }
   },
 
+  clearAll: function() {
+    for (var key in localStorage) {
+      if(this._isKey(key)) {
+        delete localStorage[key];
+      }
+    }
+  },
+
   _key: function(result){
     return 'curated_' + result.get('resultId');
   },

@@ -3,9 +3,16 @@
 {{/each}}
 
 <div class="alert alert-info">
-  Twitter status: {{twitterStatus}}
-  &nbsp; &nbsp; &nbsp;
-  Flickr status:  {{flickrStatus}}
+  {{#if IWitness.curatedResultsToggleController.showingSearchResults}}
+    Twitter status: {{twitterStatus}}
+    &nbsp; &nbsp; &nbsp;
+    Flickr status:  {{flickrStatus}}
+  {{else}}
+    <button {{action clearCurated}} id="clear_curated_results_button" class='btn btn-danger'>
+      Clear all
+    </button>
+  {{/if}}
+
   {{view IWitness.CuratedResultsToggleView id="curated_results_toggle"}}
 </div>
 

@@ -12,6 +12,10 @@ describe("CuratedResultsCache", function() {
     };
   });
 
+  afterEach(function() {
+    localStorage.clear();
+  });
+
   it("results added to the cache can be removed from the cache", function(){
     expect(localStorage.length).toBe(0);
     cache.add(result);
@@ -43,5 +47,16 @@ describe("CuratedResultsCache", function() {
 
     expect(IWitness.resultFactory.create).toHaveBeenCalledWith('twitter', {resultType: 'twitter'})
     expect(callback).toHaveBeenCalledWith(result);
+  });
+
+  describe("clearAll", function() {
+    it("clears curated results from localStorage", function() {
+      cache.add(result);
+      localStorage['not_part_of_cache'] = {error: true};
+      expect(localStorage.length).toBe(2);
+
+      cache.clearAll();
+      expect(localStorage.length).toBe(1);
+    });
   });
 });

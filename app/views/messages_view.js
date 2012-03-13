@@ -17,5 +17,9 @@ IWitness.MessagesView = Ember.View.extend({
 
   twitterStatus: function(){
     return this.translateStatus('twitter');
-  }.property('IWitness.searchController.monitors.twitter.status', 'model.isValid')
+  }.property('IWitness.searchController.monitors.twitter.status', 'model.isValid'),
+
+  clearCurated: function(){
+    IWitness.curatedSetController.clear();
+  }
 });

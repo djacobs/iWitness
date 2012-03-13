@@ -53,5 +53,17 @@ describe("IWitness.curatedSetController", function() {
     });
 
   });
+
+  describe("clearing all results", function(){
+    beforeEach(function() {
+      controller.toggleCuration(result);
+    });
+
+    it("should remove all results from the content", function() {
+      expect(controller.get('content')).toContain(result);
+      controller.clear();
+      expect(controller.get('content')).not.toContain(result);
+    });
+  });
 });
 

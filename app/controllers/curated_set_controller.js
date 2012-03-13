@@ -26,6 +26,12 @@ IWitness.curatedSetController = Ember.ArrayController.create({
     return _.indexOf(this._resultIds, result.get('resultId')) > -1;
   },
 
+  clear: function(){
+    this.set('content', []);
+    this.set('_resultIds', []);
+    CuratedResultsCache.clearAll();
+  },
+
   _addResult: function(result){
     this._resultIds.push(result.get('resultId'));
     this.pushObject(result);
