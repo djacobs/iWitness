@@ -43,7 +43,7 @@ _.extend(TwitterQuery.prototype, {
 
   determineStartingPoint: function(callback) {
     var self = this;
-    this.maxId = TwitterCache.getClosestTweetId(this.end);
+    this.maxId = TwitterTimestampCache.getClosestTweetId(this.end);
 
     this.fetchResults({page: 15}, function(data) {
       var lastTweet = _.last(data.results);
@@ -51,7 +51,7 @@ _.extend(TwitterQuery.prototype, {
 
       if (!lastTweet) return callback();
       lastTweetAt = moment(lastTweet.created_at);
-      TwitterCache.storeTweet(lastTweet.id_str, lastTweetAt);
+      TwitterTimestampCache.storeTweet(lastTweet.id_str, lastTweetAt);
 
       if (lastTweetAt.isAfter(self.end)) {
         IWitness.log('fast-forward 15 pages to id %s', lastTweetAt.format("hh:mm"));
