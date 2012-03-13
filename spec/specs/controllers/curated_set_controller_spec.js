@@ -57,6 +57,7 @@ describe("IWitness.curatedSetController", function() {
   describe("clearing all results", function(){
     beforeEach(function() {
       controller.toggleCuration(result);
+      window.confirm = function() { return true; };
     });
 
     it("should remove all results from the content", function() {
