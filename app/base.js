@@ -18,3 +18,6 @@ IWitness.config = {
 window.onbeforeunload = function() {
   Analytics.stopSession();
 }
+
+timezoneJS.timezone.zoneFileBasePath = '/tzdata';
+timezoneJS.timezone.init();
