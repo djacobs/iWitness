@@ -24,7 +24,8 @@ describe("searchController", function(){
     }
     spyOn(window, 'FlickrSearch').andReturn(flickrSearch);
 
-    Analytics = { track: function(){ console.log("Fake Analytics: ", arguments);} };
+    Analytics = { track: function(){ console.log("Fake Analytics: ", arguments) },
+                  stopSession: jasmine.createSpy() };
   });
 
   describe('twitter results', function() {
