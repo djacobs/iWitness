@@ -12,6 +12,10 @@ IWitness.curatedSetController = Ember.ArrayController.create({
     });
   },
 
+  isEmpty: function() {
+    return this.getPath('content.length') == 0;
+  }.property('content.length'),
+
   toggleCuration: function(result) {
     if(this.isCurated(result)) {
       this._removeResult(result);
