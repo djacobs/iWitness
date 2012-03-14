@@ -1,7 +1,9 @@
 {{#if IWitness.resultSetController.content.length}}
   <table class="table table-bordered table-striped" id="result_set">
-    {{#each IWitness.resultSetController.content}}
+    <tbody>
+      {{#each IWitness.resultSetController.content}}
       {{view IWitness.ResultView modelBinding="this"}}
-    {{/each}}
+      {{/each}}
+    </tbody>
   </table>
 {{/if}}
