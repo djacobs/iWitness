@@ -7,6 +7,35 @@ IWitness.resultSetView = Ember.View.extend({
     Ember.addListener(IWitness.searchController, 'searchComplete', this, this._renderLoadMore);
   },
 
+  _toggleLivestreamPausing: function(){
+    if(IWitness.criteriaController.getPath('content.stream')){
+      $(window).on('scroll', this._scrollPause() );
+    } else {
+      $(window).off('scroll', this._scrollPause() );
+      this._unpause();
+    }
+  }.observes('IWitness.criteriaController.content.stream'),
+
+  _scrollPause: function(){
+    var self = this;
+    return _.debounce(function(e){
+      if($(window).scrollTop() > 100) {
+        self._pause();
+      } else {
+        self._unpause();
+      }
+    }, 100);
+  },
+
+  _pause: function(){
+    IWitness.resultSetController.pause();
+  },
+
+  _unpause: function(){
+    IWitness.resultSetController.unpause();
+    $('tr.hidden').removeClass('hidden');
+  },
+
   _renderLoadMore: function(){
     var self = this;
     $('.load-more').remove();

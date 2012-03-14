@@ -13,7 +13,7 @@ IWitness.criteriaController = Ember.Object.create({
     Ember.run.sync();
 
     if (this.getPath('content.isValid')) {
-      IWitness.resultSetController.unpause();
+      IWitness.resultSetController.resume();
 
       if (this.getPath('content.stream')) {
         IWitness.routes.visitStream(this.get('content'));

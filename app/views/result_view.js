@@ -2,11 +2,26 @@ IWitness.ResultView = Ember.View.extend({
   templateName:      'result_template',
   tagName:           'tr',
   typeBinding:       'model.resultType',
+  classNames:        ['hidden'],
   classNameBindings: ['isSelected:selected', 'type'],
+
+  didInsertElement: function(){
+    if(IWitness.resultSetController.paused){
+      IWitness.resultSetController.set('hiddenItemsCount', $('tr.hidden').length);
+    } else {
+      this.$().removeClass('hidden');
+    }
+  },
 
   isSelected: function() {
     return this.get('model') == IWitness.resultSetController.get('selectedResult');
   }.property('IWitness.resultSetController.selectedResult'),
+
+  paused: function() {
+    if(!IWitness.resultSetController.paused && this.$().hasClass('hidden')) {
+      this.$().removeClass('hidden');
+    }
+  }.property('IWitness.resultSetController.paused'),
 
   postedTime: function() {
     var m = this.getPath('model.postedMoment');

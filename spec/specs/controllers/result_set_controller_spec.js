@@ -2,7 +2,7 @@ describe("IWitness.ResultSetController", function() {
   var controller;
   beforeEach(function() {
     controller = IWitness.resultSetController;
-    controller.unpause();
+    controller.resume();
   });
   afterEach(function() {
     controller.clearResults();
@@ -34,13 +34,13 @@ describe("IWitness.ResultSetController", function() {
       expect(controller.get("length")).toEqual(1);
     });
 
-    it("does not insert results if paused", function(){
+    it("does not insert results if stopped", function(){
       controller.clearResults();
-      // don't unpause
+      // don't resume
       controller.pushResults("twitter", [makeTweet({id_str: "123"})]);
       expect(controller.get("length")).toEqual(0);
 
-      controller.unpause();
+      controller.resume();
       controller.pushResults("twitter", [makeTweet({id_str: "123"})]);
       expect(controller.get("length")).toEqual(1);
     });
