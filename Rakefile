@@ -10,6 +10,7 @@ Bundler.require
 require 'pathname'
 require 'logger'
 require 'fileutils'
+Dir.glob('lib/tasks/*.rake').each { |r| import r }
 
 LOGGER      = Logger.new(STDOUT)
 

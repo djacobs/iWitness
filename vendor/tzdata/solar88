@@ -1,18 +1,3 @@
-# <pre>
-# @(#)solar88	8.2
-# This file is in the public domain, so clarified as of
-# 2009-05-17 by Arthur David Olson.
-
-# Apparent noon times below are for Riyadh; they're a bit off for other places.
-# Times were computed using formulas in the U.S. Naval Observatory's
-# Almanac for Computers 1988; the formulas "will give EqT to an accuracy of
-# [plus or minus two] seconds during the current year."
-#
-# Rounding to the nearest five seconds results in fewer than
-# 256 different "time types"--a limit that's faced because time types are
-# stored on disk as unsigned chars.
-
-# Rule	NAME	FROM	TO	TYPE	IN	ON	AT	SAVE	LETTER/S
 Rule	sol88	1988	only	-	Jan	1	12:03:15s -0:03:15 -
 Rule	sol88	1988	only	-	Jan	2	12:03:40s -0:03:40 -
 Rule	sol88	1988	only	-	Jan	3	12:04:10s -0:04:10 -
@@ -379,13 +364,7 @@ Rule	sol88	1988	only	-	Dec	28	12:01:40s -0:01:40 -
 Rule	sol88	1988	only	-	Dec	29	12:02:10s -0:02:10 -
 Rule	sol88	1988	only	-	Dec	30	12:02:35s -0:02:35 -
 Rule	sol88	1988	only	-	Dec	31	12:03:05s -0:03:05 -
-
-# Riyadh is at about 46 degrees 46 minutes East:  3 hrs, 7 mins, 4 secs
-# Before and after 1988, we'll operate on local mean solar time.
-
-# Zone	NAME		GMTOFF	RULES/SAVE	FORMAT	[UNTIL]
 Zone	Asia/Riyadh88	3:07:04	-		zzz	1988
 			3:07:04	sol88		zzz	1989
 			3:07:04	-		zzz
-# For backward compatibility...
 Link	Asia/Riyadh88	Mideast/Riyadh88

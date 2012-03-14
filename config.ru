@@ -14,7 +14,7 @@ CSS_DIR    = ROOT.join("app", 'stylesheets')
 JSON_DIR   = ROOT.join("app", 'json')
 SPECS_DIR  = ROOT.join("spec", 'specs')
 VENDOR_DIR = ROOT.join("vendor")
-TZDATA_DIR = VENDOR_DIR.join("tzdata2012b")
+TZDATA_DIR = VENDOR_DIR.join("tzdata")
 
 ### Application Sprockets
 sprockets = Sprockets::Environment.new(ROOT) do |env|
