@@ -5,7 +5,6 @@ IWitness.Criteria = Ember.Object.extend({
   address: "",
 
   timezoneOffset: function() {
-    IWitness.log("your timezone offset is %s", (new Date()).getTimezoneOffset() / -60);
     return (new Date()).getTimezoneOffset() / -60;
   }.property().cacheable(),
 
@@ -14,7 +13,6 @@ IWitness.Criteria = Ember.Object.extend({
 
     if (center = this.get('center')) {
       dt = this.get("rawStart").toDate() || new Date();
-      IWitness.log("map timezone offset is %s", IWitness.spaceTime.utcOffset(dt, center) / 60);
       return IWitness.spaceTime.utcOffset(dt, center) / 60;
     } else {
       return this.get("timezoneOffset");
@@ -22,7 +20,6 @@ IWitness.Criteria = Ember.Object.extend({
   }.property('center', 'IWitness.spaceTime.isLoaded', 'rawStart').cacheable(),
 
   timezoneDifference: function() {
-    IWitness.log("difference between you and map is %s", this.get('timezoneOffset') - this.get('mapTimezoneOffset'));
     return this.get('timezoneOffset') - this.get('mapTimezoneOffset');
   }.property('timezoneOffset', 'mapTimezoneOffset').cacheable(),
 
@@ -58,11 +55,11 @@ IWitness.Criteria = Ember.Object.extend({
 
   start: function() {
     return this._getAdjustedForMap('rawStart');
-  }.property('rawStart', 'useTimezone').cacheable(),
+  }.property('rawStart', 'useTimezone', 'timezoneDifference').cacheable(),
 
   end: function() {
     return this._getAdjustedForMap('rawEnd');
-  }.property('rawEnd', 'useTimezone').cacheable(),
+  }.property('rawEnd', 'useTimezone', 'timezoneDifference').cacheable(),
 
   radius: function() {
     var center = this.get('center');
