@@ -3,9 +3,6 @@ IWitness.resultSetController = Ember.ArrayController.create(IWitness.ResultSorti
   selectedResult: null,
   isDone: false,
   stopped: false,
-  paused: false,
-  hiddenItemsCount: 0,
-
 
   pushResults: function(type, results){
     if (this.get('stopped')) return;
@@ -30,19 +27,7 @@ IWitness.resultSetController = Ember.ArrayController.create(IWitness.ResultSorti
 
   resume: function(){
     this.set('stopped', false);
-  },
-
-  pause: function(){
-    this.set('paused', true);
-  },
-
-  unpause: function(){
-    this.set('paused', false);
-    this.set('hiddenItemsCount', 0);
-  },
-
-  hasHiddenItems: function(){
-    return this.get('hiddenItemsCount') > 0;
-  }.property('hiddenItemsCount')
+  }
 
 });
+

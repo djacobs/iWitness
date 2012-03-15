@@ -5,10 +5,11 @@ IWitness.ResultView = Ember.View.extend({
   classNames:        ['hidden'],
   classNameBindings: ['isSelected:selected', 'type'],
 
+  // results are inserted with class hidden. unhide them immediately
+  // unless we're currently paused. this is a work-around for lack of
+  // one time class name calculation.
   didInsertElement: function(){
-    if(IWitness.resultSetController.get('paused')){
-      IWitness.resultSetController.set('hiddenItemsCount', $('tr.hidden').length);
-    } else {
+    if(!IWitness.hiddenItemsController.get('paused')){
       this.$().removeClass('hidden');
     }
   },
@@ -16,12 +17,6 @@ IWitness.ResultView = Ember.View.extend({
   isSelected: function() {
     return this.get('model') == IWitness.resultSetController.get('selectedResult');
   }.property('IWitness.resultSetController.selectedResult'),
-
-  paused: function() {
-    if(!IWitness.resultSetController.get('paused') && this.$().hasClass('hidden')) {
-      this.$().removeClass('hidden');
-    }
-  }.property('IWitness.resultSetController.paused'),
 
   postedTime: function() {
     var m = this.getPath('model.postedMoment');
