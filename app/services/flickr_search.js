@@ -9,7 +9,6 @@ var FlickrSearch = function(params){
   this.url                = 'http://api.flickr.com/services/rest/?jsoncallback=?'
   this.stream             = params.stream;
   this.page               = 0;
-  IWitness.log('*** searching Flickr %s - %s ***', params.start.format('MM/DD hh:mma'), params.end.format('MM/DD hh:mma'));
 }
 
 _.extend(FlickrSearch.prototype, {

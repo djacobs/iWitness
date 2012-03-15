@@ -27,7 +27,6 @@ var Analytics = Ember.Object.create({
     var sessionTime = moment().diff(this.sessionStart, 'seconds');
     this.session = false;
     this.track('session', 'ended', 'sessionCompleted', sessionTime);
-    console.log('session stopped', sessionTime);
   },
 
   _resetSession: _variableDebounce(function() {

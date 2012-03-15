@@ -8,7 +8,6 @@ var TwitterSearch = function(params){
   this.isStopped = false;
   this.stream    = params.stream;
   this._hasMorePages = true;
-  IWitness.log('*** searching %s - %s ***', params.start.format('MM/DD hh:mma'), params.end.format('MM/DD hh:mma'));
 }
 
 _.extend(TwitterSearch.prototype, {
