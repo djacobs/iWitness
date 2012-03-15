@@ -16,6 +16,7 @@ IWitness.resultSetView = Ember.View.extend({
     }
   }.observes('IWitness.criteriaController.content.stream'),
 
+  // wrap the debounced call in a function that binds 'this' to the current view.
   _scrollPause: function(){
     var self = this;
     return _.debounce(function(e){
@@ -28,11 +29,11 @@ IWitness.resultSetView = Ember.View.extend({
   },
 
   _pause: function(){
-    IWitness.resultSetController.pause();
+    IWitness.hiddenItemsController.pause();
   },
 
   _unpause: function(){
-    IWitness.resultSetController.unpause();
+    IWitness.hiddenItemsController.unpause();
     $('tr.hidden').removeClass('hidden');
   },
 

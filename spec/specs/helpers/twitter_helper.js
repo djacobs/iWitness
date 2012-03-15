@@ -5,7 +5,7 @@
   var time = new Date;
 
   window.makeTweet = function(params) {
-    id -= 1;
+    id--;
     time = moment(time).subtract('minutes', 1);
     return _.extend(
       {"created_at":time.toString(),
@@ -34,8 +34,7 @@
   window.makeTweets = function (num, params){
     var a = [];
     params = params || {};
-    var  tweet = makeTweet(params);
-    _.times(num, function(){ a.push(tweet) });
+    _.times(num, function(){ a.push(makeTweet(params)) });
     return a;
   };
 

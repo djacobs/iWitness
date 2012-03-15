@@ -6,6 +6,7 @@ describe("IWitness.ResultSetController", function() {
   });
   afterEach(function() {
     controller.clearResults();
+    controller.resume();
   });
   describe("pushResults", function() {
     it("sorts results", function() {
