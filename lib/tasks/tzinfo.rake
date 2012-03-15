@@ -1,11 +1,14 @@
 namespace :tz do
+
+  directory "vendor/tzdata"
+
   desc <<-END
 import a new version of the olsen database.
 get the latest version from http://www.iana.org/time-zones.
 extract it locally, then call this task.
 rake tz:import FROM=path/to/new/tzdata
 END
-  task :import do
+  task :import => "vendor/tzdata" do
     from = ENV["FROM"] && ROOT.join(ENV["FROM"])
     to   = ROOT.join("vendor", "tzdata")
     unless from && File.exists?(from)
@@ -14,14 +17,10 @@ END
       exit 1
     end
 
-    Dir.mkdir(to) unless File.exists?(to)
-
     Dir.foreach(from) do |file|
       # files we care about have no file extension
       # also skipping . and ..
       next if file.index(".")
-
-      # copy_without_comments(File.join(from, file), File.join(to, file))
       copy_without_comments(from.join(file), to.join(file))
     end
   end
