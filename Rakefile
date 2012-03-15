@@ -21,14 +21,17 @@ CSS_DIR     = ROOT.join("app", 'stylesheets')
 JSON_DIR    = ROOT.join("app", 'json')
 SPECS_DIR   = ROOT.join("spec", 'specs')
 VENDOR_DIR  = ROOT.join("vendor")
+TZDATA_DIR  = VENDOR_DIR.join("tzdata")
 
-BUNDLES     = [ 'index.html', 'application.css', 'application.js', 'timezones.json', 'zone_offsets.json' ]
+BUNDLES     = [ 'index.html', 'application.css', 'application.js', 'timezones.json' ]
 
+desc "remove all built assets"
 task :clean do
   FileUtils.rm_r(BUILD_DIR.children)
   touch(BUILD_DIR.join('.gitkeep'))
 end
 
+desc "compile all files into the assets directory"
 task :compile => :clean do
   sprockets = Sprockets::Environment.new(ROOT) do |env|
     env.logger = LOGGER
@@ -56,7 +59,7 @@ task :compile => :clean do
 
   BUNDLES.each do |bundle|
     assets = sprockets.find_asset(bundle)
-
     assets.write_to(BUILD_DIR.join(bundle).to_s)
   end
+  cp_r TZDATA_DIR, BUILD_DIR, :verbose => true
 end
