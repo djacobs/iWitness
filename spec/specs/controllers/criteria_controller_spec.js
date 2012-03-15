@@ -21,21 +21,4 @@ describe("criteriaController", function(){
       expect(clearResultsSpy).toHaveBeenCalled();
     });
   });
-
-  // describe("changeUrl", function(){
-  //   // it('skips a search with invalid parameters', function(){
-  //   //   content.set('isValid', false);
-
-  //   // });
-
-  //   it('executes a search only with valid parameters', function(){
-  //     routeSpy = spyOn(IWitness.routes, 'visitStream');
-  //     controller.changeUrl();
-  //     // waitsFor(function(){});
-  //     // runs(function(){});
-  //     expect(routeSpy).toHaveBeenCalled();
-  //   });
-  //   it('if set to streaming, call streaming');
-
-  // });
 });

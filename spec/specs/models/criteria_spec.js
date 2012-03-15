@@ -159,5 +159,21 @@ describe("Criteria", function() {
       expect(subject.get('endTimeString')).toEqual('11:00 AM');
     });
   });
-});
 
+  describe("mapTimezoneOffset", function() {
+    it("returns browser offset if the map center is not present", function() {
+      spyOnProperties(subject, {center: null, timezoneOffset: -4});
+      expect(subject.get("mapTimezoneOffset")).toEqual(-4);
+    });
+
+    it("returns map timezone", function() {
+      spyOnProperties(subject, {
+        center: [37.797464,-122.394772],
+        timezoneOffset: -4,
+        rawStart: moment([2012, 1, 1])
+      });
+      spyOn(IWitness.spaceTime, "utcOffset").andReturn(-420)
+      expect(subject.get("mapTimezoneOffset")).toEqual(-7);
+    });
+  });
+});

@@ -5,13 +5,19 @@ IWitness.Criteria = Ember.Object.extend({
   address: "",
 
   timezoneOffset: function() {
-    return parseInt(moment().format('ZZZ'), 10) / 100;
+    return (new Date()).getTimezoneOffset() / -60;
   }.property().cacheable(),
 
   mapTimezoneOffset: function() {
-    if (!this.get('center')) return;
-    return IWitness.spaceAndTime.utcOffset(this.get('center')) / 3600;
-  }.property('center', 'IWitness.spaceAndTime.isLoaded').cacheable(),
+    var center, dt;
+
+    if (center = this.get('center')) {
+      dt = this.get("rawStart").toDate() || new Date();
+      return IWitness.spaceTime.utcOffset(dt, center) / 60;
+    } else {
+      return this.get("timezoneOffset");
+    }
+  }.property('center', 'IWitness.spaceTime.isLoaded', 'rawStart').cacheable(),
 
   timezoneDifference: function() {
     return this.get('timezoneOffset') - this.get('mapTimezoneOffset');
@@ -49,11 +55,11 @@ IWitness.Criteria = Ember.Object.extend({
 
   start: function() {
     return this._getAdjustedForMap('rawStart');
-  }.property('rawStart', 'useTimezone').cacheable(),
+  }.property('rawStart', 'useTimezone', 'timezoneDifference').cacheable(),
 
   end: function() {
     return this._getAdjustedForMap('rawEnd');
-  }.property('rawEnd', 'useTimezone').cacheable(),
+  }.property('rawEnd', 'useTimezone', 'timezoneDifference').cacheable(),
 
   radius: function() {
     var center = this.get('center');

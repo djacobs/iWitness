@@ -14,6 +14,7 @@ CSS_DIR    = ROOT.join("app", 'stylesheets')
 JSON_DIR   = ROOT.join("app", 'json')
 SPECS_DIR  = ROOT.join("spec", 'specs')
 VENDOR_DIR = ROOT.join("vendor")
+TZDATA_DIR = VENDOR_DIR.join("tzdata")
 
 ### Application Sprockets
 sprockets = Sprockets::Environment.new(ROOT) do |env|
@@ -85,4 +86,8 @@ map '/mocks/twitter' do
       [200, { 'Content-Type' => 'text/javascript' }, [File.read(file_path)]]
     end
   }
+end
+
+map "/tzdata" do
+  run Rack::File.new(TZDATA_DIR)
 end

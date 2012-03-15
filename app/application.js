@@ -9,11 +9,13 @@
 //= require javascripts/moment
 //= require ext/moment_ext
 //= require javascripts/kdtree
+//= require javascripts/timezone-js/src/date
+//= require javascripts/timezone-js-jquery/src/timezone-js-jquery
 //= require_tree ./templates
 //= require base
 //= require_tree ./services
 //= require_tree ./mixins
-//= require models/space_and_time
+//= require models/space_time
 //= require models/result
 //= require_tree ./models
 //= require_tree .

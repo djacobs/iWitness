@@ -1,26 +1,23 @@
-IWitness.spaceAndTime = Ember.Object.create({
+IWitness.spaceTime = Ember.Object.create({
   init: function() {
     var self = this;
 
     $.getJSON('timezones.json', function(zones){
       self.set('kdTree', new KDTree(zones));
     });
-
-    $.getJSON('zone_offsets.json', function(zones){
-      self.set('zoneOffsets', zones);
-    });
   },
 
-  utcOffset: function(point) {
+  utcOffset: function(date, point) {
     if (this.get('isLoaded')){
       var zone = this.get('kdTree').getNearestNeighbour({x:point[0], y:point[1]});
-      return this.get('zoneOffsets')[zone.z];
+      var zoneinfo = timezoneJS.timezone.getTzInfo(date, zone.z);
+      return -zoneinfo.tzOffset;
     } else {
       return 0;
     }
   },
 
   isLoaded: function() {
-    return this.get('kdTree') && this.get('zoneOffsets');
-  }.property('kdTree', 'zoneOffsets')
+    return !!this.get('kdTree');
+  }.property('kdTree')
 });
