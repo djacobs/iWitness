@@ -9,7 +9,7 @@ var FlickrSearch = function(params){
   this.url                = 'http://api.flickr.com/services/rest/?jsoncallback=?'
   this.stream             = params.stream;
   this.page               = 0;
-  IWitness.log('*** searching Flickr %s - %s ***', params.start, params.end);
+  IWitness.log('*** searching Flickr %s - %s ***', params.start.format('MM/DD hh:mma'), params.end.format('MM/DD hh:mma'));
 }
 
 _.extend(FlickrSearch.prototype, {
@@ -35,7 +35,6 @@ _.extend(FlickrSearch.prototype, {
   },
 
   _gotData: function(data){
-    IWitness.log("got flickr data", data);
     if (data.photos.photo.length){
       var maxPhoto = _.max(data.photos.photo, function(photo){
         return parseInt(photo.dateupload);
