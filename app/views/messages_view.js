@@ -21,5 +21,13 @@ IWitness.MessagesView = Ember.View.extend({
 
   clearCurated: function(){
     IWitness.curatedSetController.clear();
-  }
+  },
+
+  exportLink: function(){
+    var results = IWitness.curatedSetController.map(function(result, idx){
+      return (idx+1) + '. ' + result.get("permalinkUrl") + '%0D' + result.get("contentText");
+    });
+    results = results.join("%0D%0D");
+    return "mailto:yourfriend@example.com?subject=iWitness Curated Results&body="+results;
+  }.property('IWitness.curatedSetController.content')
 });
