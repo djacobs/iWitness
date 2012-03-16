@@ -11,7 +11,15 @@
       em { position: absolute; right: 20px; opacity: 0.5; }
       i { position: absolute; right: 4px; }
       p { margin-bottom: 0; }
-      a.permalink { position: absolute; right: 10px; bottom: 5px; opacity: .5; }
+
+      .small-links {
+        position: absolute;
+        right: 10px;
+        bottom: 5px;
+        opacity: .5;
+
+        a { margin-left: 10px; }
+      }
 
       .result_content {
         img { float: left; padding-right: 10px; }
@@ -27,4 +35,9 @@
 
 tr.hidden {
   display: none;
+}
+
+tr .embed {
+  display: none;
+  clear: left;
 }

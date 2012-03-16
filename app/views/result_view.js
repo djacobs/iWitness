@@ -46,5 +46,19 @@ IWitness.ResultView = Ember.View.extend({
     } else {
       return 'icon-star-empty';
     }
-  }.property('IWitness.curatedSetController.@each')
+  }.property('IWitness.curatedSetController.@each'),
+
+  toggleEmbedForm: function(){
+    if(!this.getPath('model.embedHtml')) {
+      this.get('model').fetchEmbed();
+    } else {
+      this.$('.embed').slideToggle();
+    }
+  },
+
+  toggleEmbed: function(){
+    this.$('.embed').delay(200).slideToggle();
+  }.observes('model.embedHtml')
+
+
 });

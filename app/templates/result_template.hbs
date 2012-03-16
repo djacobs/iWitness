@@ -21,7 +21,7 @@
 
   <div class="result_content">
     {{#if model.contentSrc}}
-      <a {{bindAttr href="model.contentLink"}}>
+      <a class='content-link' target="_blank" {{bindAttr href="model.contentLink"}}>
         <img {{bindAttr src="model.contentSrc"}}>
       </a>
     {{/if}}
@@ -29,5 +29,13 @@
     <p>{{linkify model.contentText}}</p>
   </div>
 
-  <a class="permalink" target="_blank" {{bindAttr href="model.permalinkUrl"}}>{{model.permalinkText}}</a>
+  <div class="small-links">
+    <a class="show-embed-button" {{action "toggleEmbedForm"}}>embed</a>
+    <a class="permalink" target="_blank" {{bindAttr href="model.permalinkUrl"}}>{{model.permalinkText}}</a>
+  </div>
+
+  <div class="embed well">
+    <div class="embed-instructions">Copy the html code below to embed this tweet in your website.</div>
+    <pre class="embed-code pre-scrollable linenums">{{model.embedHtml}}</pre>
+  </div>
 </td>
