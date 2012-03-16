@@ -1,8 +1,21 @@
 window.IWitness = Ember.Application.create({
   ready: function() {
-    IWitness.routes.draw();
-    TwitterTimestampCache.expire();
-    Analytics.startSession(false);
+    if (this.isValidBrowser()) {
+      IWitness.routes.draw();
+      TwitterTimestampCache.expire();
+      Analytics.startSession(false);
+    }
+  },
+
+  isValidBrowser: function() {
+    if ($.browser.webkit) {
+      return true;
+    } else {
+      alert("iWitness is currently in beta and does not yet support your browser.\n\n" +
+            "Please download Google Chrome to use iWitness.");
+      document.write('');
+      return false;
+    }
   }
 });
 
