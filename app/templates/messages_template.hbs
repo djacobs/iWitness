@@ -11,7 +11,7 @@
     <button {{action clearCurated}} id="clear_curated_results_button" class='btn btn-danger misplaced-message-button-hack'>
       Clear all
     </button>
-    <a {{bindAttr href="exportLink"}} class='btn btn-info misplaced-message-button-hack'>Email Curated Set</a>
+    {{#view exportLink}}Email Curated Set{{/view}}
   {{/if}}
 
   {{view IWitness.CuratedResultsToggleView id="curated_results_toggle"}}
