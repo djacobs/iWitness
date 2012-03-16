@@ -39,15 +39,16 @@
   };
 
   window.spyOnTwitterCall = function(name){
-    var spy = spyOn($, 'getJSON');
-    spy.andCallFake(function(url, params, callback) {
-      if (url.match(/twitter/)) {
-        params.targetUrl   = url;
-        params.fixtureName = name;
-        url                = '/mocks/twitter';
+    var spy = spyOn($, 'ajax');
+    spy.andCallFake(function(opts) {
+      if (opts.url.match(/twitter/)) {
+        opts.data.targetUrl   = opts.url;
+        opts.data.fixtureName = name;
+        opts.url              = '/mocks/twitter';
+        opts.dataType         = 'json';
       }
 
-      spy.originalValue.apply(this, [url, params, callback]);
+      spy.originalValue.call(this, opts);
     });
     return spy;
   }
