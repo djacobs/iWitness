@@ -2,7 +2,7 @@
 <html>
 <head>
   <title>iWitness</title>
-  <link type='text/css' rel='stylesheet' href="application.css"/>
+  <link type='text/css' rel='stylesheet' href="application.css">
   <script type='text/javascript' src="application.js"></script>
   <script type='text/javascript' src="http://maps.googleapis.com/maps/api/js?key=<%= maps['api_key'] %>&sensor=false&libraries=geometry"></script>
   <script type="text/javascript">
@@ -28,18 +28,18 @@
 <body>
 
   <div class="container">
-    <script type='text/x-handlebars'>
-      <div class="row">
+    <div class="center">
+      <script type='text/x-handlebars'>
         <div id="criteria" class="span4">
           {{view IWitness.CriteriaView}}
         </div>
-        <div id="results" class="span8">
+        <div id="results">
           {{view IWitness.MessagesView}}
           {{view IWitness.resultSetView}}
           {{view IWitness.curatedSetView}}
         </div>
-      </div>
-    </script>
+      </script>
+    </div>
   </div>
 </body>
 </html>

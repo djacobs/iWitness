@@ -1,0 +1,53 @@
+@import "/app/stylesheets/mixins.css.less";
+
+html,body { background: #00070b url(/images/blue_gradient.png) no-repeat; }
+
+
+.container {
+  position    : absolute;
+  top         : 0;
+  right       : 0;
+  bottom      : 0;
+  left        : 0;
+  /*width       : 1024px;*/
+  margin      : 0 auto;
+  color       : #fff;
+  font-family : helvetica, arial, sans-serif;
+}
+
+
+.nav-button {
+  position    : relative;
+  height      : 29px;
+  padding     : 0 35px 0 17px;
+  color       : #222;
+  font-size   : 15px;
+  line-height : 29px;
+  text-shadow : 0 1px 0 #fff;
+  background  : url(/images/nav_button_background.png);
+  .inline-block;
+  .user-select(none);
+
+  .arrow {
+    position   : absolute;
+    top        : 0;
+    right      :-14px;
+    bottom     : 0;
+    width      : 14px;
+    background : url(/images/nav_button_arrow.png);
+  }
+
+  .icon {
+    position : absolute;
+    top      : 50%;
+    right    : 3px;
+    background-repeat: no-repeat;
+  }
+
+  .icon.star {
+    width      : 19px;
+    height     : 17px;
+    margin-top : -9px;
+    background-image: url(/images/button_star.png);
+  }
+}

@@ -21,13 +21,6 @@ IWitness.CriteriaView = Ember.View.extend({
     }
   }),
 
-  keywordField: Ember.TextField.extend({
-    change: function(e) {
-      this._super();
-      IWitness.criteriaController.initiateSearch();
-    }
-  }),
-
   dateField: Ember.TextField.extend({
     disabledBinding: 'model.stream',
     modelBinding: 'IWitness.criteriaController.content',

@@ -1,41 +1,40 @@
-<td class="pic">
-  <img {{bindAttr src="model.avatarSrc"}}>
-</td>
+<div {{action toggleCuration}} {{bindAttr class="curateButtonClass"}}></div>
 
-<td>
+{{#if model.contentSrc}}
+  <a class='content-link' target="_blank" {{bindAttr href="model.contentLink"}}>
+    <img {{bindAttr src="model.contentSrc"}}>
+  </a>
+{{/if}}
+
+<div class="heading">
+  <div class="pic">
+    <img {{bindAttr src="model.avatarSrc"}}>
+  </div>
+
   {{#if model.title}}
     <strong>{{model.title}}</strong>
     by
   {{/if}}
 
-  <strong>
-    <a target="_blank" {{bindAttr href="model.userUrl"}}>{{model.userNamePrimary}}</a>
-  </strong>
+  <a target="_blank" class="user-name-primary" {{bindAttr href="model.userUrl"}}>{{model.userNamePrimary}}</a>
 
   {{#if model.userNameSecondary}}
+    <br>
     {{model.userNameSecondary}}
   {{/if}}
+</div>
 
-  <em>{{postedTime}}</em>
-  <i {{action toggleCuration}} {{bindAttr class="curateButtonClass"}}></i>
+<div class="result_content">
+  <p>{{linkify model.contentText}}</p>
+</div>
 
-  <div class="result_content">
-    {{#if model.contentSrc}}
-      <a class='content-link' target="_blank" {{bindAttr href="model.contentLink"}}>
-        <img {{bindAttr src="model.contentSrc"}}>
-      </a>
-    {{/if}}
+<div class="small-links">
+  <a class="permalink" target="_blank" {{bindAttr href="model.permalinkUrl"}}>{{model.permalinkText}}</a>
+  <div class="timestamp">{{postedDate}}<br> {{postedTime}}</div>
+  <a class="show-embed-button" {{action "toggleEmbedForm"}}>embed</a>
+</div>
 
-    <p>{{linkify model.contentText}}</p>
-  </div>
-
-  <div class="small-links">
-    <a class="show-embed-button" {{action "toggleEmbedForm"}}>embed</a>
-    <a class="permalink" target="_blank" {{bindAttr href="model.permalinkUrl"}}>{{model.permalinkText}}</a>
-  </div>
-
-  <div class="embed well">
-    <div class="embed-instructions">Copy the html code below to embed this tweet in your website.</div>
-    <pre class="embed-code pre-scrollable linenums">{{model.embedHtml}}</pre>
-  </div>
-</td>
+<div class="embed well">
+  <div class="embed-instructions">Copy the html code below to embed this tweet in your website.</div>
+  <pre class="embed-code pre-scrollable linenums">{{model.embedHtml}}</pre>
+</div>

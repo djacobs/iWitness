@@ -1,8 +1,7 @@
 IWitness.ResultView = Ember.View.extend({
   templateName:      'result_template',
-  tagName:           'tr',
   typeBinding:       'model.resultType',
-  classNames:        ['hidden'],
+  classNames:        ['hidden', 'item'],
   classNameBindings: ['isSelected:selected', 'type'],
 
   // results are inserted with class hidden. unhide them immediately
@@ -18,13 +17,23 @@ IWitness.ResultView = Ember.View.extend({
     return this.get('model') == IWitness.resultSetController.get('selectedResult');
   }.property('IWitness.resultSetController.selectedResult'),
 
+  postedDate: function() {
+    var m = this.getPath('model.postedMoment');
+    if (IWitness.criteria.get('useTimezone') == 'mine') {
+      return m.format('MM/DD/YY');
+    } else {
+      var offset = IWitness.criteria.get('mapTimezoneOffset');
+      return m.formatWithTimezoneOffset(offset, 'MM/DD/YY');
+    }
+  }.property('model.postedMoment', 'IWitness.criteria.useTimezone'),
+
   postedTime: function() {
     var m = this.getPath('model.postedMoment');
     if (IWitness.criteria.get('useTimezone') == 'mine') {
-      return m.format('M/D h:mma');
+      return m.format('h:mm a');
     } else {
       var offset = IWitness.criteria.get('mapTimezoneOffset');
-      return m.formatWithTimezoneOffset(offset, 'M/D h:mma');
+      return m.formatWithTimezoneOffset(offset, 'h:mm a');
     }
   }.property('model.postedMoment', 'IWitness.criteria.useTimezone'),
 

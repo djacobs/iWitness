@@ -1,9 +1,26 @@
+<div id="results-header">
+  <div id="results-fold"></div>
+  <div id="results-top-bar">
+    <div class="status scanning">Scanning</div>
+    <div class="nav-button">
+      Show starred items
+      <div class="icon star"></div>
+      <div class="arrow"></div>
+    </div>
+  </div>
+
+  <div id="results-filter">
+    <label>
+      Find
+      {{view IWitness.KeywordFitlerView placeholder="Enter keyword"}}
+    </label>
+  </div>
+</div>
+
 {{#if IWitness.resultSetController.content.length}}
-  <table class="table table-bordered table-striped" id="result_set">
-    <tbody>
-      {{#each IWitness.resultSetController.content}}
+  <div id="result_set">
+    {{#each IWitness.resultSetController.content}}
       {{view IWitness.ResultView modelBinding="this"}}
-      {{/each}}
-    </tbody>
-  </table>
+    {{/each}}
+  </div>
 {{/if}}
