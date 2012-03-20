@@ -12,21 +12,25 @@ var TwitterSearch = function(params){
 
 _.extend(TwitterSearch.prototype, {
   fetch: function(target){
+    this.target += target;
     if (this.stream){
-      Ember.sendEvent(this, 'streaming');
       this._startStreaming();
     } else {
-      Ember.sendEvent(this, 'fetch');
-      this.target += target;
-      this.query.getNext(_.bind(this._gotData, this));
+      this._startSearching();
     }
   },
 
+  _startSearching: function(){
+    Ember.sendEvent(this, 'fetch');
+    this.query.getNext(_.bind(this._gotData, this));
+  },
+
   _startStreaming: function() {
-    IWitness.log("starting live twitter stream");
-    this.liveSearch = new LiveTwitterSearch(this.params)
+    this.query.start = moment().subtract("hours", 1);
+    this.query.end   = moment();
+    this.liveSearch = new LiveTwitterSearch(this.params, this)
     Ember.addListener(this.liveSearch, 'data', this, this._reSendEvent);
-    this.liveSearch.start();
+    this._startSearching();
   },
 
   stop: function() {
@@ -47,7 +51,11 @@ _.extend(TwitterSearch.prototype, {
   },
 
   _doneSearching: function(){
-    Ember.sendEvent(this, 'done');
+    if (this.stream) {
+      Ember.sendEvent(this, 'streaming');
+    } else {
+      Ember.sendEvent(this, 'done');
+    }
   },
 
   _gotData: function(data){
