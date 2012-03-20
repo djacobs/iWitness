@@ -2,10 +2,21 @@
     iWitness Mixins
 ---------------------------------------------------*/
 
+@iwitness-blue: #18344e;
+
 .serif()             { font-family: 'ArvoRegular',    georgia, serif; }
 .serif-italic()      { font-family: 'ArvoItalic',     georgia, serif; }
 .serif-bold()        { font-family: 'ArvoBold',       georgia, serif; }
 .serif-bold-italic() { font-family: 'ArvoBoldItalic', georgia, serif; }
+
+.iwitness-border() { border: 3px solid @iwitness-blue; }
+
+.iwitness-border-with-radius(@radius:10px) {
+  .iwitness-border();
+  .rounded(@radius);
+}
+
+.level-active() { .gradient(#595b5c, #3b3e40, #7b7b7b); }
 
 .inline-block() {
   display: -moz-inline-box;
@@ -30,6 +41,17 @@
   -webkit-box-shadow: @value;
   -moz-box-shadow: @value;
   box-shadow: @value;
+}
+
+.box-sizing(@value) {
+  -webkit-box-sizing : @value;
+  -moz-box-sizing    : @value;
+  box-sizing         : @value;
+}
+
+.placeholder-color(@color) {
+  &::-webkit-input-placeholder { color: @color; }
+  &:-moz-placeholder           { color: @color; }
 }
 
 
@@ -85,9 +107,9 @@
   -webkit-border-radius: @radius;
   -moz-border-radius: @radius;
   border-radius: @radius;
-  -moz-background-clip: padding; -webkit-background-clip: padding-box; background-clip: padding-box; 
+  -moz-background-clip: padding; -webkit-background-clip: padding-box; background-clip: padding-box;
 }
-.border-radius(@topright: 0, @bottomright: 0, @bottomleft: 0, @topleft: 0) {
+.border-radius(@topleft: 0, @topright: 0, @bottomright: 0, @bottomleft: 0) {
   -webkit-border-top-right-radius: @topright;
   -webkit-border-bottom-right-radius: @bottomright;
   -webkit-border-bottom-left-radius: @bottomleft;

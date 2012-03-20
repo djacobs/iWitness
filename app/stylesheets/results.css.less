@@ -9,11 +9,6 @@
   left     : 513px;
   /*width    : 511px;*/
 
-  tr td {
-    &.message { text-align: center; }
-    .result_content img { float: left; padding-right: 10px; }
-  }
-
   tr.load-more td { text-align: center; }
 }
 
@@ -89,7 +84,7 @@
   background   : #ca7b04 url(/images/results-filter-background.png) repeat-x;
   z-index      : 1;
   pointer-events : auto;
-  .border-radius(0, 0, 8px, 0);
+  .border-radius(0, 0, 0, 8px);
 
   input {
     width        : 200px;
@@ -103,8 +98,7 @@
     .box-shadow(~"0 1px 0 rgba(255,255,255, 0.2), inset 0 3px 2px rgba(0,0,0,0.2)");
     .rounded(4px);
 
-    &::-webkit-input-placeholder { color: #ffd098; }
-    &:-moz-placeholder { color: #ffd098; }
+    .placeholder-color(#ffd098);
   }
 }
 
@@ -121,11 +115,11 @@
   .item {
     position      : relative;
     margin-bottom : 13px;
-    border        : 3px solid #18344e;
+    border        : 3px solid @iwitness-blue;
     padding       : 11px;
     font-size     : 13px;
     background    : #02101a;
-    .rounded(10px);
+    .iwitness-border-with-radius(10px);
 
     &.hidden { display: none; }
 
@@ -157,8 +151,8 @@
       width    : 40px;
       height   : 40px;
       margin   : 0 7px 3px 0;
-      border   : 3px solid #18344e;
-      .rounded(7px);
+      border   : 3px solid @iwitness-blue;
+      .iwitness-border-with-radius(7px);
       .inline-block();
 
       img {
@@ -200,10 +194,10 @@
     }
 
     .timestamp {
-      display: block;
-      color: #ff7c00;
-      font-size: 11px;
-      font-weight: bold;
+      display     : block;
+      color       : #ff7c00;
+      font-size   : 11px;
+      font-weight : bold;
     }
 
     .permalink {
@@ -225,15 +219,15 @@
 
     .content-link {
       float  : right;
-      .inline-block();
       width  : 190px;
-      height : 190px;
-      margin : 0 0 5px 10px;
-      border : 3px solid #18344e;
-      .rounded(7px);
+      margin : 0 0 0 10px;
+      border : 3px solid @iwitness-blue;
+      .inline-block();
+      .iwitness-border-with-radius(7px);
 
       img {
-        width: 190px;
+        display : block;
+        width   : 190px;
         .rounded(5px);
       }
     }
