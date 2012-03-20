@@ -9,14 +9,15 @@ IWitness.CriteriaView = Ember.View.extend({
   },
 
   streamSelector: Ember.View.extend({
-    attributeBindings: ['type', 'checked'],
-    tagName: 'input',
-    type: 'checkbox',
-    checkedBinding: 'model.stream',
+    classNameBindings: ['streaming'],
     modelBinding: 'IWitness.criteriaController.content',
 
-    change: function() {
-      this.setPath('model.stream', this.$().is(':checked'));
+    streaming: function() {
+      return this.getPath('model.stream');
+    }.property('model.stream'),
+
+    click: function() {
+      this.setPath('model.stream', !this.getPath('model.stream'));
       IWitness.criteriaController.initiateSearch();
     }
   }),
@@ -46,5 +47,9 @@ IWitness.CriteriaView = Ember.View.extend({
     change: function() {
       this.setPath('model.useTimezone', this.get('timezone'));
     }
-  })
+  }),
+
+  timezoneToggleClass: function() {
+    return this.getPath('model.useTimezone') + ' handle';
+  }.property('model.useTimezone')
 });

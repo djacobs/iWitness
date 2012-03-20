@@ -7,14 +7,107 @@
   bottom   : 0;
   left     : 15px;
   width    : 503px;
-
-  .stream_selector { margin-bottom: 15px; }
 }
 
-#zone_info {
-  padding : 1em 0;
-  color   : #999;
+#adaptive_path {
+  display     : block;
+  position    : absolute;
+  top         : 17px;
+  height      : 19px;
+  width       : 173px;
+  height      : 37px;
+  text-indent : -999em;
+  background  : url(/images/adaptive_path_logo.png);
 }
+
+#iwitness_title {
+  position       : absolute;
+  top            : 8px;
+  right          : 27px;
+  left           : 0;
+  font-size      : 52px;
+  letter-spacing : -0.05em;
+  text-align     : right;
+  .serif();
+
+  i { color: #ec7000; }
+}
+
+#date_and_time_selectors {
+  position   : absolute;
+  top        : 70px;
+  right      : 0;
+  left       : 0;
+  height     : 126px;
+  background : url(/images/time.png) no-repeat 109px 13px;
+  .iwitness-border-with-radius(12px);
+
+  #timezone_selector {
+    position   : absolute;
+    top        :-10px;
+    left       :-3px;
+    width      : 103px;
+    height     : 146px;
+    background : url(/images/live_stream_switch.png);
+
+    &.streaming { background-position: 0 -146px; }
+  }
+
+  .input-small {
+    position    : absolute;
+    border      : 0;
+    padding     : 0 4px;
+    color       : #000;
+    font        : 24px helvetica, arial, sans-serif;
+    font-weight : bold;
+    background  : transparent;
+    .box-sizing(border-box);
+    -webkit-text-stroke: 1px #fff;
+    text-shadow: 3px 3px 0 #fff, -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff, 1px 1px 0 #fff; }
+
+  .start { top: 12px; }
+  .end   { top: 50px; }
+
+  .date {
+    width : 150px;
+    left  : 155px;
+  }
+
+  .time {
+    width : 121px;
+    left  : 326px;
+  }
+
+  .handle {
+    position   : absolute;
+    top        : 96px;
+    left       : 361px;
+    width      : 31px;
+    height     : 24px;
+    background : url(/images/handle_small.png);
+    .transition(left, 0.1s, linear);
+
+    &.mine { left: 361px; }
+    &.map  { left: 389px; }
+  }
+
+  .timezone {
+    overflow : hidden;
+    position : absolute;
+    top      : 98px;
+    width    : 37px;
+    height   : 15px;
+
+    &.mine { left: 324px; }
+    &.map  { left: 420px; }
+
+    input { opacity: 0; }
+  }
+}
+
+
+/* Map and location field
+--------------------------------------------------------- */
 
 #map-widget {
   position : absolute;
