@@ -15,11 +15,13 @@ _.extend(FlickrSearch.prototype, {
   fetch: function(target){
     this.perPage = target;
     this.page++;
+    Ember.sendEvent(this, 'fetch');
+
     if (this.stream) {
-      Ember.sendEvent(this, 'streaming');
-      this._startStreaming(30);
+      this.start = moment().subtract("hours", 1);
+      this.end   = moment();
+      $.getJSON(this.url, this._searchParams(), _.bind(this._startStreaming, this));
     } else {
-      Ember.sendEvent(this, 'fetch');
       $.getJSON(this.url, this._searchParams(), _.bind(this._gotData, this));
     }
   },
@@ -44,14 +46,17 @@ _.extend(FlickrSearch.prototype, {
     Ember.sendEvent(this, 'data', data.photos.photo);
     if(!this.stream){
       Ember.sendEvent(this, 'done');
+    } else {
+      Ember.sendEvent(this, 'streaming');
     }
   },
 
-  _startStreaming: function(){
-    IWitness.log("start flickr stream");
+  _startStreaming: function(data){
     var self = this;
+    this._gotData(data);
+
+    IWitness.log("start flickr stream");
     self.minUploadDate = self.minUploadDate || Math.ceil(moment().valueOf() / 1000);
-    $.getJSON(self.url, self._streamParams(), _.bind(self._gotData, self));
     self.interval = setInterval(function(){
       $.getJSON(self.url, self._streamParams(), _.bind(self._gotData, self));
     }, IWitness.config.pollInterval*1000);
