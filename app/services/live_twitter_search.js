@@ -1,4 +1,4 @@
-var LiveTwitterSearch = function(params){
+var LiveTwitterSearch = function(params, search){
   this.type      = 'twitter';
   this.params    = params;
   this.sinceId   = params.sinceId;
@@ -6,10 +6,12 @@ var LiveTwitterSearch = function(params){
   this.total     = 0;
   this.isStopped = false;
   this.currentPage = 1;
+  Ember.addListener(search, 'streaming', this, this.start);
 };
 
 _.extend(LiveTwitterSearch.prototype, {
   start: function() {
+    IWitness.log("starting live twitter stream");
     this._fetchInitial(_.bind(this._gotInitialData, this));
   },
 
@@ -20,7 +22,7 @@ _.extend(LiveTwitterSearch.prototype, {
         result_type: 'recent',
         q:           this.params.keyword,
         geocode:     this.location(),
-        rpp:         1,
+        rpp:         100,
         until:       moment().add('days', 1).format('YYYY-MM-DD'),
         page:        this.currentPage
       },
