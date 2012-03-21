@@ -1,5 +1,5 @@
 /*---------------------------------------------------
-    iWitness Mixins
+  iWitness Style Mixins
 ---------------------------------------------------*/
 
 @iwitness-blue: #18344e;
@@ -17,6 +17,25 @@
 }
 
 .level-active() { .gradient(#595b5c, #3b3e40, #7b7b7b); }
+
+.placeholder-color(@color) {
+  &::-webkit-input-placeholder { color: @color; }
+  &:-moz-placeholder           { color: @color; }
+}
+
+
+/*---------------------------------------------------
+  LESS Elements 0.6 (CUSTOMIZED BY EDGECASE)
+-----------------------------------------------------
+  A set of useful LESS mixins by Dmitry Fadeyev
+  Special thanks for mixin suggestions to:
+    Kris Van Herzeele,
+    Benoit Adam,
+    Portenart Emile-Victor,
+    Ryan Faerman
+
+  More info at: http://lesselements.com
+-----------------------------------------------------*/
 
 .inline-block() {
   display: -moz-inline-box;
@@ -48,26 +67,6 @@
   -moz-box-sizing    : @value;
   box-sizing         : @value;
 }
-
-.placeholder-color(@color) {
-  &::-webkit-input-placeholder { color: @color; }
-  &:-moz-placeholder           { color: @color; }
-}
-
-
-
-/*---------------------------------------------------
-    LESS Elements 0.6
-  ---------------------------------------------------
-    A set of useful LESS mixins by Dmitry Fadeyev
-    Special thanks for mixin suggestions to:
-      Kris Van Herzeele,
-      Benoit Adam,
-      Portenart Emile-Victor,
-      Ryan Faerman
-
-    More info at: http://lesselements.com
------------------------------------------------------*/
 
 .gradient(@color: #F5F5F5, @start: #EEE, @stop: #FFF) {
   background: @color;
@@ -159,26 +158,6 @@
   -webkit-box-shadow: @arguments;
   -moz-box-shadow: @arguments;
   box-shadow: @arguments;
-}
-.columns(@colwidth: 250px, @colcount: 0, @colgap: 50px, @columnRuleColor: #EEE, @columnRuleStyle: solid, @columnRuleWidth: 1px) {
-  -moz-column-width: @colwidth;
-  -moz-column-count: @colcount;
-  -moz-column-gap: @colgap;
-  -moz-column-rule-color: @columnRuleColor;
-  -moz-column-rule-style: @columnRuleStyle;
-  -moz-column-rule-width: @columnRuleWidth;
-  -webkit-column-width: @colwidth;
-  -webkit-column-count: @colcount;
-  -webkit-column-gap: @colgap;
-  -webkit-column-rule-color: @columnRuleColor;
-  -webkit-column-rule-style: @columnRuleStyle;
-  -webkit-column-rule-width: @columnRuleWidth;
-  column-width: @colwidth;
-  column-count: @colcount;
-  column-gap: @colgap;
-  column-rule-color: @columnRuleColor;
-  column-rule-style: @columnRuleStyle;
-  column-rule-width: @columnRuleWidth;
 }
 .translate(@x:0, @y:0) {
   -moz-transform: translate(@x, @y);
