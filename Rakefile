@@ -63,3 +63,31 @@ task :compile => :clean do
   end
   cp_r TZDATA_DIR, BUILD_DIR, :verbose => true
 end
+
+desc "Run tests with phantomjs"
+task :test do
+  unless system("which phantomjs > /dev/null 2>&1")
+    abort "PhantomJS is not installed. Download from http://phantomjs.org"
+  end
+
+  with_test_server_running do
+    cmd = "phantomjs spec/run-jasmine.js \"http://localhost:9299/specs\""
+
+    if system(cmd)
+      puts "Tests Passed".green
+    else
+      puts "Tests Failed".red
+      exit(1)
+    end
+  end
+end
+
+def with_test_server_running
+  puts "Starting server"
+  `rackup --port 9299 --daemonize --pid test_server.pid`
+  sleep 3
+  yield
+  %x(kill -9 `cat test_server.pid` && rm test_server.pid)
+end
+
+task :default => :test

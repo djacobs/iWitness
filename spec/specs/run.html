@@ -13,6 +13,7 @@
       var htmlReporter = new jasmine.HtmlReporter();
 
       jasmineEnv.addReporter(htmlReporter);
+      jasmineEnv.addReporter(new ConsoleFailureReporter());
 
       jasmineEnv.specFilter = function(spec) {
         return htmlReporter.specFilter(spec);
@@ -25,6 +26,10 @@
           currentWindowOnload();
         }
         execJasmine();
+
+        if (navigator.userAgent.match(/PhantomJS/)) {
+          IWitness.log = Ember.K;
+        }
       };
 
       function execJasmine() {
