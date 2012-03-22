@@ -33,23 +33,29 @@ IWitness.CriteriaView = Ember.View.extend({
   }),
 
   timezoneSelector: Ember.View.extend({
-    attributeBindings: ['type', 'checked', 'disabled'],
-    tagName:           'input',
-    type:              'radio',
-    checkedBinding:    'isSelected',
-    disabledBinding: 'model.stream',
     modelBinding:      'IWitness.criteriaController.content',
 
-    isSelected: function() {
-      return this.getPath('model.useTimezone') == this.get('timezone');
-    }.property('timezone', 'model.useTimezone'),
+    timezoneToggleClass: function() {
+      if (this.getPath('model.useLocalTime')) {
+        return 'handle local';
+      } else {
+        return 'handle map';
+      }
+    }.property('model.useLocalTime'),
 
-    change: function() {
-      this.setPath('model.useTimezone', this.get('timezone'));
+    click: function(e) {
+      this.get('model').toggleProperty('useLocalTime');
+    },
+
+    chooseLocalTime: function(e) {
+      this.setPath('model.useLocalTime', true);
+      return false;
+    },
+
+    chooseMapTime: function(e) {
+      this.setPath('model.useLocalTime', false);
+      return false;
     }
-  }),
+  })
 
-  timezoneToggleClass: function() {
-    return this.getPath('model.useTimezone') + ' handle';
-  }.property('model.useTimezone')
 });

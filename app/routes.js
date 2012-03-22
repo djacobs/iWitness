@@ -27,7 +27,7 @@ IWitness.routes = {
       '/' + criteria.get('keyword') +
       '/' + criteria.get('rawStart').format('YYYY-MM-DDTHH:mm') +
       '/' + criteria.get('rawEnd').format('YYYY-MM-DDTHH:mm') +
-      '/' + criteria.get('useTimezone');
+      '/' + (criteria.get('useLocalTime') ? 'local' : 'map');
     SC.routes.set('location', _.extend(props, {route: route}));
   },
 
@@ -39,11 +39,12 @@ IWitness.routes = {
   },
 
   _setSearchParams: function(params){
-    params.center    = params.center.split(',');
-    params.northEast = params.northEast.split(',');
-    params.southWest = params.southWest.split(',');
-    params.zoom      = parseInt(params.zoom);
-    params.radius    = parseInt(params.radius);
+    params.center       = params.center.split(',');
+    params.northEast    = params.northEast.split(',');
+    params.southWest    = params.southWest.split(',');
+    params.zoom         = parseInt(params.zoom);
+    params.radius       = parseInt(params.radius);
+    params.useLocalTime = (params.useTimezone == 'local');
     IWitness.criteria.setProperties(params);
   },
 

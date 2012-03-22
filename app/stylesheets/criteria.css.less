@@ -42,7 +42,7 @@
   background : url(/images/time.png) no-repeat 109px 13px;
   .iwitness-border-with-radius(12px);
 
-  #timezone_selector {
+  #stream_selector {
     position   : absolute;
     top        :-10px;
     left       :-3px;
@@ -87,7 +87,7 @@
     background : url(/images/handle_small.png);
     .transition(left, 0.1s, linear);
 
-    &.mine { left: 361px; }
+    &.local { left: 361px; }
     &.map  { left: 389px; }
   }
 
@@ -98,7 +98,7 @@
     width    : 37px;
     height   : 15px;
 
-    &.mine { left: 324px; }
+    &.local { left: 324px; }
     &.map  { left: 420px; }
 
     input { opacity: 0; }

@@ -19,7 +19,7 @@ describe("Criteria", function() {
     });
 
     describe("when using the map's timezone", function() {
-      beforeEach(function() { subject.set('useTimezone', 'map') });
+      beforeEach(function() { subject.set('useLocalTime', false) });
 
       it("is the date/time adjusted for the map", function() {
         spyOnProperties(subject, {timezoneDifference: -4});
@@ -38,7 +38,7 @@ describe("Criteria", function() {
     });
 
     describe("when using the map's timezone", function() {
-      beforeEach(function() { subject.set('useTimezone', 'map') });
+      beforeEach(function() { subject.set('useLocalTime', false) });
 
       it("is the date/time adjusted for the map", function() {
         spyOnProperties(subject, {timezoneDifference: -4});
