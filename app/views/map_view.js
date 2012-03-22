@@ -6,7 +6,8 @@ IWitness.MapView = Ember.View.extend({
   didInsertElement: function() {
     // this.map = new Map(document.getElementById("map"), 34.043127, -118.266953); // LA
     // this.map = new Map(document.getElementById("map"), 37.754837,-122.430782); // SF
-    this.map = new Map(document.getElementById("map"), 34.102022,-118.34043500000001); // Oscars
+    // this.map = new Map(document.getElementById("map"), 34.102022,-118.34043500000001); // Oscars
+    this.map = new Map(document.getElementById("map"), 40.735955030904755, -73.99026397144165); // OWS Union Sq
     this.map.addListener('idle', _.bind(this._mapReady, this));
   },
 

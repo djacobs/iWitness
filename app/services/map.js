@@ -1,7 +1,7 @@
 var Map = function(element, lat, lng) {
   this.map = new google.maps.Map(element, {
     center:    new google.maps.LatLng(lat, lng),
-    zoom:      15,
+    zoom:      17,
     mapTypeControl: false,
     scaleControl: false,
     mapTypeId: google.maps.MapTypeId.ROADMAP,
