@@ -25,14 +25,15 @@ TZDATA_DIR  = VENDOR_DIR.join("tzdata")
 
 BUNDLES     = [ 'index.html', 'application.css', 'application.js', 'timezones.json' ]
 
+directory BUILD_DIR.to_s
+
 desc "remove all built assets"
 task :clean do
-  FileUtils.rm_r(BUILD_DIR.children)
-  touch(BUILD_DIR.join('.gitkeep'))
+  FileUtils.rm_r(BUILD_DIR) if File.exists?(BUILD_DIR)
 end
 
 desc "compile all files into the assets directory"
-task :compile => :clean do
+task :compile => [:clean, BUILD_DIR.to_s] do
   sprockets = Sprockets::Environment.new(ROOT) do |env|
     env.logger = LOGGER
     env.js_compressor = Uglifier.new
