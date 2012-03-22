@@ -2,6 +2,8 @@ var Map = function(element, lat, lng) {
   this.map = new google.maps.Map(element, {
     center:    new google.maps.LatLng(lat, lng),
     zoom:      15,
+    mapTypeControl: false,
+    scaleControl: true,
     mapTypeId: google.maps.MapTypeId.ROADMAP,
     mapTypeControl: false,
     styles: [
@@ -181,6 +183,9 @@ var Map = function(element, lat, lng) {
 
   this.geocoder = new google.maps.Geocoder();
 };
+
+// radius of circle overlay / (height of map / 2)
+Map.circleRadiusRatio = 0.932; // = 220 / (472 / 2)
 
 _.extend(Map.prototype, {
   addListener: function(type, handler) {

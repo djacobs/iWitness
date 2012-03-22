@@ -1,14 +1,17 @@
 var TwitterFilter = function(params) {
   this.start = moment(params.start);
   this.end   = moment(params.end);
-  this.box   = new Map.Box(params.southWest, params.northEast);
+  this.center = params.center;
+  this.radius = params.radius;
 };
 
 _.extend(TwitterFilter.prototype, {
   hasGeo: function(result){
     if (result.geo == null) return false;
     var coordinates = result.geo.coordinates;
-    return this.box.contains(coordinates[0], coordinates[1]);
+
+    var distance = new Map.Line(this.center, coordinates);
+    return distance.length() <= this.radius;
   },
 
   inTimeframe: function(result) {

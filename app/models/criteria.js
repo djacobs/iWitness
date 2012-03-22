@@ -66,8 +66,10 @@ IWitness.Criteria = Ember.Object.extend({
     var corner = this.get('northEast');
     if (!(center && corner)) return 0;
 
-    var radius = new Map.Line(center, corner);
-    return Math.ceil(radius.length() / 1000);
+    var top = [corner[0], center[1]];
+    var height = new Map.Line(center, top);
+
+    return height.length() * Map.circleRadiusRatio;
   }.property('center', 'northEast').cacheable(),
 
   getParams: function() {
@@ -99,7 +101,7 @@ IWitness.Criteria = Ember.Object.extend({
         errors.push("Select a start date that comes before the end date.");
     }
 
-    if (this.get('radius') > 75)
+    if (this.get('radius') > 75000)
       errors.push("Increase the map zoom in order to provide more relevant results.");
 
     return errors;
