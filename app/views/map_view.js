@@ -38,6 +38,18 @@ IWitness.MapView = Ember.View.extend({
     if (this.map) this.map.setZoom(this.getPath('model.zoom'));
   }.observes('model.zoom'),
 
+  zoomClass: function(){
+    return 'l_' + this.getPath('model.zoom');
+  }.property('model.zoom'),
+
+  zoomIn: function() {
+    this.get("model").incrementProperty("zoom");
+  },
+
+  zoomOut: function() {
+    this.get("model").decrementProperty("zoom");
+  },
+
   recenter: function() {
     if (this.map) this.map.setCenter(this.getPath('model.center'));
   }.observes('model.center'),

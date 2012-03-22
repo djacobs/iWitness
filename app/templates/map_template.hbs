@@ -1,9 +1,9 @@
 <div id="map-widget">
   <div id="map"></div>
-  <div id="map-zoom-control" class="l_0">
+  <div id="map-zoom-control" {{bindAttr class="zoomClass"}}>
     <div class="handle"></div>
-    <div class="zoom out"></div>
-    <div class="zoom in"></div>
+    <div class="zoom out" {{action "zoomOut"}}></div>
+    <div class="zoom in"  {{action "zoomIn"}}></div>
     <div class="level l_0 first"></div>
     <div class="level l_1"></div>
     <div class="level l_2"></div>
