@@ -3,6 +3,7 @@ var Map = function(element, lat, lng) {
     center:    new google.maps.LatLng(lat, lng),
     zoom:      15,
     mapTypeId: google.maps.MapTypeId.ROADMAP,
+    mapTypeControl: false,
     styles: [
       {
         featureType: "landscape.man_made",

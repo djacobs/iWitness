@@ -1,8 +1,8 @@
-IWitness.KeywordFitlerView = Ember.TextField.extend({
-  valueBinding: 'IWitness.criteriaController.content.keyword',
+IWitness.KeywordFilterView = Ember.View.extend({
+  templateName: 'keyword_filter_template',
+  criteriaBinding: 'IWitness.criteriaController.content',
 
   change: function(e) {
-    this._super();
     IWitness.criteriaController.initiateSearch();
   }
 });

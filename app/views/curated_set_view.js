@@ -1,4 +1,4 @@
-IWitness.curatedSetView = Ember.View.extend({
+IWitness.CuratedSetView = Ember.View.extend({
   templateName: 'curated_set_template',
   isVisibleBinding: 'IWitness.curatedResultsToggleController.showingCuratedResults'
 });

@@ -1,4 +1,4 @@
-IWitness.resultSetView = Ember.View.extend({
+IWitness.ResultSetView = Ember.View.extend({
   templateName: 'result_set_template',
 
   isVisibleBinding: 'IWitness.curatedResultsToggleController.showingSearchResults',
