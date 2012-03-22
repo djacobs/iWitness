@@ -64,12 +64,25 @@ _.extend(TwitterQuery.prototype, {
   },
 
   fetchResults: function(params, callback) {
-    $.getJSON(
-      "http://search.twitter.com/search.json?callback=?",
-      this.queryParams(params),
-      function(response) { callback(response) }
-    );
-    //TODO handle when results property does not exist in response
+    var self = this;
+    var tryCount = 0;
+
+    var makeRequest = function() {
+      $.ajax({
+        url:      "http://search.twitter.com/search.json?callback=?",
+        dataType: 'jsonp',
+        data:     self.queryParams(params),
+        success:  function(response) { callback(response) },
+        error:    retry
+      });
+    }
+
+    var retry = function() {
+      tryCount++;
+      if (tryCount < 3) { setTimeout(makeRequest, 1000) }
+    }
+
+    makeRequest();
   },
 
   fetchResultsPage: function(callback){

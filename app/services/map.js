@@ -2,8 +2,179 @@ var Map = function(element, lat, lng) {
   this.map = new google.maps.Map(element, {
     center:    new google.maps.LatLng(lat, lng),
     zoom:      15,
-    mapTypeId: google.maps.MapTypeId.ROADMAP
+    mapTypeId: google.maps.MapTypeId.ROADMAP,
+    styles: [
+      {
+        featureType: "landscape.man_made",
+        stylers: [
+          { invert_lightness: true },
+          { gamma: 0.5 },
+          { visibility: "on" },
+          { saturation: -4 },
+          { lightness: 46 }
+        ]
+      },{
+        featureType: "water",
+        elementType: "labels",
+        stylers: [
+          { gamma: 0.37 },
+          { saturation: -6 },
+          { lightness: 44 },
+          { visibility: "on" }
+        ]
+      },{
+        featureType: "poi",
+        elementType: "geometry",
+        stylers: [
+          { saturation: -100 },
+          { lightness: -60 },
+          { gamma: 0.88 },
+          { visibility: "simplified" }
+        ]
+      },{
+        featureType: "poi",
+        elementType: "labels",
+        stylers: [
+          { visibility: "on" },
+          { invert_lightness: true },
+          { saturation: -96 },
+          { lightness: 24 },
+          { gamma: 0.82 }
+        ]
+      },{
+        featureType: "road",
+        elementType: "geometry",
+        stylers: [
+          { hue: "#ff6600" },
+          { visibility: "simplified" },
+          { lightness: -19 }
+        ]
+      },{
+        elementType: "labels",
+        stylers: [
+          { visibility: "on" },
+          { invert_lightness: true },
+          { hue: "#00eeff" },
+          { gamma: 0.64 },
+          { lightness: 19 },
+          { saturation: -99 }
+        ]
+      },{
+        featureType: "road.local",
+        elementType: "geometry",
+        stylers: [
+          { visibility: "on" },
+          { lightness: -39 }
+        ]
+      },{
+        elementType: "labels",
+        stylers: [
+          { saturation: -100 },
+          { lightness: 25 },
+          { gamma: 0.72 }
+        ]
+      },{
+        featureType: "poi",
+        elementType: "labels",
+        stylers: [
+          { visibility: "on" },
+          { invert_lightness: true }
+        ]
+      },{
+        featureType: "water",
+        elementType: "labels",
+        stylers: [
+          { saturation: 5 },
+          { invert_lightness: true },
+          { hue: "#00ffc4" },
+          { gamma: 0.01 },
+          { lightness: 6 }
+        ]
+      },{
+        featureType: "water",
+        elementType: "geometry",
+        stylers: [
+          { invert_lightness: true },
+          { lightness: 11 },
+          { saturation: -19 }
+        ]
+      },{
+        featureType: "water",
+        elementType: "labels",
+        stylers: [
+          { invert_lightness: true },
+          { gamma: 1.26 },
+          { lightness: -85 }
+        ]
+      },{
+        featureType: "road",
+        elementType: "geometry",
+        stylers: [
+          { saturation: -30 }
+        ]
+      },{
+        featureType: "administrative.land_parcel",
+        stylers: [
+          { visibility: "off" }
+        ]
+      },{
+        featureType: "road.local",
+        elementType: "geometry",
+        stylers: [
+          { visibility: "simplified" },
+          { lightness: -25 },
+          { gamma: 1.06 },
+          { saturation: -100 }
+        ]
+      },{
+        featureType: "landscape",
+        elementType: "geometry",
+        stylers: [
+          { visibility: "off" },
+          { saturation: -100 },
+          { lightness: -71 }
+        ]
+      },{
+        featureType: "road.highway.controlled_access",
+        elementType: "labels",
+        stylers: [
+          { visibility: "on" },
+          { saturation: -95 },
+          { lightness: -10 },
+          { gamma: 0.74 }
+        ]
+      },{
+        featureType: "road.highway",
+        elementType: "geometry",
+        stylers: [
+          { visibility: "on" },
+          { gamma: 0.64 },
+          { saturation: 29 },
+          { lightness: 19 }
+        ]
+      },{
+        featureType: "road.arterial",
+        stylers: [
+          { hue: "#ff6600" },
+          { lightness: -16 },
+          { saturation: 5 }
+        ]
+      },{
+      }
+    ]
   });
+
+  var circleOverlay = window.CIRCLE = $('<div id="circleOverlay">HI I AM CIRCLE</div>');
+  // circleOverlay.css('backgroundColor','#000');
+  circleOverlay.css('background', 'url(images/overlay.png)');
+  circleOverlay.css('opacity', '0.25');
+  circleOverlay.css('width', '100%');
+  circleOverlay.css('height', '1200px');
+  circleOverlay.css('pointerEvents', 'none');
+  var circle = circleOverlay.get(0);
+  circle.index = -1;
+
+  this.map.controls[google.maps.ControlPosition.TOP_LEFT].push(circle);
 
   this.geocoder = new google.maps.Geocoder();
 };
