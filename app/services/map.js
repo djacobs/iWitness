@@ -2,6 +2,8 @@ var Map = function(element, lat, lng) {
   this.map = new google.maps.Map(element, {
     center:    new google.maps.LatLng(lat, lng),
     zoom:      15,
+    mapTypeControl: false,
+    scaleControl: true,
     mapTypeId: google.maps.MapTypeId.ROADMAP,
     styles: [
       {
@@ -164,8 +166,7 @@ var Map = function(element, lat, lng) {
     ]
   });
 
-  var circleOverlay = window.CIRCLE = $('<div id="circleOverlay">HI I AM CIRCLE</div>');
-  // circleOverlay.css('backgroundColor','#000');
+  var circleOverlay = window.CIRCLE = $('<div id="circleOverlay"></div>');
   circleOverlay.css('background', 'url(images/overlay.png)');
   circleOverlay.css('opacity', '0.25');
   circleOverlay.css('width', '100%');
@@ -178,6 +179,9 @@ var Map = function(element, lat, lng) {
 
   this.geocoder = new google.maps.Geocoder();
 };
+
+// radius of circle overlay / (height of map / 2)
+Map.circleRadiusRatio = 0.932; // = 220 / (472 / 2)
 
 _.extend(Map.prototype, {
   addListener: function(type, handler) {

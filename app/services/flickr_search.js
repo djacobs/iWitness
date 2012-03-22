@@ -9,6 +9,7 @@ var FlickrSearch = function(params){
   this.url                = 'http://api.flickr.com/services/rest/?jsoncallback=?'
   this.stream             = params.stream;
   this.page               = 0;
+  this.filter             = new FlickrFilter(params);
 }
 
 _.extend(FlickrSearch.prototype, {
@@ -43,7 +44,8 @@ _.extend(FlickrSearch.prototype, {
       this.minUploadDate = parseInt(maxPhoto.dateupload)+1;
     }
     this.pages = data.photos.pages;
-    Ember.sendEvent(this, 'data', data.photos.photo);
+    var photos = this.filter.filter(data.photos.photo);
+    Ember.sendEvent(this, 'data', photos);
     if(!this.stream){
       Ember.sendEvent(this, 'done');
     } else {

@@ -49,13 +49,16 @@ describe("Criteria", function() {
   });
 
   describe("radius", function() {
-    it("is a whole number in kilometers, rounded up", function() {
-      subject.setProperties({center: [], northEast: []});
+    it("is the radius of the circular map overlay", function() {
+      subject.setProperties({center: [0,1], northEast: [2,3]});
 
-      var stub = {length: function() { return 9100 }};
+      var stub = {length: function() { return 10000 }};
       spyOn(Map, 'Line').andReturn(stub);
 
-      expect(subject.get('radius')).toEqual(10);
+      expect(subject.get('radius')).toEqual(9320);
+
+      // make sure we're taking the correct lat,lng values for our 'top' point
+      expect(Map.Line).toHaveBeenCalledWith([0,1], [2,1]);
     });
 
     it("is 0 when center or northEast are not set", function() {
@@ -100,7 +103,7 @@ describe("Criteria", function() {
       });
 
       it("includes an error if the radius is more than 75km", function() {
-        spyOnProperties(subject, {radius: 76});
+        spyOnProperties(subject, {radius: 76000});
         expect(subject.get('errors').length).toEqual(1);
         expect(subject.get('errors')[0]).toMatch(/zoom/i);
       });
@@ -112,7 +115,7 @@ describe("Criteria", function() {
       });
 
       it("includes an error if the radius is more than 75km", function() {
-        spyOnProperties(subject, {radius: 76});
+        spyOnProperties(subject, {radius: 76000});
 
         expect(subject.get('errors').length).toEqual(1);
         expect(subject.get('errors')[0]).toMatch(/zoom/i);
