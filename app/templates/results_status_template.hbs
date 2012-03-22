@@ -1,6 +1,44 @@
 <div id="results-fold"></div>
 <div id="results-top-bar">
-  <div {{bindAttr class="statusClass"}}>{{status}}</div>
+  <div {{bindAttr class="statusClass"}}>
+    {{status}}
+
+    <div id="services-menu">
+      <div class="services-header">
+        {{status}} <div class="services-status-icon"></div>
+      </div>
+      <div class="service first">
+        <img class="service-icon" src="/images/twitter_badge.png">
+        <div class="service-title">twitter</div>
+        <div class="service-status searching">searching</div>
+        <div class="service-switch on">
+          <div class="handle"></div>
+          <div class="text">on</div>
+        </div>
+      </div>
+
+      <div class="service">
+        <img class="service-icon" src="/images/flickr_badge.png">
+        <div class="service-title">flickr</div>
+        <div class="service-status searching">searching</div>
+        <div class="service-switch off">
+          <div class="handle"></div>
+          <div class="text">off</div>
+        </div>
+      </div>
+
+      <div class="service last">
+        <img class="service-icon" src="/images/instagram_badge.png">
+        <div class="service-title">instagram</div>
+        <div class="service-status error">no response</div>
+        <div class="service-switch off">
+          <div class="handle"></div>
+          <div class="text">off</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <div class="nav-button">
     Show starred items
     <div class="icon star"></div>

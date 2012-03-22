@@ -32,6 +32,7 @@
   pointer-events : auto;
   .gradient(#ba4900, #b94000, #bd5700);
   .box-shadow(0 25px 50px #000);
+  .user-select(none);
 
   .nav-button {
     float  : right;
@@ -50,14 +51,150 @@
     &.scanning { background-image: url(/images/radar_sweep_orange.png); }
 
     &.finished {
-      padding-right    : 25px;
-      background-image : url(/images/check_orange.png);
+      padding-right       : 25px;
+      background-image    : url(/images/check_orange.png);
+      background-position : 100% 8px;
     }
 
     &.error    {
-      padding-right    : 25px;
-      background-image : url(/images/attention_orange.png);
+      padding-right       : 25px;
+      background-image    : url(/images/attention_orange.png);
+      background-position : 100% 10px;
     }
+  }
+}
+
+#services-menu {
+  position : absolute;
+  top      : 1px;
+  left     : 6px;
+  display  : none;
+  width    : 180px;
+  z-index  : 3;
+
+  .services-header {
+    position      : relative;
+    float         : left;
+    overflow      : hidden;
+    height        : 30px;
+    border        : 3px solid #fff;
+    border-bottom-width: 1px;
+    padding       : 0 33px 0 6px;
+    line-height   : 30px;
+    background    : #f1f1f1;
+    background-repeat: no-repeat;
+    z-index       : 1;
+    .border-radius(8px, 8px, 0, 0);
+  }
+
+  .services-status-icon {
+    position : absolute;
+    top      : 1px;
+    right    : 2px;
+    width    : 25px;
+    height   : 25px;
+  }
+
+  .service {
+    position     : relative;
+    top          : -3px;
+    clear        : both;
+    overflow     : hidden;
+    height       : 40px;
+    border       : 3px solid #fff;
+    border-bottom-width: 1px;
+    border-top-width: 0;
+    padding-left : 35px;
+    color        : #484848;
+    font         : 12px helvetica, arial, sans-serif;
+    background   : #f1f1f1;
+    z-index      : 0;
+
+    &.first {
+      border-top-width : 3px;
+      .border-radius(0, 8px, 0, 0);
+    }
+
+    &.last {
+      border-bottom-width : 3px;
+      .border-radius(0, 0, 8px, 8px);
+    }
+
+    .service-icon {
+      position   : absolute;
+      top        : 50%;
+      left       : 6px;
+      margin-top : -12px;
+    }
+
+    .service-title {
+      padding-top : 6px;
+      font-weight : bold;
+    }
+
+    .service-switch {
+      position       : absolute;
+      top            : 50%;
+      right          : 6px;
+      width          : 50px;
+      height         : 23px;
+      margin-top     :-12px;
+      color          : #717171;
+      font-size      : 11px;
+      line-height    : 23px;
+      text-transform : uppercase;
+      background     : url(/images/service_switch_background.png);
+      .box-sizing(border-box);
+
+      .handle {
+        position   : absolute;
+        top        : 0;
+        width      : 23px;
+        height     : 24px;
+        background : url(/images/service_switch_handle.png);
+      }
+
+      &.on {
+        padding-left: 9px;
+
+        .handle { right: -2px; }
+      }
+
+      &.off {
+        text-align: right;
+        padding-right: 6px;
+
+        .handle { left: -2px; }
+      }
+    }
+  }
+}
+
+#results-top-bar:hover #services-menu {
+  display: block;
+}
+
+.status.scanning #services-menu {
+  .services-header { color: #003a6e; }
+
+  .services-status-icon {
+    background: url(/images/radar_sweep_blue.png) no-repeat 50% 50%;
+  }
+}
+
+.status.finished #services-menu {
+  .services-header { color: #199019; }
+
+  .services-status-icon {
+    background: url(/images/check_green.png) no-repeat 50% 50%;
+  }
+}
+
+.status.error #services-menu {
+  .services-header { color: #e10000; }
+
+  .services-status-icon {
+    background: url(/images/attention_red.png) no-repeat 50% 50%;
   }
 }
 
@@ -112,6 +249,7 @@
   padding-top : 92px;
 
   .item {
+    overflow      : hidden;
     position      : relative;
     margin-bottom : 13px;
     border        : 3px solid @iwitness-blue;
