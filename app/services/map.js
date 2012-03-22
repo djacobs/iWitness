@@ -164,13 +164,15 @@ var Map = function(element, lat, lng) {
     ]
   });
 
-  var circleOverlay = window.CIRCLE = $('<div id="circleOverlay">HI I AM CIRCLE</div>');
-  // circleOverlay.css('backgroundColor','#000');
-  circleOverlay.css('background', 'url(images/overlay.png)');
-  circleOverlay.css('opacity', '0.25');
-  circleOverlay.css('width', '100%');
-  circleOverlay.css('height', '1200px');
-  circleOverlay.css('pointerEvents', 'none');
+  var circleOverlay = window.CIRCLE =
+  $('<div id="circleOverlay"></div>').css({
+    'background'    : 'url(images/overlay.png)',
+    'opacity'       : '1',
+    'width'         : '100%',
+    'height'        : '1200px',
+    'pointerEvents' : 'none'
+  });
+
   var circle = circleOverlay.get(0);
   circle.index = -1;
 
