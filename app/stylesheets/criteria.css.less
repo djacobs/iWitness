@@ -154,13 +154,21 @@
   height     : 20px;
   border-top : 3px solid @iwitness-blue;
 
-  .handle {
-    position   : absolute;
+  .slider {
+    width: 440px;
+    left: 29px;
+    height: 20px;
+  }
+
+  // created by jquery-ui, and we can't add another class
+  .ui-slider-handle {
     top        : 0;
-    left       : 21px;
     width      : 35px;
     height     : 24px;
     background : url(/images/drag_handle.png);
+    border: none;
+
+    &:focus { outline-style: none; }
   }
 
   .zoom {
