@@ -3,6 +3,12 @@ IWitness.ResultView = Ember.View.extend({
   typeBinding:       'model.resultType',
   classNames:        ['hidden', 'item'],
   classNameBindings: ['isSelected:selected', 'type'],
+  attributeBindings: ['data-posted-time'],
+
+  'data-posted-time': function(){
+    console.log("POSTED TIME: ", this.getPath('postedTime'));
+    return this.getPath('postedTime');
+  }.property('postedTime'),
 
   // results are inserted with class hidden. unhide them immediately
   // unless we're currently paused. this is a work-around for lack of
