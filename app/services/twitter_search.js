@@ -64,7 +64,6 @@ _.extend(TwitterSearch.prototype, {
       return this._doneSearching();
     }
     if(!data.results.length) return this._doneSearching();
-    if(!this.maxId) this.maxId = data.results[0].id_str;
 
     var filtered = this.filter.filter(data.results);
 
