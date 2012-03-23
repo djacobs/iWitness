@@ -7,16 +7,16 @@ var Analytics = Ember.Object.create({
     });
   },
 
-  startSession: function(fresh) {
+  startSession: function() {
     this.session = true;
-    this.track('session', 'started', 'fresh', fresh ? 1 : 0);
-    IWitness.log('session started (' + (fresh ? 'fresh' : 'continued') + ')');
+    this.track('session', 'started', 'started');
+    IWitness.log('session started');
   },
 
   extendSession: function(streamOrSearch) {
     var wait = (streamOrSearch == 'stream' ? 10 : 3) * 60 * 1000;
 
-    if (!this.session) this.startSession(false);
+    if (!this.session) this.startSession();
 
     this._resetSession(wait);
   },

@@ -3,7 +3,7 @@ window.IWitness = Ember.Application.create({
     if (this.isValidBrowser()) {
       IWitness.routes.draw();
       TwitterTimestampCache.expire();
-      Analytics.startSession(true);
+      Analytics.startSession();
     }
   },
 
