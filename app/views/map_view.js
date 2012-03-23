@@ -13,7 +13,7 @@ IWitness.MapView = Ember.View.extend({
 
     this.sliderEl = this.$('#map-zoom-control .slider').slider({
       value: self.getPath("model.zoom") || Map.initialZoom,
-      min: 0,
+      min: 1,
       max: 21,
       step: 1,
       slide: function(event, ui) {

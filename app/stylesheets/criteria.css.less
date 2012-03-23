@@ -151,22 +151,42 @@
   right      : 0;
   bottom     : 0;
   left       : 0;
-  height     : 20px;
+  height     : 16px;
   border-top : 3px solid @iwitness-blue;
+  .user-select(none);
 
   .slider {
-    width: 440px;
-    left: 29px;
-    height: 20px;
+    position   : absolute;
+    top        : 1px;
+    left       : 28px;
+    width      : 444px;
+    left       : 29px;
+    height     : 14px;
+    border     : 0;
+    background : url(/images/zoom_level.png);
+    .border-radius(0);
+  }
+
+  .progress {
+    position   : absolute;
+    top        : 1px;
+    left       : 28px;
+    width      : 442px;
+    left       : 29px;
+    height     : 14px;
+    border     : 0;
+    background : url(/images/zoom_level.png) 0 -14px;
+    .border-radius(0);
   }
 
   // created by jquery-ui, and we can't add another class
   .ui-slider-handle {
-    top        : 0;
+    top        : -3px;
     width      : 35px;
     height     : 24px;
+    border     : 0;
     background : url(/images/drag_handle.png);
-    border: none;
+    .box-shadow(none);
 
     &:focus { outline-style: none; }
   }
@@ -205,144 +225,106 @@
 }
 
 #map-zoom-control.l_0 {
-  .l_0 { .level-active(); }
+  .progress { width: 0px; }
   .handle { left: 21px; }
 }
 
 #map-zoom-control.l_1 {
-  .l_0, .l_1
-    { .level-active(); }
+  .progress { width: 22px; }
   .handle { left: 39px; }
 }
 
 #map-zoom-control.l_2 {
-  .l_0, .l_1, .l_2
-    { .level-active(); }
+  .progress { width: 44px; }
   .handle { left: 59px; }
 }
 
 #map-zoom-control.l_3 {
-  .l_0, .l_1, .l_2, .l_3
-    { .level-active(); }
+  .progress { width: 66px; }
   .handle { left: 79px; }
 }
 
 #map-zoom-control.l_4 {
-  .l_0, .l_1, .l_2, .l_3, .l_4
-    { .level-active(); }
+  .progress { width: 88px; }
   .handle { left: 99px; }
 }
 
 #map-zoom-control.l_5 {
-  .l_0, .l_1, .l_2, .l_3, .l_4, .l_5
-    { .level-active(); }
+  .progress { width: 110px; }
   .handle { left: 119px; }
 }
 
 #map-zoom-control.l_6 {
-  .l_0, .l_1, .l_2, .l_3, .l_4, .l_5, .l_6
-    { .level-active(); }
+  .progress { width: 132px; }
   .handle { left: 139px; }
 }
 
 #map-zoom-control.l_7 {
-  .l_0, .l_1, .l_2, .l_3, .l_4, .l_5, .l_6, .l_7
-    { .level-active(); }
+  .progress { width: 154px; }
   .handle { left: 159px; }
 }
 
 #map-zoom-control.l_8 {
-  .l_0, .l_1, .l_2, .l_3, .l_4, .l_5, .l_6, .l_7, .l_8
-    { .level-active(); }
+  .progress { width: 176px; }
   .handle { left: 179px; }
 }
 
 #map-zoom-control.l_9 {
-  .l_0, .l_1, .l_2, .l_3, .l_4, .l_5, .l_6, .l_7, .l_8, .l_9
-    { .level-active(); }
+  .progress { width: 198px; }
   .handle { left: 199px; }
 }
 
 #map-zoom-control.l_10 {
-  .l_0,  .l_1,  .l_2,  .l_3,  .l_4,  .l_5,  .l_6,  .l_7,  .l_8,  .l_9,
-  .l_10
-    { .level-active(); }
+  .progress { width: 220px; }
   .handle { left: 219px; }
 }
 
 #map-zoom-control.l_11 {
-  .l_0,  .l_1,  .l_2,  .l_3,  .l_4,  .l_5,  .l_6,  .l_7,  .l_8,  .l_9,
-  .l_10, .l_11
-    { .level-active(); }
+  .progress { width: 242px; }
   .handle { left: 239px; }
 }
 
 #map-zoom-control.l_12 {
-  .l_0,  .l_1,  .l_2,  .l_3,  .l_4,  .l_5,  .l_6,  .l_7,  .l_8,  .l_9,
-  .l_10, .l_11, .l_12
-    { .level-active(); }
+  .progress { width: 264px; }
   .handle { left: 259px; }
 }
 
 #map-zoom-control.l_13 {
-  .l_0,  .l_1,  .l_2,  .l_3,  .l_4,  .l_5,  .l_6,  .l_7,  .l_8,  .l_9,
-  .l_10, .l_11, .l_12, .l_13
-    { .level-active(); }
+  .progress { width: 286px; }
   .handle { left: 279px; }
 }
 
 #map-zoom-control.l_14 {
-  .l_0,  .l_1,  .l_2,  .l_3,  .l_4,  .l_5,  .l_6,  .l_7,  .l_8,  .l_9,
-  .l_10, .l_11, .l_12, .l_13, .l_14
-    { .level-active(); }
+  .progress { width: 308px; }
   .handle { left: 299px; }
 }
 
 #map-zoom-control.l_15 {
-  .l_0,  .l_1,  .l_2,  .l_3,  .l_4,  .l_5,  .l_6,  .l_7,  .l_8,  .l_9,
-  .l_10, .l_11, .l_12, .l_13, .l_14, .l_15
-    { .level-active(); }
+  .progress { width: 330px; }
   .handle { left: 319px; }
 }
 
 #map-zoom-control.l_16 {
-  .l_0,  .l_1,  .l_2,  .l_3,  .l_4,  .l_5,  .l_6,  .l_7,  .l_8,  .l_9,
-  .l_10, .l_11, .l_12, .l_13, .l_14, .l_15, .l_16
-    { .level-active(); }
+  .progress { width: 352px; }
   .handle { left: 339px; }
 }
 
 #map-zoom-control.l_17 {
-  .l_0,  .l_1,  .l_2,  .l_3,  .l_4,  .l_5,  .l_6,  .l_7,  .l_8,  .l_9,
-  .l_10, .l_11, .l_12, .l_13, .l_14, .l_15, .l_16, .l_17
-    { .level-active(); }
+  .progress { width: 374px; }
   .handle { left: 359px; }
 }
 
 #map-zoom-control.l_18 {
-  .l_0,  .l_1,  .l_2,  .l_3,  .l_4,  .l_5,  .l_6,  .l_7,  .l_8,  .l_9,
-  .l_10, .l_11, .l_12, .l_13, .l_14, .l_15, .l_16, .l_17, .l_18
-    { .level-active(); }
+  .progress { width: 396px; }
   .handle { left: 379px; }
 }
 
 #map-zoom-control.l_19 {
-  .l_0,  .l_1,  .l_2,  .l_3,  .l_4,  .l_5,  .l_6,  .l_7,  .l_8,  .l_9,
-  .l_10, .l_11, .l_12, .l_13, .l_14, .l_15, .l_16, .l_17, .l_18, .l_19
-    { .level-active(); }
+  .progress { width: 418px; }
   .handle { left: 399px; }
 }
 
 #map-zoom-control.l_20 {
-  .l_0,  .l_1,  .l_2,  .l_3,  .l_4,  .l_5,  .l_6,  .l_7,  .l_8,  .l_9,
-  .l_10, .l_11, .l_12, .l_13, .l_14, .l_15, .l_16, .l_17, .l_18, .l_19, .l_20
-    { .level-active(); }
-  .handle { left: 419px; }
-}
-
-#map-zoom-control.l_21 {
-  .l_0,  .l_1,  .l_2,  .l_3,  .l_4,  .l_5,  .l_6,  .l_7,  .l_8,  .l_9,
-  .l_10, .l_11, .l_12, .l_13, .l_14, .l_15, .l_16, .l_17, .l_18, .l_19, .l_20, .l_21
-    { .level-active(); }
-  .handle { left: 439px; }
+  .progress { width: 440px; }
+  .handle   { left: 419px; }
 }
