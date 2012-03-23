@@ -11,6 +11,15 @@
   tr.load-more td { text-align: center; }
 }
 
+#timeline {
+  position   : absolute;
+  top        : 95px;
+  bottom     : 0;
+  left       : 17px;
+  width      : 15px;
+  background : #3e4449;
+}
+
 #results-header {
   position       : fixed;
   top            : 0;
@@ -243,11 +252,10 @@
   top         : 0;
   right       : 13px;
   bottom      : 0;
-  left        : 14px;
+  left        : 46px;
   padding-top : 92px;
 
   .item {
-    overflow      : hidden;
     position      : relative;
     margin-bottom : 13px;
     border        : 3px solid @iwitness-blue;
@@ -265,6 +273,44 @@
       content    : " ";
       clear      : both;
       height     : 0;
+    }
+
+    &.first {
+      .timeline-arrow { display: block; }
+    }
+
+    &.last {
+      .timeline-arrows { display: block; }
+    }
+
+    .timeline-arrow {
+      display    : none;
+      position   : absolute;
+      top        : 0;
+      left       :-40px;
+      width      : 31px;
+      height     : 96px;
+      background : url(/images/timeline_arrow.png);
+
+      span {
+        position    : relative;
+        top         : 50px;
+        display     : block;
+        font-size   : 14px;
+        font-weight : bold;
+        white-space : nowrap;
+        .rotation(-90deg);
+      }
+    }
+
+    .timeline-arrows {
+      display    : none;
+      position   : absolute;
+      bottom     :-19px;
+      left       :-32px;
+      width      : 15px;
+      height     : 57px;
+      background : url(/images/timeline_arrows.png);
     }
 
     a {
