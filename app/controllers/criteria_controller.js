@@ -4,7 +4,6 @@ IWitness.criteriaController = Ember.Object.create({
   initiateSearch: function() {
     IWitness.resultSetController.clearResults();
     IWitness.searchController.reset();
-    Analytics.startSession( this.getPath('content.stream') );
 
     this.changeUrl();
   },

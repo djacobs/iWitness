@@ -19,7 +19,7 @@ _.extend(TwitterQuery.prototype, {
   },
 
   location: function() {
-    return this.params.center.join(',') + "," + this.params.radius + "km";
+    return this.params.center.join(',') + "," + Math.ceil(this.params.radius / 1000) + "km";
   },
 
   queryParams: function(params){

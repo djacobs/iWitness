@@ -1,7 +1,6 @@
 var LiveTwitterSearch = function(params, search){
   this.type      = 'twitter';
   this.params    = params;
-  this.sinceId   = params.sinceId;
   this.filter    = new TwitterFilter(params);
   this.total     = 0;
   this.isStopped = false;
@@ -22,16 +21,15 @@ _.extend(LiveTwitterSearch.prototype, {
         result_type: 'recent',
         q:           this.params.keyword,
         geocode:     this.location(),
-        rpp:         100,
-        until:       moment().add('days', 1).format('YYYY-MM-DD'),
-        page:        this.currentPage
+        rpp:         1,
+        until:       moment().add('days', 1).format('YYYY-MM-DD')
       },
       function(response) { if (response.results) callback(response) }
     );
   },
 
   _gotInitialData: function(response) {
-    this.sinceId = response.results[0].id_str;
+    this.sinceId = response.max_id_str;
 
     var self = this;
     this.fetchResults(_.bind(this._gotData, this));
@@ -86,6 +84,6 @@ _.extend(LiveTwitterSearch.prototype, {
   },
 
   location: function() {
-    return this.params.center.join(',') + "," + this.params.radius + "km";
+    return this.params.center.join(',') + "," + Math.ceil(this.params.radius / 1000) + "km";
   }
 });

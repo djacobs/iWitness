@@ -4,10 +4,23 @@ IWitness.MapView = Ember.View.extend({
   selectedResultBinding: 'IWitness.resultSetController.selectedResult',
 
   didInsertElement: function() {
+    var self = this;
     // this.map = new Map(document.getElementById("map"), 34.043127, -118.266953); // LA
     // this.map = new Map(document.getElementById("map"), 37.754837,-122.430782); // SF
-    this.map = new Map(document.getElementById("map"), 34.102022,-118.34043500000001); // Oscars
+    // this.map = new Map(document.getElementById("map"), 34.102022,-118.34043500000001); // Oscars
+    this.map = new Map(document.getElementById("map"), 40.735955030904755, -73.99026397144165); // OWS Union Sq
     this.map.addListener('idle', _.bind(this._mapReady, this));
+
+    this.sliderEl = this.$('#map-zoom-control .slider').slider({
+      value: self.getPath("model.zoom") || Map.initialZoom,
+      min: 1,
+      max: 21,
+      step: 1,
+      slide: function(event, ui) {
+        IWitness.log('zoom value', ui.value);
+        self.get("model").set("zoom", ui.value);
+      }
+    });
   },
 
   createMarkerForResult: function() {
@@ -35,8 +48,22 @@ IWitness.MapView = Ember.View.extend({
   },
 
   zoom: function() {
-    if (this.map) this.map.setZoom(this.getPath('model.zoom'));
+    var level = this.getPath('model.zoom');
+    if (this.map) this.map.setZoom(level);
+    if (this.sliderEl) this.sliderEl.slider("value", level);
   }.observes('model.zoom'),
+
+  zoomClass: function(){
+    return 'l_' + this.getPath('model.zoom');
+  }.property('model.zoom'),
+
+  zoomIn: function() {
+    this.get("model").incrementProperty("zoom");
+  },
+
+  zoomOut: function() {
+    this.get("model").decrementProperty("zoom");
+  },
 
   recenter: function() {
     if (this.map) this.map.setCenter(this.getPath('model.center'));

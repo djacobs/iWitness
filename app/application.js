@@ -1,6 +1,9 @@
 //= require javascripts/jquery
 //= require jquery-ui/jquery-ui/ui/jquery.ui.core
 //= require jquery-ui/jquery-ui/ui/jquery.ui.datepicker
+//= require jquery-ui/jquery-ui/ui/jquery.ui.widget
+//= require jquery-ui/jquery-ui/ui/jquery.ui.mouse
+//= require jquery-ui/jquery-ui/ui/jquery.ui.slider
 //= require timePicker/timePicker/jquery.timePicker
 //= require bootstrap/js/bootstrap.js
 //= require javascripts/underscore

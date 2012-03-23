@@ -1,5 +1,5 @@
 IWitness.Criteria = Ember.Object.extend({
-  useTimezone: 'mine',
+  useLocalTime: true,
   stream: false,
   keyword: "",
   address: "",
@@ -55,19 +55,21 @@ IWitness.Criteria = Ember.Object.extend({
 
   start: function() {
     return this._getAdjustedForMap('rawStart');
-  }.property('rawStart', 'useTimezone', 'timezoneDifference').cacheable(),
+  }.property('rawStart', 'useLocalTime', 'timezoneDifference').cacheable(),
 
   end: function() {
     return this._getAdjustedForMap('rawEnd');
-  }.property('rawEnd', 'useTimezone', 'timezoneDifference').cacheable(),
+  }.property('rawEnd', 'useLocalTime', 'timezoneDifference').cacheable(),
 
   radius: function() {
     var center = this.get('center');
     var corner = this.get('northEast');
     if (!(center && corner)) return 0;
 
-    var radius = new Map.Line(center, corner);
-    return Math.ceil(radius.length() / 1000);
+    var top = [corner[0], center[1]];
+    var height = new Map.Line(center, top);
+
+    return height.length() * Map.circleRadiusRatio;
   }.property('center', 'northEast').cacheable(),
 
   getParams: function() {
@@ -99,19 +101,19 @@ IWitness.Criteria = Ember.Object.extend({
         errors.push("Select a start date that comes before the end date.");
     }
 
-    if (this.get('radius') > 75)
+    if (this.get('radius') > 75000)
       errors.push("Increase the map zoom in order to provide more relevant results.");
 
     return errors;
   }.property('start', 'end', 'radius', 'stream').cacheable(),
 
   _getAdjustedForMap: function(prop) {
-    if (this.get('useTimezone') != 'mine') {
+    if (this.get('useLocalTime')) {
+      return this.get(prop);
+    } else {
       var adjustedTime = moment(this.get(prop));
       adjustedTime.add('hours', this.get('timezoneDifference'));
       return adjustedTime;
-    } else {
-      return this.get(prop);
     }
   }
 });

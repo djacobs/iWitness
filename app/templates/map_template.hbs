@@ -1,31 +1,11 @@
 <div id="map-widget">
   <div id="map"></div>
-  <div id="map-zoom-control" class="l_0">
+  <div id="map-zoom-control" {{bindAttr class="zoomClass"}}>
     <div class="handle"></div>
-    <div class="zoom out"></div>
-    <div class="zoom in"></div>
-    <div class="level l_0 first"></div>
-    <div class="level l_1"></div>
-    <div class="level l_2"></div>
-    <div class="level l_3"></div>
-    <div class="level l_4"></div>
-    <div class="level l_5"></div>
-    <div class="level l_6"></div>
-    <div class="level l_7"></div>
-    <div class="level l_8"></div>
-    <div class="level l_9"></div>
-    <div class="level l_10"></div>
-    <div class="level l_11"></div>
-    <div class="level l_12"></div>
-    <div class="level l_13"></div>
-    <div class="level l_14"></div>
-    <div class="level l_15"></div>
-    <div class="level l_16"></div>
-    <div class="level l_17"></div>
-    <div class="level l_18"></div>
-    <div class="level l_19"></div>
-    <div class="level l_20"></div>
-    <div class="level l_21 last"></div>
+    <div class="zoom out" {{action "zoomOut"}}></div>
+    <div class="zoom in"  {{action "zoomIn"}}></div>
+    <div class="slider"></div>
+    <div class="progress"></div>
   </div>
 </div>
 

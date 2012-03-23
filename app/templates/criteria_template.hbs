@@ -3,7 +3,7 @@
   <div id="iwitness_title"><i>i</i>Witness</div>
 
   <div id="date_and_time_selectors">
-    {{view streamSelector id="timezone_selector"}}
+    {{view streamSelector id="stream_selector"}}
 
     {{view dateField id="start_date" valueBinding="model.startDateString" class="date start input-small"}}
     {{view dateField id="start_time" valueBinding="model.startTimeString" class="time start input-small"}}
@@ -11,15 +11,15 @@
     {{view dateField id="end_date" valueBinding="model.endDateString" class="date end input-small"}}
     {{view dateField id="end_time" valueBinding="model.endTimeString" class="time end input-small"}}
 
-    <div {{bindAttr class="timezoneToggleClass"}}></div>
+    {{#view timezoneSelector}}
+      <div {{bindAttr class="timezoneToggleClass"}}></div>
 
-    <label class="timezone mine">
-      {{view timezoneSelector timezone="mine" class="timezone mine"}}
-    </label>
+      <label class="timezone local" {{action chooseLocalTime}}>
+      </label>
 
-    <label class="timezone map">
-      {{view timezoneSelector timezone="map"  class="timezone map"}}
-    </label>
+      <label class="timezone map" {{action chooseMapTime}}>
+      </label>
+    {{/view}}
   </div>
 
   {{view IWitness.MapView}}

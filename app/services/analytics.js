@@ -1,8 +1,4 @@
 var Analytics = Ember.Object.create({
-  sessionStart: null,
-  session: false,
-  sessionCount: 0,
-
   track: function(category, action, label, value) {
     if (arguments.length == 3) value = parseFloat(value, 10);
 
@@ -11,26 +7,27 @@ var Analytics = Ember.Object.create({
     });
   },
 
-  startSession: function(stream) {
-    var wait = (stream ? 10 : 3) * 60 * 1000;
-    if(this.session) {
-      this._resetSession(wait);
-    } else {
-      this.sessionStart = moment();
-      this.session = true;
-      this.track('session', 'started', 'sessionCount', this.sessionCount++);
-      this._resetSession(wait);
-    }
+  startSession: function() {
+    this.session = true;
+    this.track('session', 'started', 'started');
+    IWitness.log('session started');
   },
 
-  stopSession: function() {
-    var sessionTime = moment().diff(this.sessionStart, 'seconds');
+  extendSession: function(streamOrSearch) {
+    var wait = (streamOrSearch == 'stream' ? 10 : 3) * 60 * 1000;
+
+    if (!this.session) this.startSession();
+
+    this._resetSession(wait);
+  },
+
+  _stopSession: function() {
     this.session = false;
-    this.track('session', 'ended', 'sessionCompleted', sessionTime);
+    IWitness.log('session expired');
   },
 
   _resetSession: _variableDebounce(function() {
-    this.stopSession();
+    this._stopSession();
   })
 
 });

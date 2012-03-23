@@ -3,7 +3,7 @@ window.IWitness = Ember.Application.create({
     if (this.isValidBrowser()) {
       IWitness.routes.draw();
       TwitterTimestampCache.expire();
-      Analytics.startSession(false);
+      Analytics.startSession();
     }
   },
 
@@ -26,10 +26,6 @@ IWitness.config = {
   pollInterval: 30, //seconds
   searchDelay: 3000
 };
-
-window.onbeforeunload = function() {
-  Analytics.stopSession();
-}
 
 timezoneJS.timezone.zoneFileBasePath = 'tzdata';
 timezoneJS.timezone.init();

@@ -1,178 +1,157 @@
 var Map = function(element, lat, lng) {
   this.map = new google.maps.Map(element, {
     center:    new google.maps.LatLng(lat, lng),
-    zoom:      15,
-    mapTypeId: google.maps.MapTypeId.ROADMAP,
+    zoom:      Map.initialZoom,
     mapTypeControl: false,
+    scaleControl: false,
+    mapTypeId: google.maps.MapTypeId.ROADMAP,
     styles: [
       {
-        featureType: "landscape.man_made",
-        stylers: [
-          { invert_lightness: true },
-          { gamma: 0.5 },
-          { visibility: "on" },
-          { saturation: -4 },
-          { lightness: 46 }
-        ]
-      },{
-        featureType: "water",
-        elementType: "labels",
-        stylers: [
-          { gamma: 0.37 },
-          { saturation: -6 },
-          { lightness: 44 },
-          { visibility: "on" }
-        ]
-      },{
-        featureType: "poi",
-        elementType: "geometry",
-        stylers: [
-          { saturation: -100 },
-          { lightness: -60 },
-          { gamma: 0.88 },
-          { visibility: "simplified" }
-        ]
-      },{
-        featureType: "poi",
-        elementType: "labels",
-        stylers: [
-          { visibility: "on" },
-          { invert_lightness: true },
-          { saturation: -96 },
-          { lightness: 24 },
-          { gamma: 0.82 }
-        ]
-      },{
-        featureType: "road",
-        elementType: "geometry",
-        stylers: [
-          { hue: "#ff6600" },
-          { visibility: "simplified" },
-          { lightness: -19 }
-        ]
-      },{
-        elementType: "labels",
-        stylers: [
-          { visibility: "on" },
-          { invert_lightness: true },
-          { hue: "#00eeff" },
-          { gamma: 0.64 },
-          { lightness: 19 },
-          { saturation: -99 }
-        ]
-      },{
-        featureType: "road.local",
-        elementType: "geometry",
-        stylers: [
-          { visibility: "on" },
-          { lightness: -39 }
-        ]
-      },{
-        elementType: "labels",
-        stylers: [
-          { saturation: -100 },
-          { lightness: 25 },
-          { gamma: 0.72 }
-        ]
-      },{
-        featureType: "poi",
-        elementType: "labels",
-        stylers: [
-          { visibility: "on" },
-          { invert_lightness: true }
-        ]
-      },{
-        featureType: "water",
-        elementType: "labels",
-        stylers: [
-          { saturation: 5 },
-          { invert_lightness: true },
-          { hue: "#00ffc4" },
-          { gamma: 0.01 },
-          { lightness: 6 }
-        ]
-      },{
-        featureType: "water",
-        elementType: "geometry",
-        stylers: [
-          { invert_lightness: true },
-          { lightness: 11 },
-          { saturation: -19 }
-        ]
-      },{
-        featureType: "water",
-        elementType: "labels",
-        stylers: [
-          { invert_lightness: true },
-          { gamma: 1.26 },
-          { lightness: -85 }
-        ]
-      },{
-        featureType: "road",
-        elementType: "geometry",
-        stylers: [
-          { saturation: -30 }
-        ]
-      },{
-        featureType: "administrative.land_parcel",
-        stylers: [
-          { visibility: "off" }
-        ]
-      },{
-        featureType: "road.local",
-        elementType: "geometry",
-        stylers: [
-          { visibility: "simplified" },
-          { lightness: -25 },
-          { gamma: 1.06 },
-          { saturation: -100 }
-        ]
-      },{
-        featureType: "landscape",
-        elementType: "geometry",
-        stylers: [
-          { visibility: "off" },
-          { saturation: -100 },
-          { lightness: -71 }
-        ]
-      },{
-        featureType: "road.highway.controlled_access",
-        elementType: "labels",
-        stylers: [
-          { visibility: "on" },
-          { saturation: -95 },
-          { lightness: -10 },
-          { gamma: 0.74 }
-        ]
-      },{
-        featureType: "road.highway",
-        elementType: "geometry",
-        stylers: [
-          { visibility: "on" },
-          { gamma: 0.64 },
-          { saturation: 29 },
-          { lightness: 19 }
-        ]
-      },{
-        featureType: "road.arterial",
-        stylers: [
-          { hue: "#ff6600" },
-          { lightness: -16 },
-          { saturation: 5 }
-        ]
-      },{
-      }
-    ]
+      featureType: "landscape",
+      elementType: "geometry",
+      stylers: [
+        { invert_lightness: true },
+        { saturation: -100 },
+        { lightness: 29 }
+      ]
+    },{
+      featureType: "road",
+      stylers: [
+        { saturation: -98 },
+        { lightness: -41 }
+      ]
+    },{
+      stylers: [
+        { visibility: "on" }
+      ]
+    },{
+      featureType: "landscape.man_made",
+      stylers: [
+        { visibility: "off" }
+      ]
+    },{
+      featureType: "poi",
+      elementType: "geometry",
+      stylers: [
+        { visibility: "on" },
+        { invert_lightness: true },
+        { saturation: -99 },
+        { lightness: 20 }
+      ]
+    },{
+      featureType: "water",
+      stylers: [
+        { lightness: -56 },
+        { saturation: -44 }
+      ]
+    },{
+      featureType: "transit",
+      elementType: "geometry",
+      stylers: [
+        { saturation: -100 },
+        { lightness: -54 }
+      ]
+    },{
+      featureType: "administrative.land_parcel",
+      elementType: "geometry",
+      stylers: [
+        { visibility: "off" }
+      ]
+    },{
+      featureType: "administrative",
+      elementType: "labels",
+      stylers: [
+        { invert_lightness: true },
+        { saturation: -99 },
+        { lightness: 12 }
+      ]
+    },{
+      featureType: "poi",
+      elementType: "labels",
+      stylers: [
+        { invert_lightness: true },
+        { saturation: -100 },
+        { lightness: 19 },
+        { gamma: 0.94 }
+      ]
+    },{
+      featureType: "transit",
+      elementType: "labels",
+      stylers: [
+        { invert_lightness: true },
+        { saturation: -99 },
+        { lightness: 16 }
+      ]
+    },{
+      featureType: "road.highway",
+      elementType: "geometry",
+      stylers: [
+        { hue: "#ff8800" },
+        { lightness: -36 },
+        { saturation: 55 }
+      ]
+    },{
+      featureType: "road.arterial",
+      stylers: [
+        { hue: "#ff8800" },
+        { visibility: "on" },
+        { saturation: -100 },
+        { lightness: -1 }
+      ]
+    },{
+      featureType: "road.local",
+      stylers: [
+        { lightness: -26 }
+      ]
+    },{
+      featureType: "road",
+      elementType: "labels",
+      stylers: [
+        { visibility: "on" },
+        { invert_lightness: true },
+        { saturation: -100 },
+        { lightness: -6 },
+        { gamma: 0.75 }
+      ]
+    },{
+      featureType: "road.highway",
+      elementType: "geometry",
+      stylers: [
+        { saturation: -96 },
+        { lightness: 49 }
+      ]
+    },{
+      featureType: "road.highway",
+      elementType: "labels",
+      stylers: [
+        { invert_lightness: true },
+        { lightness: -18 },
+        { gamma: 1.58 }
+      ]
+    },{
+      featureType: "poi",
+      elementType: "labels",
+      stylers: [
+        { saturation: -48 },
+        { lightness: 15 },
+        { gamma: 0.86 }
+      ]
+    }]
   });
 
   var circleOverlay = window.CIRCLE =
-  $('<div id="circleOverlay"></div>').css({
+    $('<div id="circleOverlay"></div>').css({
     'background'    : 'url(images/overlay.png)',
     'opacity'       : '1',
     'width'         : '100%',
     'height'        : '1200px',
     'pointerEvents' : 'none'
   });
+
+  this.pinShadow = new google.maps.MarkerImage('images/pin_shadow.png',
+                                               new google.maps.Size(53, 41),
+                                               new google.maps.Point(0,0),
+                                               new google.maps.Point(4,49));
 
   var circle = circleOverlay.get(0);
   circle.index = -1;
@@ -181,6 +160,10 @@ var Map = function(element, lat, lng) {
 
   this.geocoder = new google.maps.Geocoder();
 };
+
+// radius of circle overlay / (height of map / 2)
+Map.circleRadiusRatio = 0.932; // = 220 / (472 / 2)
+Map.initialZoom = 17;
 
 _.extend(Map.prototype, {
   addListener: function(type, handler) {
@@ -224,7 +207,7 @@ _.extend(Map.prototype, {
 
     if (lat && lng) {
       var position = new google.maps.LatLng(lat, lng);
-      this.marker  = new google.maps.Marker({position: position, map: this.map});
+      this.marker  = new google.maps.Marker({position: position, map: this.map, icon: 'images/pin.png', shadow: this.pinShadow});
     }
   },
 
