@@ -8,7 +8,9 @@
 
 <div class="heading">
   <div class="pic">
-    <img {{bindAttr src="model.avatarSrc"}}>
+    <a target="_blank" {{bindAttr href="model.userUrl"}}>
+      <img {{bindAttr src="model.avatarSrc"}}>
+    </a>
   </div>
 
   {{#if model.title}}
@@ -20,7 +22,7 @@
 
   {{#if model.userNameSecondary}}
     <br>
-    {{model.userNameSecondary}}
+    <a target="_blank" class="user-name-secondary" {{bindAttr href="model.userUrl"}}>{{model.userNameSecondary}}</a>
   {{/if}}
 </div>
 
@@ -30,7 +32,13 @@
 
 <div class="small-links">
   <a class="permalink" target="_blank" {{bindAttr href="model.permalinkUrl"}}>{{model.permalinkText}}</a>
-  <div class="timestamp">{{postedDate}}<br> {{postedTime}}</div>
+  <div class="timestamp">
+    <a target="_blank" {{bindAttr href="model.permalinkUrl"}}>
+      {{postedDate}}
+      <br>
+      {{postedTime}}
+    </a>
+  </div>
   <a class="show-embed-button" {{action "toggleEmbedForm"}}>embed</a>
 </div>
 
