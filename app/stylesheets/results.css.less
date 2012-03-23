@@ -1,7 +1,6 @@
 @import "/app/stylesheets/mixins.css.less";
 
 #results {
-  overflow : hidden;
   position : absolute;
   top      : 0;
   right    : 0;
@@ -13,11 +12,11 @@
 }
 
 #results-header {
-  position       : absolute;
+  position       : fixed;
   top            : 0;
-  right          : 0;
-  left           : 0;
+  width          : 511px;
   height         : 82px;
+  margin-left    : 513px;
   pointer-events : none;
   z-index        : 1;
   .serif-bold();
@@ -240,7 +239,6 @@
 
 
 #result_set {
-  overflow    : auto;
   position    : absolute;
   top         : 0;
   right       : 13px;

@@ -1,6 +1,6 @@
 IWitness.ResultsStatusView = Ember.View.extend({
   templateName: 'results_status_template',
-  criteriaBinding:         'IWitness.criteriaController.content',
+  criteriaBinding: 'IWitness.criteriaController.content',
 
   status: function() {
     if (this.getPath('criteria.isValid')) {
