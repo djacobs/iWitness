@@ -67,13 +67,11 @@ IWitness.ResultView = Ember.View.extend({
     if(!this.getPath('model.embedHtml')) {
       this.get('model').fetchEmbed();
     } else {
-      this.$('.embed').slideToggle();
+      this.$('.embed-popover').fadeIn(200);
     }
   },
 
   toggleEmbed: function(){
-    this.$('.embed').delay(200).slideToggle();
+    this.$('.embed-popover').delay(200).fadeToggle(200);
   }.observes('model.embedHtml')
-
-
 });
