@@ -57,7 +57,7 @@ IWitness.ResultSetView = Ember.View.extend({
 
   _unpause: function(){
     IWitness.hiddenItemsController.unpause();
-    $('tr.hidden').removeClass('hidden');
+    $('.item-wrapper.hidden').removeClass('hidden');
   },
 
   _renderLoadMore: function(){

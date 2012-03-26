@@ -271,6 +271,7 @@
   .item-wrapper {
     position       : relative;
     margin-bottom  : 13px;
+    &.hidden { display: none; }
 
     &.first {
       .timeline-arrow { display: block; }
@@ -328,8 +329,6 @@
     background    : #02101a;
     z-index       : 1;
     .iwitness-border-with-radius(10px);
-
-    &.hidden { display: none; }
 
     &:after {
       visibility : hidden;
