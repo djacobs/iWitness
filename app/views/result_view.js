@@ -1,7 +1,7 @@
 IWitness.ResultView = Ember.View.extend({
   templateName:      'result_template',
   typeBinding:       'model.resultType',
-  classNames:        ['hidden', 'item'],
+  classNames:        ['hidden', 'item-wrapper'],
   classNameBindings: ['isSelected:selected', 'type'],
 
   // results are inserted with class hidden. unhide them immediately

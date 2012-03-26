@@ -1,17 +1,19 @@
 @import "/app/stylesheets/mixins.css.less";
 
 #results {
-  position : absolute;
+  /*position : absolute;
   top      : 0;
   right    : 0;
   bottom   : 0;
-  left     : 513px;
-  /*width    : 511px;*/
+  left     : 513px;*/
+  position    : relative;
+  width       : 511px;
+  margin-left : 510px;
 }
 
 #timeline {
   position   : absolute;
-  top        : 95px;
+  top        : 0;
   bottom     : 0;
   left       : 17px;
   width      : 15px;
@@ -244,22 +246,76 @@
   }
 }
 
+#starred_set {
+  .item-wrapper {
+    padding-bottom: 33px;
+  }
+
+  .item-footer { display: block; }
+}
+
 
 #result_set {
-  position    : absolute;
+  /*position    : absolute;
   top         : 0;
   right       : 13px;
   bottom      : 0;
-  left        : 46px;
-  padding-top : 92px;
+  left        : 46px;*/
+  position    : relative;
+  padding     : 92px 0 1px 46px;
+  z-index     : 0;
+
+  .item-wrapper {
+    position       : relative;
+    margin-bottom  : 13px;
+  }
+
+  .item-footer {
+    display     : none;
+    position    : absolute;
+    right       : 0;
+    bottom      : 0;
+    left        : 0;
+    height      : 33px;
+    padding-top : 10px;
+    font-size   : 14px;
+    text-shadow : 0 -1px 0 #000;
+    background  : @iwitness-blue;
+    z-index     : 0;
+    .border-radius(0, 0, 10px, 10px);
+    .serif-bold();
+    .user-select(none);
+
+    .flag {
+      margin-left  : 20px; 
+      padding-left : 30px;
+      line-height  : 31px;
+      cursor       : pointer;
+      background   : url(/images/flag_inactive.png) no-repeat 0 50%;
+      .inline-block();
+
+      &.active {
+        background-image: url(/images/flag_active.png);
+      }
+    }
+
+    .button {
+      float        : right;
+      margin-right : 17px;
+      border       : 2px solid #061624;
+      padding      : 5px 14px;
+      cursor       : pointer;
+      .rounded(6px);
+    }
+  }
 
   .item {
     position      : relative;
-    margin-bottom : 13px;
     border        : 3px solid @iwitness-blue;
     padding       : 11px;
     font-size     : 13px;
     background    : #02101a;
+    z-index       : 1;
     .iwitness-border-with-radius(10px);
 
     &.hidden { display: none; }
@@ -393,9 +449,6 @@
       text-indent :-999em;
     }
 
-    &.twitter .permalink { background: url(/images/twitter_badge.png); }
-    &.flickr  .permalink { background: url(/images/flickr_badge.png); }
-
     .result_content {
       margin-bottom : 45px;
       line-height   : 140%;
@@ -417,10 +470,13 @@
     }
   }
 
-  .item.selected {
+  .selected .item {
     border-color : #ba4800;
     background   : #102538;
 
     .pic, .content-link { border-color: #ba4800; }
   }
+
+  .twitter .permalink { background: url(/images/twitter_badge.png); }
+  .flickr  .permalink { background: url(/images/flickr_badge.png); }
 }

@@ -1,50 +1,57 @@
-<div class="timeline-arrow"><span>{{postedTime}}</span></div>
-<div class="timeline-arrows"></div>
-<div {{action toggleCuration}} {{bindAttr class="starButtonClass"}}></div>
+<div class="item">
+  <div class="timeline-arrow"><span>{{postedTime}}</span></div>
+  <div class="timeline-arrows"></div>
+  <div {{action toggleCuration}} {{bindAttr class="starButtonClass"}}></div>
 
-{{#if model.contentSrc}}
-  <a class='content-link' target="_blank" {{bindAttr href="model.contentLink"}}>
-    <img {{bindAttr src="model.contentSrc"}}>
-  </a>
-{{/if}}
-
-<div class="heading">
-  <div class="pic">
-    <a target="_blank" {{bindAttr href="model.userUrl"}}>
-      <img {{bindAttr src="model.avatarSrc"}}>
+  {{#if model.contentSrc}}
+    <a class='content-link' target="_blank" {{bindAttr href="model.contentLink"}}>
+      <img {{bindAttr src="model.contentSrc"}}>
     </a>
-  </div>
-
-  {{#if model.title}}
-    <strong>{{model.title}}</strong>
-    by
   {{/if}}
 
-  <a target="_blank" class="user-name-primary" {{bindAttr href="model.userUrl"}}>{{model.userNamePrimary}}</a>
+  <div class="heading">
+    <div class="pic">
+      <a target="_blank" {{bindAttr href="model.userUrl"}}>
+        <img {{bindAttr src="model.avatarSrc"}}>
+      </a>
+    </div>
 
-  {{#if model.userNameSecondary}}
-    <br>
-    <a target="_blank" class="user-name-secondary" {{bindAttr href="model.userUrl"}}>{{model.userNameSecondary}}</a>
-  {{/if}}
-</div>
+    {{#if model.title}}
+      <strong>{{model.title}}</strong>
+      by
+    {{/if}}
 
-<div class="result_content">
-  <p>{{linkify model.contentText}}</p>
-</div>
+    <a target="_blank" class="user-name-primary" {{bindAttr href="model.userUrl"}}>{{model.userNamePrimary}}</a>
 
-<div class="small-links">
-  <a class="permalink" target="_blank" {{bindAttr href="model.permalinkUrl"}}>{{model.permalinkText}}</a>
-  <div class="timestamp">
-    <a target="_blank" {{bindAttr href="model.permalinkUrl"}}>
-      {{postedDate}}
+    {{#if model.userNameSecondary}}
       <br>
-      {{postedTime}}
-    </a>
+      <a target="_blank" class="user-name-secondary" {{bindAttr href="model.userUrl"}}>{{model.userNameSecondary}}</a>
+    {{/if}}
   </div>
-  <a class="show-embed-button" {{action "toggleEmbedForm"}}>embed</a>
+
+  <div class="result_content">
+    <p>{{linkify model.contentText}}</p>
+  </div>
+
+  <div class="small-links">
+    <a class="permalink" target="_blank" {{bindAttr href="model.permalinkUrl"}}>{{model.permalinkText}}</a>
+    <div class="timestamp">
+      <a target="_blank" {{bindAttr href="model.permalinkUrl"}}>
+        {{postedDate}}
+        <br>
+        {{postedTime}}
+      </a>
+    </div>
+    <a class="show-embed-button" {{action "toggleEmbedForm"}}>embed</a>
+  </div>
+
+  <div class="embed well">
+    <div class="embed-instructions">Copy the html code below to embed this tweet in your website.</div>
+    <pre class="embed-code pre-scrollable linenums">{{model.embedHtml}}</pre>
+  </div>
 </div>
 
-<div class="embed well">
-  <div class="embed-instructions">Copy the html code below to embed this tweet in your website.</div>
-  <pre class="embed-code pre-scrollable linenums">{{model.embedHtml}}</pre>
+<div class="item-footer">
+  <div class="flag">Flag for export</div>
+  <div class="button">embed</div>
 </div>
