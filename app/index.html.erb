@@ -29,30 +29,10 @@
 <body>
 
   <div class="container">
-    <div id="search_panel">
-      <script type='text/x-handlebars'>
-        {{view IWitness.CriteriaView}}
-        <div id="results-header">
-          {{view IWitness.ResultsStatusView}}
-          {{view IWitness.KeywordFilterView}}
-        </div>
-        <div id="results">
-          <div id="timeline"></div>
-          {{view IWitness.ResultSetView}}
-          {{view IWitness.StarredSetView}}
-        </div>
-      </script>
-    </div>
-
-    <div id="starred_panel" style="display:none">
-      <script type='text/x-handlebars'>
-        {{view IWitness.StarredHeaderView}}
-        {{view IWitness.StarredMapView id="starred-map-container"}}
-        <div id="starred_results">
-          {{view IWitness.StarredSetView}}
-        </div>
-      </script>
-    </div>
+    <script type='text/x-handlebars'>
+      {{view IWitness.SearchView}}
+      {{view IWitness.StarredView}}
+    </script>
   </div>
 </body>
 </html>
