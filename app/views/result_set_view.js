@@ -1,11 +1,34 @@
 IWitness.ResultSetView = Ember.View.extend({
   templateName: 'result_set_template',
-
   isVisibleBinding: 'IWitness.curatedResultsToggleController.showingSearchResults',
 
   didInsertElement: function(){
     Ember.addListener(IWitness.searchController, 'searchComplete', this, this._renderLoadMore);
   },
+
+  timeline: _.debounce(function(){
+    var prev, cur;
+    $('#timeline').show();
+    this.$(".item").each(function(i, e){
+      cur = $(e);
+      if(prev && cur) {
+        if (prev.data('posted-time') == cur.data('posted-time')) {
+          prev.removeClass('last');
+          cur.removeClass('first');
+        } else {
+          prev.addClass('last');
+          cur.addClass('first');
+        }
+      } else {
+        cur.addClass('first');
+      }
+      prev = cur;
+    });
+    // prev is now the very last item, which ends the timeline.
+    if (prev) prev.addClass('last');
+
+  }, 100).observes('IWitness.resultSetController.length'),
+
 
   _toggleLivestreamPausing: function(){
     if(IWitness.criteriaController.getPath('content.stream')){
