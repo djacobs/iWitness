@@ -271,6 +271,14 @@
   .item-wrapper {
     position       : relative;
     margin-bottom  : 13px;
+
+    &.first {
+      .timeline-arrow { display: block; }
+    }
+
+    &.last {
+      .timeline-arrows { display: block; }
+    }
   }
 
   .item-footer {
@@ -330,14 +338,6 @@
       content    : " ";
       clear      : both;
       height     : 0;
-    }
-
-    &.first {
-      .timeline-arrow { display: block; }
-    }
-
-    &.last {
-      .timeline-arrows { display: block; }
     }
 
     .timeline-arrow {

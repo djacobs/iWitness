@@ -9,7 +9,7 @@ IWitness.ResultSetView = Ember.View.extend({
   timeline: _.debounce(function(){
     var prev, cur;
     $('#timeline').show();
-    this.$(".item").each(function(i, e){
+    this.$(".item-wrapper").each(function(i, e){
       cur = $(e);
       if(prev && cur) {
         if (prev.data('posted-time') == cur.data('posted-time')) {
