@@ -30,5 +30,9 @@ IWitness.ResultsStatusView = Ember.View.extend({
   _isSearching: function(service){
     var status = IWitness.searchController.getPath('monitors.'+service+'.status')
     return status == 'pending';
+  },
+
+  showCurated: function(e) {
+    IWitness.curatedResultsToggleController.set('currentView', 'curated_results');
   }
 });

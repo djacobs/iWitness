@@ -29,18 +29,30 @@
 <body>
 
   <div class="container">
-    <script type='text/x-handlebars'>
-      {{view IWitness.CriteriaView}}
-      <div id="results-header">
-        {{view IWitness.ResultsStatusView}}
-        {{view IWitness.KeywordFilterView}}
-      </div>
-      <div id="results">
-        <div id="timeline"></div>
-        {{view IWitness.ResultSetView}}
-        {{view IWitness.CuratedSetView}}
-      </div>
-    </script>
+    <div id="search_panel" style="display:none">
+      <script type='text/x-handlebars'>
+        {{view IWitness.CriteriaView}}
+        <div id="results-header">
+          {{view IWitness.ResultsStatusView}}
+          {{view IWitness.KeywordFilterView}}
+        </div>
+        <div id="results">
+          <div id="timeline"></div>
+          {{view IWitness.ResultSetView}}
+          {{view IWitness.CuratedSetView}}
+        </div>
+      </script>
+    </div>
+
+    <div id="starred_panel">
+      <script type='text/x-handlebars'>
+        {{view IWitness.StarredHeaderView}}
+        {{view IWitness.StarredMapView id="starred-map-container"}}
+        <div id="curated_results">
+          {{view IWitness.CuratedSetView}}
+        </div>
+      </script>
+    </div>
   </div>
 </body>
 </html>

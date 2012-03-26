@@ -1,7 +1,7 @@
 {{#if IWitness.curatedSetController.content.length}}
-  <table class="table table-bordered table-striped" id="curated_set">
+  <div id="curated_set">
     {{#each IWitness.curatedSetController.content}}
       {{view IWitness.ResultView modelBinding="this"}}
     {{/each}}
-  </table>
+  </div>
 {{/if}}
