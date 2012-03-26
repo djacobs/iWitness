@@ -1,19 +1,21 @@
 @import "/app/stylesheets/mixins.css.less";
 
 #results {
-  position : absolute;
+  /*position : absolute;
   top      : 0;
   right    : 0;
   bottom   : 0;
-  left     : 513px;
-  /*width    : 511px;*/
+  left     : 513px;*/
+  position    : relative;
+  width       : 511px;
+  margin-left : 510px;
 
   tr.load-more td { text-align: center; }
 }
 
 #timeline {
   position   : absolute;
-  top        : 95px;
+  top        : 0;
   bottom     : 0;
   left       : 17px;
   width      : 15px;
@@ -248,12 +250,12 @@
 
 
 #result_set {
-  position    : absolute;
+  /*position    : absolute;
   top         : 0;
   right       : 13px;
   bottom      : 0;
-  left        : 46px;
-  padding-top : 92px;
+  left        : 46px;*/
+  padding     : 92px 0 0 46px;
 
   .item {
     position      : relative;
