@@ -4,7 +4,7 @@ IWitness.ResultsStatusView = Ember.View.extend({
 
   status: function() {
     if (this.getPath('criteria.isValid')) {
-      if (['isFlickrSearching', 'isTwitterSearching'].every(this.getPath, this)) {
+      if (['isFlickrSearching', 'isTwitterSearching'].some(this.getPath, this)) {
         return 'Scanning';
       } else {
         return 'Finished';
@@ -29,7 +29,7 @@ IWitness.ResultsStatusView = Ember.View.extend({
 
   _isSearching: function(service){
     var status = IWitness.searchController.getPath('monitors.'+service+'.status')
-    return status == 'pending';
+    return status == 'pending' || status == 'streaming';
   },
 
   showStarred: function(e) {

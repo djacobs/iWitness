@@ -42,16 +42,21 @@
         {{postedTime}}
       </a>
     </div>
-    <a class="show-embed-button" {{action "toggleEmbedForm"}}>embed</a>
-  </div>
-
-  <div class="embed well">
-    <div class="embed-instructions">Copy the html code below to embed this tweet in your website.</div>
-    <pre class="embed-code pre-scrollable linenums">{{model.embedHtml}}</pre>
   </div>
 </div>
 
 <div class="item-footer">
   <div class="flag">Flag for export</div>
-  <div class="button">embed</div>
+  <div class="button" {{action "toggleEmbedForm"}}>Embed</div>
+</div>
+
+<div class="embed-popover">
+  <div class="embed-heading" {{action "toggleEmbed"}}>Embed</div>
+  <div class="embed-content linenums">
+    {{model.embedHtml}}
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+    Suspendisse at est in ligula dictum rutrum elementum a neque.
+    Suspendisse eleifend dictum sem eu viverra.
+    Aliquam viverra elit a turpis lacinia id pharetra dui facilisis.
+  </div>
 </div>

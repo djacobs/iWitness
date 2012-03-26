@@ -1,11 +1,34 @@
 IWitness.ResultSetView = Ember.View.extend({
   templateName: 'result_set_template',
-
   isVisibleBinding: 'IWitness.currentViewController.showingSearchResults',
 
   didInsertElement: function(){
     Ember.addListener(IWitness.searchController, 'searchComplete', this, this._renderLoadMore);
   },
+
+  timeline: _.debounce(function(){
+    var prev, cur;
+    $('#timeline').show();
+    this.$(".item-wrapper").each(function(i, e){
+      cur = $(e);
+      if(prev && cur) {
+        if (prev.data('posted-time') == cur.data('posted-time')) {
+          prev.removeClass('last');
+          cur.removeClass('first');
+        } else {
+          prev.addClass('last');
+          cur.addClass('first');
+        }
+      } else {
+        cur.addClass('first');
+      }
+      prev = cur;
+    });
+    // prev is now the very last item, which ends the timeline.
+    if (prev) prev.addClass('last');
+
+  }, 100).observes('IWitness.resultSetController.length'),
+
 
   _toggleLivestreamPausing: function(){
     if(IWitness.criteriaController.getPath('content.stream')){
@@ -34,7 +57,7 @@ IWitness.ResultSetView = Ember.View.extend({
 
   _unpause: function(){
     IWitness.hiddenItemsController.unpause();
-    $('tr.hidden').removeClass('hidden');
+    $('.item-wrapper.hidden').removeClass('hidden');
   },
 
   _renderLoadMore: function(){
@@ -44,18 +67,18 @@ IWitness.ResultSetView = Ember.View.extend({
     _.defer(function() {
       if(IWitness.searchController.serviceHasMorePages('twitter')) {
         $row = self._loadMoreRow('twitter', 'Load More from Twitter');
-        self.$('tr.twitter:last').after($row);
+        self.$('.twitter:last').after($row);
       } else {
         $row = self._finishedRow('No more Twitter results');
-        self.$('tr.twitter:last').after($row);
+        self.$('.twitter:last').after($row);
       }
 
       if(IWitness.searchController.serviceHasMorePages('flickr')) {
         $row = self._loadMoreRow('flickr', 'Load More from Flickr');
-        self.$('tr.flickr:last').after($row);
+        self.$('.flickr:last').after($row);
       } else {
         $row = self._finishedRow('No more Flickr results');
-        self.$('tr.flickr:last').after($row);
+        self.$('.flickr:last').after($row);
       }
     });
   },
@@ -66,13 +89,13 @@ IWitness.ResultSetView = Ember.View.extend({
       $('.load-more').remove();
       IWitness.searchController.getNextPageForService(serviceType);
     });
-    return $('<tr class="load-more">').append($('<td colspan="2">').append($loadMoreLink));
+    return $('<div class="load-more">').append($loadMoreLink);
   },
 
   _finishedRow: function(buttonText) {
     $loadMoreLink = $('<a href="#" class="btn btn-inverse btn-large">').html(buttonText).click(function(e) {
       e.preventDefault();
     });
-    return $('<tr class="load-more">').append($('<td colspan="2">').append($loadMoreLink));
+    return $('<div class="load-more">').append($loadMoreLink);
   }
 });

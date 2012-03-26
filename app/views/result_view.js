@@ -3,6 +3,12 @@ IWitness.ResultView = Ember.View.extend({
   typeBinding:       'model.resultType',
   classNames:        ['hidden', 'item-wrapper'],
   classNameBindings: ['isSelected:selected', 'type'],
+  attributeBindings: ['data-posted-time'],
+
+  'data-posted-time': function(){
+    console.log("POSTED TIME: ", this.getPath('postedTime'));
+    return this.getPath('postedTime');
+  }.property('postedTime'),
 
   // results are inserted with class hidden. unhide them immediately
   // unless we're currently paused. this is a work-around for lack of
@@ -61,13 +67,11 @@ IWitness.ResultView = Ember.View.extend({
     if(!this.getPath('model.embedHtml')) {
       this.get('model').fetchEmbed();
     } else {
-      this.$('.embed').slideToggle();
+      this.$('.embed-popover').fadeIn(200);
     }
   },
 
   toggleEmbed: function(){
-    this.$('.embed').delay(200).slideToggle();
+    this.$('.embed-popover').delay(200).fadeToggle(200);
   }.observes('model.embedHtml')
-
-
 });
