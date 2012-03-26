@@ -1,11 +1,11 @@
-describe("IWitness.curatedSetController", function() {
+describe("IWitness.starredSetController", function() {
   var controller, result, duplicate;
 
   beforeEach(function() {
-    controller = IWitness.curatedSetController;
-    spyOn(CuratedResultsCache, 'add');
-    spyOn(CuratedResultsCache, 'remove');
-    spyOn(CuratedResultsCache, 'forEach');
+    controller = IWitness.starredSetController;
+    spyOn(StarredResultsCache, 'add');
+    spyOn(StarredResultsCache, 'remove');
+    spyOn(StarredResultsCache, 'forEach');
     controller.set('content', []);
     controller.set('_resultIds', []);
     result    = { get: function(){ return 1;}
@@ -14,20 +14,20 @@ describe("IWitness.curatedSetController", function() {
                 , name: 'duplicate' };
   });
 
-  describe("an uncurated result", function(){
+  describe("an unstarred result", function(){
     it("is added when toggled", function() {
       controller.toggleCuration(result);
       expect(controller.get('content')).toContain(result);
     });
 
-    it("has an 'uncurated' status", function() {
+    it("has an 'unstarred status", function() {
       controller.toggleCuration(result);
-      expect(controller.isCurated(result)).toBeTruthy();
-      expect(controller.isCurated(duplicate)).toBeTruthy();
+      expect(controller.isStarred(result)).toBeTruthy();
+      expect(controller.isStarred(duplicate)).toBeTruthy();
     });
   });
 
-  describe("a curated result", function(){
+  describe("a starred result", function(){
     beforeEach(function() {
       controller.toggleCuration(result);
     });
@@ -44,12 +44,12 @@ describe("IWitness.curatedSetController", function() {
       expect(controller.get('content')).not.toContain(result);
     });
 
-    it("has a 'curated' status", function() {
-      expect(controller.isCurated(result)).toBeTruthy();
-      expect(controller.isCurated(duplicate)).toBeTruthy();
+    it("has a 'starred' status", function() {
+      expect(controller.isStarred(result)).toBeTruthy();
+      expect(controller.isStarred(duplicate)).toBeTruthy();
       controller.toggleCuration(result);
-      expect(controller.isCurated(result)).toBeFalsy();
-      expect(controller.isCurated(duplicate)).toBeFalsy();
+      expect(controller.isStarred(result)).toBeFalsy();
+      expect(controller.isStarred(duplicate)).toBeFalsy();
     });
 
   });

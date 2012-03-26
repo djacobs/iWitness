@@ -1,4 +1,4 @@
-IWitness.curatedSetController = Ember.ArrayController.create(IWitness.ResultSorting, {
+IWitness.starredSetController = Ember.ArrayController.create(IWitness.ResultSorting, {
   content: [],
   _resultIds: [],
 
@@ -7,7 +7,7 @@ IWitness.curatedSetController = Ember.ArrayController.create(IWitness.ResultSort
 
     this._super();
 
-    CuratedResultsCache.forEach(function(result) {
+    StarredResultsCache.forEach(function(result) {
       self._addResult(result);
     });
   },
@@ -17,24 +17,24 @@ IWitness.curatedSetController = Ember.ArrayController.create(IWitness.ResultSort
   }.property('content.length'),
 
   toggleCuration: function(result) {
-    if(this.isCurated(result)) {
+    if(this.isStarred(result)) {
       this._removeResult(result);
-      CuratedResultsCache.remove(result);
+      StarredResultsCache.remove(result);
     } else {
       this._addResult(result);
-      CuratedResultsCache.add(result);
+      StarredResultsCache.add(result);
     }
   },
 
-  isCurated: function(result) {
+  isStarred: function(result) {
     return _.indexOf(this._resultIds, result.get('resultId')) > -1;
   },
 
   clear: function(){
-    if (confirm("Clear all curated results?")) {
+    if (confirm("Clear all starred results?")) {
       this.set('content', []);
       this.set('_resultIds', []);
-      CuratedResultsCache.clearAll();
+      StarredResultsCache.clearAll();
     }
   },
 
@@ -49,9 +49,9 @@ IWitness.curatedSetController = Ember.ArrayController.create(IWitness.ResultSort
   _removeResult: function(result){
     var id = result.get('resultId');
     this._resultIds = _.without(this._resultIds, id);
-    var curatedResult = this.find( function(item) {
+    var starredResult = this.find( function(item) {
       return id == item.get('resultId');
     });
-    this.removeObject(curatedResult);
+    this.removeObject(starredResult);
   },
 });

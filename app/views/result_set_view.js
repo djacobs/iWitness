@@ -1,7 +1,7 @@
 IWitness.ResultSetView = Ember.View.extend({
   templateName: 'result_set_template',
 
-  isVisibleBinding: 'IWitness.curatedResultsToggleController.showingSearchResults',
+  isVisibleBinding: 'IWitness.currentViewController.showingSearchResults',
 
   didInsertElement: function(){
     Ember.addListener(IWitness.searchController, 'searchComplete', this, this._renderLoadMore);

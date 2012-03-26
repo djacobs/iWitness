@@ -43,19 +43,19 @@ IWitness.ResultView = Ember.View.extend({
   },
 
   toggleCuration: function() {
-    IWitness.curatedSetController.toggleCuration(this.get('model'));
+    IWitness.starredSetController.toggleCuration(this.get('model'));
     return false;
   },
 
-  curateButtonClass: function() {
+  starButtonClass: function() {
     var model = this.get('model');
 
-    if (IWitness.curatedSetController.isCurated(model)) {
+    if (IWitness.starredSetController.isStarred(model)) {
       return 'icon-star';
     } else {
       return 'icon-star-empty';
     }
-  }.property('IWitness.curatedSetController.@each'),
+  }.property('IWitness.starredSetController.@each'),
 
   toggleEmbedForm: function(){
     if(!this.getPath('model.embedHtml')) {

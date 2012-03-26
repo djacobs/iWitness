@@ -1,4 +1,4 @@
-var CuratedResultsCache = {
+var StarredResultsCache = {
   add: function(result) {
     localStorage[this._key(result)] = result.serialize();
   },
@@ -26,10 +26,10 @@ var CuratedResultsCache = {
   },
 
   _key: function(result){
-    return 'curated_' + result.get('resultId');
+    return 'starred_' + result.get('resultId');
   },
 
   _isKey: function(key) {
-    return key.substring(0,8) == 'curated_';
+    return key.substring(0,8) == 'starred_';
   }
 }

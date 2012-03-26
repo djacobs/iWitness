@@ -32,7 +32,7 @@ IWitness.ResultsStatusView = Ember.View.extend({
     return status == 'pending';
   },
 
-  showCurated: function(e) {
-    IWitness.curatedResultsToggleController.set('currentView', 'curated_results');
+  showStarred: function(e) {
+    IWitness.currentViewController.set('currentView', 'starred_results');
   }
 });

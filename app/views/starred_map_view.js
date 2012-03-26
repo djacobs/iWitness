@@ -1,6 +1,6 @@
 IWitness.StarredMapView = Ember.View.extend({
   templateName: 'starred_map_template',
-  // selectedResultBinding: 'IWitness.curatedSetController.selectedResult',
+  // selectedResultBinding: 'IWitness.starredSetController.selectedResult',
 
   didInsertElement: function() {
     var self = this;
@@ -8,14 +8,14 @@ IWitness.StarredMapView = Ember.View.extend({
   },
 
   numberOfItems: function(){
-    var num = this.getPath('IWitness.curatedSetController.length');
+    var num = this.getPath('IWitness.starredSetController.length');
     return num + " starred item" + (num == 1 ? "" : "s");
-  }.property('IWitness.curatedSetController.length'),
+  }.property('IWitness.starredSetController.length'),
 
   numberFlaggedForExport: function(){
-    var num = this.getPath('IWitness.curatedSetController.length');
+    var num = this.getPath('IWitness.starredSetController.length');
     return num + " flagged for export";
-  }.property('IWitness.curatedSetController.length')
+  }.property('IWitness.starredSetController.length')
 
   // createMarkerForResult: function() {
   //   var lat = this.getPath('selectedResult.lat');
