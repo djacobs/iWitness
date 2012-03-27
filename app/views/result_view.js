@@ -6,7 +6,6 @@ IWitness.ResultView = Ember.View.extend({
   attributeBindings: ['data-posted-time'],
 
   'data-posted-time': function(){
-    console.log("POSTED TIME: ", this.getPath('postedTime'));
     return this.getPath('postedTime');
   }.property('postedTime'),
 
@@ -74,4 +73,5 @@ IWitness.ResultView = Ember.View.extend({
   toggleEmbed: function(){
     this.$('.embed-popover').delay(200).fadeToggle(200);
   }.observes('model.embedHtml')
+
 });
