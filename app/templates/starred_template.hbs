@@ -9,9 +9,9 @@
     <div class="button" {{action "showExportText"}}>Copy as text</div>
     {{#view exportLink}}Email{{/view}}
 
-    <div id="export-popover">
-      <div class="export-heading button" {{action "hideExportText"}}>Copy as text</div>
-      <div id="rendered-text-results" class="export-content linenums">
+    <div id="export-popover" class="popover left-heading">
+      <div class="heading" {{action "hideExportText"}}>Copy as text</div>
+      <div id="rendered-text-results" class="content linenums">
       {{#if IWitness.starredSetController.content.length}}
         {{#each IWitness.starredSetController.content}}
           {{view IWitness.TextResultView modelBinding="this"}}

@@ -2,10 +2,6 @@ IWitness.ResultSetView = Ember.View.extend({
   templateName: 'result_set_template',
   isVisibleBinding: 'IWitness.currentViewController.showingSearchResults',
 
-  didInsertElement: function(){
-    Ember.addListener(IWitness.searchController, 'searchComplete', this, this._renderLoadMore);
-  },
-
   selectResult: function(result) {
     IWitness.resultSetController.set('selectedResult', result);
   },
@@ -66,44 +62,5 @@ IWitness.ResultSetView = Ember.View.extend({
   _unpause: function(){
     IWitness.hiddenItemsController.unpause();
     $('.item-wrapper.hidden').removeClass('hidden');
-  },
-
-  _renderLoadMore: function(){
-    var self = this;
-    $('.load-more').remove();
-
-    _.defer(function() {
-      if(IWitness.searchController.serviceHasMorePages('twitter')) {
-        $row = self._loadMoreRow('twitter', 'Load More from Twitter');
-        self.$('.twitter:last').after($row);
-      } else {
-        $row = self._finishedRow('No more Twitter results');
-        self.$('.twitter:last').after($row);
-      }
-
-      if(IWitness.searchController.serviceHasMorePages('flickr')) {
-        $row = self._loadMoreRow('flickr', 'Load More from Flickr');
-        self.$('.flickr:last').after($row);
-      } else {
-        $row = self._finishedRow('No more Flickr results');
-        self.$('.flickr:last').after($row);
-      }
-    });
-  },
-
-  _loadMoreRow: function(serviceType, buttonText) {
-    $loadMoreLink = $('<a href="#" class="btn btn-info btn-large">').html(buttonText).click(function(e) {
-      e.preventDefault();
-      $('.load-more').remove();
-      IWitness.searchController.getNextPageForService(serviceType);
-    });
-    return $('<div class="load-more">').append($loadMoreLink);
-  },
-
-  _finishedRow: function(buttonText) {
-    $loadMoreLink = $('<a href="#" class="btn btn-inverse btn-large">').html(buttonText).click(function(e) {
-      e.preventDefault();
-    });
-    return $('<div class="load-more">').append($loadMoreLink);
   }
 });
