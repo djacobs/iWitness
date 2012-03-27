@@ -14,8 +14,8 @@
   width    : 560px;
 
   .nav-button {
-    margin-top : 0;
-    margin-left: 20px;
+    margin-top : -1px;
+    margin-left: 26px;
   }
 }
 
@@ -35,7 +35,9 @@
 }
 
 #starred-map-container {
-  top: 52px;
+  top: 208px;
+
+  #map-widget { top: 0; }
 }
 
 #flag-all {
@@ -65,6 +67,7 @@
 }
 
 #export-section {
+  position   : relative;
   padding    : 5px 15px;
   background : #02101a;
   .inline-block();
@@ -79,14 +82,22 @@
   }
 
   .button {
-    padding     : 7px 21px;
-    color       : #fff;
-    font-size   : 14px;
-    text-shadow : 0 -1px 0 rgba(0,0,0, 0.4);
+    padding         : 9px 20px;
+    color           : #fff;
+    font-size       : 14px;
+    text-decoration : none;
+    text-shadow     : 0 -1px 0 rgba(0,0,0, 0.4);
     .inline-block();
     .gradient(#d65900, #b54001, #ff7c00);
     .rounded(6px);
     .serif-bold();
     .user-select(none);
+  }
+
+  .popover {
+    top  : 40px;
+    left : 14px;
+
+    .heading { padding: 0 18px }
   }
 }
