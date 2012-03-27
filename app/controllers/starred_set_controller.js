@@ -1,6 +1,7 @@
 IWitness.starredSetController = Ember.ArrayController.create(IWitness.ResultSorting, {
   content: [],
   _resultIds: [],
+  selectedResult: null,
 
   init: function() {
     var self = this;
@@ -53,5 +54,5 @@ IWitness.starredSetController = Ember.ArrayController.create(IWitness.ResultSort
       return id == item.get('resultId');
     });
     this.removeObject(starredResult);
-  },
+  }
 });

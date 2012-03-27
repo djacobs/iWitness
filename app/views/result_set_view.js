@@ -6,6 +6,14 @@ IWitness.ResultSetView = Ember.View.extend({
     Ember.addListener(IWitness.searchController, 'searchComplete', this, this._renderLoadMore);
   },
 
+  selectResult: function(result) {
+    IWitness.resultSetController.set('selectedResult', result);
+  },
+
+  selectedResult: function() {
+    return IWitness.resultSetController.get('selectedResult');
+  }.property('IWitness.resultSetController.selectedResult'),
+
   timeline: _.debounce(function(){
     var prev, cur;
     $('#timeline').show();

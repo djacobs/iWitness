@@ -19,12 +19,12 @@ IWitness.ResultView = Ember.View.extend(IWitness.PostedDateTime, {
   },
 
   isSelected: function() {
-    return this.get('model') == IWitness.resultSetController.get('selectedResult');
-  }.property('IWitness.resultSetController.selectedResult'),
+    return this.get('model') === this.getPath('parentView.selectedResult');
+  }.property('parentView.selectedResult'),
 
   click: function(e) {
     if (e.target.tagName.toLowerCase() == 'a') return;
-    IWitness.resultSetController.set('selectedResult', this.get('model'));
+    this.get('parentView').selectResult(this.get('model'));
   },
 
   toggleCuration: function() {
