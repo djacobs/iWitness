@@ -46,12 +46,12 @@ IWitness.ResultView = Ember.View.extend(IWitness.PostedDateTime, {
     if(!this.getPath('model.embedHtml')) {
       this.get('model').fetchEmbed();
     } else {
-      this.$('.embed-popover').fadeIn(200);
+      this.$('.popover').fadeIn(200);
     }
   },
 
   toggleEmbed: function(){
-    this.$('.embed-popover').delay(200).fadeToggle(200);
+    this.$('.popover').delay(200).fadeToggle(200);
   }.observes('model.embedHtml')
 
 });
