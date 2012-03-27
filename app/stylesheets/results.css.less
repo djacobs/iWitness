@@ -1,15 +1,9 @@
 @import "/app/stylesheets/mixins.css.less";
 
 #results {
-  /*position : absolute;
-  top      : 0;
-  right    : 0;
-  bottom   : 0;
-  left     : 513px;*/
   position    : relative;
   width       : 511px;
   margin-left : 510px;
-  .load-more { text-align: center; }
 }
 
 #timeline {
@@ -34,19 +28,12 @@
 }
 
 #results-top-bar {
-  position       : relative;
-  height         : 39px;
-  color          : #ffd098;
-  font-size      : 15px;
-  line-height    : 39px;
   pointer-events : auto;
-  .gradient(#ba4900, #b94000, #bd5700);
   .box-shadow(0 25px 50px #000);
-  .user-select(none);
 
   .nav-button {
-    float  : right;
-    margin : 5px 20px 0 0;
+    float        : right;
+    margin-right : 20px;
   }
 
   .status {
@@ -73,6 +60,8 @@
     }
   }
 }
+
+.load-more { text-align: center; }
 
 #services-menu {
   position : absolute;
@@ -143,6 +132,7 @@
     }
 
     .service-switch {
+      display        : none;
       position       : absolute;
       top            : 50%;
       right          : 6px;
@@ -258,11 +248,6 @@
 
 
 #result_set {
-  /*position    : absolute;
-  top         : 0;
-  right       : 13px;
-  bottom      : 0;
-  left        : 46px;*/
   position    : relative;
   margin-top  : 92px;
   padding     : 0 0 1px 46px;
