@@ -19,16 +19,19 @@ html,body { background: #00070b url(/images/blue_gradient.png) fixed no-repeat; 
 .nav-button {
   position    : relative;
   height      : 29px;
-  padding     : 0 35px 0 17px;
+  padding     : 0 17px;
   color       : #222;
   font-size   : 15px;
   line-height : 29px;
   text-shadow : 0 1px 0 #fff;
   background  : url(/images/nav_button_background.png);
   .inline-block();
+  .serif-bold();
   .user-select(none);
 
-  .arrow {
+  &:after {
+    content    : ' ';
+    display    : block;
     position   : absolute;
     top        : 0;
     right      :-14px;
@@ -37,17 +40,39 @@ html,body { background: #00070b url(/images/blue_gradient.png) fixed no-repeat; 
     background : url(/images/nav_button_arrow.png);
   }
 
-  .icon {
+  &.with-icon { padding-right: 35px; }
+
+  &.with-icon:before {
+    content  : ' ';
+    display  : block;
     position : absolute;
     top      : 50%;
     right    : 3px;
     background-repeat: no-repeat;
   }
 
-  .icon.star {
+  &.with-icon.star-icon:before {
     width      : 19px;
     height     : 17px;
     margin-top :-9px;
     background-image: url(/images/button_star.png);
   }
+}
+
+.nav-button.arrow-left {
+  background : url(/images/nav_button_background_left.png) 100% 0;
+
+  .with-icon { padding-left: 35px; }
+
+  &:after {
+    content    : ' ';
+    display    : block;
+    right      : auto;
+    left       :-14px;
+    background : url(/images/nav_button_arrow_left.png);
+  }
+
+  &.with-icon { padding-left: 35px; }
+  &.with-icon:before { left: 3px; }
+  &.with-icon.star-icon:before { background-image: url(/images/button_star.png); }
 }
