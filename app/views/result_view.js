@@ -52,6 +52,20 @@ IWitness.ResultView = Ember.View.extend(IWitness.PostedDateTime, {
 
   toggleEmbed: function(){
     this.$('.popover').delay(200).fadeToggle(200);
-  }.observes('model.embedHtml')
+  }.observes('model.embedHtml'),
+
+  flaggedView: Ember.View.extend({
+    classNames:        ['flag'],
+    classNameBindings: ['flagged:active'],
+
+    flagged: function() {
+      return this.getPath('parentView.model.flagged');
+    }.property('parentView.model.flagged'),
+
+    click: function() {
+      debugger;
+      this.getPath('parentView.model').toggleProperty('flagged');
+    }
+  })
 
 });

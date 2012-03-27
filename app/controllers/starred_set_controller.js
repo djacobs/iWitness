@@ -1,6 +1,6 @@
 IWitness.starredSetController = Ember.ArrayController.create(IWitness.ResultSorting, {
-  content: [],
-  _resultIds: [],
+  content:        [],
+  _resultIds:     [],
   selectedResult: null,
 
   init: function() {
@@ -30,6 +30,14 @@ IWitness.starredSetController = Ember.ArrayController.create(IWitness.ResultSort
   isStarred: function(result) {
     return _.indexOf(this._resultIds, result.get('resultId')) > -1;
   },
+
+  flaggedResults: function() {
+    return this.filterProperty('flagged', true);
+  }.property('content.@each.flagged').cacheable(),
+
+  flaggedCount: function() {
+    return this.get('flaggedResults').length;
+  }.property('flaggedResults'),
 
   clear: function(){
     if (confirm("Clear all starred results?")) {

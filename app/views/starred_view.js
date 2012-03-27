@@ -3,14 +3,14 @@ IWitness.StarredView = Ember.View.extend({
   isVisibleBinding: 'IWitness.currentViewController.showingStarredResults',
 
   numberOfItems: function(){
-    var num = this.getPath('IWitness.starredSetController.length');
+    var num = IWitness.starredSetController.get('length');
     return num + " starred item" + (num == 1 ? "" : "s");
   }.property('IWitness.starredSetController.length'),
 
   numberFlaggedForExport: function(){
-    var num = this.getPath('IWitness.starredSetController.length');
+    var num = IWitness.starredSetController.get('flaggedCount');
     return num + " flagged for export";
-  }.property('IWitness.starredSetController.length'),
+  }.property('IWitness.starredSetController.flaggedCount'),
 
   showExportText: function() {
     this.$('#export-popover').show();
@@ -34,7 +34,7 @@ IWitness.StarredView = Ember.View.extend({
       results += "\n\nShared via iWitness\n<http://iwitness.adaptivepath.com>";
 
       return "mailto:yourfriend@example.com?subject=iWitness Starred Results&body="+encodeURIComponent(results);
-    }.property('IWitness.starredSetController.content.length', 'IWitness.currentViewController.showingStarredResults'),
+    }.property('IWitness.starredSetController.flaggedCount', 'IWitness.currentViewController.showingStarredResults'),
 
     click: function() {
       var exportSize = IWitness.starredSetController.getPath('content.length');
