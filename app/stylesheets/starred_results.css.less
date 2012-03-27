@@ -1,4 +1,6 @@
-div.alert { position: relative; }
+@import "/app/stylesheets/mixins.css.less";
+
+.alert { position: relative; }
 
 .misplaced-message-button-hack {
   margin: -6px 0 -4px;
@@ -6,10 +8,90 @@ div.alert { position: relative; }
 }
 
 #starred_results {
-  position : absolute;
+  position    : relative;
+  width       : 460px;
+  margin-left : 560px;
+}
+
+#starred-items-left-toolbar {
+  position : fixed;
   top      : 0;
-  right    : 0;
-  bottom   : 0;
-  left     : 513px;
-  /*width    : 511px;*/
+  width    : 560px;
+
+  .nav-button {
+    margin-top : 0;
+    margin-left: 20px;
+  }
+}
+
+#starred-items-right-toolbar {
+  position    : fixed;
+  top         : 0;
+  width       : 464px;
+  margin-left : 560px;
+  z-index     : 1;
+}
+
+#starred-set {
+  position    : relative;
+  margin-top  : 50px;
+  padding     : 0 0 1px 0;
+  z-index     : 0;
+}
+
+#starred-map-container {
+  top: 52px;
+
+  /*#map-widget {
+    top: 175px;
+  }*/
+
+  h1 {
+    margin-bottom : 20px;
+    font-size: 46px;
+    .serif();
+    .user-select(none);
+  }
+}
+
+#flag-all {
+  float        : left;
+  padding-left : 50px;
+  cursor       : pointer;
+  background   : url(/images/flag_toolbar.png) no-repeat 21px 50%;
+}
+
+#unstar-all {
+  float         : right;
+  margin-right  : 10px;
+  padding-right : 21px;
+  cursor        : pointer;
+  background    : url(/images/star_toolbar.png) no-repeat 100% 50%;
+}
+
+#export-section {
+  padding    : 5px 15px;
+  background : #02101a;
+  .inline-block();
+  .rounded(10px);
+
+  h2 {
+    margin-bottom : 10px;
+    color         : #ec7000;
+    font-size     : 24px;
+    .serif-bold();
+    .user-select(none);
+  }
+
+  .button {
+    padding     : 7px 21px;
+    color       : #fff;
+    font-size   : 14px;
+    text-shadow : 0 -1px 0 rgba(0,0,0, 0.4);
+    .inline-block();
+    .gradient(#d65900, #b54001, #ff7c00);
+    .rounded(6px);
+    .serif-bold();
+    .user-select(none);
+  }
 }

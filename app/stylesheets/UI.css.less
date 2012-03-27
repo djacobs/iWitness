@@ -15,11 +15,30 @@ html,body { background: #00070b url(/images/blue_gradient.png) fixed no-repeat; 
   font-family : helvetica, arial, sans-serif;
 }
 
+.toolbar {
+  position       : relative;
+  height         : 39px;
+  color          : #ffd098;
+  font-size      : 15px;
+  line-height    : 39px;
+  .gradient(#ba4900, #b94000, #bd5700);
+  .serif-bold();
+  .user-select(none);
+
+  &.dark {
+    .gradient(#ae4300, #ad3c00, #b05100);
+  }
+
+  .nav-button {
+    margin-top: 5px;
+  }
+}
+
 
 .nav-button {
   position    : relative;
   height      : 29px;
-  padding     : 0 17px;
+  padding     : 0 11px 0 17px;
   color       : #222;
   font-size   : 15px;
   line-height : 29px;
@@ -60,6 +79,7 @@ html,body { background: #00070b url(/images/blue_gradient.png) fixed no-repeat; 
 }
 
 .nav-button.arrow-left {
+  padding    : 0 17px 0 11px;
   background : url(/images/nav_button_background_left.png) 100% 0;
 
   .with-icon { padding-left: 35px; }
