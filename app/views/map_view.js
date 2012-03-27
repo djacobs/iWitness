@@ -80,6 +80,14 @@ IWitness.MapView = Ember.View.extend({
 
     insertNewline: function(e) {
       this.get('parentView').findAddress();
+    },
+
+    focusIn: function(e) {
+      this.$().attr('placeholder', '');
+    },
+
+    focusOut: function(e) {
+      this.$().attr('placeholder', 'enter address and press enter');
     }
   })
 });
