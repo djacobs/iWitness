@@ -1,0 +1,29 @@
+{{view IWitness.StarredHeaderView}}
+
+<div id="starred-info">
+  <h1>{{numberOfItems}}</h1>
+
+  <div id="export-section">
+    <h2>{{numberFlaggedForExport}}</h2>
+
+    <div class="button" {{action "showExportText"}}>Copy as text</div>
+    {{#view exportLink}}Email{{/view}}
+
+    <div id="export-popover" class="popover left-heading">
+      <div class="heading" {{action "hideExportText"}}>Copy as text</div>
+      <div id="rendered-text-results" class="content linenums">
+      {{#if IWitness.starredSetController.flaggedCount}}
+        {{#each IWitness.starredSetController.flaggedResults}}
+          {{view IWitness.TextResultView modelBinding="this"}}
+        {{/each}}
+      {{/if}}
+      </div>
+    </div>
+  </div>
+</div>
+
+{{view IWitness.StarredMapView id="starred-map-container"}}
+
+<div id="starred_results">
+  {{view IWitness.StarredSetView}}
+</div>

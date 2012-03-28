@@ -12,6 +12,7 @@ IWitness.Result = Ember.Object.extend(Ember.Comparable, {
   lat:               null,
   lng:               null,
   resultType:        null,
+  flagged:           false,
 
   serialize: function() {
     var origParams = this.get('originalParams');

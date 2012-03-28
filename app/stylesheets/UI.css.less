@@ -15,20 +15,42 @@ html,body { background: #00070b url(/images/blue_gradient.png) fixed no-repeat; 
   font-family : helvetica, arial, sans-serif;
 }
 
+.toolbar {
+  position       : relative;
+  height         : 39px;
+  color          : #ffd098;
+  font-size      : 15px;
+  line-height    : 39px;
+  .gradient(#ba4900, #b94000, #bd5700);
+  .serif-bold();
+  .user-select(none);
+
+  &.dark {
+    .gradient(#ae4300, #ad3c00, #b05100);
+  }
+
+  .nav-button {
+    margin-top: 5px;
+  }
+}
+
 
 .nav-button {
   position    : relative;
   height      : 29px;
-  padding     : 0 35px 0 17px;
+  padding     : 0 11px 0 17px;
   color       : #222;
   font-size   : 15px;
   line-height : 29px;
   text-shadow : 0 1px 0 #fff;
   background  : url(/images/nav_button_background.png);
   .inline-block();
+  .serif-bold();
   .user-select(none);
 
-  .arrow {
+  &:after {
+    content    : ' ';
+    display    : block;
     position   : absolute;
     top        : 0;
     right      :-14px;
@@ -37,17 +59,177 @@ html,body { background: #00070b url(/images/blue_gradient.png) fixed no-repeat; 
     background : url(/images/nav_button_arrow.png);
   }
 
-  .icon {
+  &.with-icon { padding-right: 35px; }
+
+  &.with-icon:before {
+    content  : ' ';
+    display  : block;
     position : absolute;
     top      : 50%;
     right    : 3px;
     background-repeat: no-repeat;
   }
 
-  .icon.star {
+  &.with-icon.star-icon:before {
     width      : 19px;
     height     : 17px;
     margin-top :-9px;
     background-image: url(/images/button_star.png);
   }
+}
+
+.nav-button.arrow-left {
+  padding    : 0 17px 0 11px;
+  background : url(/images/nav_button_background_left.png) 100% 0;
+
+  .with-icon { padding-left: 35px; }
+
+  &:after {
+    content    : ' ';
+    display    : block;
+    right      : auto;
+    left       :-14px;
+    background : url(/images/nav_button_arrow_left.png);
+  }
+
+  &.with-icon { padding-left: 35px; }
+  &.with-icon:before { left: 3px; }
+  &.with-icon.star-icon:before { background-image: url(/images/button_star.png); }
+}
+
+.popover {
+  display    : none;
+  position   : absolute;
+  margin-top : -3px;
+  z-index    : 2;
+  .user-select(none);
+
+  .heading {
+    position      : absolute;
+    top           : 0;
+    right         : 0;
+    height        : 31px;
+    border        : 3px solid #fff;
+    border-bottom : 0;
+    padding       : 0 24px;
+    color         : @iwitness-blue;
+    font-size     : 14px;
+    line-height   : 31px;
+    background    : #f1f1f1;
+    .border-radius(8px, 8px, 0, 0);
+    .serif-bold();
+  }
+
+  &.left-heading {
+    .heading {
+      right : auto;
+      left  : 0;
+    }
+
+    .content {
+      .border-radius(0, 8px, 8px, 8px);
+    }
+  }
+
+  .content {
+    overflow    : auto;
+    max-height  : 300px;
+    margin-top  : 31px;
+    border      : 3px solid #fff;
+    padding     : 10px;
+    color       : @iwitness-blue;
+    font-size   : 13px;
+    line-height : 140%;
+    background  : #f1f1f1;
+    .border-radius(8px, 0, 8px, 8px);
+    .user-select(text);
+  }
+}
+
+
+.ui-widget {
+  width      : auto;
+  border     : 3px solid #fff;
+  background : #1a1b1d;
+  .rounded(14px);
+
+  .ui-datepicker-header {
+    padding    : 2px 0;
+    background : transparent;
+  }
+
+  .ui-datepicker-title {
+    color     : #fff;
+    font-size : 24px;
+  }
+
+  .ui-datepicker-prev {
+    top        : 8px;
+    left       : 4px;
+    width      : 23px;
+    height     : 28px;
+    background : url(/images/calendar_arrow_left.png);
+    .rounded(0);
+
+    span { display: none; }
+  }
+
+  .ui-datepicker-next {
+    top        : 8px;
+    right      : 4px;
+    width      : 23px;
+    height     : 28px;
+    background : url(/images/calendar_arrow_right.png);
+    .rounded(0);
+
+    span { display: none; }
+  }
+
+  .ui-datepicker-calendar {
+    th {
+      border         : 6px solid transparent;
+      padding        : 2px 0;
+      color          : #fff;
+      font-size      : 10px;
+      text-transform : uppercase;
+      background     : #5d5d5d;
+    }
+
+    td {
+      border         : 6px solid transparent;
+      background : transparent;
+
+      a {
+        display     : block;
+        padding     : 11px;
+        color       : #000;
+        font-size   : 14px;
+        font-weight : bold;
+        background  : #ec7000;
+        .rounded(20px);
+      }
+
+      .ui-state-active {
+        background: #fff;
+      }
+    }
+
+    td:hover a {
+      color      : #000;
+      background : #ec7000;
+      .rounded(20px);
+    }
+  }
+}
+
+.ui-datepicker:before {
+  content     : ' ';
+  display     : block;
+  position    : absolute;
+  top         :-15px;
+  left        : 50%;
+  width       : 25px;
+  height      : 15px;
+  margin-left :-12.5px;
+  background  : url(/images/ui-widget-arrow.png);
 }

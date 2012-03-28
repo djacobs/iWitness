@@ -1,7 +1,7 @@
 <div class="item">
   <div class="timeline-arrow"><span>{{postedTime}}</span></div>
   <div class="timeline-arrows"></div>
-  <div {{action toggleCuration}} {{bindAttr class="curateButtonClass"}}></div>
+  <div {{action toggleCuration}} {{bindAttr class="starButtonClass"}}></div>
 
   {{#if model.contentSrc}}
     <a class='content-link' target="_blank" {{bindAttr href="model.contentLink"}}>
@@ -46,13 +46,13 @@
 </div>
 
 <div class="item-footer">
-  <div class="flag">Flag for export</div>
+  {{#view flaggedView}}Flag for export{{/view}}
   <div class="button" {{action "toggleEmbedForm"}}>Embed</div>
 </div>
 
-<div class="embed-popover">
-  <div class="embed-heading" {{action "toggleEmbed"}}>Embed</div>
-  <div class="embed-content linenums">
+<div class="popover">
+  <div class="heading" {{action "toggleEmbed"}}>Embed</div>
+  <div class="content linenums">
     {{model.embedHtml}}
     Lorem ipsum dolor sit amet, consectetur adipiscing elit.
     Suspendisse at est in ligula dictum rutrum elementum a neque.

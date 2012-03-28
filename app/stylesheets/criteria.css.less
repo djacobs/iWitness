@@ -1,11 +1,11 @@
 @import "/app/stylesheets/mixins.css.less";
 
-#criteria {
-  overflow : hidden;
-  position : fixed;
-  top      : 0;
-  bottom   : 0;
-  width    : 503px;
+#criteria, #starred-map-container, #starred-info {
+  overflow    : hidden;
+  position    : fixed;
+  top         : 0;
+  bottom      : 0;
+  width       : 503px;
   margin-left : 15px;
 }
 
@@ -54,7 +54,59 @@
     &.streaming { background-position: 0 -146px; }
   }
 
+  .time-element {
+    position    : absolute;
+    color       : #000;
+    font        : 24px helvetica, arial, sans-serif;
+    font-weight : bold;
+    text-align  : center;
+    .user-select(none);
+
+    &.day {
+      left  : 158px;
+      width : 31px;
+    }
+
+    &.month {
+      left  : 193px;
+      width : 48px;
+    }
+
+    &.year {
+      left  : 246px;
+      width : 57px;
+    }
+
+    &.hour {
+      left  : 328px;
+      width : 31px;
+    }
+
+    &.minute {
+      left  : 370px;
+      width : 31px;
+    }
+
+    &.period {
+      left  : 405px;
+      width : 40px;
+    }
+
+    &.start { top: 14px; }
+    &.end   { top: 52px; }
+
+  }
+
+  .datepicker {
+    position: absolute;
+    left: 48px;
+    z-index: 1;
+    &.start { top: 55px; }
+    &.end   { top: 93px; }
+  }
+
   .input-small {
+    display     : none;
     position    : absolute;
     border      : 0;
     padding     : 0 4px;
@@ -65,9 +117,6 @@
     .box-sizing(border-box);
     -webkit-text-stroke: 1px #fff;
     text-shadow: 3px 3px 0 #fff, -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff, 1px 1px 0 #fff; }
-
-  .start { top: 12px; }
-  .end   { top: 50px; }
 
   .date {
     width : 150px;
@@ -119,7 +168,7 @@
   .iwitness-border-with-radius(14px);
 }
 
-#map {
+#map, #starred-map {
   width  : 497px;
   height : 472px;
   .rounded(14px);

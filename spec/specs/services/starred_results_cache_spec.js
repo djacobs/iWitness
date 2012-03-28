@@ -1,8 +1,8 @@
-describe("CuratedResultsCache", function() {
+describe("StarredResultsCache", function() {
   var cache, result;
 
   beforeEach(function() {
-    cache = CuratedResultsCache;
+    cache = StarredResultsCache;
     localStorage.clear();
     result = { get: function(){ return 1;}
        , serialize: function(){ return JSON.stringify({resultType: 'twitter'});}
@@ -50,7 +50,7 @@ describe("CuratedResultsCache", function() {
   });
 
   describe("clearAll", function() {
-    it("clears curated results from localStorage", function() {
+    it("clears starred results from localStorage", function() {
       cache.add(result);
       localStorage['not_part_of_cache'] = {error: true};
       expect(localStorage.length).toBe(2);

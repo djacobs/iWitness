@@ -3,17 +3,14 @@
 {{/each}}
 
 <div class="alert alert-info">
-  {{#if IWitness.curatedResultsToggleController.showingSearchResults}}
+  {{#if IWitness.currentViewController.showingSearchResults}}
     Twitter status: {{twitterStatus}}
     &nbsp; &nbsp; &nbsp;
     Flickr status:  {{flickrStatus}}
   {{else}}
-    <button {{action clearCurated}} id="clear_curated_results_button" class='btn btn-danger misplaced-message-button-hack'>
+    <button {{action clearStarred}} id="clear_starred_results_button" class='btn btn-danger misplaced-message-button-hack'>
       Clear all
     </button>
-    {{#view exportLink}}Email Curated Set{{/view}}
   {{/if}}
-
-  {{view IWitness.CuratedResultsToggleView id="curated_results_toggle"}}
 </div>
 

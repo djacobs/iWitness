@@ -3,11 +3,6 @@ IWitness.CriteriaView = Ember.View.extend({
   modelBinding: 'IWitness.criteriaController.content',
   radius: 1,
 
-  didInsertElement: function() {
-    this.$('.date').datepicker();
-    this.$('.time').timePicker({show24Hours: false});
-  },
-
   streamSelector: Ember.View.extend({
     classNameBindings: ['streaming'],
     modelBinding: 'IWitness.criteriaController.content',
@@ -18,16 +13,6 @@ IWitness.CriteriaView = Ember.View.extend({
 
     click: function() {
       this.setPath('model.stream', !this.getPath('model.stream'));
-      IWitness.criteriaController.initiateSearch();
-    }
-  }),
-
-  dateField: Ember.TextField.extend({
-    disabledBinding: 'model.stream',
-    modelBinding: 'IWitness.criteriaController.content',
-
-    change: function(e) {
-      this._super();
       IWitness.criteriaController.initiateSearch();
     }
   }),
@@ -56,6 +41,10 @@ IWitness.CriteriaView = Ember.View.extend({
       this.setPath('model.useLocalTime', false);
       return false;
     }
-  })
+  }),
+
+  startDay: function(){
+
+  }.property("model.start"),
 
 });

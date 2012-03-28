@@ -1,23 +1,16 @@
 @import "/app/stylesheets/mixins.css.less";
 
 #results {
-  /*position : absolute;
-  top      : 0;
-  right    : 0;
-  bottom   : 0;
-  left     : 513px;*/
   position    : relative;
   width       : 511px;
   margin-left : 510px;
-
-  .load-more { text-align: center; }
 }
 
 #timeline {
   position   : absolute;
   top        : 0;
   bottom     : 0;
-  left       : 17px;
+  left       : 20px;
   width      : 15px;
   background : #3e4449;
   display    : hidden;
@@ -35,19 +28,12 @@
 }
 
 #results-top-bar {
-  position       : relative;
-  height         : 39px;
-  color          : #ffd098;
-  font-size      : 15px;
-  line-height    : 39px;
   pointer-events : auto;
-  .gradient(#ba4900, #b94000, #bd5700);
   .box-shadow(0 25px 50px #000);
-  .user-select(none);
 
   .nav-button {
-    float  : right;
-    margin : 5px 20px 0 0;
+    float        : right;
+    margin-right : 20px;
   }
 
   .status {
@@ -144,6 +130,7 @@
     }
 
     .service-switch {
+      display        : none;
       position       : absolute;
       top            : 50%;
       right          : 6px;
@@ -249,7 +236,7 @@
   }
 }
 
-#curated_set {
+#starred_results {
   .item-wrapper {
     padding-bottom: 33px;
   }
@@ -259,11 +246,6 @@
 
 
 #result_set {
-  /*position    : absolute;
-  top         : 0;
-  right       : 13px;
-  bottom      : 0;
-  left        : 46px;*/
   position    : relative;
   margin-top  : 92px;
   padding     : 0 0 1px 46px;
@@ -283,53 +265,6 @@
     .timeline-arrows { display: block; }
   }
 }
-
-.load-more {
-  margin-bottom : 13px;
-
-  a {
-    border-bottom   : 1px solid rgba(255,255,255, 0.25);
-    color           : #fff;
-    font-size       : 12px;
-    font-weight     : bold;
-    text-decoration : none;
-  }
-}
-
-.embed-popover {
-  display    : none;
-  position   : absolute;
-  margin-top : -3px;
-  z-index    : 2;
-
-  .embed-heading {
-    position      : absolute;
-    top           : 0;
-    right         : 0;
-    height        : 31px;
-    border        : 3px solid #fff;
-    border-bottom : 0;
-    padding       : 0 24px;
-    color         : @iwitness-blue;
-    font-size     : 14px;
-    line-height   : 31px;
-    background    : #f1f1f1;
-    .border-radius(8px, 8px, 0, 0);
-    .serif-bold();
-  }
-
-  .embed-content {
-    margin-top  : 31px;
-    border      : 3px solid #fff;
-    padding     : 10px;
-    color       : @iwitness-blue;
-    font-size   : 13px;
-    line-height : 140%;
-    background  : #f1f1f1;
-    .border-radius(8px, 0, 8px, 8px);
-  }
-}
-
 
 .item-footer {
   display     : none;
@@ -402,7 +337,7 @@
     display    : none;
     position   : absolute;
     top        :-3px;
-    left       :-40px;
+    left       :-37px;
     width      : 31px;
     height     : 96px;
     background : url(/images/timeline_arrow.png);
@@ -422,7 +357,7 @@
     display    : none;
     position   : absolute;
     bottom     :-19px;
-    left       :-32px;
+    left       :-29px;
     width      : 15px;
     height     : 57px;
     background : url(/images/timeline_arrows.png);

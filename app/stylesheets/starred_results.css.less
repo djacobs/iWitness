@@ -1,0 +1,103 @@
+@import "/app/stylesheets/mixins.css.less";
+
+.alert { position: relative; }
+
+#starred_results {
+  position    : relative;
+  width       : 460px;
+  margin-left : 560px;
+}
+
+#starred-items-left-toolbar {
+  position : fixed;
+  top      : 0;
+  width    : 560px;
+
+  .nav-button {
+    margin-top : -1px;
+    margin-left: 26px;
+  }
+}
+
+#starred-items-right-toolbar {
+  position    : fixed;
+  top         : 0;
+  width       : 464px;
+  margin-left : 560px;
+  z-index     : 1;
+}
+
+#starred-set {
+  position    : relative;
+  margin-top  : 50px;
+  padding     : 0 0 1px 0;
+  z-index     : 0;
+}
+
+#starred-map-container {
+  top: 208px;
+
+  #map-widget { top: 0; }
+}
+
+#flag-all {
+  float        : left;
+  padding-left : 50px;
+  cursor       : pointer;
+  background   : url(/images/flag_toolbar.png) no-repeat 21px 50%;
+}
+
+#unstar-all {
+  float         : right;
+  margin-right  : 10px;
+  padding-right : 21px;
+  cursor        : pointer;
+  background    : url(/images/star_toolbar.png) no-repeat 100% 50%;
+}
+
+#starred-info {
+  top: 52px;
+
+  h1 {
+    margin-bottom : 20px;
+    font-size: 46px;
+    .serif();
+    .user-select(none);
+  }
+}
+
+#export-section {
+  position   : relative;
+  padding    : 5px 15px;
+  background : #02101a;
+  .inline-block();
+  .rounded(10px);
+
+  h2 {
+    margin-bottom : 10px;
+    color         : #ec7000;
+    font-size     : 24px;
+    .serif-bold();
+    .user-select(none);
+  }
+
+  .button {
+    padding         : 9px 20px;
+    color           : #fff;
+    font-size       : 14px;
+    text-decoration : none;
+    text-shadow     : 0 -1px 0 rgba(0,0,0, 0.4);
+    .inline-block();
+    .gradient(#d65900, #b54001, #ff7c00);
+    .rounded(6px);
+    .serif-bold();
+    .user-select(none);
+  }
+
+  .popover {
+    top  : 40px;
+    left : 14px;
+
+    .heading { padding: 0 18px }
+  }
+}

@@ -184,6 +184,11 @@ _.extend(Map.prototype, {
     this.map.setCenter(point);
   },
 
+  panTo: function(bounds) {
+    var point = new google.maps.LatLng(bounds[0], bounds[1]);
+    this.map.panTo(point);
+  },
+
   getZoom: function() {
     return this.map.getZoom();
   },
