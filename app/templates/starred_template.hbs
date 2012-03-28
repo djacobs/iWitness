@@ -12,11 +12,11 @@
     <div id="export-popover" class="popover left-heading">
       <div class="heading" {{action "hideExportText"}}>Copy as text</div>
       <div id="rendered-text-results" class="content linenums">
-      {{#if IWitness.starredSetController.flaggedCount}}
-        {{#each IWitness.starredSetController.flaggedResults}}
-          {{view IWitness.TextResultView modelBinding="this"}}
-        {{/each}}
-      {{/if}}
+        {{#if IWitness.starredSetController.flaggedCount}}
+          {{#each IWitness.starredSetController.flaggedResults}}
+            {{view IWitness.TextResultView modelBinding="this"}}
+          {{/each}}
+        {{/if}}
       </div>
     </div>
   </div>
