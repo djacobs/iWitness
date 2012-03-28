@@ -5,23 +5,11 @@
   <div id="date_and_time_selectors">
     {{view streamSelector id="stream_selector"}}
 
-    <div class="time-element start day">15</div>
-    <div class="time-element start month">Mar</div>
-    <div class="time-element start year">2012</div>
-    <div class="time-element start hour">12</div>
-    <div class="time-element start minute">00</div>
-    <div class="time-element start period">PM</div>
-
-    <div class="time-element end day">15</div>
-    <div class="time-element end month">Mar</div>
-    <div class="time-element end year">2012</div>
-    <div class="time-element end hour">12</div>
-    <div class="time-element end minute">00</div>
-    <div class="time-element end period">PM</div>
-
+    {{view dateTimeSelector whichDate="start"}}
     {{view dateField id="start_date" valueBinding="model.startDateString" class="date start input-small"}}
     {{view dateField id="start_time" valueBinding="model.startTimeString" class="time start input-small"}}
 
+    {{view dateTimeSelector whichDate="end"}}
     {{view dateField id="end_date" valueBinding="model.endDateString" class="date end input-small"}}
     {{view dateField id="end_time" valueBinding="model.endTimeString" class="time end input-small"}}
 

@@ -118,4 +118,4 @@ IWitness.Criteria = Ember.Object.extend({
   }
 });
 
-IWitness.criteria = IWitness.Criteria.create();
+IWitness.criteria = IWitness.Criteria.create({start: moment().subtract("minutes", 1), end: moment()});
