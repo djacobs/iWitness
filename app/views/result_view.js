@@ -63,7 +63,6 @@ IWitness.ResultView = Ember.View.extend(IWitness.PostedDateTime, {
     }.property('parentView.model.flagged'),
 
     click: function() {
-      debugger;
       this.getPath('parentView.model').toggleProperty('flagged');
     }
   })
