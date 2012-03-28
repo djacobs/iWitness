@@ -16,7 +16,12 @@ IWitness.DateTimeSelector = Ember.View.extend({
   },
 
   pickDate: function(e){
+    var self = this;
     this.datepicker.show();
+    $("body").on('click.pickDate', function(e){
+      $("body").off("click.pickDate");
+      self.datepicker.hide();
+    });
   },
 
   moment: function() {
@@ -36,6 +41,12 @@ IWitness.DateTimeSelector = Ember.View.extend({
       return value;
     }
   }.property("model.startDateString", "model.endDateString"),
+
+  setCalendarDate: function() {
+    if (this.datepicker) {
+      this.datepicker.datepicker("setDate", this.get("dateValue"));
+    }
+  }.observes("dateValue"),
 
   timeValue: function() {
     var type = this.get("whichDate");
