@@ -13,6 +13,9 @@ IWitness.DateTimeSelector = Ember.View.extend({
         self.datepicker.hide();
       }
     }).hide();
+
+    this.timepicker = this.$('.ec-time-picker');
+    this.timepicker.find('.column').click(_.bind(this.updateTime, this));
   },
 
   pickDate: function(e){
@@ -22,6 +25,35 @@ IWitness.DateTimeSelector = Ember.View.extend({
       $("body").off("click.pickDate");
       self.datepicker.hide();
     });
+  },
+
+  pickTime: function(e) {
+    var self = this;
+
+    this.timepicker.find('.hour a[data-val="'+ this.get("hours") +'"]').addClass("active");
+    this.timepicker.find('.minute a[data-val="'+ this.get("minutes") +'"]').addClass("active");
+    this.timepicker.find('.period a[data-val="'+ this.get("period") +'"]').addClass("active");
+    this.timepicker.show();
+
+    $("body").on('click.pickTime', function(e){
+      $("body").off("click.pickTime");
+      self.timepicker.hide();
+    });
+  },
+
+  updateTime: function(e) {
+    var changed = $(e.target);
+    e.preventDefault();
+    e.stopPropagation();
+    if (changed.hasClass("active")) return;
+
+    changed.siblings().removeClass("active").end()
+           .addClass("active");
+    var hour = this.$('.hour .active').data("val");
+    var minute = this.$('.minute .active').data("val");
+    var period = this.$('.period .active').data("val");
+
+    this.set("timeValue", hour+":"+minute+" "+period);
   },
 
   moment: function() {
@@ -48,7 +80,7 @@ IWitness.DateTimeSelector = Ember.View.extend({
     }
   }.observes("dateValue"),
 
-  timeValue: function() {
+  timeValue: function(key, value) {
     var type = this.get("whichDate");
     if (arguments.length == 1) {
       return this.getPath("model."+type+"TimeString");

@@ -245,6 +245,16 @@ html,body { background: #00070b url(/images/blue_gradient.png) fixed no-repeat; 
   width    : 160px;
   height   : 330px;
 
+  &.start {
+    left: 322px;
+    top: 52px;
+  }
+
+  &.end {
+    left: 322px;
+    top: 87px;
+  }
+
   .column {
     overflow : auto;
     position : absolute;
@@ -270,5 +280,7 @@ html,body { background: #00070b url(/images/blue_gradient.png) fixed no-repeat; 
     line-height     : 40px;
     background      : #ec7000;
     .rounded(20px);
+
+    &.active { background : #fff; }
   }
 }
