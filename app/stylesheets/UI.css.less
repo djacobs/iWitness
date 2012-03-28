@@ -222,7 +222,9 @@ html,body { background: #00070b url(/images/blue_gradient.png) fixed no-repeat; 
   }
 }
 
-.ui-datepicker:before {
+
+.ui-datepicker:before,
+.ec-time-picker:before {
   content     : ' ';
   display     : block;
   position    : absolute;
@@ -232,4 +234,41 @@ html,body { background: #00070b url(/images/blue_gradient.png) fixed no-repeat; 
   height      : 15px;
   margin-left :-12.5px;
   background  : url(/images/ui-widget-arrow.png);
+}
+
+
+.ui-widget.ec-time-picker {
+  display  : none;
+  position : absolute;
+  top      : 30px;
+  z-index  : 10;
+  width    : 160px;
+  height   : 330px;
+
+  .column {
+    overflow : auto;
+    position : absolute;
+    top      : 0;
+    bottom   : 0;
+    width    : 40px;
+    padding-top : 10px;
+  }
+
+  .column-1 { left: 10px;  }
+  .column-2 { left: 60px;  }
+  .column-3 { left: 110px; }
+
+  a {
+    display         : block;
+    height          : 40px;
+    margin-bottom   : 10px;
+    color           : #000;
+    font-size       : 14px;
+    font-weight     : bold;
+    text-align      : center;
+    text-decoration : none;
+    line-height     : 40px;
+    background      : #ec7000;
+    .rounded(20px);
+  }
 }
