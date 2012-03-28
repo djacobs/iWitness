@@ -32,6 +32,42 @@ IWitness.CriteriaView = Ember.View.extend({
     }
   }),
 
+  dateTimeSelector: Ember.View.extend({
+    templateName: "date_time_selector_template",
+    modelBinding: "IWitness.criteriaController.content",
+
+    moment: function() {
+      return this.get("model").get(this.get("whichDate"));
+    }.property("model.start", "model.end", "whichDate"),
+
+    day: function(){
+      return this.get("moment").format("DD");
+    }.property("moment"),
+
+    month: function(){
+      return this.get("moment").format("MMM");
+    }.property("moment"),
+
+    year: function(){
+      return this.get("moment").year();
+    }.property("moment"),
+
+    hours: function(){
+      return this.get("moment").format("h");
+    }.property("moment"),
+
+    minutes: function(){
+      return this.get("moment").format("MM");
+    }.property("moment"),
+
+    period: function(){
+      if (this.get("moment").hours() < 11)
+        return "AM";
+      else
+        return "PM";
+    }.property("moment"),
+  }),
+
   timezoneSelector: Ember.View.extend({
     modelBinding:      'IWitness.criteriaController.content',
 
@@ -56,6 +92,10 @@ IWitness.CriteriaView = Ember.View.extend({
       this.setPath('model.useLocalTime', false);
       return false;
     }
-  })
+  }),
+
+  startDay: function(){
+
+  }.property("model.start"),
 
 });

@@ -5,9 +5,11 @@
   <div id="date_and_time_selectors">
     {{view streamSelector id="stream_selector"}}
 
+    {{view dateTimeSelector whichDate="start"}}
     {{view dateField id="start_date" valueBinding="model.startDateString" class="date start input-small"}}
     {{view dateField id="start_time" valueBinding="model.startTimeString" class="time start input-small"}}
 
+    {{view dateTimeSelector whichDate="end"}}
     {{view dateField id="end_date" valueBinding="model.endDateString" class="date end input-small"}}
     {{view dateField id="end_time" valueBinding="model.endTimeString" class="time end input-small"}}
 
