@@ -11,7 +11,7 @@ IWitness.MapView = Ember.View.extend({
     this.map = new Map(document.getElementById("map"), 40.735955030904755, -73.99026397144165); // OWS Union Sq
     this.map.addListener('idle', _.bind(this._mapReady, this));
 
-    this.sliderEl = this.$('#map-zoom-control .slider').slider({
+    this.sliderEl = this.$('.map-zoom-control .slider').slider({
       value: self.getPath("model.zoom") || Map.initialZoom,
       min: 1,
       max: 21,
