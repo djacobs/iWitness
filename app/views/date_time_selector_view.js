@@ -6,9 +6,11 @@ IWitness.DateTimeSelector = Ember.View.extend({
     var self = this;
     this.datepicker = this.$(".datepicker").datepicker({
       onSelect: function(dateText, ui){
-        self.set("dateValue", dateText);
+        if (dateText != self.get("dateValue")) {
+          self.set("dateValue", dateText);
+          IWitness.criteriaController.initiateSearch();
+        }
         self.datepicker.hide();
-        IWitness.criteriaController.initiateSearch();
       }
     }).hide();
   },
