@@ -10,7 +10,7 @@ IWitness.ResultsStatusView = Ember.View.extend({
         return 'Finished';
       }
     } else {
-      return "Something's Wrong";
+      return "Something's wrong";
     }
   }.property('isFlickrSearching', 'isTwitterSearching', 'criteria.isValid'),
 
