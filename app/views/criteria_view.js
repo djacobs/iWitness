@@ -8,7 +8,9 @@ IWitness.CriteriaView = Ember.View.extend({
     modelBinding: 'IWitness.criteriaController.content',
 
     streaming: function() {
-      return this.getPath('model.stream');
+      var isStreaming = this.getPath('model.stream');
+      $('#date_and_time_selectors')[isStreaming ? 'addClass' : 'removeClass' ]('streaming');
+      return isStreaming;
     }.property('model.stream'),
 
     click: function() {
