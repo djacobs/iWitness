@@ -29,10 +29,11 @@ IWitness.ResultsStatusView = Ember.View.extend({
 
   _isSearching: function(service){
     var status = IWitness.searchController.getPath('monitors.'+service+'.status')
-    return status == 'pending' || status == 'streaming';
+    return status == 'pending' || status == 'streaming' || status == 'searching';
   },
 
   showStarred: function(e) {
     IWitness.currentViewController.set('currentView', 'starred_results');
   }
+
 });
