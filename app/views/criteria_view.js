@@ -41,7 +41,7 @@ IWitness.CriteriaView = Ember.View.extend({
     }.property("model.start", "model.end", "whichDate"),
 
     day: function(){
-      return this.get("moment").date();
+      return this.get("moment").format("DD");
     }.property("moment"),
 
     month: function(){
@@ -53,12 +53,11 @@ IWitness.CriteriaView = Ember.View.extend({
     }.property("moment"),
 
     hours: function(){
-      var hours = this.get("moment").hours();
-      return (hours + 13) % 12;
+      return this.get("moment").format("h");
     }.property("moment"),
 
     minutes: function(){
-      return this.get("moment").minutes();
+      return this.get("moment").format("MM");
     }.property("moment"),
 
     period: function(){
