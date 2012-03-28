@@ -1,6 +1,10 @@
-<div class="time-element {{unbound whichDate}} day">{{day}}</div>
-<div class="time-element {{unbound whichDate}} month">{{month}}</div>
-<div class="time-element {{unbound whichDate}} year">{{year}}</div>
+<div class="date-trigger" {{action "pickDate"}}>
+  <div class="time-element {{unbound whichDate}} day">{{day}}</div>
+  <div class="time-element {{unbound whichDate}} month">{{month}}</div>
+  <div class="time-element {{unbound whichDate}} year">{{year}}</div>
+</div>
+<div class="datepicker {{unbound whichDate}}"></div>
+
 <div class="time-element {{unbound whichDate}} hour">{{hours}}</div>
 <div class="time-element {{unbound whichDate}} minute">{{minutes}}</div>
 <div class="time-element {{unbound whichDate}} period">{{period}}</div>

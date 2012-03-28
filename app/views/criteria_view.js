@@ -3,11 +3,6 @@ IWitness.CriteriaView = Ember.View.extend({
   modelBinding: 'IWitness.criteriaController.content',
   radius: 1,
 
-  didInsertElement: function() {
-    this.$('.date').datepicker();
-    this.$('.time').timePicker({show24Hours: false});
-  },
-
   streamSelector: Ember.View.extend({
     classNameBindings: ['streaming'],
     modelBinding: 'IWitness.criteriaController.content',
@@ -22,23 +17,52 @@ IWitness.CriteriaView = Ember.View.extend({
     }
   }),
 
-  dateField: Ember.TextField.extend({
-    disabledBinding: 'model.stream',
-    modelBinding: 'IWitness.criteriaController.content',
-
-    change: function(e) {
-      this._super();
-      IWitness.criteriaController.initiateSearch();
-    }
-  }),
-
   dateTimeSelector: Ember.View.extend({
     templateName: "date_time_selector_template",
     modelBinding: "IWitness.criteriaController.content",
 
+    didInsertElement: function() {
+      var self = this;
+      this.datepicker = this.$(".datepicker").datepicker({
+        onSelect: function(dateText, ui){
+          self.set("dateValue", dateText);
+          self.datepicker.hide();
+          IWitness.criteriaController.initiateSearch();
+        }
+      }).hide();
+    },
+
+    pickDate: function(e){
+      this.datepicker.show();
+    },
+
     moment: function() {
-      return this.get("model").get(this.get("whichDate"));
-    }.property("model.start", "model.end", "whichDate"),
+      if (this.get("whichDate") == "start") {
+        return this.getPath("model.rawStart");
+      } else {
+        return this.getPath("model.rawEnd");
+      }
+    }.property("model.rawStart", "model.rawEnd", "whichDate"),
+
+    dateValue: function(key, value) {
+      var type = this.get("whichDate");
+      if (arguments.length == 1) {
+        return this.getPath("model."+type+"DateString");
+      } else {
+        this.get("model").set(type+"DateString", value);
+        return value;
+      }
+    }.property("model.startDateString", "model.endDateString"),
+
+    timeValue: function() {
+      var type = this.get("whichDate");
+      if (arguments.length == 1) {
+        return this.getPath("model."+type+"TimeString");
+      } else {
+        this.setPath("model."+type+"TimeString", value);
+        return value
+      }
+    }.property("model.startTimeString", "model.endTimeString"),
 
     day: function(){
       return this.get("moment").format("DD");
@@ -53,19 +77,16 @@ IWitness.CriteriaView = Ember.View.extend({
     }.property("moment"),
 
     hours: function(){
-      return this.get("moment").format("h");
+      return this.get("moment").format("hh");
     }.property("moment"),
 
     minutes: function(){
-      return this.get("moment").format("MM");
+      return this.get("moment").format("mm");
     }.property("moment"),
 
     period: function(){
-      if (this.get("moment").hours() < 11)
-        return "AM";
-      else
-        return "PM";
-    }.property("moment"),
+      return this.get("moment").format("A");
+    }.property("moment")
   }),
 
   timezoneSelector: Ember.View.extend({
