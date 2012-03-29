@@ -294,7 +294,20 @@ html,body { background: #00070b url(/images/blue_gradient.png) fixed no-repeat; 
   }
 }
 
-.error_bubble {
+#map-error {
+  left  : 615px;
+  top   : 216px;
+  width : 290px;
+}
+
+#time-error {
+  left  : 630px;
+  top   : 140px;
+  width : 260px;
+}
+
+.error-bubble {
+  display     : none;
   position    : absolute;
   border      : 3px solid #fff;
   padding     : 12px;
@@ -307,4 +320,6 @@ html,body { background: #00070b url(/images/blue_gradient.png) fixed no-repeat; 
   .gradient(#cc0001, #a50000, #f00000);
   .rounded(12px);
   .serif-bold();
+
+  &.is-error { display : block; }
 }
