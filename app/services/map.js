@@ -5,6 +5,7 @@ var Map = function(element, lat, lng, zoom) {
     mapTypeControl: false,
     scaleControl:   false,
     mapTypeId:      google.maps.MapTypeId.ROADMAP,
+    scrollwheel:    false,
     styles: [
       {
         featureType: "landscape",
