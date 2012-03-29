@@ -212,13 +212,34 @@
   text-transform : uppercase;
   .rounded(4px);
   .serif-bold();
+  .transition(all, 0.25s);
 
   input {
+    position    : relative;
     width       : 220px;
     margin-left : 5px;
     color       : #222;
+    z-index     : 1;
     .placeholder-color(#4c4c4c);
     .serif-bold();
+  }
+
+  .radar {
+    display    : none;
+    position   : absolute;
+    top        : 0;
+    right      : 0;
+    width      : 34px;
+    height     : 34px;
+    background : url(/images/radar_sweep_blue_2.png);
+  }
+
+  &.scanning {
+    padding-right: 42px;
+    .radar {
+      display: block;
+      .rotate();
+    }
   }
 }
 
