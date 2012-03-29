@@ -20,7 +20,8 @@ IWitness.CriteriaView = Ember.View.extend({
   }),
 
   timezoneSelector: Ember.View.extend({
-    modelBinding:      'IWitness.criteriaController.content',
+    classNames:   ["timezone-element"],
+    modelBinding: 'IWitness.criteriaController.content',
 
     timezoneToggleClass: function() {
       if (this.getPath('model.useLocalTime')) {
@@ -43,10 +44,5 @@ IWitness.CriteriaView = Ember.View.extend({
       this.setPath('model.useLocalTime', false);
       return false;
     }
-  }),
-
-  startDay: function(){
-
-  }.property("model.start"),
-
+  })
 });
