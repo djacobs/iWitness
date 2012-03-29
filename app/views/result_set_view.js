@@ -28,6 +28,7 @@ IWitness.ResultSetView = Ember.View.extend({
       }
       prev = cur;
     });
+
     // prev is now the very last item, which ends the timeline.
     if (prev) prev.addClass('last');
 
