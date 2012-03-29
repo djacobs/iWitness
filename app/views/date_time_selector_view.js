@@ -3,19 +3,12 @@ IWitness.DateTimeSelector = Ember.View.extend({
   modelBinding: "IWitness.criteriaController.content",
 
   didInsertElement: function() {
-    var self = this;
     this.datepicker = this.$(".datepicker").datepicker({
-      onSelect: function(dateText, ui){
-        if (dateText != self.get("dateValue")) {
-          self.set("dateValue", dateText);
-          IWitness.criteriaController.initiateSearch();
-        }
-        self.datepicker.hide();
-      }
+      onSelect: _.bind(this.setDate, this)
     }).hide();
 
     this.timepicker = this.$('.ec-time-picker');
-    this.timepicker.find('.column').click(_.bind(this.updateTime, this));
+    this.timepicker.find('.column').click(_.bind(this.setTime, this));
   },
 
   pickDate: function(e){
@@ -25,6 +18,14 @@ IWitness.DateTimeSelector = Ember.View.extend({
       $("body").off("click.pickDate");
       self.datepicker.hide();
     });
+  },
+
+  setDate: function(dateText, ui){
+    if (dateText != self.get("dateValue")) {
+      this.set("dateValue", dateText);
+      IWitness.criteriaController.initiateSearch();
+    }
+    this.datepicker.hide();
   },
 
   pickTime: function(e) {
@@ -41,7 +42,7 @@ IWitness.DateTimeSelector = Ember.View.extend({
     });
   },
 
-  updateTime: function(e) {
+  setTime: function(e) {
     var changed = $(e.target);
     e.preventDefault();
     e.stopPropagation();
