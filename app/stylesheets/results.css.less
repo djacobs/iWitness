@@ -45,7 +45,21 @@
     background-position : 100% 50%;
     background-repeat   : no-repeat;
 
-    &.scanning { background-image: url(/images/radar_sweep_orange.png); }
+    .radar {
+      display    : none;
+      position   : absolute;
+      top        : 50%;
+      right      : 0;
+      width      : 25px;
+      height     : 25px;
+      margin-top :-12px;
+      background : url(/images/radar_sweep_orange.png);
+    }
+
+    &.scanning .radar {
+      display: block;
+      .rotate();
+    }
 
     &.finished {
       padding-right       : 25px;
