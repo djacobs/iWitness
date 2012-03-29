@@ -6,7 +6,7 @@ IWitness.StarredMapView = Ember.View.extend(IWitness.MapControl, {
   didInsertElement: function() {
     var self = this;
     this.insertMap();
-    this.set("zoomLevel", Map.initialZoom);
+    this.set("zoomLevel", 15);
     this.initZoomSlider();
   },
 
@@ -22,10 +22,11 @@ IWitness.StarredMapView = Ember.View.extend(IWitness.MapControl, {
           var firstResult = IWitness.starredSetController.objectAt(0);
           startingLocation = [firstResult.get('lat'), firstResult.get('lng')];
         } else {
-          startingLocation = [40.735955030904755, -73.99026397144165]; // OWS Union Sq
+          // startingLocation = [40.735955030904755, -73.99026397144165]; // OWS Union Sq
+          startingLocation = [37.090301, -95.712919]; // Kansas!
         }
 
-        self.map = new Map(document.getElementById("starred-map"), startingLocation[0], startingLocation[1]);
+        self.map = new Map(document.getElementById("starred-map"), startingLocation[0], startingLocation[1], 15);
         self.map.addListener('zoom_changed', function(){
           self.set("zoomLevel", self.map.getZoom());
         });
