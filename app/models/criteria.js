@@ -4,6 +4,10 @@ IWitness.Criteria = Ember.Object.extend({
   keyword: "",
   address: "",
 
+  init: function() {
+    this.set("errors", Ember.Errors.create());
+  },
+
   timezoneOffset: function() {
     return (new Date()).getTimezoneOffset() / -60;
   }.property().cacheable(),
@@ -79,7 +83,7 @@ IWitness.Criteria = Ember.Object.extend({
 
   isValid: function() {
     return _.isEmpty(this.get('errors'));
-  }.property('errors'),
+  }.property('errors.isValid'),
 
   errors: function() {
     var errors = [];
