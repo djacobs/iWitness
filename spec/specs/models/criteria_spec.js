@@ -72,30 +72,6 @@ describe("Criteria", function() {
         expect(subject.get('errors')).toEqual([]);
       });
 
-      it("includes an error if startDateString is empty", function() {
-        subject.set('startDateString', '');
-        expect(subject.get('errors').length).toEqual(1);
-        expect(subject.get('errors')[0]).toMatch(/start date/i);
-      });
-
-      it("includes an error if startTimeString is empty", function() {
-        subject.set('startTimeString', '');
-        expect(subject.get('errors').length).toEqual(1);
-        expect(subject.get('errors')[0]).toMatch(/start date/i);
-      });
-
-      it("includes an error if endDateString is empty", function() {
-        subject.set('endDateString', '');
-        expect(subject.get('errors').length).toEqual(1);
-        expect(subject.get('errors')[0]).toMatch(/end date/i);
-      });
-
-      it("includes an error if endTimeString is empty", function() {
-        subject.set('endTimeString', '');
-        expect(subject.get('errors').length).toEqual(1);
-        expect(subject.get('errors')[0]).toMatch(/end date/i);
-      });
-
       it("includes an error if the start comes before the end", function() {
         subject.set('endTimeString', '8:00 AM');
         expect(subject.get('errors').length).toEqual(1);

@@ -4,10 +4,6 @@ IWitness.Criteria = Ember.Object.extend({
   keyword: "",
   address: "",
 
-  init: function() {
-    this.set("errors", Ember.Errors.create());
-  },
-
   timezoneOffset: function() {
     return (new Date()).getTimezoneOffset() / -60;
   }.property().cacheable(),
@@ -81,27 +77,25 @@ IWitness.Criteria = Ember.Object.extend({
                               'stream');
   },
 
+  errors: function() {
+    return _.compact([this.get("mapError"), this.get("timeError")]);
+  }.property("mapError", "timeError").cacheable(),
+
   isValid: function() {
     return _.isEmpty(this.get('errors'));
-  }.property('errors.isValid'),
+  }.property('errors'),
 
-  errors: function() {
-    var errors = [];
-
-    if (!this.get('stream')) {
-      if (_.isEmpty(this.get('startDateString')) || _.isEmpty(this.get('startTimeString')))
-        errors.push("Please select a start date.");
-      if (_.isEmpty(this.get('endDateString')) || _.isEmpty(this.get('endTimeString')))
-        errors.push("Please select an end date.");
-      if (_.isEmpty(errors) && moment(this.get('end')).isBefore(moment(this.get('start'))))
-        errors.push("Select a start date that comes before the end date.");
+  timeError: function() {
+    if (!this.get('stream') && moment(this.get('end')).isBefore(moment(this.get('start')))) {
+      return "Select a start date that comes before the end date.";
     }
+  }.property("start", "end", "stream"),
 
-    if (this.get('radius') > 75000)
-      errors.push("Increase the map zoom in order to provide more relevant results.");
-
-    return errors;
-  }.property('start', 'end', 'radius', 'stream').cacheable(),
+  mapError: function(){
+    if (this.get('radius') > 75000) {
+      return "Increase the map zoom in order to provide more relevant results.";
+    }
+  }.property("radius"),
 
   _getAdjustedForMap: function(prop) {
     if (this.get('useLocalTime')) {

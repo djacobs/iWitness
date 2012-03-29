@@ -1,4 +1,9 @@
 {{view IWitness.CriteriaView}}
+
+{{#view IWitness.ErrorsView id="map-error" errorBinding="IWitness.criteria.mapError"}}
+  {{error}}
+{{/view}}
+
 <div id="results-header">
   {{view IWitness.ResultsStatusView}}
   {{view IWitness.KeywordFilterView}}
