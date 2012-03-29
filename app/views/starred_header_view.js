@@ -7,5 +7,9 @@ IWitness.StarredHeaderView = Ember.View.extend({
 
   flagAll: function() {
     IWitness.starredSetController.setEach('flagged', true);
+  },
+
+  clearStarred: function(){
+    IWitness.starredSetController.clear();
   }
 });
