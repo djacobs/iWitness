@@ -6,6 +6,11 @@ var TwitterFilter = function(params) {
 };
 
 _.extend(TwitterFilter.prototype, {
+  setLiveStream: function() {
+    this.start = moment().subtract("hours", 1);
+    this.end   = moment();
+  },
+
   hasGeo: function(result){
     if (result.geo == null) return false;
     var coordinates = result.geo.coordinates;

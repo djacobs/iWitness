@@ -112,6 +112,11 @@ _.extend(TwitterQuery.prototype, {
       IWitness.log('--- consecutive search with same results ---');
       this.isDone = true;
     }
-  }
-});
+  },
 
+  setLiveStream: function() {
+    this.start = moment().subtract("hours", 1);
+    this.end   = moment();
+  }
+
+});

@@ -26,8 +26,8 @@ _.extend(TwitterSearch.prototype, {
   },
 
   _startStreaming: function() {
-    this.query.start = moment().subtract("hours", 1);
-    this.query.end   = moment();
+    this.query.setLiveStream();
+    this.filter.setLiveStream();
     this.liveSearch = new LiveTwitterSearch(this.params, this)
     Ember.addListener(this.liveSearch, 'data', this, this._reSendEvent);
     this._startSearching();
