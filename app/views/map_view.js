@@ -49,7 +49,7 @@ IWitness.MapView = Ember.View.extend(IWitness.MapControl, {
   },
 
   addressField: Ember.TextField.extend({
-    placeholder: 'enter address and press enter',
+    placeholder: 'Enter address and press enter',
     valueBinding: 'parentView.model.address',
 
     insertNewline: function(e) {
@@ -61,7 +61,7 @@ IWitness.MapView = Ember.View.extend(IWitness.MapControl, {
     },
 
     focusOut: function(e) {
-      this.$().attr('placeholder', 'enter address and press enter');
+      this.$().attr('placeholder', 'Enter address and press enter');
     }
   })
 });
