@@ -26,14 +26,15 @@ IWitness.StarredView = Ember.View.extend({
 
     makeHref: function() {
       var results = [];
-      console.log('href');
       $('#rendered-text-results div pre').each(function(i, result) {
         results.push($(result).text());
       });
       results = results.join("\n");
       results += "\n\nShared via iWitness\n<http://iwitness.adaptivepath.com>";
 
-      return "mailto:yourfriend@example.com?subject=iWitness Starred Results&body="+encodeURIComponent(results);
+      var datetime = moment().format('MM/DD/YY h:mm a');
+
+      return "mailto:yourfriend@example.com?subject=Shared via iWitness "+datetime+"&body="+encodeURIComponent(results);
     },
 
     click: function(e) {
