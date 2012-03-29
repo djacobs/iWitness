@@ -241,23 +241,27 @@ html,body { background: #00070b url(/images/blue_gradient.png) fixed no-repeat; 
   background  : url(/images/ui-widget-arrow.png);
 }
 
+.ec-time-picker:before {
+  top: -15px;
+}
+
 
 .ui-widget.ec-time-picker {
   display  : none;
   position : absolute;
   top      : 30px;
   z-index  : 10;
-  width    : 160px;
+  width    : 175px;
   height   : 330px;
 
   &.start {
-    left: 322px;
-    top: 52px;
+    left : 315px;
+    top  : 52px;
   }
 
   &.end {
-    left: 322px;
-    top: 87px;
+    left : 315px;
+    top  : 87px;
   }
 
   .column {
@@ -265,7 +269,7 @@ html,body { background: #00070b url(/images/blue_gradient.png) fixed no-repeat; 
     position : absolute;
     top      : 0;
     bottom   : 0;
-    width    : 40px;
+    width    : 60px;
     padding-top : 10px;
   }
 
@@ -276,7 +280,7 @@ html,body { background: #00070b url(/images/blue_gradient.png) fixed no-repeat; 
   a {
     display         : block;
     height          : 40px;
-    margin-bottom   : 10px;
+    margin          : 0 10px 10px 10px;
     color           : #000;
     font-size       : 14px;
     font-weight     : bold;
