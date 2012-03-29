@@ -2,6 +2,28 @@ IWitness.ResultSetView = Ember.View.extend({
   templateName: 'result_set_template',
   isVisibleBinding: 'IWitness.currentViewController.showingSearchResults',
 
+  didInsertElement: function(){
+    var self = this;
+    _.defer(function(){
+      $(window).on('scroll', self.infiniteScrollDetection('twitter'));
+      $(window).on('scroll', self.infiniteScrollDetection('flickr'));
+    });
+  },
+
+  infiniteScrollDetection: function(service){
+    var self = this;
+
+    return function(e) {
+      var lastEl = self.$('.'+ service +':last');
+      if(lastEl.length > 0) {
+        var scrollDistanceToLastEl = lastEl.offset().top - $(window).scrollTop() - $(window).height();
+        if(scrollDistanceToLastEl < 600 && IWitness.searchController.serviceHasMorePages(service)) {
+          IWitness.searchController.getNextPageForService(service);
+        }
+      }
+    };
+  },
+
   selectResult: function(result) {
     IWitness.resultSetController.set('selectedResult', result);
   },

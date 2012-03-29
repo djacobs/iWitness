@@ -52,6 +52,6 @@ IWitness.ServiceMonitor = Ember.Object.extend({
       this.set('status', 'no results');
     }
 
-    this.set('hasMorePages', search.hasMorePages);
+    this.set('hasMorePages', search.hasMorePages());
   }
 });
