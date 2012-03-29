@@ -44,7 +44,11 @@ IWitness.FlickrResult = IWitness.Result.extend({
   }.property('owner', 'id'),
 
   fetchEmbed: function(){
-    this.set('embedHtml', '<p>'+ this.get('userNamePrimary') +'</p><img src="'+ this.get('contentSrc')+'"/>');
+    this.set('embedHtml',
+             "<a href='"+ this.get('permalinkUrl') +"'><img src='"+ this.get('contentSrc') +"' /></a>"
+             + "<p>"+ this.get('title') +" by "+ this.get('userNamePrimary') +" on "
+             + "<a href='"+ this.get('permalinkUrl') +"'>Flickr</a>.</p>");
+
   }
 
 });
