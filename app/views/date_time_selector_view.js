@@ -54,6 +54,7 @@ IWitness.DateTimeSelector = Ember.View.extend({
     var period = this.$('.period .active').data("val");
 
     this.set("timeValue", hour+":"+minute+" "+period);
+    IWitness.criteriaController.initiateSearch();
   },
 
   moment: function() {
