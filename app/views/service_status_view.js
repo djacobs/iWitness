@@ -16,5 +16,9 @@ IWitness.ServiceStatusView = Ember.View.extend({
     else if (status == "searching") { return "scanning" }
     else if (status == "completed") { return "finished" }
     else                            { return status }
-  }.property("serviceType", "monitor.status")
-})
+  }.property("serviceType", "monitor.status"),
+
+  serviceStatus: function() {
+    return 'service-status ' + this.get('status').replace(' ', '');
+  }.property('status')
+});
