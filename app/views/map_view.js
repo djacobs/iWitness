@@ -3,6 +3,7 @@ IWitness.MapView = Ember.View.extend(IWitness.MapControl, {
   modelBinding:          'IWitness.criteriaController.content',
   selectedResultBinding: 'IWitness.resultSetController.selectedResult',
   zoomLevelBinding:      "model.zoom",
+  mapSearchStatus:       'finished',
 
   didInsertElement: function() {
     // this.map = new Map(document.getElementById("map"), 34.043127, -118.266953); // LA
@@ -44,8 +45,16 @@ IWitness.MapView = Ember.View.extend(IWitness.MapControl, {
   }.observes('model.center'),
 
   findAddress: function() {
-    var address = this.getPath('model.address');
-    if (address) this.map.findAddress(address);
+    var self = this,
+        address = this.getPath('model.address');
+
+    if (address){
+      this.set('mapSearchStatus', 'scanning');
+      this.map.findAddress(address, function(status) {
+        status = status ? 'finished' : 'somethings_wrong';
+        self.set('mapSearchStatus', status);
+      });
+    }
   },
 
   addressField: Ember.TextField.extend({

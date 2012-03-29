@@ -216,13 +216,16 @@ _.extend(Map.prototype, {
     }
   },
 
-  findAddress: function(address) {
+  findAddress: function(address, hollaback) {
     var self = this;
 
     this.geocoder.geocode({address: address}, function(results, status) {
+      var found = false;
       if (status == google.maps.GeocoderStatus.OK) {
         self.map.setCenter(results[0].geometry.location);
+        found = true;
       }
+      hollaback(found);
     });
   }
 });
