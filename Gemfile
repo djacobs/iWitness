@@ -6,7 +6,7 @@ gem 'less'
 gem 'uglifier'
 gem 'yui-compressor', :require => 'yui/compressor'
 
-gem 'rasputin', :git => 'git@github.com:edgecase/rasputin.git', :branch => 'sprockets'
+gem 'rasputin', :git => 'git://github.com/edgecase/rasputin.git', :branch => 'sprockets'
 
 
 group :development do
