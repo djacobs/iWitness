@@ -6,7 +6,7 @@ IWitness.StarredHeaderView = Ember.View.extend({
   },
 
   flagState: function() {
-    return IWitness.starredSetController.everyProperty("flagged", true) ? "Un-flag all" : "Flag all";
+    return IWitness.starredSetController.everyProperty("flagged", true) ? "Unflag all" : "Flag all";
   }.property("IWitness.starredSetController.@each.flagged"),
 
   flagAll: function() {
