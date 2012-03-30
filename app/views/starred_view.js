@@ -2,6 +2,12 @@ IWitness.StarredView = Ember.View.extend({
   templateName: 'starred_template',
   isVisibleBinding: 'IWitness.currentViewController.showingStarredResults',
 
+  exportSectionClass: function() {
+    var num = IWitness.starredSetController.get('flaggedCount');
+    console.log('num', num);
+    return num > 0 ? '' : 'invisible';
+  }.property('IWitness.starredSetController.flaggedCount'),
+
   numberOfItems: function(){
     var num = IWitness.starredSetController.get('length');
     return num + " starred item" + (num == 1 ? "" : "s");

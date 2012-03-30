@@ -3,7 +3,7 @@
 <div id="starred-info">
   <h1>{{numberOfItems}}</h1>
 
-  <div id="export-section">
+  <div {{bindAttr class="exportSectionClass"}} id="export-section">
     <h2>{{numberFlaggedForExport}}</h2>
 
     <div class="button" {{action "showExportText"}}>Copy as text</div>
