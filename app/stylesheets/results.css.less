@@ -442,9 +442,9 @@
   }
 
   .small-links {
-    position     : absolute;
-    bottom       : 13px;
-    left         : 14px;
+    clear        : both;
+    float        : left;
+    position     : relative;
     padding-left : 30px;
   }
 
@@ -469,10 +469,20 @@
     line-height   : 140%;
   }
 
+  .pin {
+    position   : absolute;
+    right      : 12px;
+    bottom     : 4px;
+    width      : 17px;
+    height     : 26px;
+    cursor     : pointer;
+    background : url(/images/pin_small.png);
+  }
+
   .content-link {
     float  : right;
     width  : 190px;
-    margin : 0 0 0 10px;
+    margin : 0 0 7px 10px;
     border : 3px solid @iwitness-blue;
     .inline-block();
     .iwitness-border-with-radius(7px);
