@@ -5,8 +5,17 @@ IWitness.StarredHeaderView = Ember.View.extend({
     IWitness.currentViewController.set('currentView', 'search_results');
   },
 
+  flagState: function() {
+    return IWitness.starredSetController.everyProperty("flagged", true) ? "Un-flag all" : "Flag all";
+  }.property("IWitness.starredSetController.@each.flagged"),
+
   flagAll: function() {
-    IWitness.starredSetController.setEach('flagged', true);
+    var starred = IWitness.starredSetController;
+    if (starred.everyProperty("flagged", true)) {
+      starred.setEach('flagged', false);
+    } else {
+      starred.setEach('flagged', true);
+    }
   },
 
   clearStarred: function(){
