@@ -200,6 +200,7 @@
 }
 
 #address-field {
+  overflow       : hidden;
   position       : absolute;
   top            : 725px;
   right          : 0;
@@ -214,10 +215,15 @@
   .serif-bold();
   .transition(all, 0.25s);
 
+  label {
+    float   : right;
+    display : block;
+  }
+
   input {
     position    : relative;
-    width       : 220px;
-    margin-left : 5px;
+    width       : 240px;
+    margin-left : 15px;
     color       : #222;
     z-index     : 1;
     .placeholder-color(#4c4c4c);
@@ -225,21 +231,17 @@
   }
 
   .radar {
-    display    : none;
-    position   : absolute;
-    top        : 0;
-    right      : 0;
-    width      : 34px;
-    height     : 34px;
-    background : url(/images/radar_sweep_blue_2.png);
+    display      : none;
+    float        : right;
+    width        : 34px;
+    height       : 34px;
+    margin-right : 20px;
+    background   : url(/images/radar_sweep_blue_2.png);
   }
 
-  &.scanning {
-    padding-right: 42px;
-    .radar {
-      display: block;
-      .rotate();
-    }
+  &.scanning .radar {
+    display: block;
+    .rotate();
   }
 }
 
