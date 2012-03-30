@@ -65,6 +65,11 @@ IWitness.ResultView = Ember.View.extend(IWitness.PostedDateTime, {
     click: function() {
       this.getPath('parentView.model').toggleProperty('flagged');
     }
-  })
+  }),
 
+  recenterOnResult: function(){
+    var lat = this.getPath('model.lat');
+    var lng = this.getPath('model.lng');
+    IWitness.criteria.set("center", [lat, lng]);
+  }
 });

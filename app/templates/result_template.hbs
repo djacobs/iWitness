@@ -33,7 +33,7 @@
     <p>{{linkify model.contentText}}</p>
   </div>
 
-  <div class="pin"></div>
+  <div class="pin" {{action "recenterOnResult"}} title="Recenter search"></div>
 
   <div class="small-links">
     <a class="permalink" target="_blank" {{bindAttr href="model.permalinkUrl"}}>{{model.permalinkText}}</a>
