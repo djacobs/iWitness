@@ -20,6 +20,20 @@ IWitness.criteriaController = Ember.Object.create({
         IWitness.routes.visitSearch(this.get('content'));
       }
     }
-  }, IWitness.config.searchDelay)
+  }, IWitness.config.searchDelay),
+
+  useLocalTime: function(value) {
+    if (value == "toggle") {
+      this.get('content').toggleProperty('useLocalTime');
+    } else if (this.getPath('content.useLocalTime') !== value) {
+      this.setPath('content.useLocalTime', value);
+    } else {
+      return; // don't need to change anything. short-circuit the search
+    }
+
+    if (this.getPath("content.timezoneDifference") !== 0) {
+      this.initiateSearch();
+    }
+  }
 
 });

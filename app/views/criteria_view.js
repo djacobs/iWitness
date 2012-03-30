@@ -32,17 +32,18 @@ IWitness.CriteriaView = Ember.View.extend({
     }.property('model.useLocalTime'),
 
     click: function(e) {
-      this.get('model').toggleProperty('useLocalTime');
+      IWitness.criteriaController.useLocalTime("toggle");
     },
 
     chooseLocalTime: function(e) {
-      this.setPath('model.useLocalTime', true);
+      IWitness.criteriaController.useLocalTime(true);
       return false;
     },
 
     chooseMapTime: function(e) {
-      this.setPath('model.useLocalTime', false);
+      IWitness.criteriaController.useLocalTime(false);
       return false;
     }
+
   })
 });
