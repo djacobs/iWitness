@@ -12,6 +12,7 @@
   position : fixed;
   top      : 0;
   width    : 560px;
+  z-index  : 1;
 
   .nav-button {
     margin-top : -1px;
@@ -56,7 +57,10 @@
 }
 
 #starred-info {
-  top: 52px;
+  overflow    : auto;
+  position    : fixed;
+  top         : 39px;
+  padding-top : 13px;
 
   h1 {
     margin-bottom : 20px;
@@ -64,12 +68,21 @@
     .serif();
     .user-select(none);
   }
+
+  #starred-map-container {
+    position    : relative;
+    top         : 0;
+    bottom      : auto;
+    height      : 505px;
+    margin-left : 0;
+  }
 }
 
 #export-section {
-  position   : relative;
-  padding    : 5px 15px;
-  background : #02101a;
+  position      : relative;
+  margin-bottom : 15px;
+  padding       : 5px 15px;
+  background    : #02101a;
   .inline-block();
   .rounded(10px);
 
