@@ -39,6 +39,10 @@ sprockets.context_class.class_eval do
     end
   end
 
+  def analytics
+    ENV["ANALYTICS_ACCT"] || "UA-29639865-2"
+  end
+
   def env
     ENV['RACK_ENV'] || 'development'
   end

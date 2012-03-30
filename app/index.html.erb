@@ -10,7 +10,7 @@
     var _gaq = _gaq || [];
 
     <% if env == 'production' %>
-      _gaq.push(['_setAccount', 'UA-29639865-1']);
+      _gaq.push(['_setAccount', '<%= analytics %>']);
     <% else %>
       _gaq.push(['_setAccount', 'UA-29639865-2']);
       _gaq.push(['_setDomainName', 'none']);
