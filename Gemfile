@@ -12,4 +12,5 @@ gem 'rasputin', :git => 'git@github.com:edgecase/rasputin.git', :branch => 'spro
 group :development do
   gem 'ruby-debug19', :require => 'ruby-debug'
   gem 'awesome_print', :require => 'ap'
+  gem 'heroku'
 end
