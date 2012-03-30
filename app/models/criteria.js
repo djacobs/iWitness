@@ -87,13 +87,13 @@ IWitness.Criteria = Ember.Object.extend({
 
   timeError: function() {
     if (!this.get('stream') && moment(this.get('end')).isBefore(moment(this.get('start')))) {
-      return "Please select a start date that comes before the end date.";
+      return "Please select an end date that comes after the start date.";
     }
   }.property("start", "end", "stream"),
 
   mapError: function(){
     if (this.get('radius') > 75000) {
-      return "Please increase the map zoom in order to provide more relevant results.";
+      return "Please zoom in to start scanning.";
     }
   }.property("radius"),
 
