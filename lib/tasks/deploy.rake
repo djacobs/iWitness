@@ -18,7 +18,7 @@ namespace :deploy do
   desc "push to all heroku instances"
   task :production do
     APPS.each do |app|
-      sh "git push #{app} master"
+      sh "git push #{app} master --force"
     end
   end
 end
