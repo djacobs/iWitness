@@ -7,6 +7,7 @@ IWitness.DateTimeSelector = Ember.View.extend({
       onSelect: _.bind(this.setDate, this)
     }).hide();
 
+    this.$(".datepicker .ui-datepicker").on("click.pickDate", function(e){ e.stopPropagation(); });
     this.timepicker = this.$('.ec-time-picker');
     this.timepicker.find('.column').click(_.bind(this.setTime, this));
   },
