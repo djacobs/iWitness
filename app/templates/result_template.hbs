@@ -1,31 +1,35 @@
 <div class="item">
-  <div class="timeline-arrow"><span>{{postedTime}}</span></div>
+  <div class="timeline-arrow"><span>{{unbound postedTime}}</span></div>
   <div class="timeline-arrows"></div>
   <div {{action toggleCuration}} {{bindAttr class="starButtonClass"}}></div>
 
   {{#if model.contentSrc}}
-    <a class='content-link' target="_blank" {{bindAttr href="model.contentLink"}}>
-      <img {{bindAttr src="model.contentSrc"}}>
+    <a class='content-link' target="_blank" href="{{unbound model.contentLink}}">
+      <img src="{{unbound model.contentSrc}}">
     </a>
   {{/if}}
 
   <div class="heading">
     <div class="pic">
-      <a target="_blank" {{bindAttr href="model.userUrl"}}>
-        <img {{bindAttr src="model.avatarSrc"}}>
+      <a target="_blank" href="{{unbound model.userUrl}}">
+        <img  src="{{unbound model.avatarSrc}}">
       </a>
     </div>
 
     {{#if model.title}}
-      <strong>{{model.title}}</strong>
+      <strong>{{unbound model.title}}</strong>
       by
     {{/if}}
 
-    <a target="_blank" class="user-name-primary" {{bindAttr href="model.userUrl"}}>{{model.userNamePrimary}}</a>
+    <a target="_blank" class="user-name-primary"  href="{{unbound model.userUrl}}">
+      {{unbound model.userNamePrimary}}
+    </a>
 
     {{#if model.userNameSecondary}}
       <br>
-      <a target="_blank" class="user-name-secondary" {{bindAttr href="model.userUrl"}}>{{model.userNameSecondary}}</a>
+      <a target="_blank" class="user-name-secondary"  href="{{unbound model.userUrl}}">
+        {{unbound model.userNameSecondary}}
+      </a>
     {{/if}}
   </div>
 
@@ -36,12 +40,14 @@
   <div class="pin" {{action "recenterOnResult"}} title="Recenter search"></div>
 
   <div class="small-links">
-    <a class="permalink" target="_blank" {{bindAttr href="model.permalinkUrl"}}>{{model.permalinkText}}</a>
+    <a class="permalink" target="_blank"  href="{{unbound model.permalinkUrl}}">
+      {{unbound model.permalinkText}}
+    </a>
     <div class="timestamp">
-      <a target="_blank" {{bindAttr href="model.permalinkUrl"}}>
-        {{postedDate}}
+      <a target="_blank"  href="{{unbound model.permalinkUrl}}">
+        {{unbound postedDate}}
         <br>
-        {{postedTime}}
+        {{unbound postedTime}}
       </a>
     </div>
   </div>

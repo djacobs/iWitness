@@ -1,8 +1,8 @@
-<pre>{{#if isTwitter }}{{model.userNamePrimary}}   {{model.userNameSecondary}}
-{{model.contentText}}
-{{postedDate}}   {{postedTime}}
-<{{model.permalinkUrl}}>
-{{else}}Flickr photo by {{model.userNamePrimary}}
-{{postedDate}}   {{postedTime}}
-<{{model.permalinkUrl}}>
+<pre>{{#if isTwitter }}{{unbound model.userNamePrimary}}   {{unbound model.userNameSecondary}}
+{{unbound model.contentText}}
+{{unbound postedDate}}   {{unbound postedTime}}
+&lt;{{unbound model.permalinkUrl}}&gt;
+{{else}}Flickr photo by {{unbound model.userNamePrimary}}
+{{unbound postedDate}}   {{unbound postedTime}}
+&lt;{{unbound model.permalinkUrl}}&gt;
 {{/if}}</pre><br/>
