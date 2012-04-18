@@ -15,13 +15,11 @@ IWitness.resultFactory = {
 
   _camelCase: function(params) {
     var camelCased = {};
-    var newKey;
 
     for (var k in params) {
-      newKey = k.replace(/_(\w)/g, function(match, char) {
-        return char.toUpperCase();
-      });
-      camelCased[newKey] = params[k];
+      if (params.hasOwnProperty(k)) {
+        camelCased[k.camelize()] = params[k];
+      }
     }
 
     return camelCased;
