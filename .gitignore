@@ -1,0 +1,11 @@
+/.bundle/
+
+# Ignore all logfiles and tempfiles.
+/log/
+/tmp/
+.DS_Store
+
+config.yml
+
+assets/
+
