@@ -12,11 +12,12 @@ IWitness.DateTimeSelector = Ember.View.extend({
     this.timepicker.find('.column').click(_.bind(this.setTime, this));
   },
 
-  pickDate: function(e){
-    var self = this;
+  pickDate: function(self, e){
+    e.stopPropagation();
+
     this.datepicker.show();
-    $("body").on('click.pickDate', function(e){
-      $("body").off("click.pickDate");
+    $(document).on('click.pickDate', function(e){
+      $(document).off("click.pickDate");
       self.datepicker.hide();
     });
   },
@@ -29,16 +30,16 @@ IWitness.DateTimeSelector = Ember.View.extend({
     this.datepicker.hide();
   },
 
-  pickTime: function(e) {
-    var self = this;
+  pickTime: function(self, e) {
+    e.stopPropagation();
 
     this.timepicker.find('.hour a[data-val="'+ this.get("hours") +'"]').addClass("active");
     this.timepicker.find('.minute a[data-val="'+ this.get("minutes") +'"]').addClass("active");
     this.timepicker.find('.period a[data-val="'+ this.get("period") +'"]').addClass("active");
     this.timepicker.show();
 
-    $("body").on('click.pickTime', function(e){
-      $("body").off("click.pickTime");
+    $(document).on('click.pickTime', function(e){
+      $(document).off("click.pickTime");
       self.timepicker.hide();
     });
   },
