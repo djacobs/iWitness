@@ -7,7 +7,7 @@ IWitness.ServiceStatusView = Ember.View.extend({
   }.property("IWitness.searchController.monitors.twitter", "IWitness.searchController.monitors.flickr", "serviceType").cacheable(),
 
   badgeSrc: function() {
-    return "/images/" + this.get("serviceType") + "_badge.png";
+    return "images/" + this.get("serviceType") + "_badge.png";
   }.property("serviceType"),
 
   status: function() {

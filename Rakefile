@@ -14,14 +14,16 @@ Dir.glob('lib/tasks/*.rake').each { |r| import r }
 
 LOGGER      = Logger.new(STDOUT)
 
-ROOT        = Pathname(File.dirname(__FILE__))
-BUILD_DIR   = ROOT.join("assets")
-SOURCE_DIR  = ROOT.join("app")
-CSS_DIR     = ROOT.join("app", 'stylesheets')
-JSON_DIR    = ROOT.join("app", 'json')
-SPECS_DIR   = ROOT.join("spec", 'specs')
-VENDOR_DIR  = ROOT.join("vendor")
-TZDATA_DIR  = VENDOR_DIR.join("tzdata")
+ROOT       = Pathname(File.dirname(__FILE__))
+BUILD_DIR  = ROOT.join("assets")
+SOURCE_DIR = ROOT.join("app")
+CSS_DIR    = ROOT.join("app", 'stylesheets')
+IMAGES_DIR = ROOT.join("app", 'images')
+FONTS_DIR  = ROOT.join("app", 'fonts')
+JSON_DIR   = ROOT.join("app", 'json')
+SPECS_DIR  = ROOT.join("spec", 'specs')
+VENDOR_DIR = ROOT.join("vendor")
+TZDATA_DIR = VENDOR_DIR.join("tzdata")
 
 BUNDLES     = [ 'index.html', 'application.css', 'application.js', 'timezones.json' ]
 
@@ -62,7 +64,10 @@ task :compile => [:clean, BUILD_DIR.to_s] do
     assets = sprockets.find_asset(bundle)
     assets.write_to(BUILD_DIR.join(bundle).to_s)
   end
+
   cp_r TZDATA_DIR, BUILD_DIR, :verbose => true
+  cp_r IMAGES_DIR, BUILD_DIR, :verbose => true
+  cp_r FONTS_DIR, BUILD_DIR, :verbose => true
 end
 
 desc "Run tests with phantomjs"
