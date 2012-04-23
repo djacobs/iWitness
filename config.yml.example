@@ -1,0 +1,17 @@
+development:
+  gmaps:
+    api_key: 'YOUR KEY'
+  flickr:
+    api_key: 'YOUR KEY'
+  analytics:
+    enabled: true
+    account_id: 'YOUR ACCT ID'
+
+production:
+  gmaps:
+    api_key: 'YOUR KEY'
+  flickr:
+    api_key: 'YOUR KEY'
+  analytics:
+    enabled: true
+    account_id: 'YOUR ACCT ID'

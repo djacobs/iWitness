@@ -28,10 +28,18 @@ TZDATA_DIR = VENDOR_DIR.join("tzdata")
 BUNDLES     = [ 'index.html', 'application.css', 'application.js', 'timezones.json' ]
 
 directory BUILD_DIR.to_s
+CONFIG_FILE = ROOT.join("config.yml")
 
 desc "remove all built assets"
 task :clean do
   FileUtils.rm_r(BUILD_DIR) if File.exists?(BUILD_DIR)
+end
+
+if File.exists?(CONFIG_FILE)
+  CONFIG = YAML.load_file(CONFIG_FILE)
+else
+  puts "#{CONFIG_FILE} does not exist. Copy from #{CONFIG_FILE}.example"
+  exit 1
 end
 
 desc "compile all files into the assets directory"
@@ -47,16 +55,12 @@ task :compile => [:clean, BUILD_DIR.to_s] do
   sprockets.append_path(JSON_DIR.to_s)
   sprockets.append_path(VENDOR_DIR.to_s)
   sprockets.context_class.class_eval do
-    def maps
-      if ENV['GMAPS_API']
-        { 'api_key' => ENV['GMAPS_API'] }
-      elsif File.exists?(ROOT.join("config", "gmaps.yml"))
-        YAML.load_file(ROOT.join("config", "gmaps.yml"))
-      end
+    def env
+      'production'
     end
 
-    def env
-      ENV['RACK_ENV'] || 'development'
+    def config
+      CONFIG[env]
     end
   end
 

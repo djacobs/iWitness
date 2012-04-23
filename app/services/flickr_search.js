@@ -74,7 +74,7 @@ _.extend(FlickrSearch.prototype, {
 
   _searchParams: function(){
     return {
-      api_key:         'd8e03d0c91caffad9c85eccb1a54dc18',
+      api_key:         window.flickrApiKey,
       bbox:            this.boundingBox,
       sort:            'date-taken-desc',
       min_taken_date:  this._adjustTime(this.start),
