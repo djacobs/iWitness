@@ -75,7 +75,7 @@ describe("Criteria", function() {
       it("includes an error if the start comes before the end", function() {
         subject.set('endTimeString', '8:00 AM');
         expect(subject.get('errors').length).toEqual(1);
-        expect(subject.get('errors')[0]).toMatch(/before/i);
+        expect(subject.get('errors')[0]).toMatch(/after the start date/i);
       });
 
       it("includes an error if the radius is more than 75km", function() {

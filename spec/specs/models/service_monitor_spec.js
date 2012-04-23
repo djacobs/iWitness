@@ -3,7 +3,10 @@ describe("ServiceMonitor", function(){
 
   beforeEach(function(){
     monitor = IWitness.ServiceMonitor.create();
-    twitterSearch = {};
+    twitterSearch = {
+      _hasMorePages: true,
+      hasMorePages: function() { return this._hasMorePages; }
+    };
   });
 
   describe('status', function(){
@@ -64,7 +67,7 @@ describe("ServiceMonitor", function(){
   describe("after search completes", function(){
     it("sets hasMorePages equal to search.hasMorePages", function(){
       monitor.set('search', twitterSearch);
-      twitterSearch.hasMorePages = false;
+      twitterSearch._hasMorePages = false;
       expect(monitor.get('hasMorePages')).toBeTruthy();
       Ember.sendEvent(twitterSearch, 'done');
       expect(monitor.get('hasMorePages')).toBeFalsy();
