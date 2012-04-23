@@ -23,3 +23,31 @@ else
   puts "#{CONFIG_FILE} does not exist. Copy from #{CONFIG_FILE}.example"
   exit 1
 end
+
+SprocketsApp = Sprockets::Environment.new(ROOT) do |env|
+  env.register_engine '.hbs', Rasputin::HandlebarsTemplate
+  env.logger = LOGGER
+
+  if ENVIRONMENT == 'production'
+    env.js_compressor = Uglifier.new
+    env.css_compressor = YUI::CssCompressor.new
+  end
+end
+
+SprocketsApp.append_path(SOURCE_DIR.to_s)
+SprocketsApp.append_path(CSS_DIR.to_s)
+SprocketsApp.append_path(JSON_DIR.to_s)
+SprocketsApp.append_path(VENDOR_DIR.to_s)
+if ENVIRONMENT == 'development'
+  SprocketsApp.append_path(SPECS_DIR.to_s)
+end
+
+SprocketsApp.context_class.class_eval do
+  def env
+    ENVIRONMENT
+  end
+
+  def config
+    CONFIG[env]
+  end
+end

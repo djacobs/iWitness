@@ -1,49 +1,16 @@
 # This file is used by Rack-based servers to start the application.
 
+ENVIRONMENT = ENV['RACK_ENV'] || 'development'
+
 require './boot'
-
-### Application Sprockets
-sprockets = Sprockets::Environment.new(ROOT) do |env|
-  env.register_engine '.hbs', Rasputin::HandlebarsTemplate
-  env.logger = LOGGER
-end
-
-sprockets.append_path(SOURCE_DIR.to_s)
-sprockets.append_path(CSS_DIR.to_s)
-sprockets.append_path(JSON_DIR.to_s)
-sprockets.append_path(VENDOR_DIR.join('bootstrap').to_s)
-sprockets.append_path(VENDOR_DIR.join('jquery-ui-bootstrap').to_s)
-sprockets.append_path(VENDOR_DIR.join('jquery-ui-bootstrap', 'jquery-ui-bootstrap').to_s)
-sprockets.append_path(VENDOR_DIR.to_s)
-
-sprockets.context_class.class_eval do
-  def env
-    ENV['RACK_ENV'] || 'development'
-  end
-
-  def config
-    CONFIG[env]
-  end
-end
-
-### Specs Sprockets
-sprockets_specs = Sprockets::Environment.new(ROOT) do |env|
-  env.register_engine '.hbs', Rasputin::HandlebarsTemplate
-  env.logger = LOGGER
-end
-
-sprockets_specs.append_path(SOURCE_DIR.to_s)
-sprockets_specs.append_path(SPECS_DIR.to_s)
-sprockets_specs.append_path(JSON_DIR.to_s)
-sprockets_specs.append_path(VENDOR_DIR.to_s)
 
 ### Routes
 map '/' do
   run proc { |env|
     if env['PATH_INFO'] == '/'
-      [200, { 'Content-Type' => 'text/html' }, [sprockets['index.html'].to_s]]
+      [200, { 'Content-Type' => 'text/html' }, [SprocketsApp['index.html'].to_s]]
     else
-      sprockets.call(env)
+      SprocketsApp.call(env)
     end
   }
 end
@@ -51,9 +18,9 @@ end
 map '/specs' do
   run proc { |env|
     if env['PATH_INFO'] == ''
-      [200, { 'Content-Type' => 'text/html' }, [sprockets_specs['run.html'].to_s]]
+      [200, { 'Content-Type' => 'text/html' }, [SprocketsApp['run.html'].to_s]]
     else
-      sprockets_specs.call(env)
+      SprocketsApp.call(env)
     end
   }
 end
