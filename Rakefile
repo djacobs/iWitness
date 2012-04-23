@@ -36,11 +36,12 @@ task :publish => [:not_dirty, :compile] do
   sh 'git checkout master'
   head = `git log --pretty="%h" -n1`.strip
   sh 'git checkout gh-pages'
-  cp FileList['assets/*'], '.'
+  sh 'git pull origin gh-pages'
+  sh 'cp -R assets/* .'
   sh 'git add .'
-  # sh "git commit -m 'Updated application to #{head}'"
-  # sh 'git push'
-  # sh 'git checkout master'
+  sh "git commit -m 'Updated application to #{head}'"
+  sh 'git push origin gh-pages'
+  sh 'git checkout master'
 end
 
 desc "Run tests with phantomjs"
