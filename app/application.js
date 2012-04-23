@@ -4,8 +4,6 @@
 //= require jquery-ui/jquery-ui/ui/jquery.ui.widget
 //= require jquery-ui/jquery-ui/ui/jquery.ui.mouse
 //= require jquery-ui/jquery-ui/ui/jquery.ui.slider
-//= require timePicker/timePicker/jquery.timePicker
-//= require bootstrap/js/bootstrap.js
 //= require javascripts/underscore
 //= require javascripts/ember
 //= require sproutcore-routing/sproutcore-routing/lib/core.js
