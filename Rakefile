@@ -27,6 +27,22 @@ task :compile => [:clean, BUILD_DIR.to_s] do
   cp_r FONTS_DIR, BUILD_DIR, :verbose => true
 end
 
+task :not_dirty do
+  fail "Directory not clean" if /nothing to commit/ !~ `git status`
+end
+
+desc "Publish the app to Github Pages."
+task :publish => [:not_dirty, :compile] do
+  sh 'git checkout master'
+  head = `git log --pretty="%h" -n1`.strip
+  sh 'git checkout gh-pages'
+  cp FileList['assets/*'], '.'
+  sh 'git add .'
+  # sh "git commit -m 'Updated application to #{head}'"
+  # sh 'git push'
+  # sh 'git checkout master'
+end
+
 desc "Run tests with phantomjs"
 task :test do
   unless system("which phantomjs > /dev/null 2>&1")
