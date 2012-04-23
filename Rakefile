@@ -2,44 +2,19 @@
 # Add your own tasks in files placed in lib/tasks ending in .rake,
 # for example lib/tasks/capistrano.rake, and they will automatically be available to Rake.
 
-require 'bundler'
+require './boot'
 require 'ap'
-
-Bundler.require
-
-require 'pathname'
-require 'logger'
 require 'fileutils'
+
 Dir.glob('lib/tasks/*.rake').each { |r| import r }
-
-LOGGER      = Logger.new(STDOUT)
-
-ROOT       = Pathname(File.dirname(__FILE__))
-BUILD_DIR  = ROOT.join("assets")
-SOURCE_DIR = ROOT.join("app")
-CSS_DIR    = ROOT.join("app", 'stylesheets')
-IMAGES_DIR = ROOT.join("app", 'images')
-FONTS_DIR  = ROOT.join("app", 'fonts')
-JSON_DIR   = ROOT.join("app", 'json')
-SPECS_DIR  = ROOT.join("spec", 'specs')
-VENDOR_DIR = ROOT.join("vendor")
-TZDATA_DIR = VENDOR_DIR.join("tzdata")
 
 BUNDLES     = [ 'index.html', 'application.css', 'application.js', 'timezones.json' ]
 
 directory BUILD_DIR.to_s
-CONFIG_FILE = ROOT.join("config.yml")
 
 desc "remove all built assets"
 task :clean do
   FileUtils.rm_r(BUILD_DIR) if File.exists?(BUILD_DIR)
-end
-
-if File.exists?(CONFIG_FILE)
-  CONFIG = YAML.load_file(CONFIG_FILE)
-else
-  puts "#{CONFIG_FILE} does not exist. Copy from #{CONFIG_FILE}.example"
-  exit 1
 end
 
 desc "compile all files into the assets directory"

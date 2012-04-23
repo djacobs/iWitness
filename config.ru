@@ -1,21 +1,6 @@
 # This file is used by Rack-based servers to start the application.
 
-require 'bundler'
-
-Bundler.require
-
-require 'logger'
-
-### Paths
-ROOT       = Pathname(File.dirname(__FILE__))
-LOGGER     = Logger.new(STDOUT)
-SOURCE_DIR = ROOT.join("app")
-CSS_DIR    = ROOT.join("app", 'stylesheets')
-JSON_DIR   = ROOT.join("app", 'json')
-SPECS_DIR  = ROOT.join("spec", 'specs')
-VENDOR_DIR = ROOT.join("vendor")
-TZDATA_DIR = VENDOR_DIR.join("tzdata")
-CONFIG_FILE  = ROOT.join("config.yml")
+require './boot'
 
 ### Application Sprockets
 sprockets = Sprockets::Environment.new(ROOT) do |env|
@@ -30,13 +15,6 @@ sprockets.append_path(VENDOR_DIR.join('bootstrap').to_s)
 sprockets.append_path(VENDOR_DIR.join('jquery-ui-bootstrap').to_s)
 sprockets.append_path(VENDOR_DIR.join('jquery-ui-bootstrap', 'jquery-ui-bootstrap').to_s)
 sprockets.append_path(VENDOR_DIR.to_s)
-
-if File.exists?(CONFIG_FILE)
-  CONFIG = YAML.load_file(CONFIG_FILE)
-else
-  puts "#{CONFIG_FILE} does not exist. Copy from #{CONFIG_FILE}.example"
-  exit 1
-end
 
 sprockets.context_class.class_eval do
   def env
