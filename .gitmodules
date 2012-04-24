@@ -1,0 +1,3 @@
+[submodule "vendor/sproutcore-routing/sproutcore-routing"]
+	path = vendor/sproutcore-routing/sproutcore-routing
+	url = git://github.com/emberjs-addons/sproutcore-routing.git
