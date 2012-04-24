@@ -289,7 +289,7 @@ _.extend(Map.prototype, {
     this.geocoder.geocode({address: address}, function(results, status) {
       var found = false;
       if (status == google.maps.GeocoderStatus.OK) {
-        self.map.setCenter(results[0].geometry.location);
+        self.map.fitBounds(results[0].geometry.viewport);
         found = true;
       }
       hollaback(found);
