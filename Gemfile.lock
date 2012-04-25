@@ -1,9 +1,9 @@
 GIT
   remote: git://github.com/edgecase/rasputin.git
-  revision: 615eed46371f41b5b1ec51c8cb3e962708ef019d
+  revision: 6740c23aa2e746f981f29300ed12cb6e47554412
   branch: sprockets
   specs:
-    rasputin (0.14.1)
+    rasputin (0.15.0)
       sprockets (~> 2.0)
 
 GEM
@@ -52,8 +52,9 @@ GEM
     ruby_core_source (0.1.5)
       archive-tar-minitar (>= 0.5.2)
     rubyzip (0.9.5)
-    sprockets (2.1.2)
+    sprockets (2.4.0)
       hike (~> 1.2)
+      multi_json (~> 1.0)
       rack (~> 1.0)
       tilt (~> 1.1, != 1.3.0)
     term-ansicolor (1.0.6)
