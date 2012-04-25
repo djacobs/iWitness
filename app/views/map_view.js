@@ -4,6 +4,7 @@ IWitness.MapView = Ember.View.extend(IWitness.MapControl, {
   selectedResultBinding: 'IWitness.resultSetController.selectedResult',
   zoomLevelBinding:      "model.zoom",
   mapSearchStatus:       'finished',
+  isCurrentViewBinding:  Ember.Binding.not('IWitness.currentViewController.showingStarredResults'),
 
   didInsertElement: function() {
     // this.map = new Map(document.getElementById("map"), 34.043127, -118.266953); // LA
@@ -16,6 +17,12 @@ IWitness.MapView = Ember.View.extend(IWitness.MapControl, {
     this.set("zoomLevel", this.get("model.zoom") || 3);
     this.initZoomSlider();
   },
+
+  refreshMap: function() {
+    if (this.getPath('isCurrentView') && this.map) {
+      this.map.forceResize();
+    }
+  }.observes("isCurrentView"),
 
   createMarkerForResult: function() {
     var lat = this.getPath('selectedResult.lat');

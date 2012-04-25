@@ -252,6 +252,10 @@ _.extend(Map.prototype, {
     this.map.setCenter(point);
   },
 
+  forceResize: function(args) {
+    google.maps.event.trigger(this.map, "resize");
+  },
+
   panTo: function(bounds) {
     var point = new google.maps.LatLng(bounds[0], bounds[1]);
     this.map.panTo(point);
