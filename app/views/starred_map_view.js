@@ -37,12 +37,6 @@ IWitness.StarredMapView = Ember.View.extend(IWitness.MapControl, {
     }
   }.observes('isCurrentView'),
 
-  refreshMap: function() {
-    if (this.getPath('isCurrentView') && this.map) {
-      this.map.forceResize();
-    }
-  }.observes("isCurrentView"),
-
   createMarkerForResult: function() {
     var lat = this.getPath('selectedResult.lat');
     var lng = this.getPath('selectedResult.lng');

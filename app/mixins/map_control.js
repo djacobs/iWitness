@@ -28,5 +28,12 @@ IWitness.MapControl = Ember.Mixin.create({
 
   zoomOut: function() {
     this.decrementProperty("zoomLevel");
-  }
+  },
+
+  refreshMap: function() {
+    if (this.getPath('isCurrentView') && this.map) {
+      this.map.forceResize();
+    }
+  }.observes("isCurrentView")
+
 });

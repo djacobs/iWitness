@@ -18,12 +18,6 @@ IWitness.MapView = Ember.View.extend(IWitness.MapControl, {
     this.initZoomSlider();
   },
 
-  refreshMap: function() {
-    if (this.getPath('isCurrentView') && this.map) {
-      this.map.forceResize();
-    }
-  }.observes("isCurrentView"),
-
   createMarkerForResult: function() {
     var lat = this.getPath('selectedResult.lat');
     var lng = this.getPath('selectedResult.lng');
