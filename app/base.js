@@ -1,4 +1,6 @@
 window.IWitness = Ember.Application.create({
+  rootElement: "#container",
+
   ready: function() {
     if (this.isValidBrowser()) {
       IWitness.routes.draw();
