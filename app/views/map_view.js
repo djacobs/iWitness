@@ -4,7 +4,7 @@ IWitness.MapView = Ember.View.extend(IWitness.MapControl, {
   selectedResultBinding: 'IWitness.resultSetController.selectedResult',
   zoomLevelBinding:      "model.zoom",
   mapSearchStatus:       'finished',
-  isCurrentViewBinding:  Ember.Binding.not('IWitness.currentViewController.showingStarredResults'),
+  isCurrentViewBinding:  'IWitness.currentViewController.showingSearchResults',
 
   didInsertElement: function() {
     // this.map = new Map(document.getElementById("map"), 34.043127, -118.266953); // LA

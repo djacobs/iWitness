@@ -1,7 +1,6 @@
 IWitness.StarredMapView = Ember.View.extend(IWitness.MapControl, {
-  templateName: 'starred_map_template',
-  currentViewBinding: 'IWitness.currentViewController',
-  isCurrentViewBinding: Ember.Binding.bool('currentView.showingStarredResults'),
+  templateName:          'starred_map_template',
+  isCurrentViewBinding:  'IWitness.currentViewController.showingStarredResults',
   selectedResultBinding: 'IWitness.starredSetController.selectedResult',
 
   didInsertElement: function() {
@@ -24,7 +23,6 @@ IWitness.StarredMapView = Ember.View.extend(IWitness.MapControl, {
           startingLocation = [firstResult.get('lat'), firstResult.get('lng')];
           startingZoom = 15;
         } else {
-          // startingLocation = [40.735955030904755, -73.99026397144165]; // OWS Union Sq
           startingLocation = [37.090301, -95.712919]; // Kansas!
           startingZoom = 3;
         }
