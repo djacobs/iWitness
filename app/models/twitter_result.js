@@ -62,10 +62,14 @@ IWitness.TwitterResult = IWitness.Result.extend({
     // other links show up in entities.urls
     if (entities && entities.urls.length) {
       url = entities.urls[0].expanded_url;
-      if (match = url.match(/instagr\.am\/p\/(.*?)\//)) {
-        return this._media(url, "http://instagr.am/p/"+ match[1] +"/media/?size=m");
-      } else if (match = url.match(/twitpic\.com\/(\w+)/)) {
-        return this._media(url, "http://twitpic.com/show/large/"+ match[1]);
+      match = _.reduce(ImageServices, function(acc, service) {
+        if(acc) return acc;
+
+        return service.match(url);
+      }, null);
+
+      if (match) {
+        return this._media(url, match);
       }
     }
     return {};

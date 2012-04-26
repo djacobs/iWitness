@@ -6,19 +6,36 @@ describe("TwitterResult", function() {
       result = IWitness.TwitterResult.create({entities: entities});
     });
 
-    it("returns nothing when no entities", function() {
-      expect(result.get("contentSrc")).toBeFalsy();
-    });
+    describe("picture services", function() {
+      it("returns nothing when no entities", function() {
+        expect(result.get("contentSrc")).toBeFalsy();
+      });
 
-    it("returns an instagram url", function() {
-      entities.urls.push({expanded_url: "http://instagr.am/p/HxOi-1wLe_/"});
-      expect(result.get("contentSrc")).toEqual("http://instagr.am/p/HxOi-1wLe_/media/?size=m");
-    });
+      it("returns an instagram url", function() {
+        entities.urls.push({expanded_url: "http://instagr.am/p/HxOi-1wLe_/"});
+        expect(result.get("contentSrc")).toEqual("http://instagr.am/p/HxOi-1wLe_/media/?size=m");
+      });
 
-    it("returns a twitpic url", function() {
-      entities.urls.push({expanded_url: "http://twitpic.com/8s7vs5"});
-      expect(result.get("contentSrc")).toEqual("http://twitpic.com/show/large/8s7vs5");
-    });
+      it("returns a twitpic url", function() {
+        entities.urls.push({expanded_url: "http://twitpic.com/8s7vs5"});
+        expect(result.get("contentSrc")).toEqual("http://twitpic.com/show/large/8s7vs5");
+      });
+
+      it("returns a twitgoo url", function() {
+        entities.urls.push({expanded_url: "http://twitgoo.com/5prg5z"});
+        expect(result.get("contentSrc")).toEqual("http://twitgoo.com/5prg5z/img");
+      });
+
+      it("returns a lockerz url", function() {
+        entities.urls.push({expanded_url: "http://lockerz.com/s/204335287"});
+        expect(result.get("contentSrc")).toEqual("http://api.plixi.com/api/tpapi.svc/imagefromurl?size=medium&amp;url=http%3A%2F%2Flockerz.com%2Fs%2F204335287");
+      });
+
+      it("returns a yfrog url", function() {
+        entities.urls.push({expanded_url: "http://yfrog.com/neot4xj" });
+        expect(result.get("contentSrc")).toEqual("http://yfrog.com/neot4xj:iphone");
+      });
+    })
 
     describe("twitter media links", function() {
       it("returns photo media url", function() {
