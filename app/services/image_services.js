@@ -29,13 +29,27 @@ var ImageServices = [
                    "http://api.plixi.com/api/tpapi.svc/imagefromurl?size=medium&url=http%3A%2F%2Flockerz.com%2Fs%2F$1")
 ];
 
-var Media = function(url) {
-  this.url = url;
-  var imageService = this.findMedia(url);
+var Media = function(media) {
+  this.media = media;
+  if (media.media_url) {
+    this.fromTwitter();
+  } else {
+    this.fromUrl();
+  }
+}
+
+Media.prototype.fromUrl = function() {
+  this.url = this.media.expanded_url;
+  var imageService = this.findMedia(this.url);
   if (imageService) {
-    this.mediaUrl = imageService.convert(url);
+    this.mediaUrl = imageService.convert(this.url);
     this.tagType  = imageService.tagType;
   }
+}
+
+Media.prototype.fromTwitter = function() {
+  this.url      = this.media.url;
+  this.mediaUrl = this.media.media_url;
 }
 
 Media.prototype.findMedia = function(url) {

@@ -55,36 +55,25 @@ IWitness.TwitterResult = IWitness.Result.extend({
         return item.type == "photo";
       }).first().value();
       if (url){
-        return this._media(url.url, url.media_url+":small");
+        return new Media(url);
       }
     }
 
     // other links show up in entities.urls
     if (entities && entities.urls.length) {
-      url = entities.urls[0].expanded_url;
-      return new Media(url);
+      return new Media(entities.urls[0]);
     }
 
     return {};
   }.property("entities").cacheable(),
 
-  _media: function(url, mediaUrl){
-    return {
-      url:      url,
-      mediaUrl: mediaUrl
-    };
-  },
-
   fetchEmbed: function(){
-    var self = this
-      , id = this.getPath('idStr');
+    var self = this;
+    var id   = this.getPath('idStr');
 
-    $.getJSON("https://api.twitter.com/1/statuses/oembed.json?id="+id+"&align=center&callback=?", {},
-              function(res) {
-                self.set('embedHtml', res.html);
-              }
-             );
-
+    $.getJSON("https://api.twitter.com/1/statuses/oembed.json?id="+id+"&align=center&callback=?", {}, function(res) {
+      self.set('embedHtml', res.html);
+    });
   }
 
 });
