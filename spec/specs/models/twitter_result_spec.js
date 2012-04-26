@@ -28,14 +28,14 @@ describe("TwitterResult", function() {
 
       it("returns a lockerz url", function() {
         entities.urls.push({expanded_url: "http://lockerz.com/s/204335287"});
-        expect(result.get("contentSrc")).toEqual("http://api.plixi.com/api/tpapi.svc/imagefromurl?size=medium&amp;url=http%3A%2F%2Flockerz.com%2Fs%2F204335287");
+        expect(result.get("contentSrc")).toEqual("http://api.plixi.com/api/tpapi.svc/imagefromurl?size=medium&url=http%3A%2F%2Flockerz.com%2Fs%2F204335287");
       });
 
       it("returns a yfrog url", function() {
         entities.urls.push({expanded_url: "http://yfrog.com/neot4xj" });
         expect(result.get("contentSrc")).toEqual("http://yfrog.com/neot4xj:iphone");
       });
-    })
+    });
 
     describe("twitter media links", function() {
       it("returns photo media url", function() {

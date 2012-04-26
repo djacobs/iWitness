@@ -52,7 +52,7 @@ _.extend(Media.prototype, {
 
   fromTwitter: function() {
     this.url      = this.media.url;
-    this.mediaUrl = this.media.media_url;
+    this.mediaUrl = this.media.media_url+":small";
   },
 
   findMedia: function(url) {
@@ -60,4 +60,4 @@ _.extend(Media.prototype, {
       return svc.match(url);
     });
   }
-}
+});
