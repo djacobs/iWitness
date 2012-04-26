@@ -7,18 +7,20 @@ var ImageService = function(name, tagType, regex, replacementPattern) {
   this.replacement = replacementPattern;
 };
 
-ImageService.prototype.match = function(url) {
-  return url.match(this.regex);
-}
+_.extend(ImageService.prototype, {
+  match: function(url) {
+    return url.match(this.regex);
+  },
 
-ImageService.prototype.convert = function(url) {
-  var matchObj = this.match(url);
-  if (matchObj) {
-    return this.replacement.replace("$1", matchObj[1]);
-  } else {
-    return null;
+  convert: function(url) {
+    var matchObj = this.match(url);
+    if (matchObj) {
+      return this.replacement.replace("$1", matchObj[1]);
+    } else {
+      return null;
+    }
   }
-}
+});
 
 var ImageServices = [
   new ImageService("instagram", "img",    /instagr\.am\/p\/(.*?)\//, "http://instagr.am/p/$1/media/?size=m"),
@@ -38,22 +40,24 @@ var Media = function(media) {
   }
 }
 
-Media.prototype.fromUrl = function() {
-  this.url = this.media.expanded_url;
-  var imageService = this.findMedia(this.url);
-  if (imageService) {
-    this.mediaUrl = imageService.convert(this.url);
-    this.tagType  = imageService.tagType;
+_.extend(Media.prototype, {
+  fromUrl: function() {
+    this.url = this.media.expanded_url;
+    var imageService = this.findMedia(this.url);
+    if (imageService) {
+      this.mediaUrl = imageService.convert(this.url);
+      this.tagType  = imageService.tagType;
+    }
+  },
+
+  fromTwitter: function() {
+    this.url      = this.media.url;
+    this.mediaUrl = this.media.media_url;
+  },
+
+  findMedia: function(url) {
+    return _.find(ImageServices, function(svc) {
+      return svc.match(url);
+    });
   }
 }
-
-Media.prototype.fromTwitter = function() {
-  this.url      = this.media.url;
-  this.mediaUrl = this.media.media_url;
-}
-
-Media.prototype.findMedia = function(url) {
-  return _.find(ImageServices, function(svc) {
-    return svc.match(url);
-  });
-};
