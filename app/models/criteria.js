@@ -1,12 +1,15 @@
 IWitness.Criteria = Ember.Object.extend({
   useLocalTime: true,
-  stream: false,
-  keyword: "",
-  address: "",
+  stream:       false,
+  keyword:      "",
+  address:      "",
+  center:       [37.090301, -95.712919], // Kansas!
+  zoom:         3,
 
   init: function() {
     this._super();
     this.setProperties({rawStart: moment().subtract("hours", 1), rawEnd: moment()});
+    this._setDefaultCenter();
   },
 
   timezoneOffset: function() {
@@ -110,6 +113,15 @@ IWitness.Criteria = Ember.Object.extend({
       adjustedTime.add('hours', this.get('timezoneDifference'));
       return adjustedTime;
     }
+  },
+
+  _setDefaultCenter: function() {
+    var self = this;
+    $.getJSON('http://freegeoip.net/json/?callback=?', function(locData) {
+      var center = [locData.latitude, locData.longitude];
+      IWitness.log('defaulting map center to', center);
+      self.setProperties({center: center, zoom: 12});
+    });
   }
 });
 
