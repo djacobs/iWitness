@@ -1,23 +1,45 @@
-var ImageService = function(regex, urlFn) {
-  this.regex = regex;
-  this.urlFn = urlFn;
+// regex must contain one capture group that identifies the
+// replacement to insert into the replacementPattern
+var ImageService = function(name, tagType, regex, replacementPattern) {
+  this.name        = name;
+  this.tagType     = tagType;
+  this.regex       = regex;
+  this.replacement = replacementPattern;
 };
 
 ImageService.prototype.match = function(url) {
-  var matchObj = url.match(this.regex);
+  return url.match(this.regex);
+}
+
+ImageService.prototype.convert = function(url) {
+  var matchObj = this.match(url);
   if (matchObj) {
-    return this.urlFn(matchObj);
+    return this.replacement.replace("$1", matchObj[1]);
   } else {
     return null;
   }
 }
 
 var ImageServices = [
-  new ImageService(/instagr\.am\/p\/(.*?)\//, function(match) {return "http://instagr.am/p/"+ match[1] +"/media/?size=m";}),
-  new ImageService(/twitpic\.com\/(\w+)/, function(match) { return "http://twitpic.com/show/large/"+ match[1];}),
-  new ImageService(/yfrog\.com\/(\w+)/, function(match) { return "http://yfrog.com/"+ match[1] + ":iphone" ;}),
-  new ImageService(/twitgoo\.com\/(\w+)/, function(match) { return "http://twitgoo.com/"+ match[1] + "/img" ;}),
-  new ImageService(/lockerz\.com\/s\/(\w+)/, function(match) {
-    return "http://api.plixi.com/api/tpapi.svc/imagefromurl?size=medium&amp;url=http%3A%2F%2Flockerz.com%2Fs%2F"+ match[1] ;
-  })
+  new ImageService("instagram", "img",    /instagr\.am\/p\/(.*?)\//, "http://instagr.am/p/$1/media/?size=m"),
+  new ImageService("twitpic",   "img",    /twitpic\.com\/(\w+)/,     "http://twitpic.com/show/large/$1"),
+  new ImageService("yfrog",     "iframe", /yfrog\.com\/(\w+)/,       "http://yfrog.com/$1:iphone"),
+  new ImageService("twitgoo",   "img",    /twitgoo\.com\/(\w+)/,     "http://twitgoo.com/$1/img"),
+  new ImageService("lockerz",   "img",    /lockerz\.com\/s\/(\w+)/,
+                   "http://api.plixi.com/api/tpapi.svc/imagefromurl?size=medium&url=http%3A%2F%2Flockerz.com%2Fs%2F$1")
 ];
+
+var Media = function(url) {
+  this.url = url;
+  var imageService = this.findMedia(url);
+  if (imageService) {
+    this.mediaUrl = imageService.convert(url);
+    this.tagType  = imageService.tagType;
+  }
+}
+
+Media.prototype.findMedia = function(url) {
+  return _.find(ImageServices, function(svc) {
+    return svc.match(url);
+  });
+};

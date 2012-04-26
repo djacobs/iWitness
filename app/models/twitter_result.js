@@ -62,16 +62,9 @@ IWitness.TwitterResult = IWitness.Result.extend({
     // other links show up in entities.urls
     if (entities && entities.urls.length) {
       url = entities.urls[0].expanded_url;
-      match = _.reduce(ImageServices, function(acc, service) {
-        if(acc) return acc;
-
-        return service.match(url);
-      }, null);
-
-      if (match) {
-        return this._media(url, match);
-      }
+      return new Media(url);
     }
+
     return {};
   }.property("entities").cacheable(),
 
