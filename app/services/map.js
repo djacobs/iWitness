@@ -238,6 +238,10 @@ _.extend(Map.prototype, {
     google.maps.event.addListener(this.map, type, handler);
   },
 
+  addListenerOnce: function(type, handler) {
+    google.maps.event.addListenerOnce(this.map, type, handler);
+  },
+
   removeListeners: function(type) {
     google.maps.event.clearListeners(this.map, type);
   },
