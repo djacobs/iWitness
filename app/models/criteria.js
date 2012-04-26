@@ -4,6 +4,11 @@ IWitness.Criteria = Ember.Object.extend({
   keyword: "",
   address: "",
 
+  init: function() {
+    this._super();
+    this.setProperties({rawStart: moment().subtract("hours", 1), rawEnd: moment()});
+  },
+
   timezoneOffset: function() {
     return (new Date()).getTimezoneOffset() / -60;
   }.property().cacheable(),
@@ -109,4 +114,3 @@ IWitness.Criteria = Ember.Object.extend({
 });
 
 IWitness.criteria = IWitness.Criteria.create();
-IWitness.criteria.setProperties({rawStart: moment().subtract("minutes", 1), rawEnd: moment()});
