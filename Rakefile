@@ -10,7 +10,8 @@ directory BUILD_DIR.to_s
 
 desc "remove all built assets"
 task :clean do
-  FileUtils.rm_r(BUILD_DIR) if File.exists?(BUILD_DIR)
+  mkdir_p BUILD_DIR
+  rm_rf Dir.glob(File.join(BUILD_DIR, '*'))
 end
 
 desc "compile all files into the assets directory"
@@ -31,17 +32,29 @@ task :not_dirty do
   fail "Directory not clean" if /nothing to commit/ !~ `git status`
 end
 
+file 'assets/.git/refs/heads/gh-pages' do
+  repo_url = `git config --get remote.origin.url`.strip
+
+  cd BUILD_DIR do
+    sh "git init"
+    sh "git remote add origin #{repo_url}"
+    sh "git fetch origin"
+    sh "git checkout gh-pages"
+  end
+end
+
+task :prepare_gh_pages => [:clean, 'assets/.git/refs/heads/gh-pages']
+
 desc "Publish the app to Github Pages."
-task :publish => [:not_dirty, :compile] do
-  sh 'git checkout master'
+task :publish => [:not_dirty, :prepare_gh_pages, :compile] do
   head = `git log --pretty="%h" -n1`.strip
-  sh 'git checkout gh-pages'
-  sh 'git pull origin gh-pages'
-  sh 'cp -R assets/* .'
-  sh 'git add .'
-  sh "git commit -m 'Updated application to #{head}'"
-  sh 'git push origin gh-pages'
-  sh 'git checkout master'
+  message = "Site updated to #{head}"
+
+  cd BUILD_DIR do
+    sh 'git add --all'
+    sh "git commit -m \"#{message}\""
+    sh 'git push origin gh-pages'
+  end
 end
 
 desc "Run tests with phantomjs"
