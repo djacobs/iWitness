@@ -52,8 +52,12 @@ task :publish => [:not_dirty, :prepare_gh_pages, :compile] do
 
   cd BUILD_DIR do
     sh 'git add --all'
-    sh "git commit -m \"#{message}\""
-    sh 'git push origin gh-pages'
+    if /nothing to commit/ =~ `git status`
+      puts "No changes to deploy"
+    else
+      sh "git commit -m \"#{message}\""
+      sh 'git push origin gh-pages'
+    end
   end
 end
 
