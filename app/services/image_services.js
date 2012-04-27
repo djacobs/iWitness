@@ -1,8 +1,7 @@
 // regex must contain one capture group that identifies the
 // replacement to insert into the replacementPattern
-var MediaService = function(name, tagType, regex, replacementPattern) {
-  this.name        = name;
-  this.tagType     = tagType;
+var MediaService = function(svcType, regex, replacementPattern) {
+  this.serviceType = svcType;
   this.regex       = regex;
   this.replacement = replacementPattern;
 };
@@ -23,25 +22,25 @@ _.extend(MediaService.prototype, {
 });
 
 var MediaServices = [
-  new MediaService("instagram", "img",    /instagr\.am\/p\/(.*?)\//, "http://instagr.am/p/$1/media/?size=m"),
-  new MediaService("twitpic",   "img",    /twitpic\.com\/(\w+)/,     "http://twitpic.com/show/large/$1"),
-//  new MediaService("yfrog",     "iframe", /yfrog\.com\/(\w+)/,       "http://yfrog.com/$1:iphone"),
-  new MediaService("twitgoo",   "img",    /twitgoo\.com\/(\w+)/,     "http://twitgoo.com/$1/img"),
-  new MediaService("lockerz",   "img",    /lockerz\.com\/s\/(\w+)/,
+  new MediaService("picture", /instagr\.am\/p\/(.*?)\//, "http://instagr.am/p/$1/media/?size=m"),
+  new MediaService("picture", /twitpic\.com\/(\w+)/,     "http://twitpic.com/show/large/$1"),
+  new MediaService("picture", /twitgoo\.com\/(\w+)/,     "http://twitgoo.com/$1/img"),
+  new MediaService("picture", /lockerz\.com\/s\/(\w+)/,
                    "http://api.plixi.com/api/tpapi.svc/imagefromurl?size=medium&url=http%3A%2F%2Flockerz.com%2Fs%2F$1"),
-  new MediaService("youtube",   "iframe",    /youtu\.be\/([\w\-]+)/,     "http://www.youtube.com/embed/$1"),
-  new MediaService("youtube2",   "iframe",    /youtube.com\/watch.*[?&]v=([\w\-]+)/,     "http://www.youtube.com/embed/$1"),
+  new MediaService("video",  /youtu\.be\/([\w\-]+)/,     "http://www.youtube.com/embed/$1"),
+  new MediaService("video",  /youtube.com\/watch.*[?&]v=([\w\-]+)/,     "http://www.youtube.com/embed/$1")
+//  new MediaService("picture", /yfrog\.com\/(\w+)/,       "http://yfrog.com/$1:iphone"),
 ];
 
 IWitness.Media = Ember.Object.extend({
-  tagType:  null,
-  linkUrl:      null,
-  mediaUrl: null,
-  canDisplayBinding: Ember.Binding.and("tagType", "linkUrl", "mediaUrl")
+  serviceType: null,
+  linkUrl:     null,
+  mediaUrl:    null,
+  canDisplayBinding: Ember.Binding.and("serviceType", "linkUrl", "mediaUrl")
 });
 
 IWitness.TwitterHostedMedia = IWitness.Media.extend({
-  tagType: 'img',
+  serviceType: 'picture',
   linkUrlBinding: 'url',
 
   mediaUrl: function(){
@@ -52,7 +51,7 @@ IWitness.TwitterHostedMedia = IWitness.Media.extend({
     return this.get('type') == 'photo';
   }.property('type'),
 
-  canDisplayBinding: Ember.Binding.and("isPhoto", "tagType", "linkUrl", "mediaUrl")
+  canDisplayBinding: Ember.Binding.and("isPhoto", "serviceType", "linkUrl", "mediaUrl")
 });
 
 IWitness.TwitterLinkedMedia = IWitness.Media.extend({
@@ -71,10 +70,16 @@ IWitness.TwitterLinkedMedia = IWitness.Media.extend({
     return null;
   }.property("service", "linkUrl"),
 
-  tagType: function(){
+  serviceType: function(){
     var service = this.get("service");
-    if (service) return service.tagType;
+    if (service) return service.serviceType;
     return null;
   }.property("service")
 
+});
+
+IWitness.MediaCollection = Ember.ArrayController.extend({
+  displayable: function(){
+    return this.filterProperty("canDisplay");
+  }.property("@each")
 });

@@ -5,6 +5,10 @@ IWitness.TwitterResult = IWitness.Result.extend({
   userNamePrimaryBinding: 'fromUserName',
   contentTextBinding:     'text',
 
+  init: function(){
+    this._initMedia();
+  },
+
   resultId: function(){
     return this.get('resultType') +'-'+ this.get('idStr');
   }.property('idStr'),
@@ -37,21 +41,22 @@ IWitness.TwitterResult = IWitness.Result.extend({
     return this.get('coordinates')[1];
   }.property('coordinates').cacheable(),
 
-  media: function(){
+  _initMedia: function(){
     var entities = this.get("entities"); // returns a normal JS object
-    var media;
+    var media = IWitness.MediaCollection.create({content: []});
 
     // twitter pics show up in entities.media
     if (entities && entities.media) {
-      media = this._firstDisplayableMedia(entities.media, IWitness.TwitterHostedMedia);
-
-    // other links show up in entities.urls
-    } else if (entities && entities.urls.length) {
-      media = this._firstDisplayableMedia(entities.urls, IWitness.TwitterLinkedMedia);
+      _.each(entities.media, function(e) { media.pushObject(IWitness.TwitterHostedMedia.create(e)) });
     }
 
-    return media;
-  }.property("entities").cacheable(),
+    // other links show up in entities.urls
+    if (entities && entities.urls.length) {
+      _.each(entities.urls, function(e) { media.pushObject(IWitness.TwitterLinkedMedia.create(e)) });
+    }
+
+    this.set("media", media);
+  },
 
   fetchEmbed: function(){
     var self = this;
@@ -60,15 +65,6 @@ IWitness.TwitterResult = IWitness.Result.extend({
     $.getJSON("https://api.twitter.com/1/statuses/oembed.json?id="+id+"&align=center&callback=?", {}, function(res) {
       self.set('embedHtml', res.html);
     });
-  },
-
-  _firstDisplayableMedia: function(arr, type){
-    var media;
-    for (var i=0; i < arr.length; i++) {
-      media = type.create(arr[i]);
-      Ember.run.sync();
-      if (media.get("canDisplay")) return media;
-    }
   }
 
 });

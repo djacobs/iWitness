@@ -7,6 +7,10 @@ IWitness.FlickrResult = IWitness.Result.extend({
   userNamePrimaryBinding: 'ownername',
   contentTextBinding:     'description._content',
 
+  init: function(){
+    this._initMedia();
+  },
+
   resultId: function(){
     return this.get('resultType') +'-'+ this.get('id');
   }.property('id'),
@@ -41,13 +45,14 @@ IWitness.FlickrResult = IWitness.Result.extend({
     return "http://flickr.com/photos/" + this.get('owner') + "/" + this.get('id');
   }.property('owner', 'id'),
 
-  media: function() {
-    return IWitness.Media.create({
-      tagType:  'img',
-      linkUrl:  this.get("permalinkUrl"),
-      mediaUrl: this.get("urlS")
+  _initMedia: function() {
+    var media = IWitness.Media.create({
+      serviceType:  'photo',
+      linkUrl:      this.get("permalinkUrl"),
+      mediaUrl:     this.get("urlS")
     });
-  }.property('permalinkUrl', 'urlS'),
+    this.set("media", IWitness.MediaCollection.create({content: [media]}));
+  },
 
   fetchEmbed: function(){
     this.set('embedHtml',

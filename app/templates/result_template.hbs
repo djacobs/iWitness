@@ -3,9 +3,9 @@
   <div class="timeline-arrows"></div>
   <div {{action toggleCuration}} {{bindAttr class="starButtonClass"}}></div>
 
-  {{#if model.media}}
-    {{view IWitness.MediaView mediaBinding="model.media"}}
-  {{/if}}
+  {{#each model.media.displayable}}
+    {{view IWitness.MediaView mediaBinding="this"}}
+  {{/each}}
 
   <div class="heading">
     <div class="pic">
