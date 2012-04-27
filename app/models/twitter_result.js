@@ -37,14 +37,6 @@ IWitness.TwitterResult = IWitness.Result.extend({
     return this.get('coordinates')[1];
   }.property('coordinates').cacheable(),
 
-  contentSrc: function() {
-    return this.get("media").mediaUrl;
-  }.property("media"),
-
-  contentLink: function(){
-    return this.get("media").url;
-  }.property("media"),
-
   media: function(){
     var entities = this.get("entities"); // returns a normal JS object
     var url, match;
@@ -55,16 +47,16 @@ IWitness.TwitterResult = IWitness.Result.extend({
         return item.type == "photo";
       }).first().value();
       if (url){
-        return new Media(url);
+        return IWitness.Media.create(url);
       }
     }
 
     // other links show up in entities.urls
     if (entities && entities.urls.length) {
-      return new Media(entities.urls[0]);
+      return new IWitness.Media.create(entities.urls[0]);
     }
 
-    return {};
+    return null;
   }.property("entities").cacheable(),
 
   fetchEmbed: function(){

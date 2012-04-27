@@ -1,0 +1,7 @@
+{{#if media.isIFrame}}
+  <iframe class="content-link" type="text/html" src="{{unbound media.mediaUrl}}" frameborder="0"></iframe>
+{{else}}
+  <a class='content-link' target="_blank" href="{{unbound media.url}}">
+    <img src="{{unbound media.mediaUrl}}">
+  </a>
+{{/if}}

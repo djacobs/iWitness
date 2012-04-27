@@ -3,10 +3,8 @@
   <div class="timeline-arrows"></div>
   <div {{action toggleCuration}} {{bindAttr class="starButtonClass"}}></div>
 
-  {{#if model.contentSrc}}
-    <a class='content-link' target="_blank" href="{{unbound model.contentLink}}">
-      <img src="{{unbound model.contentSrc}}">
-    </a>
+  {{#if model.media}}
+    {{view IWitness.MediaView mediaBinding="model.media"}}
   {{/if}}
 
   <div class="heading">

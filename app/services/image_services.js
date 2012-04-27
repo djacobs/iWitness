@@ -1,13 +1,13 @@
 // regex must contain one capture group that identifies the
 // replacement to insert into the replacementPattern
-var ImageService = function(name, tagType, regex, replacementPattern) {
+var MediaService = function(name, tagType, regex, replacementPattern) {
   this.name        = name;
   this.tagType     = tagType;
   this.regex       = regex;
   this.replacement = replacementPattern;
 };
 
-_.extend(ImageService.prototype, {
+_.extend(MediaService.prototype, {
   match: function(url) {
     return url.match(this.regex);
   },
@@ -22,41 +22,42 @@ _.extend(ImageService.prototype, {
   }
 });
 
-var ImageServices = [
-  new ImageService("instagram", "img",    /instagr\.am\/p\/(.*?)\//, "http://instagr.am/p/$1/media/?size=m"),
-  new ImageService("twitpic",   "img",    /twitpic\.com\/(\w+)/,     "http://twitpic.com/show/large/$1"),
-  new ImageService("yfrog",     "iframe", /yfrog\.com\/(\w+)/,       "http://yfrog.com/$1:iphone"),
-  new ImageService("twitgoo",   "img",    /twitgoo\.com\/(\w+)/,     "http://twitgoo.com/$1/img"),
-  new ImageService("lockerz",   "img",    /lockerz\.com\/s\/(\w+)/,
-                   "http://api.plixi.com/api/tpapi.svc/imagefromurl?size=medium&url=http%3A%2F%2Flockerz.com%2Fs%2F$1")
+var MediaServices = [
+  new MediaService("instagram", "img",    /instagr\.am\/p\/(.*?)\//, "http://instagr.am/p/$1/media/?size=m"),
+  new MediaService("twitpic",   "img",    /twitpic\.com\/(\w+)/,     "http://twitpic.com/show/large/$1"),
+//  new MediaService("yfrog",     "iframe", /yfrog\.com\/(\w+)/,       "http://yfrog.com/$1:iphone"),
+  new MediaService("twitgoo",   "img",    /twitgoo\.com\/(\w+)/,     "http://twitgoo.com/$1/img"),
+  new MediaService("lockerz",   "img",    /lockerz\.com\/s\/(\w+)/,
+                   "http://api.plixi.com/api/tpapi.svc/imagefromurl?size=medium&url=http%3A%2F%2Flockerz.com%2Fs%2F$1"),
+  new MediaService("youtube",   "iframe",    /youtu\.be\/([\w\-]+)/,     "http://www.youtube.com/embed/$1"),
+  new MediaService("youtube2",   "iframe",    /youtube.com\/watch.*[?&]v=([\w\-]+)/,     "http://www.youtube.com/embed/$1"),
 ];
 
-var Media = function(media) {
-  this.media = media;
-  if (media.media_url) {
-    this.fromTwitter();
-  } else {
-    this.fromUrl();
-  }
-}
+IWitness.Media = Ember.Object.extend({
+  init: function() {
+    if (this.get('media_url')) {
+      this.fromTwitter();
+    } else {
+      this.fromUrl();
+    }
+  },
 
-_.extend(Media.prototype, {
   fromUrl: function() {
-    this.url = this.media.expanded_url;
-    var imageService = this.findMedia(this.url);
-    if (imageService) {
-      this.mediaUrl = imageService.convert(this.url);
-      this.tagType  = imageService.tagType;
+    this.set('url', 'expanded_url');
+    var MediaService = this._findMedia(this.get('url'));
+    if (MediaService) {
+      this.set('mediaUrl', MediaService.convert(this.get('url')));
+      this.set('tagType', MediaService.tagType);
     }
   },
 
   fromTwitter: function() {
-    this.url      = this.media.url;
-    this.mediaUrl = this.media.media_url+":small";
+    this.set('mediaUrl', this.get('media_url') + ':small');
+    this.set('tagType', 'img');
   },
 
-  findMedia: function(url) {
-    return _.find(ImageServices, function(svc) {
+  _findMedia: function(url) {
+    return _.find(MediaServices, function(svc) {
       return svc.match(url);
     });
   }

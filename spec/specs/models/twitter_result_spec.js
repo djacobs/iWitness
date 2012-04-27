@@ -31,9 +31,21 @@ describe("TwitterResult", function() {
         expect(result.get("contentSrc")).toEqual("http://api.plixi.com/api/tpapi.svc/imagefromurl?size=medium&url=http%3A%2F%2Flockerz.com%2Fs%2F204335287");
       });
 
-      it("returns a yfrog url", function() {
+      xit("returns a yfrog url", function() {
         entities.urls.push({expanded_url: "http://yfrog.com/neot4xj" });
         expect(result.get("contentSrc")).toEqual("http://yfrog.com/neot4xj:iphone");
+      });
+    });
+
+    describe("video services", function(){
+      it("returns a youtube url", function() {
+        entities.urls.push({expanded_url: "http://youtube.com/watch?paramv=something&v=Da3WEEIeS-UQ&someotherparam" });
+        expect(result.get("contentSrc")).toEqual("http://www.youtube.com/embed/Da3WEEIeS-UQ");
+      });
+
+      it("returns a youtube url (short link)", function() {
+        entities.urls.push({expanded_url: "http://youtu.be/Da3WEEIeSUQ" });
+        expect(result.get("contentSrc")).toEqual("http://www.youtube.com/embed/Da3WEEIeSUQ");
       });
     });
 
