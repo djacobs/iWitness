@@ -34,31 +34,47 @@ var MediaServices = [
 ];
 
 IWitness.Media = Ember.Object.extend({
-  init: function() {
-    if (this.get('media_url')) {
-      this.fromTwitter();
-    } else {
-      this.fromUrl();
-    }
-  },
+  tagType:  null,
+  linkUrl:      null,
+  mediaUrl: null,
+  canDisplayBinding: Ember.Binding.and("tagType", "linkUrl", "mediaUrl")
+});
 
-  fromUrl: function() {
-    this.set('url', 'expanded_url');
-    var MediaService = this._findMedia(this.get('url'));
-    if (MediaService) {
-      this.set('mediaUrl', MediaService.convert(this.get('url')));
-      this.set('tagType', MediaService.tagType);
-    }
-  },
+IWitness.TwitterHostedMedia = IWitness.Media.extend({
+  tagType: 'img',
+  linkUrlBinding: 'url',
 
-  fromTwitter: function() {
-    this.set('mediaUrl', this.get('media_url') + ':small');
-    this.set('tagType', 'img');
-  },
+  mediaUrl: function(){
+    return this.get('media_url') + ':small';
+  }.property("media_url"),
 
-  _findMedia: function(url) {
+  isPhoto: function() {
+    return this.get('type') == 'photo';
+  }.property('type'),
+
+  canDisplayBinding: Ember.Binding.and("isPhoto", "tagType", "linkUrl", "mediaUrl")
+});
+
+IWitness.TwitterLinkedMedia = IWitness.Media.extend({
+  linkUrlBinding: "expanded_url",
+
+  service: function(){
+    var linkUrl = this.get("linkUrl");
     return _.find(MediaServices, function(svc) {
-      return svc.match(url);
+      return svc.match(linkUrl);
     });
-  }
+  }.property("linkUrl").cacheable(),
+
+  mediaUrl: function(){
+    var service = this.get("service");
+    if (service) return service.convert(this.get('linkUrl'));
+    return null;
+  }.property("service", "linkUrl"),
+
+  tagType: function(){
+    var service = this.get("service");
+    if (service) return service.tagType;
+    return null;
+  }.property("service")
+
 });

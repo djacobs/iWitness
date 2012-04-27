@@ -39,24 +39,18 @@ IWitness.TwitterResult = IWitness.Result.extend({
 
   media: function(){
     var entities = this.get("entities"); // returns a normal JS object
-    var url, match;
+    var media;
 
     // twitter pics show up in entities.media
     if (entities && entities.media) {
-      url = _(entities.media).chain().filter(function(item) {
-        return item.type == "photo";
-      }).first().value();
-      if (url){
-        return IWitness.Media.create(url);
-      }
-    }
+      media = this._firstDisplayableMedia(entities.media, IWitness.TwitterHostedMedia);
 
     // other links show up in entities.urls
-    if (entities && entities.urls.length) {
-      return new IWitness.Media.create(entities.urls[0]);
+    } else if (entities && entities.urls.length) {
+      media = this._firstDisplayableMedia(entities.urls, IWitness.TwitterLinkedMedia);
     }
 
-    return null;
+    return media;
   }.property("entities").cacheable(),
 
   fetchEmbed: function(){
@@ -66,6 +60,15 @@ IWitness.TwitterResult = IWitness.Result.extend({
     $.getJSON("https://api.twitter.com/1/statuses/oembed.json?id="+id+"&align=center&callback=?", {}, function(res) {
       self.set('embedHtml', res.html);
     });
+  },
+
+  _firstDisplayableMedia: function(arr, type){
+    var media;
+    for (var i=0; i < arr.length; i++) {
+      media = type.create(arr[i]);
+      Ember.run.sync();
+      if (media.get("canDisplay")) return media;
+    }
   }
 
 });

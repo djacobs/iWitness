@@ -5,8 +5,6 @@ IWitness.FlickrResult = IWitness.Result.extend({
   lngBinding:             'longitude',
   avatarSrcBinding:       'profilePicUrl',
   userNamePrimaryBinding: 'ownername',
-  contentSrcBinding:      'urlS',
-  contentLinkBinding:     'permalinkUrl',
   contentTextBinding:     'description._content',
 
   resultId: function(){
@@ -42,6 +40,14 @@ IWitness.FlickrResult = IWitness.Result.extend({
   permalinkUrl: function() {
     return "http://flickr.com/photos/" + this.get('owner') + "/" + this.get('id');
   }.property('owner', 'id'),
+
+  media: function() {
+    return IWitness.Media.create({
+      tagType:  'img',
+      linkUrl:  this.get("permalinkUrl"),
+      mediaUrl: this.get("urlS")
+    });
+  }.property('permalinkUrl', 'urlS'),
 
   fetchEmbed: function(){
     this.set('embedHtml',
