@@ -5,19 +5,24 @@ IWitness.MapView = Ember.View.extend(IWitness.MapControl, {
   zoomLevelBinding:      "model.zoom",
   mapSearchStatus:       'finished',
   isCurrentViewBinding:  'IWitness.currentViewController.showingSearchResults',
+  ready:                 false,
 
   didInsertElement: function() {
-    var self = this;
-    this.map = new Map(document.getElementById("map"), 37.090301, -95.712919, 3) // Kansas!
-
-    this.map.addListenerOnce('idle', function(){
-      self._saveModel();
-      self.map.addListener('bounds_changed', _.bind(_.debounce(self._updateMap, 200), self));
-    });
-
-    this.set("zoomLevel", this.get("model.zoom") || 3);
+    this.set('ready', true);
     this.initZoomSlider();
   },
+
+  _initMap: function(){
+    var self = this;
+    var center = this.getPath('model.center');
+    if (!this.map && this.get("ready") && center) {
+      this.map = new Map(document.getElementById("map"), center[0], center[1], this.get('zoomLevel'));
+      this.map.addListenerOnce('idle', function(){
+        self.map.addListener('bounds_changed', _.bind(_.debounce(self._updateMap, 200), self));
+        self._updateMap();
+      });
+    }
+  }.observes('ready', 'model.center'),
 
   createMarkerForResult: function() {
     var lat = this.getPath('selectedResult.lat');
