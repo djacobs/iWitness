@@ -3,7 +3,7 @@ IWitness.Criteria = Ember.Object.extend({
   stream:       false,
   keyword:      "",
   address:      "",
-  center:       [37.090301, -95.712919], // Kansas!
+  center:       null,
   zoom:         3,
 
   init: function() {
@@ -116,9 +116,13 @@ IWitness.Criteria = Ember.Object.extend({
   },
 
   _setDefaultCenter: function() {
-    var self = this;
+    var self = this, center;
     $.getJSON('http://freegeoip.net/json/?callback=?', function(locData) {
-      var center = [locData.latitude, locData.longitude];
+      if (locData.latitude && locData.longitude) {
+        center = [locData.latitude, locData.longitude];
+      } else {
+        center = [37.090301, -95.712919]; // Kansas!
+      }
       IWitness.log('defaulting map center to', center);
       self.setProperties({center: center, zoom: 12});
     });
