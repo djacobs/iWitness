@@ -26,7 +26,8 @@ IWitness.log = _.bind(Ember.Logger.log, Ember.Logger);
 IWitness.config = {
   perPage: 100,
   pollInterval: 30, //seconds
-  searchDelay: 3000
+  searchDelay: 3000,
+  services: ['twitter', 'flickr']
 };
 
 timezoneJS.timezone.zoneFileBasePath = 'tzdata';

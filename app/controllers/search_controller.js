@@ -1,9 +1,16 @@
 IWitness.searchController = Ember.Object.create({
   searches: [],
-  monitors: Ember.Object.create({
-    twitter: IWitness.ServiceMonitor.create(),
-    flickr:  IWitness.ServiceMonitor.create()
-  }),
+
+  init: function() {
+    this._super();
+    var monitors = Ember.Object.create();
+
+    IWitness.config.services.forEach(function(service) {
+      monitors.set(service, IWitness.ServiceMonitor.create());
+    });
+
+    this.set('monitors', monitors);
+  },
 
   serviceHasMorePages: function(type){
     var monitor =  this.getPath('monitors.'+type);
@@ -19,10 +26,10 @@ IWitness.searchController = Ember.Object.create({
   search: function(params) {
     var self = this;
 
-    this.searches = [
-      new FlickrSearch(params),
-      new TwitterSearch(params)
-    ];
+    this.searches = IWitness.config.services.map(function(service) {
+      var className = service.replace(/^(.)/, function(m, chr) { return chr.toUpperCase() }) + 'Search';
+      return new window[className](params);
+    });
 
     _.each(this.searches, function(search) {
       self._executeSearch(search);
@@ -31,8 +38,10 @@ IWitness.searchController = Ember.Object.create({
 
   reset: function(){
     this._stopExecutingSearches();
-    this.getPath('monitors.twitter').reset();
-    this.getPath('monitors.flickr').reset();
+    var self = this;
+    IWitness.config.services.forEach(function(service) {
+      self.getPath('monitors.' + service).reset();
+    });
   },
 
   _executeSearch: function(search){
