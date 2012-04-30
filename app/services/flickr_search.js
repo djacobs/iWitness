@@ -1,15 +1,15 @@
 var FlickrSearch = function(params){
   this.type = 'flickr'
-  this.start              = moment(params.start);
-  this.end                = moment(params.end);
-  this.keyword            = params.keyword;
-  this.boundingBox        = [params.southWest[1], params.southWest[0], params.northEast[1], params.northEast[0]].join(',');
-  this.mapTimezoneOffset  = params.mapTimezoneOffset;
-  this.minUploadDate      = null;
-  this.url                = 'http://api.flickr.com/services/rest/?jsoncallback=?'
-  this.stream             = params.stream;
-  this.page               = 0;
-  this.filter             = new FlickrFilter(params);
+  this.mapTimezoneOffset = params.mapTimezoneOffset;
+  this.start             = this._adjustedMoment(params.start);
+  this.end               = this._adjustedMoment(params.end);
+  this.keyword           = params.keyword;
+  this.boundingBox       = [params.southWest[1], params.southWest[0], params.northEast[1], params.northEast[0]].join(',');
+  this.minUploadDate     = null;
+  this.url               = 'http://api.flickr.com/services/rest/?jsoncallback=?'
+  this.stream            = params.stream;
+  this.page              = 0;
+  this.filter            = new FlickrFilter(params);
 }
 
 _.extend(FlickrSearch.prototype, {
@@ -64,12 +64,12 @@ _.extend(FlickrSearch.prototype, {
     }, IWitness.config.pollInterval*1000);
   },
 
-  _adjustTime: function(time) {
-    var time = moment(time); // don't mutate the original time
+  _adjustedMoment: function(time) {
+    return moment(time).add('hours', this.mapTimezoneOffset);
+  },
 
-    time.add('hours', this.mapTimezoneOffset);
-
-    return Math.ceil(time.valueOf() / 1000); // provide a unix timestamp without milliseconds
+  _toSeconds: function(time) {
+    return Math.ceil(time.valueOf() / 1000);
   },
 
   _searchParams: function(){
@@ -77,8 +77,8 @@ _.extend(FlickrSearch.prototype, {
       api_key:         window.flickrApiKey,
       bbox:            this.boundingBox,
       sort:            'date-taken-desc',
-      min_taken_date:  this._adjustTime(this.start),
-      max_taken_date:  this._adjustTime(this.end),
+      min_taken_date:  this._toSeconds(this.start),
+      max_taken_date:  this._toSeconds(this.end),
       text:            this.keyword,
       method:          'flickr.photos.search',
       format:          'json',
@@ -98,7 +98,7 @@ _.extend(FlickrSearch.prototype, {
       format:          'json',
       extras:          'geo,url_s,date_taken,date_upload,owner_name,description',
       min_upload_date: this.minUploadDate,
-      max_taken_date:  this._adjustTime(moment().add("minutes", 29))
+      max_taken_date:  this._toSeconds(this._adjustedMoment(moment().add("minutes", 29)))
     }
   }
 });

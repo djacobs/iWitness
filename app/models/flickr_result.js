@@ -16,21 +16,7 @@ IWitness.FlickrResult = IWitness.Result.extend({
   }.property('id'),
 
   postedMoment: function() {
-    var offset   = IWitness.criteria.get('mapTimezoneOffset') || 0;
-    var timezone = '+0000';
-
-    if (offset > 9) {
-      timezone = '+' + Math.abs(offset) + '00';
-    } else if (offset > 0) {
-      timezone = '+0' + Math.abs(offset) + '00';
-    } else if (offset < -9) {
-      timezone = '-' + Math.abs(offset) + '00';
-    } else if (offset < 0) {
-      timezone = '-0' + Math.abs(offset) + '00';
-    }
-
-    var datetaken = this.get('datetaken') + ' ' + timezone;
-    return moment(datetaken, 'YYYY-MM-DD HH:mm:ss Z');
+    return FlickrFilter.offsetFlickrTime(this.get("datetaken"), IWitness.criteria.get("mapTimezoneOffset"));
   }.property('datetaken'),
 
   userUrl: function(){

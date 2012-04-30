@@ -3,6 +3,25 @@ var FlickrFilter = function(params) {
   this.end   = moment(params.end);
   this.center = params.center;
   this.radius = params.radius;
+  this.mapTimezoneOffset  = params.mapTimezoneOffset;
+};
+
+FlickrFilter.offsetFlickrTime = function(flickrTimestamp, mapTimezoneOffset) {
+  var offset = mapTimezoneOffset || 0;
+  var timezone = '+0000';
+
+  if (offset > 9) {
+    timezone = '+' + Math.abs(offset) + '00';
+  } else if (offset > 0) {
+    timezone = '+0' + Math.abs(offset) + '00';
+  } else if (offset < -9) {
+    timezone = '-' + Math.abs(offset) + '00';
+  } else if (offset < 0) {
+    timezone = '-0' + Math.abs(offset) + '00';
+  }
+
+  var datetaken = flickrTimestamp + ' ' + timezone;
+  return moment(datetaken, 'YYYY-MM-DD HH:mm:ss Z');
 };
 
 _.extend(FlickrFilter.prototype, {
@@ -12,10 +31,17 @@ _.extend(FlickrFilter.prototype, {
     return distance.length() <= this.radius;
   },
 
+  inTimeframe: function(result) {
+    var resultTime = FlickrFilter.offsetFlickrTime(result.datetaken, this.mapTimezoneOffset);
+    console.log('checking', resultTime.toString(), 'between', this.start.toString(), 'and', this.end.toString());
+    return resultTime.isAfter(this.start) && resultTime.isBefore(this.end);
+  },
+
   filter: function(results) {
     var self = this;
     return _.filter(results, function(result){
-      return self.hasGeo(result);
+      return self.hasGeo(result) && self.inTimeframe(result);
     });
   }
 });
+
