@@ -149,4 +149,32 @@ describe("TwitterLinkedMedia", function() {
     });
   });
 
+  describe("twitvid service", function() {
+    beforeEach(function() {
+      media.set("expanded_url", "http://vimeo.com/m/1798717");
+      Ember.run.sync();
+    });
+    it("is type video", function() {
+      expect(media.get("serviceType")).toEqual("video");
+    });
+    it("has a mediaUrl", function() {
+      expect(media.get("mediaUrl")).toEqual("http://player.vimeo.com/video/1798717");
+    });
+  });
+
+  describe("twitvid service with shorter url", function() {
+    beforeEach(function() {
+      media.set("expanded_url", "http://vimeo.com/38352034");
+      Ember.run.sync();
+    });
+    it("is type video", function() {
+      expect(media.get("serviceType")).toEqual("video");
+    });
+    it("has a mediaUrl", function() {
+      expect(media.get("mediaUrl")).toEqual("http://player.vimeo.com/video/38352034");
+    });
+  });
+
+
+
 });
