@@ -45,8 +45,14 @@ end
 
 task :prepare_gh_pages => [:clean, 'assets/.git/refs/heads/gh-pages']
 
+task :get_latest => :prepare_gh_pages do
+  cd BUILD_DIR do
+    sh 'git pull origin gh-pages'
+  end
+end
+
 desc "Publish the app to Github Pages."
-task :publish => [:not_dirty, :prepare_gh_pages, :compile] do
+task :publish => [:not_dirty, :prepare_gh_pages, :get_latest, :compile] do
   head = `git log --pretty="%h" -n1`.strip
   message = "Site updated to #{head}"
 
