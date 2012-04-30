@@ -56,6 +56,10 @@ task :publish => [:not_dirty, :prepare_gh_pages, :get_latest, :compile] do
   head = `git log --pretty="%h" -n1`.strip
   message = "Site updated to #{head}"
 
+  File.open 'assets/index.html', 'a' do |file|
+    file << "<!-- #{head} -->"
+  end
+
   cd BUILD_DIR do
     sh 'git add --all'
     if /nothing to commit/ =~ `git status`
