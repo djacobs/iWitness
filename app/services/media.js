@@ -70,6 +70,10 @@ IWitness.TwitterLinkedMedia = IWitness.Media.extend({
       serviceType:        "video",
       regex:              /youtube.com\/watch.*[?&]v=([\w\-]+)/,
       replacementPattern: "http://www.youtube.com/embed/$1"
+    }, {
+      serviceType:        "video",
+      regex:              /twitvid.com\/(\w+)/,
+      replacementPattern: "http://www.twitvid.com/embed.php?autoplay=0&guid=$1"
     }
   ]
   //  new MediaService("picture", /yfrog\.com\/(\w+)/,       "http://yfrog.com/$1:iphone"),

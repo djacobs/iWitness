@@ -61,8 +61,8 @@ describe("TwitterLinkedMedia", function() {
   describe("twitpic service", function() {
     beforeEach(function() {
       media.set("expanded_url", "http://twitpic.com/8s7vs5");
-      Ember.run.sync()
-    })
+      Ember.run.sync();
+    });
     it("is type picture", function() {
       expect(media.get("serviceType")).toEqual("picture");
     });
@@ -74,8 +74,8 @@ describe("TwitterLinkedMedia", function() {
   describe("twitgoo service", function() {
     beforeEach(function() {
       media.set("expanded_url", "http://twitgoo.com/5prg5z");
-      Ember.run.sync()
-    })
+      Ember.run.sync();
+    });
     it("is type picture", function() {
       expect(media.get("serviceType")).toEqual("picture");
     });
@@ -87,8 +87,8 @@ describe("TwitterLinkedMedia", function() {
   describe("lockerz service", function() {
     beforeEach(function() {
       media.set("expanded_url", "http://lockerz.com/s/204335287");
-      Ember.run.sync()
-    })
+      Ember.run.sync();
+    });
     it("is type picture", function() {
       expect(media.get("serviceType")).toEqual("picture");
     });
@@ -100,8 +100,8 @@ describe("TwitterLinkedMedia", function() {
   xdescribe("yfrog service", function() {
     beforeEach(function() {
       media.set("expanded_url", "http://yfrog.com/neot4xj");
-      Ember.run.sync()
-    })
+      Ember.run.sync();
+    });
     it("is type picture", function() {
       expect(media.get("serviceType")).toEqual("picture");
     });
@@ -113,9 +113,9 @@ describe("TwitterLinkedMedia", function() {
   describe("youtube service full links", function() {
     beforeEach(function() {
       media.set("expanded_url", "http://youtube.com/watch?paramv=something&v=Da3WEEIeS-UQ&someotherparam");
-      Ember.run.sync()
-    })
-    it("is type picture", function() {
+      Ember.run.sync();
+    });
+    it("is type video", function() {
       expect(media.get("serviceType")).toEqual("video");
     });
     it("has a mediaUrl", function() {
@@ -126,13 +126,26 @@ describe("TwitterLinkedMedia", function() {
   describe("youtube service short links", function() {
     beforeEach(function() {
       media.set("expanded_url", "http://youtu.be/Da3WEEIeSUQ");
-      Ember.run.sync()
-    })
-    it("is type picture", function() {
+      Ember.run.sync();
+    });
+    it("is type video", function() {
       expect(media.get("serviceType")).toEqual("video");
     });
     it("has a mediaUrl", function() {
       expect(media.get("mediaUrl")).toEqual("http://www.youtube.com/embed/Da3WEEIeSUQ");
+    });
+  });
+
+  describe("twitvid service", function() {
+    beforeEach(function() {
+      media.set("expanded_url", "http://twitvid.com/G7XQS");
+      Ember.run.sync();
+    });
+    it("is type video", function() {
+      expect(media.get("serviceType")).toEqual("video");
+    });
+    it("has a mediaUrl", function() {
+      expect(media.get("mediaUrl")).toEqual("http://www.twitvid.com/embed.php?autoplay=0&guid=G7XQS");
     });
   });
 
