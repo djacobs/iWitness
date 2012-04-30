@@ -3,9 +3,11 @@
   <div class="timeline-arrows"></div>
   <div {{action toggleCuration}} {{bindAttr class="starButtonClass"}}></div>
 
-  {{#each model.media.displayable}}
-    {{view IWitness.MediaView mediaBinding="this"}}
-  {{/each}}
+  <div class="media">
+    {{#each model.media.displayable}}
+      {{view IWitness.MediaView mediaBinding="this"}}
+    {{/each}}
+  </div>
 
   <div class="heading">
     <div class="pic">
