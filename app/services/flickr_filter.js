@@ -33,7 +33,6 @@ _.extend(FlickrFilter.prototype, {
 
   inTimeframe: function(result) {
     var resultTime = FlickrFilter.offsetFlickrTime(result.datetaken, this.mapTimezoneOffset);
-    console.log('checking', resultTime.toString(), 'between', this.start.toString(), 'and', this.end.toString());
     return resultTime.isAfter(this.start) && resultTime.isBefore(this.end);
   },
 

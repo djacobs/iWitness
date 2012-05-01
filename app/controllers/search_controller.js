@@ -18,7 +18,7 @@ IWitness.searchController = Ember.Object.create({
   },
 
   getNextPageForService: function(type) {
-    var search = _.detect(this.searches, function(search){ return search.type == type})
+    var search = this.get('searches').find( function(search){ return search.type == type});
     search.fetch(IWitness.config.perPage);
   },
 
@@ -26,12 +26,12 @@ IWitness.searchController = Ember.Object.create({
   search: function(params) {
     var self = this;
 
-    this.searches = IWitness.config.services.map(function(service) {
+    this.set('searches', IWitness.config.services.map(function(service) {
       var className = service.replace(/^(.)/, function(m, chr) { return chr.toUpperCase() }) + 'Search';
       return new window[className](params);
-    });
+    }));
 
-    _.each(this.searches, function(search) {
+    this.get('searches').forEach( function(search) {
       self._executeSearch(search);
     });
   },
@@ -52,7 +52,7 @@ IWitness.searchController = Ember.Object.create({
   },
 
   _stopExecutingSearches: function(){
-    _.each(this.searches, function(search) {
+    this.get('searches').forEach( function(search) {
       search.stop();
       Ember.removeListener(search, 'data', this, this._handleResults);
       Ember.removeListener(search, 'done', this, this._searchServiceIsDone);

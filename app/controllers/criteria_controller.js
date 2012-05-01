@@ -2,24 +2,31 @@ IWitness.criteriaController = Ember.Object.create({
   contentBinding: 'IWitness.criteria',
 
   initiateSearch: function() {
-    IWitness.resultSetController.clearResults();
-    IWitness.searchController.reset();
+    this._resetSearch();
+    this._executeSearch();
 
-    this.changeUrl();
-  },
+  }.observes('content.zoom', 'content.center', 'content.northEast', 'content.southWest', 'content.radius',
+             'content.stream', 'content.keyword', 'content.rawStart', 'content.rawEnd'),
 
-  changeUrl: _.debounce( function() {
+  _executeSearch: _.debounce( function() {
     Ember.run.sync();
 
     if (this.getPath('content.isValid')) {
       IWitness.resultSetController.resume();
 
-      if (this.getPath('content.stream')) {
-        IWitness.routes.visitStream(this.get('content'));
+      if (IWitness.spaceTime.get("isLoaded")) {
+        IWitness.searchController.search(this.get('content').getParams());
       } else {
-        IWitness.routes.visitSearch(this.get('content'));
+        setTimeout(function() {
+          IWitness.searchController.search(this.get('content').getParams());
+        } , 10);
       }
     }
+  }, IWitness.config.searchDelay),
+
+  _resetSearch: _.throttle( function() {
+    IWitness.resultSetController.clearResults();
+    IWitness.searchController.reset();
   }, IWitness.config.searchDelay),
 
   useLocalTime: function(value) {

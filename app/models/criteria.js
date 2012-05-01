@@ -9,7 +9,6 @@ IWitness.Criteria = Ember.Object.extend({
   init: function() {
     this._super();
     this.setProperties({rawStart: moment().subtract("hours", 1), rawEnd: moment()});
-    this._setDefaultCenter();
   },
 
   timezoneOffset: function() {
@@ -115,11 +114,9 @@ IWitness.Criteria = Ember.Object.extend({
     }
   },
 
-  _setDefaultCenter: function() {
+  setDefaultCenter: function() {
     var self = this, center;
     $.getJSON('http://freegeoip.net/json/?callback=?', function(locData) {
-      if (self.get('center')) return;
-
       if (locData.latitude && locData.longitude) {
         center = [locData.latitude, locData.longitude];
       } else {

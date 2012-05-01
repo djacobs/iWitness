@@ -23,12 +23,12 @@ window.IWitness = Ember.Application.create({
 
 IWitness.log = _.bind(Ember.Logger.log, Ember.Logger);
 
-IWitness.config = {
+IWitness.config = _.extend({
   perPage: 100,
   pollInterval: 30, //seconds
   searchDelay: 3000,
   services: ['twitter', 'flickr']
-};
+}, window['IWitnessConfig'] || {}); // allow specs to override these values.
 
 timezoneJS.timezone.zoneFileBasePath = 'tzdata';
 timezoneJS.timezone.init();

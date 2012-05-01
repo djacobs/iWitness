@@ -3,4 +3,5 @@
 //= require_tree ./helpers
 //= require_tree .
 
+IWitnessConfig = { searchDelay: 1 };
 _gaq = { push: jasmine.createSpy() };

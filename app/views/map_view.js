@@ -19,7 +19,7 @@ IWitness.MapView = Ember.View.extend(IWitness.MapControl, {
       this.map = new Map(document.getElementById("map"), center[0], center[1], this.get('zoomLevel'));
       this.map.addListenerOnce('idle', function(){
         self.map.addListener('bounds_changed', _.bind(_.debounce(self._updateMap, 200), self));
-        self._updateMap();
+        self._saveModel();
       });
     }
   }.observes('ready', 'model.center'),
@@ -49,7 +49,6 @@ IWitness.MapView = Ember.View.extend(IWitness.MapControl, {
   _updateMap: function() {
     if (this.get('isCurrentView') && this._criteriaChanged()) {
       this._saveModel();
-      IWitness.criteriaController.initiateSearch();
     }
   },
 

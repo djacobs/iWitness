@@ -5,20 +5,22 @@ describe("criteriaController", function(){
     content = Ember.Object.create({ isValid: true, stream: true });
     controller = IWitness.criteriaController;
     controller.set('content', content);
-    spyOn(controller, 'changeUrl');
+    spyOn(controller, '_executeSearch');
   });
 
   describe("initiateSearch", function(){
     it("clears result set", function(){
       var clearResultsSpy = spyOn(IWitness.resultSetController, 'clearResults');
       controller.initiateSearch();
-      expect(clearResultsSpy).toHaveBeenCalled();
+      waits(10);
+      runs(function() { expect(clearResultsSpy).toHaveBeenCalled(); })
     });
 
     it("resets the search controller", function(){
-      var clearResultsSpy = spyOn(IWitness.searchController, 'reset');
+      var resetSpy = spyOn(IWitness.searchController, 'reset');
       controller.initiateSearch();
-      expect(clearResultsSpy).toHaveBeenCalled();
+      waits(10);
+      runs(function() { expect(resetSpy).toHaveBeenCalled(); });
     });
   });
 });
