@@ -3,36 +3,34 @@ IWitness.routes = Ember.Object.create({
   criteriaBinding: "IWitness.criteriaController.content",
 
   draw: function() {
-    SC.routes.add('', this, this.findLocation);
-    SC.routes.add('/search/:keyword/:rawStart/:rawEnd/:useTimezone', this, this.search);
-    SC.routes.add('/stream/:keyword', this, this.stream);
+    SC.routes.add('', this, this._firstLoadOnly('search', this.findLocation));
+    SC.routes.add('/search/:keyword/:rawStart/:rawEnd/:useTimezone', this, this._firstLoadOnly('search', this.search));
+    SC.routes.add('/stream/:keyword', this, this._firstLoadOnly('stream', this.stream));
   },
 
   findLocation: function(params) {
-    Analytics.extendSession('search');
-    if(this.get('firstLoad')) {
-      this.set('firstLoad', false);
-      this.get("criteria").setDefaultCenter();
-    }
+    this.get("criteria").setDefaultCenter();
   },
 
   search: function(params) {
-    Analytics.extendSession('search');
-    if(this.get('firstLoad')) {
-      this.set('firstLoad', false);
-      params.rawStart = moment(params.rawStart, "YYYY-MM-DDTHH:mm");
-      params.rawEnd   = moment(params.rawEnd, "YYYY-MM-DDTHH:mm");
-      this._setSearchParams(params);
-    }
+    params.rawStart = moment(params.rawStart, "YYYY-MM-DDTHH:mm");
+    params.rawEnd   = moment(params.rawEnd, "YYYY-MM-DDTHH:mm");
+    this._setSearchParams(params);
   },
 
   stream: function(params) {
-    Analytics.extendSession('stream');
+    params.stream = true;
+    this._setSearchParams(params);
+  },
 
-    if(this.get('firstLoad')) {
-      this.set('firstLoad', false);
-      params.stream = true;
-      this._setSearchParams(params);
+  _firstLoadOnly: function(action, fn) {
+    var self = this;
+    return function(params) {
+      Analytics.extendSession(action);
+      if(self.get('firstLoad')) {
+        self.set('firstLoad', false);
+        return fn.call(self, params);
+      }
     }
   },
 
