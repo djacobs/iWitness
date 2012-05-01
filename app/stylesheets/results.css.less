@@ -106,82 +106,84 @@
     height   : 25px;
   }
 
-  .service {
-    position     : relative;
-    top          : -3px;
-    clear        : both;
-    overflow     : hidden;
-    height       : 40px;
-    border       : 3px solid #fff;
-    border-bottom-width: 1px;
-    border-top-width: 0;
-    padding-left : 35px;
-    color        : #484848;
-    font         : 12px helvetica, arial, sans-serif;
-    background   : #f1f1f1;
-    z-index      : 0;
+  .services-menu-content {
+    .service {
+      position     : relative;
+      top          : -3px;
+      clear        : both;
+      overflow     : hidden;
+      height       : 40px;
+      border       : 3px solid #fff;
+      border-bottom-width: 1px;
+      border-top-width: 0;
+      padding-left : 35px;
+      color        : #484848;
+      font         : 12px helvetica, arial, sans-serif;
+      background   : #f1f1f1;
+      z-index      : 0;
 
-    &.first {
-      border-top-width : 3px;
-      .border-radius(0, 8px, 0, 0);
-    }
+      &:first-child {
+        border-top-width : 3px;
+        .border-radius(0, 8px, 0, 0);
+      }
 
-    &.last {
-      border-bottom-width : 3px;
-      .border-radius(0, 0, 8px, 8px);
-    }
+      &:last-child {
+        border-bottom-width : 3px;
+        .border-radius(0, 0, 8px, 8px);
+      }
 
-    .service-icon {
-      position   : absolute;
-      top        : 50%;
-      left       : 6px;
-      margin-top : -12px;
-    }
-
-    .service-title {
-      padding-top : 6px;
-      font-weight : bold;
-    }
-
-    .service-status.noresults {
-      color       : #d00;
-      font-weight : bold;
-    }
-
-    .service-switch {
-      display        : none;
-      position       : absolute;
-      top            : 50%;
-      right          : 6px;
-      width          : 50px;
-      height         : 23px;
-      margin-top     :-12px;
-      color          : #717171;
-      font-size      : 11px;
-      line-height    : 23px;
-      text-transform : uppercase;
-      background     : url(images/service_switch_background.png);
-      .box-sizing(border-box);
-
-      .handle {
+      .service-icon {
         position   : absolute;
-        top        : 0;
-        width      : 23px;
-        height     : 24px;
-        background : url(images/service_switch_handle.png);
+        top        : 50%;
+        left       : 6px;
+        margin-top : -12px;
       }
 
-      &.on {
-        padding-left: 9px;
-
-        .handle { right: -2px; }
+      .service-title {
+        padding-top : 6px;
+        font-weight : bold;
       }
 
-      &.off {
-        text-align: right;
-        padding-right: 6px;
+      .service-status.noresults {
+        color       : #d00;
+        font-weight : bold;
+      }
 
-        .handle { left: -2px; }
+      .service-switch {
+        display        : none;
+        position       : absolute;
+        top            : 50%;
+        right          : 6px;
+        width          : 50px;
+        height         : 23px;
+        margin-top     :-12px;
+        color          : #717171;
+        font-size      : 11px;
+        line-height    : 23px;
+        text-transform : uppercase;
+        background     : url(images/service_switch_background.png);
+        .box-sizing(border-box);
+
+        .handle {
+          position   : absolute;
+          top        : 0;
+          width      : 23px;
+          height     : 24px;
+          background : url(images/service_switch_handle.png);
+        }
+
+        &.on {
+          padding-left: 9px;
+
+          .handle { right: -2px; }
+        }
+
+        &.off {
+          text-align: right;
+          padding-right: 6px;
+
+          .handle { left: -2px; }
+        }
       }
     }
   }

@@ -9,8 +9,9 @@
         {{status}} <div class="services-status-icon"></div>
       </div>
 
-      {{view IWitness.ServiceStatusView class="first" serviceType="twitter"}}
-      {{view IWitness.ServiceStatusView class="last" serviceType="flickr"}}
+      <div class="services-menu-content">
+        {{collection contentBinding="IWitness.config.services" itemViewClass="IWitness.ServiceStatusView"}}
+      </div>
     </div>
   </div>
 
