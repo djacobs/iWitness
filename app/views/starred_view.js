@@ -4,7 +4,6 @@ IWitness.StarredView = Ember.View.extend({
 
   exportSectionClass: function() {
     var num = IWitness.starredSetController.get('flaggedCount');
-    console.log('num', num);
     return num > 0 ? '' : 'invisible';
   }.property('IWitness.starredSetController.flaggedCount'),
 
