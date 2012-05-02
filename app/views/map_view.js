@@ -1,7 +1,6 @@
 IWitness.MapView = Ember.View.extend(IWitness.MapControl, {
   templateName:          'map_template',
   modelBinding:          'IWitness.criteriaController.content',
-  selectedResultBinding: 'IWitness.resultSetController.selectedResult',
   zoomLevelBinding:      "model.zoom",
   mapSearchStatus:       'finished',
   isCurrentViewBinding:  'IWitness.currentViewController.showingSearchResults',
@@ -33,12 +32,6 @@ IWitness.MapView = Ember.View.extend(IWitness.MapControl, {
       this.set("map", map);
     }
   }.observes('ready', 'model.center'),
-
-  createMarkerForResult: function() {
-    var lat = this.getPath('selectedResult.lat');
-    var lng = this.getPath('selectedResult.lng');
-    if (this.get('map')) this.get('map').moveMarkerTo(lat, lng);
-  }.observes('selectedResult'),
 
   _criteriaChanged: function() {
     var map = this.get("map");

@@ -3,7 +3,7 @@ IWitness.MapPinView = Ember.View.extend({
     this._super();
     var map = this.getPath("parentView.map");
     var result = this.get("content");
-    this.set("marker", map.addMarker(result.get("lat"), result.get("lng")));
+    this.set("marker", map.addMarker(result.get("lat"), result.get("lng"), this.get("pinImage")));
   },
 
   willDestroy: function() {
@@ -15,15 +15,28 @@ IWitness.MapPinView = Ember.View.extend({
     return this.get('content') === IWitness.resultSetController.get('selectedResult');
   }.property('content', 'IWitness.resultSetController.selectedResult'),
 
-  selectPin: function() {
-    if (this.get('isSelected')) {
-      this.getPath('parentView.map').selectMarker(this.get('marker'));
+  isStarred: function() {
+    return IWitness.starredSetController.isStarred(this.get('content'));
+  }.property('content', 'IWitness.starredSetController.@each'),
+
+  pinImage: function() {
+    var starred = this.get("isStarred");
+    var selected = this.get("isSelected");
+    var map = this.getPath("parentView.map");
+
+    if (selected && starred) {
+      return map.selectedStarredPinImage;
+    } else if (selected) {
+      return map.selectedPinImage;
+    } else if (starred) {
+      return map.starredPinImage;
     } else {
-      this.getPath('parentView.map').unselectMarker(this.get('marker'));
+      return map.pinImage;
     }
-  }.observes('isSelected')
+  }.property("isStarred", "isSelected"),
 
-  // selected: function(){
+  updatePinImage: function() {
+    this.getPath("parentView.map").changeMarker(this.get("marker"), this.get("pinImage"));
+  }.observes('pinImage')
 
-  // }.property('IWitness.resultSetController.selectedResult'),
 });

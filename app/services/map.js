@@ -285,10 +285,10 @@ _.extend(Map.prototype, {
     return [point.lat(), point.lng()];
   },
 
-  addMarker: function(lat, lng) {
+  addMarker: function(lat, lng, pin) {
     if (lat && lng) {
       var position = new google.maps.LatLng(lat, lng);
-      return new google.maps.Marker({position: position, map: this.map, icon: this.pinImage});
+      return new google.maps.Marker({position: position, map: this.map, icon: pin});
     }
   },
 
@@ -296,12 +296,9 @@ _.extend(Map.prototype, {
     marker.setMap(null);
   },
 
-  selectMarker: function(marker) {
-    marker.setIcon(this.selectedPinImage);
-  },
-
-  unselectMarker: function(marker) {
-    marker.setIcon(this.pinImage);
+  //TODO: only change it when necessary
+  changeMarker: function(marker, pin) {
+    marker.setIcon(pin);
   },
 
   findAddress: function(address, hollaback) {
