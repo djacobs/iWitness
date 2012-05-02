@@ -283,13 +283,15 @@ _.extend(Map.prototype, {
     return [point.lat(), point.lng()];
   },
 
-  moveMarkerTo: function(lat, lng) {
-    if (this.marker) this.marker.setMap(null);
-
+  addMarker: function(lat, lng) {
     if (lat && lng) {
       var position = new google.maps.LatLng(lat, lng);
-      this.marker  = new google.maps.Marker({position: position, map: this.map, icon: 'images/pin.png', shadow: this.pinShadow});
+      return new google.maps.Marker({position: position, map: this.map, icon: 'images/pin.png', shadow: this.pinShadow});
     }
+  },
+
+  removeMarker: function(marker) {
+    marker.setMap(null);
   },
 
   findAddress: function(address, hollaback) {

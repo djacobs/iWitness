@@ -10,6 +10,11 @@ IWitness.MapView = Ember.View.extend(IWitness.MapControl, {
   didInsertElement: function() {
     this.set('ready', true);
     this.initZoomSlider();
+    this.set("pins", Ember.CollectionView.create({
+      contentBinding: 'IWitness.resultSetController.content',
+      itemViewClass: "IWitness.MapPinView",
+      mapView: this
+    }));
   },
 
   _initMap: function(){
