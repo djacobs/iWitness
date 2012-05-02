@@ -1,13 +1,16 @@
 IWitness.MapPinView = Ember.View.extend({
+  mapBinding: 'parentView.map',
+
   init: function() {
     this._super();
-    var map = this.getPath("parentView.map");
+    var map = this.getPath("parentView.map"); // map binding not yet synced
     var result = this.get("content");
-    this.set("marker", map.addMarker(result.get("lat"), result.get("lng"), this.get("pinImage")));
+
+    this.set("marker", map.addMarker(result.get("lat"), result.get("lng"), this.get("pinName")));
   },
 
   willDestroy: function() {
-    var map = this.getPath("parentView.map");
+    var map = this.get("map");
     map.removeMarker(this.get('marker'));
   },
 
@@ -19,24 +22,24 @@ IWitness.MapPinView = Ember.View.extend({
     return IWitness.starredSetController.isStarred(this.get('content'));
   }.property('content', 'IWitness.starredSetController.@each'),
 
-  pinImage: function() {
+  pinName: function() {
     var starred = this.get("isStarred");
     var selected = this.get("isSelected");
-    var map = this.getPath("parentView.map");
+    var map = this.get("map");
 
     if (selected && starred) {
-      return map.selectedStarredPinImage;
+      return 'selected_starred';
     } else if (selected) {
-      return map.selectedPinImage;
+      return 'selected';
     } else if (starred) {
-      return map.starredPinImage;
+      return 'starred';
     } else {
-      return map.pinImage;
+      return 'default';
     }
   }.property("isStarred", "isSelected"),
 
   updatePinImage: function() {
-    this.getPath("parentView.map").changeMarker(this.get("marker"), this.get("pinImage"));
-  }.observes('pinImage')
+    this.get("map").changeMarker(this.get("marker"), this.get("pinName"));
+  }.observes('pinName')
 
 });

@@ -219,10 +219,15 @@ var Map = function(element, lat, lng, zoom) {
 
   var size = new google.maps.Size(24, 35);
   var width = 27;
-  this.pinImage                = new google.maps.MarkerImage('images/pins.png', size, new google.maps.Point(width, 0));
-  this.selectedPinImage        = new google.maps.MarkerImage('images/pins.png', size, new google.maps.Point(width*3, 0));
-  this.starredPinImage         = new google.maps.MarkerImage('images/pins.png', size, new google.maps.Point(0, 0));
-  this.selectedStarredPinImage = new google.maps.MarkerImage('images/pins.png', size, new google.maps.Point(width*2, 0));
+  this.pinImages = {
+    default:          new google.maps.MarkerImage('images/pins.png', size, new google.maps.Point(width, 0)),
+    selected:         new google.maps.MarkerImage('images/pins.png', size, new google.maps.Point(width*3, 0)),
+    starred:          new google.maps.MarkerImage('images/pins.png', size, new google.maps.Point(0, 0)),
+    selected_starred: new google.maps.MarkerImage('images/pins.png', size, new google.maps.Point(width*2, 0)),
+    isPriority: function(pinName) { return pinName.match(/selected/) }
+  };
+  this.secondaryPinZIndex = google.maps.Marker.MAX_ZINDEX + 1;
+  this.priorityPinZIndex  = this.secondaryPinZIndex + 10000;
 
   var circle = circleOverlay.get(0);
   circle.index = -1;
@@ -285,10 +290,10 @@ _.extend(Map.prototype, {
     return [point.lat(), point.lng()];
   },
 
-  addMarker: function(lat, lng, pin) {
+  addMarker: function(lat, lng, pinName) {
     if (lat && lng) {
       var position = new google.maps.LatLng(lat, lng);
-      return new google.maps.Marker({position: position, map: this.map, icon: pin});
+      return new google.maps.Marker({position: position, map: this.map, icon: this.pinImages[pinName]});
     }
   },
 
@@ -296,9 +301,16 @@ _.extend(Map.prototype, {
     marker.setMap(null);
   },
 
-  changeMarker: function(marker, pin) {
-    if (marker.getIcon() !== pin)
-      marker.setIcon(pin);
+  changeMarker: function(marker, pinName) {
+    if (marker.getIcon() !== this.pinImages[pinName]) {
+      marker.setIcon(this.pinImages[pinName]);
+
+      if (this.pinImages.isPriority(pinName)) {
+        marker.setZIndex(this.priorityPinZIndex++);
+      } else {
+        marker.setZIndex(this.secondaryPinZIndex++);
+      }
+    }
   },
 
   findAddress: function(address, hollaback) {
