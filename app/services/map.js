@@ -217,10 +217,9 @@ var Map = function(element, lat, lng, zoom) {
     'pointerEvents' : 'none'
   });
 
-  this.pinShadow = new google.maps.MarkerImage('images/pin_shadow.png',
-                                               new google.maps.Size(53, 41),
-                                               new google.maps.Point(0,0),
-                                               new google.maps.Point(4,49));
+  var size = new google.maps.Size(24, 35);
+  var origin = new google.maps.Point(27, 0);
+  this.pinImage = new google.maps.MarkerImage('images/pins.png', size, origin);
 
   var circle = circleOverlay.get(0);
   circle.index = -1;
@@ -286,7 +285,7 @@ _.extend(Map.prototype, {
   addMarker: function(lat, lng) {
     if (lat && lng) {
       var position = new google.maps.LatLng(lat, lng);
-      return new google.maps.Marker({position: position, map: this.map, icon: 'images/pin.png', shadow: this.pinShadow});
+      return new google.maps.Marker({position: position, map: this.map, icon: this.pinImage});
     }
   },
 
