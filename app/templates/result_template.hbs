@@ -37,20 +37,29 @@
     <p>{{linkify model.contentText}}</p>
   </div>
 
-  <div class="pin" {{action "recenterOnResult"}} title="Recenter search"></div>
+  <div class="footer">
+    <div class="pin" {{action "recenterOnResult"}} title="Recenter search"></div>
 
-  <div class="small-links">
-    <a class="permalink" target="_blank"  href="{{unbound model.permalinkUrl}}">
-      {{unbound model.permalinkText}}
-    </a>
-    <div class="timestamp">
-      <a target="_blank"  href="{{unbound model.permalinkUrl}}">
-        {{unbound postedDate}}
-        <br>
-        {{unbound postedTime}}
+    <div class="small-links">
+      <a class="permalink" target="_blank"  href="{{unbound model.permalinkUrl}}">
+        {{unbound model.permalinkText}}
       </a>
+      <div class="timestamp">
+        <a target="_blank"  href="{{unbound model.permalinkUrl}}">
+          {{unbound postedDate}}
+          <br>
+          {{unbound postedTime}}
+        </a>
+      </div>
+    </div> <!-- /.small-links -->
+
+    <div class="twitter-actions">
+      <a href="#" target="_blank" class="reply" title="Reply">Reply</a>
+      <a href="#" target="_blank" class="retweet" title="Retweet">Retweet</a>
+      <a href="#" target="_blank" class="favorite" title="Favorite">Favorite</a>
+      <a href="#" target="_blank" class="add" title="Add">Add</a>
     </div>
-  </div>
+  </div> <!-- /.footer -->
 </div>
 
 <div class="item-footer">

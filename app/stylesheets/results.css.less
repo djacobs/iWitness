@@ -443,11 +443,55 @@
     color      : #fff;
   }
 
+  .footer { clear: both; }
+
   .small-links {
-    clear        : both;
     float        : left;
     position     : relative;
     padding-left : 30px;
+  }
+
+  .twitter-actions {
+    display     : none;
+    position    : relative;
+    float       : left;
+    width       : 120px;
+    height      : 19px;
+    margin-left : 20px;
+
+    a {
+      display     : block;
+      position    : absolute;
+      top         : 0;
+      bottom      : 0;
+      width       : 29px;
+      text-indent : -999em;
+      background  : url(images/twitter_actions.png) no-repeat;
+    }
+
+    .reply {
+      left  : 0;
+      width : 29px;
+      background-position: 0 0;
+    }
+
+    .retweet {
+      left  : 35px;
+      width : 33px;
+      background-position: -35px 0;
+    }
+
+    .favorite {
+      left  : 79px;
+      width : 22px;
+      background-position: -79px 0;
+    }
+
+    .add {
+      left  : 111px;
+      width : 22px;
+      background-position: -115px 0;
+    }
   }
 
   .timestamp {
@@ -507,6 +551,7 @@
 
   .pic, .content-link { border-color: #ba4800; }
   .pin { display : block; }
+  .twitter-actions { display: block; }
 }
 
 .twitter .permalink { background: url(images/twitter_badge.png); }
