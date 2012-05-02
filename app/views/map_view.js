@@ -10,45 +10,52 @@ IWitness.MapView = Ember.View.extend(IWitness.MapControl, {
   didInsertElement: function() {
     this.set('ready', true);
     this.initZoomSlider();
-    this.set("pins", Ember.CollectionView.create({
-      contentBinding: 'IWitness.resultSetController.content',
-      itemViewClass: "IWitness.MapPinView",
-      mapView: this
-    }));
   },
 
   _initMap: function(){
     var self = this;
     var center = this.getPath('model.center');
-    if (!this.map && this.get("ready") && center) {
-      this.map = new Map(document.getElementById("map"), center[0], center[1], this.get('zoomLevel'));
-      this.map.addListenerOnce('idle', function(){
-        self.map.addListener('bounds_changed', _.bind(_.debounce(self._updateMap, 200), self));
+    var map = this.get("map");
+
+    if (!map && this.get("ready") && center) {
+      map = new Map(document.getElementById("map"), center[0], center[1], this.get('zoomLevel'));
+      map.addListenerOnce('idle', function(){
+        map.addListener('bounds_changed', _.bind(_.debounce(self._updateMap, 200), self));
         self._saveModel();
       });
+
+      this.set("pins", Ember.CollectionView.create({
+        contentBinding: 'IWitness.resultSetController.content',
+        itemViewClass: "IWitness.MapPinView",
+        map: map
+      }));
+
+      this.set("map", map);
     }
   }.observes('ready', 'model.center'),
 
   createMarkerForResult: function() {
     var lat = this.getPath('selectedResult.lat');
     var lng = this.getPath('selectedResult.lng');
-    if (this.map) this.map.moveMarkerTo(lat, lng);
+    if (this.get('map')) this.get('map').moveMarkerTo(lat, lng);
   }.observes('selectedResult'),
 
   _criteriaChanged: function() {
+    var map = this.get("map");
     return ! (
-      Ember.compare(this.getPath('model.center'), this.map.getCenter()) == 0 &&
-      Ember.compare(this.getPath('model.zoom'), this.map.getZoom()) == 0 &&
-      Ember.compare(this.getPath('model.northEast'), this.map.getNorthEast()) == 0 &&
-      Ember.compare(this.getPath('model.southWest'), this.map.getSouthWest()) == 0
+      Ember.compare(this.getPath('model.center'),    map.getCenter())    == 0 &&
+      Ember.compare(this.getPath('model.zoom'),      map.getZoom())      == 0 &&
+      Ember.compare(this.getPath('model.northEast'), map.getNorthEast()) == 0 &&
+      Ember.compare(this.getPath('model.southWest'), map.getSouthWest()) == 0
     );
   },
 
   _saveModel: function() {
-    this.setPath('model.center', this.map.getCenter());
-    this.setPath('model.zoom', this.map.getZoom());
-    this.setPath('model.northEast', this.map.getNorthEast());
-    this.setPath('model.southWest', this.map.getSouthWest());
+    var map = this.get("map");
+    this.setPath('model.center', map.getCenter());
+    this.setPath('model.zoom', map.getZoom());
+    this.setPath('model.northEast', map.getNorthEast());
+    this.setPath('model.southWest', map.getSouthWest());
   },
 
   _updateMap: function() {
@@ -58,7 +65,7 @@ IWitness.MapView = Ember.View.extend(IWitness.MapControl, {
   },
 
   recenter: function() {
-    if (this.map) this.map.setCenter(this.getPath('model.center'));
+    if (this.get('map')) this.get('map').setCenter(this.getPath('model.center'));
   }.observes('model.center'),
 
   findAddress: function() {
@@ -67,7 +74,7 @@ IWitness.MapView = Ember.View.extend(IWitness.MapControl, {
 
     if (address){
       this.set('mapSearchStatus', 'scanning');
-      this.map.findAddress(address, function(status) {
+      this.get('map').findAddress(address, function(status) {
         status = status ? 'finished' : 'somethings_wrong';
         self.set('mapSearchStatus', status);
       });

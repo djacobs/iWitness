@@ -10,7 +10,7 @@ IWitness.StarredMapView = Ember.View.extend(IWitness.MapControl, {
 
   insertMap: function() {
     var self = this;
-    if (this.get('isCurrentView') && !this.map) {
+    if (this.get('isCurrentView') && !this.get('map')) {
 
       // wait until the map container gets drawn before rendering it or craziness ensues.
       _.defer(function(){
@@ -36,9 +36,10 @@ IWitness.StarredMapView = Ember.View.extend(IWitness.MapControl, {
   createMarkerForResult: function() {
     var lat = this.getPath('selectedResult.lat');
     var lng = this.getPath('selectedResult.lng');
-    if (this.map) {
-      this.map.moveMarkerTo(lat, lng);
-      this.map.panTo([lat, lng]);
+    var map = this.get("map");
+    if (map) {
+      map.moveMarkerTo(lat, lng);
+      map.panTo([lat, lng]);
     }
   }.observes('selectedResult')
 });

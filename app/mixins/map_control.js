@@ -14,7 +14,7 @@ IWitness.MapControl = Ember.Mixin.create({
 
   zoom: function() {
     var level = this.get('zoomLevel');
-    if (this.map) this.map.setZoom(level);
+    if (this.get('map')) this.get('map').setZoom(level);
     if (this.sliderEl) this.sliderEl.slider("value", level);
   }.observes("zoomLevel"),
 
@@ -31,8 +31,8 @@ IWitness.MapControl = Ember.Mixin.create({
   },
 
   refreshMap: function() {
-    if (this.getPath('isCurrentView') && this.map) {
-      this.map.forceResize();
+    if (this.getPath('isCurrentView') && this.get('map')) {
+      this.get('map').forceResize();
     }
   }.observes("isCurrentView")
 
