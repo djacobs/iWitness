@@ -296,9 +296,9 @@ _.extend(Map.prototype, {
     marker.setMap(null);
   },
 
-  //TODO: only change it when necessary
   changeMarker: function(marker, pin) {
-    marker.setIcon(pin);
+    if (marker.getIcon() !== pin)
+      marker.setIcon(pin);
   },
 
   findAddress: function(address, hollaback) {
