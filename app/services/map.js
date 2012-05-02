@@ -218,8 +218,11 @@ var Map = function(element, lat, lng, zoom) {
   });
 
   var size = new google.maps.Size(24, 35);
-  var origin = new google.maps.Point(27, 0);
-  this.pinImage = new google.maps.MarkerImage('images/pins.png', size, origin);
+  var width = 27;
+  this.pinImage                = new google.maps.MarkerImage('images/pins.png', size, new google.maps.Point(width, 0));
+  this.selectedPinImage        = new google.maps.MarkerImage('images/pins.png', size, new google.maps.Point(width*3, 0));
+  this.starredPinImage         = new google.maps.MarkerImage('images/pins.png', size, new google.maps.Point(0, 0));
+  this.selectedStarredPinImage = new google.maps.MarkerImage('images/pins.png', size, new google.maps.Point(width*2, 0));
 
   var circle = circleOverlay.get(0);
   circle.index = -1;
@@ -291,6 +294,14 @@ _.extend(Map.prototype, {
 
   removeMarker: function(marker) {
     marker.setMap(null);
+  },
+
+  selectMarker: function(marker) {
+    marker.setIcon(this.selectedPinImage);
+  },
+
+  unselectMarker: function(marker) {
+    marker.setIcon(this.pinImage);
   },
 
   findAddress: function(address, hollaback) {
