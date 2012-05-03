@@ -1,5 +1,6 @@
 IWitness.MapPinView = Ember.View.extend({
   mapBinding: 'parentView.map',
+  contentControllerBinding: 'parentView.contentController',
 
   init: function() {
     this._super();
@@ -16,13 +17,13 @@ IWitness.MapPinView = Ember.View.extend({
   },
 
   click: function() {
-    IWitness.resultSetController.set('selectedResult', null); // force observers to fire
-    IWitness.resultSetController.set('selectedResult', this.get("content"));
+    this.get("contentController").set('selectedResult', null); // force observers to fire
+    this.get("contentController").set('selectedResult', this.get("content"));
   },
 
   isSelected: function() {
-    return this.get('content') === IWitness.resultSetController.get('selectedResult');
-  }.property('content', 'IWitness.resultSetController.selectedResult'),
+    return this.get('content') === this.getPath("contentController.selectedResult");
+  }.property('content', 'contentController.selectedResult'),
 
   isStarred: function() {
     return IWitness.starredSetController.isStarred(this.get('content'));
