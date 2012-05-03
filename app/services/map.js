@@ -293,7 +293,7 @@ _.extend(Map.prototype, {
   addMarker: function(lat, lng, pinName) {
     if (lat && lng) {
       var position = new google.maps.LatLng(lat, lng);
-      return new google.maps.Marker({position: position, map: this.map, icon: this.pinImages[pinName]});
+      return new google.maps.Marker({position: position, map: this.map, icon: this.pinImages[pinName], visible: false});
     }
   },
 

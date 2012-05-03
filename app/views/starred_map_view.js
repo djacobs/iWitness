@@ -33,7 +33,7 @@ IWitness.StarredMapView = Ember.View.extend(IWitness.MapControl, {
         self.set("pins", Ember.CollectionView.create({
           contentBinding: 'IWitness.starredSetController.content',
           contentControllerBinding: 'IWitness.starredSetController',
-          itemViewClass: "IWitness.MapPinView",
+          itemViewClass: "IWitness.StarredMapPinView",
           map: map
         }));
         self.set("map", map);

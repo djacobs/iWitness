@@ -46,7 +46,26 @@ IWitness.MapPinView = Ember.View.extend({
   }.property("isStarred", "isSelected"),
 
   updatePinImage: function() {
-    this.get("map").changeMarker(this.get("marker"), this.get("pinName"));
-  }.observes('pinName')
+    var marker = this.get("marker");
+    if (marker) this.get("map").changeMarker(marker, this.get("pinName"));
+  }.observes('pinName'),
 
+  _makeVisible: function(){
+    this.get("marker").setVisible(true);
+  }
+
+});
+
+IWitness.ResultMapPinView = IWitness.MapPinView.extend({
+  init: function(){
+    this._super();
+    IWitness.hiddenItemsController.executeWhenVisible(this, this._makeVisible);
+  }
+});
+
+IWitness.StarredMapPinView = IWitness.MapPinView.extend({
+  init: function(){
+    this._super();
+    this._makeVisible();
+  }
 });
