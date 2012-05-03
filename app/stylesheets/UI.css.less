@@ -1,16 +1,24 @@
 @import "/app/stylesheets/mixins.css.less";
 
-html,body { background: #00070b url(images/blue_gradient.png) fixed no-repeat; }
+html,body { background: #000 url(images/gradient_background.png) repeat-y 50% 0; }
 
 @-webkit-keyframes radar {
   0%   { -webkit-transform: rotate(0deg); }
   100% { -webkit-transform: rotate(360deg); }
 }
 
-
 .disabled {
   opacity : 0.5;
   cursor  : default;
+}
+
+#master-container {
+  position    : absolute;
+  top         : 0;
+  right       : 0;
+  bottom      : 0;
+  left        : 0;
+  background  : url(images/iWitness_Bckground.jpg) no-repeat 50% 0;
 }
 
 
