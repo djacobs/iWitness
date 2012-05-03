@@ -42,6 +42,16 @@ IWitness.ResultView = Ember.View.extend(IWitness.PostedDateTime, {
     }
   }.property('IWitness.starredSetController.@each'),
 
+  _ensureVisibilityWhenSelected: function() {
+    if (this.get("isSelected")) {
+      var position = this.$().get(0).getBoundingClientRect();
+      if (position.top < 0 || (position.top + position.height) > window.innerHeight) {
+        var resultTop = this.$().offset().top;
+        $(document).scrollTop(resultTop - 200);
+      }
+    }
+  }.observes('isSelected'),
+
   toggleEmbedForm: function(){
     if(!this.getPath('model.embedHtml')) {
       this.get('model').fetchEmbed();

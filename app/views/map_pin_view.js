@@ -5,13 +5,19 @@ IWitness.MapPinView = Ember.View.extend({
     this._super();
     var map = this.getPath("parentView.map"); // map binding not yet synced
     var result = this.get("content");
-
-    this.set("marker", map.addMarker(result.get("lat"), result.get("lng"), this.get("pinName")));
+    var marker = map.addMarker(result.get("lat"), result.get("lng"), this.get("pinName"));
+    google.maps.event.addListener(marker, 'click', _.bind(this.click, this));
+    this.set("marker", marker);
   },
 
   willDestroy: function() {
     var map = this.get("map");
     map.removeMarker(this.get('marker'));
+  },
+
+  click: function() {
+    IWitness.resultSetController.set('selectedResult', null); // force observers to fire
+    IWitness.resultSetController.set('selectedResult', this.get("content"));
   },
 
   isSelected: function() {
