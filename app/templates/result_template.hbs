@@ -53,12 +53,14 @@
       </div>
     </div> <!-- /.small-links -->
 
-    <div class="twitter-actions">
-      <a href="#" target="_blank" class="reply" title="Reply">Reply</a>
-      <a href="#" target="_blank" class="retweet" title="Retweet">Retweet</a>
-      <a href="#" target="_blank" class="favorite" title="Favorite">Favorite</a>
-      <a href="#" target="_blank" class="add" title="Add">Add</a>
-    </div>
+    {{#if model.isTweet}}
+      <div class="twitter-actions">
+        <a href="https://twitter.com/intent/tweet?in_reply_to={{unbound model.idStr}}" target="_blank" class="reply" title="Reply">Reply</a>
+        <a href="https://twitter.com/intent/retweet?tweet_id={{unbound model.idStr}}" target="_blank" class="retweet" title="Retweet">Retweet</a>
+        <a href="https://twitter.com/intent/favorite?tweet_id={{unbound model.idStr}}" target="_blank" class="favorite" title="Favorite">Favorite</a>
+        <a href="https://twitter.com/intent/user?screen_name={{unbound model.userNamePrimary}}" target="_blank" class="add" title="Follow">Follow</a>
+      </div>
+    {{/if}}
   </div> <!-- /.footer -->
 </div>
 

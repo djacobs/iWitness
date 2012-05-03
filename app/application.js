@@ -9,6 +9,7 @@
 //= require sproutcore-routing/sproutcore-routing/lib/core.js
 //= require javascripts/moment
 //= require ext/moment_ext
+//= require javascripts/twitter_intents
 //= require javascripts/kdtree
 //= require javascripts/timezone-js/src/date
 //= require javascripts/timezone-js-jquery/src/timezone-js-jquery

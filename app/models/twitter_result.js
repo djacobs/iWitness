@@ -1,6 +1,7 @@
 IWitness.TwitterResult = IWitness.Result.extend({
   resultType:             'twitter',
   permalinkText:          'twitter',
+  isTweet:                true,
 
   init: function(){
     this._initMedia();
