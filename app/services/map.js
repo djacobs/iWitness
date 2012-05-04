@@ -231,7 +231,7 @@ var Map = function(element, lat, lng, zoom) {
 };
 
 // radius of circle overlay / (height of map / 2)
-Map.circleRadiusRatio = 0.932; // = 220 / (472 / 2)
+Map.circleRadiusRatio = 0.935; // = 168 / (359 / 2)
 
 _.extend(Map.prototype, {
   addListener: function(type, handler) {

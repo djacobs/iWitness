@@ -190,20 +190,19 @@
   top      : 215px;
   right    : 0;
   left     : 0;
-  height   : 495px;
-  .iwitness-border-with-radius(14px);
+  height   : 410px;
 }
 
 #map, #starred-map {
   width  : 497px;
-  height : 472px;
-  .rounded(14px);
+  height : 359px;
+  .iwitness-border-with-radius(14px);
 }
 
 #address-field {
   overflow       : hidden;
   position       : absolute;
-  top            : 725px;
+  top            : 632px;
   right          : 0;
   left           : 0;
   height         : 51px;
@@ -251,38 +250,31 @@
   right      : 0;
   bottom     : 0;
   left       : 0;
-  height     : 16px;
-  border-top : 3px solid @iwitness-blue;
+  height     : 28px;
+  .iwitness-border-with-radius(14px);
   .user-select(none);
+  .gradient(#061826, #020f17, #0a2034);
 
-  .slider {
+  .slider, .progress {
     position   : absolute;
-    top        : 1px;
-    left       : 28px;
-    width      : 444px;
-    left       : 29px;
-    height     : 14px;
+    top        : 3px;
+    left       : 31px;
+    height     : 21px;
     border     : 0;
     background : url(images/zoom_level.png);
     .border-radius(0);
   }
 
+  .slider { width : 435px; }
+
   .progress {
-    position   : absolute;
-    top        : 1px;
-    left       : 28px;
-    width      : 442px;
-    left       : 29px;
-    height     : 14px;
-    border     : 0;
-    background : url(images/zoom_level.png) 0 -14px;
-    .border-radius(0);
-    pointer-events: none;
+    background-position : 0 -21px;
+    pointer-events      : none;
   }
 
   // created by jquery-ui, and we can't add another class
   .ui-slider-handle {
-    top        : -3px;
+    top        : 0;
     width      : 35px;
     height     : 24px;
     border     : 0;
