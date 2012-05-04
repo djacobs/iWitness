@@ -18,7 +18,7 @@ html,body { background: #000 url(images/gradient_background.png) repeat-y 50% 0;
   right       : 0;
   bottom      : 0;
   left        : 0;
-  background  : url(images/iWitness_Bckground.jpg) no-repeat 50% 0;
+  background  : url(images/iWitness_Bckground.jpg) fixed no-repeat 50% 0;
 }
 
 
@@ -44,13 +44,9 @@ html,body { background: #000 url(images/gradient_background.png) repeat-y 50% 0;
   .serif-bold();
   .user-select(none);
 
-  &.dark {
-    .gradient(#ae4300, #ad3c00, #b05100);
-  }
+  &.dark { .gradient(#ae4300, #ad3c00, #b05100); }
 
-  .nav-button {
-    margin-top: 5px;
-  }
+  .nav-button { margin-top: 5px; }
 }
 
 
@@ -146,9 +142,7 @@ html,body { background: #000 url(images/gradient_background.png) repeat-y 50% 0;
       left  : 0;
     }
 
-    .content {
-      .border-radius(0, 8px, 8px, 8px);
-    }
+    .content { .border-radius(0, 8px, 8px, 8px); }
   }
 
   .content {
@@ -231,9 +225,7 @@ html,body { background: #000 url(images/gradient_background.png) repeat-y 50% 0;
         .rounded(20px);
       }
 
-      .ui-state-active {
-        background: #fff;
-      }
+      .ui-state-active { background: #fff; }
     }
 
     td:hover a {
@@ -258,9 +250,7 @@ html,body { background: #000 url(images/gradient_background.png) repeat-y 50% 0;
   background  : url(images/ui-widget-arrow.png);
 }
 
-.ec-time-picker:before {
-  top: -15px;
-}
+.ec-time-picker:before { top: -15px; }
 
 
 .ui-widget.ec-time-picker {
