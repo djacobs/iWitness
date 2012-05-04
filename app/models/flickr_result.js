@@ -1,14 +1,16 @@
 IWitness.FlickrResult = IWitness.Result.extend({
   resultType:             'flickr',
   permalinkText:          'flickr',
-  latBinding:             'latitude',
-  lngBinding:             'longitude',
-  avatarSrcBinding:       'profilePicUrl',
-  userNamePrimaryBinding: 'ownername',
-  contentTextBinding:     'description._content',
 
   init: function(){
     this._initMedia();
+    this.setProperties({
+      lat: this.get("latitude"),
+      lng: this.get("longitude"),
+      avatarSrc: this.get("profilePicUrl"),
+      userNamePrimary: this.get("ownername"),
+      contentText: this.getPath("description._content")
+    });
   },
 
   resultId: function(){
