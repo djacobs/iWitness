@@ -12,13 +12,14 @@ html,body { background: #000 url(images/gradient_background.png) repeat-y 50% 0;
   cursor  : default;
 }
 
-#master-container {
-  position    : absolute;
+#radar-background {
+  position    : fixed;
   top         : 0;
   right       : 0;
   bottom      : 0;
   left        : 0;
   background  : url(images/iWitness_Bckground.jpg) fixed no-repeat 50% 0;
+  z-index     : 0;
 }
 
 
@@ -32,6 +33,7 @@ html,body { background: #000 url(images/gradient_background.png) repeat-y 50% 0;
   margin      : 0 auto;
   color       : #fff;
   font-family : helvetica, arial, sans-serif;
+  z-index     : 1;
 }
 
 .toolbar {
