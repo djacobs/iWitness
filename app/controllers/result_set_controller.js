@@ -27,7 +27,14 @@ IWitness.resultSetController = Ember.ArrayController.create(IWitness.ResultSorti
 
   resume: function(){
     this.set('stopped', false);
-  }
+  },
+
+  filtered: function() {
+    return this.filter(function(result) {
+      var intersection = _.intersection(result.get('mediaTypes'), IWitness.filter.get('mediaTypes'));
+      return intersection.length > 0;
+    });
+  }.property('@each', 'IWitness.filter.mediaTypes.@each').cacheable()
 
 });
 

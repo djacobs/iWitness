@@ -61,6 +61,14 @@ IWitness.TwitterResult = IWitness.Result.extend({
     this.set("media", media);
   },
 
+  mediaTypes: function() {
+    var types = this.get('media').map(function(media) {
+      return media.get('canDisplay') ? media.get('serviceType') : null;
+    }).compact();
+
+    return types.length ? types : ['text'];
+  }.property('media.content.@each'),
+
   fetchEmbed: function(){
     var self = this;
     var id   = this.getPath('idStr');
