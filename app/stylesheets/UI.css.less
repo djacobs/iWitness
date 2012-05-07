@@ -275,12 +275,13 @@ html,body { background: #000 url(images/gradient_background.png) repeat-y 50% 0;
 
 
 .ui-widget.ec-time-picker {
-  display  : none;
-  position : absolute;
-  top      : 30px;
-  z-index  : 10;
-  width    : 175px;
-  height   : 330px;
+  display     : none;
+  position    : absolute;
+  top         : 30px;
+  z-index     : 10;
+  width       : 186px;
+  height      : 288px;
+  margin-left : -8px;
 
   &.start {
     left : 315px;
@@ -293,32 +294,64 @@ html,body { background: #000 url(images/gradient_background.png) repeat-y 50% 0;
   }
 
   .column {
-    overflow : auto;
-    position : absolute;
-    top      : 0;
-    bottom   : 0;
-    width    : 60px;
+    overflow    : hidden;
+    position    : absolute;
+    top         : 10px;
+    bottom      : 0;
+    width       : 60px;
     padding-top : 10px;
   }
 
+  .column.hour, .column.minute {
+    background: #2e2f31;
+  }
+
   .column-1 { left: 10px;  }
-  .column-2 { left: 60px;  }
-  .column-3 { left: 110px; }
+  .column-2 { left: 71px;  }
+  .column-3 { left: 130px; top: 76px; }
+
+  .column .heading {
+    position       : absolute;
+    top            : 0;
+    right          : 0;
+    left           : 0;
+    height         : 16px;
+    color          : #fff;
+    font           : 10px helvetica, arial, sans-serif;
+    font-weight    : bold;
+    line-height    : 16px;
+    text-align     : center;
+    text-transform : uppercase;
+    background     : #5d5d5d;
+  }
+
+  .column .content {
+    overflow    : auto;
+    position    : absolute;
+    top         : 16px;
+    right       : 0;
+    bottom      : 0;
+    left        : 0;
+    padding-top : 10px;
+  }
 
   a {
     display         : block;
-    height          : 40px;
-    margin          : 0 10px 10px 10px;
-    color           : #000;
+    width           : 41px;
+    height          : 41px;
+    margin          : 0 9px 10px 9px;
+    color           : #fff;
     font-size       : 14px;
     font-weight     : bold;
+    line-height     : 41px;
     text-align      : center;
     text-decoration : none;
-    line-height     : 40px;
-    background      : #ec7000;
-    .rounded(20px);
+    background      : url(images/calendar_circle.png);
 
-    &.active { background : #fff; }
+    &.active {
+      color      : #000;
+      background : url(images/calendar_circle_active.png);
+    }
   }
 }
 
