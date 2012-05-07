@@ -45,10 +45,13 @@
   background : url(images/time.png) no-repeat 129px 13px;
   .iwitness-border-with-radius(12px);
 
+  .streaming-element { display: none; }
+
   &.streaming {
     background : url(images/live_streaming_background.png) no-repeat 37% 50%;
 
     .time-element, .timezone-element { display: none; }
+    .streaming-element { display: block; }
   }
 
   #stream_selector {

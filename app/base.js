@@ -6,6 +6,7 @@ window.IWitness = Ember.Application.create({
       IWitness.routes.draw();
       TwitterTimestampCache.expire();
       Analytics.startSession();
+      this.trackCurrentTime();
     }
   },
 
@@ -18,7 +19,17 @@ window.IWitness = Ember.Application.create({
       document.write('');
       return false;
     }
+  },
+
+  trackCurrentTime: function() {
+    var self = this;
+    self.set('currentTime', moment().format('HH:mm A'));
+
+    setInterval(function() {
+      self.set('currentTime', moment().format('HH:mm A'));
+    }, 1000);
   }
+
 });
 
 IWitness.log = _.bind(Ember.Logger.log, Ember.Logger);

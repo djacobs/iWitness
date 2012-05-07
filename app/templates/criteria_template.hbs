@@ -8,6 +8,12 @@
       <img src="images/time_scan_switch.png" class="time-scan">
     {{/view}}
 
+    <div class="streaming-element">
+      Live streaming this location
+      <span class="time">{{streamingTime}}</span>
+      map time zone
+    </div>
+
     {{view IWitness.DateTimeSelector whichDate="start"}}
     {{view IWitness.DateTimeSelector whichDate="end"}}
 
