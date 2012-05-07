@@ -1,7 +1,6 @@
 IWitness.CriteriaView = Ember.View.extend({
   templateName: 'criteria_template',
   modelBinding: 'IWitness.criteriaController.content',
-  streamingTimeBinding: 'IWitness.currentTime',
   radius: 1,
 
   streamSelector: Ember.View.extend({

@@ -9,6 +9,7 @@ IWitness.Criteria = Ember.Object.extend({
   init: function() {
     this._super();
     this.setProperties({rawStart: moment().subtract("hours", 1), rawEnd: moment()});
+    this.trackCurrentTime();
   },
 
   timezoneOffset: function() {
@@ -103,6 +104,18 @@ IWitness.Criteria = Ember.Object.extend({
       return "Please zoom in to start scanning.";
     }
   }.property("radius"),
+
+  trackCurrentTime: function() {
+    var self = this;
+    self.set('currentTime', moment());
+    setInterval(function() { self.set('currentTime', moment()) }, 1000);
+  },
+
+  streamingTime: function() {
+    var m = moment(this.get('currentTime')); // don't mutate current time property
+    m.subtract('hours', this.get('timezoneDifference'));
+    return m.format('hh:mm A');
+  }.property('currentTime', 'timezoneDifference'),
 
   _getAdjustedForMap: function(prop) {
     if (this.get('useLocalTime')) {
