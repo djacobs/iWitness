@@ -36,6 +36,47 @@
   i { color: #ec7000; }
 }
 
+.time-element {
+  position    : absolute;
+  color       : #000;
+  font        : 24px helvetica, arial, sans-serif;
+  font-weight : bold;
+  text-align  : center;
+  .user-select(none);
+
+  &.day    { width: 31px; }
+  &.month  { width: 48px; }
+  &.year   { width: 57px; }
+  &.hour   { width: 31px; }
+  &.minute { width: 31px; }
+  &.period { width: 40px; }
+}
+
+#time_scan_time {
+  .time-element {
+    &.start  { top  : 14px;  }
+    &.end    { top  : 52px;  }
+    &.day    { left : 178px; }
+    &.month  { left : 213px; }
+    &.year   { left : 266px; }
+    &.hour   { left : 348px; }
+    &.minute { left : 390px; }
+    &.period { left : 425px; }
+  }
+}
+
+#live_stream_time {
+  display: none;
+
+  .time-element {
+    top: 53px;
+
+    &.hour   { left: 160px; }
+    &.minute { left: 203px; }
+    &.period { left: 236px; }
+  }
+}
+
 #date_and_time_selectors {
   position   : absolute;
   top        : 70px;
@@ -48,7 +89,8 @@
   &.streaming {
     background : url(images/live_streaming_background.png) no-repeat 37% 50%;
 
-    .time-element, .timezone-element { display: none; }
+    #time_scan_time .time-element, .timezone-element { display: none; }
+    #live_stream_time { display: block; }
   }
 
   #stream_selector {
@@ -78,49 +120,6 @@
       img.time-scan { opacity: 0; }
       img.streaming { opacity: 1; }
     }
-  }
-
-  .time-element {
-    position    : absolute;
-    color       : #000;
-    font        : 24px helvetica, arial, sans-serif;
-    font-weight : bold;
-    text-align  : center;
-    .user-select(none);
-
-    &.day {
-      left  : 178px;
-      width : 31px;
-    }
-
-    &.month {
-      left  : 213px;
-      width : 48px;
-    }
-
-    &.year {
-      left  : 266px;
-      width : 57px;
-    }
-
-    &.hour {
-      left  : 348px;
-      width : 31px;
-    }
-
-    &.minute {
-      left  : 390px;
-      width : 31px;
-    }
-
-    &.period {
-      left  : 425px;
-      width : 40px;
-    }
-
-    &.start { top: 14px; }
-    &.end   { top: 52px; }
-
   }
 
   .datepicker {

@@ -3,13 +3,21 @@
   <div id="iwitness_title"><i>i</i>Witness</div>
 
   <div id="date_and_time_selectors">
+    <div id="live_stream_time">
+      <div class="time-element hour">12</div>
+      <div class="time-element minute">00</div>
+      <div class="time-element period">PM</div>
+    </div>
+
     {{#view streamSelector id="stream_selector"}}
       <img src="images/live_stream_switch.png" class="streaming">
       <img src="images/time_scan_switch.png" class="time-scan">
     {{/view}}
 
-    {{view IWitness.DateTimeSelector whichDate="start"}}
-    {{view IWitness.DateTimeSelector whichDate="end"}}
+    <div id="time_scan_time">
+      {{view IWitness.DateTimeSelector whichDate="start"}}
+      {{view IWitness.DateTimeSelector whichDate="end"}}
+    </div>
 
     {{#view timezoneSelector}}
       <div {{bindAttr class="timezoneToggleClass"}}></div>
