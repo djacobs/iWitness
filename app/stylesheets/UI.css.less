@@ -165,11 +165,17 @@ html,body { background: #000 url(images/gradient_background.png) repeat-y 50% 0;
   }
 }
 
+.ui-datepicker td .ui-state-default { padding: 0; }
+.ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default {
+  border: 0;
+  .box-shadow(none);
+}
 
 .ui-widget {
-  width      : auto;
-  border     : 3px solid #fff;
-  background : #1a1b1d;
+  width       : auto;
+  border      : 3px solid #ec7000;
+  font-family : 'ArvoBold', georgia, serif;
+  background  : #1a1b1d;
   .rounded(14px);
 
   .ui-datepicker-header {
@@ -183,22 +189,24 @@ html,body { background: #000 url(images/gradient_background.png) repeat-y 50% 0;
   }
 
   .ui-datepicker-prev {
-    top        : 8px;
-    left       : 4px;
-    width      : 23px;
-    height     : 28px;
-    background : url(images/calendar_arrow_left.png);
+    top          : 8px;
+    left         : 4px;
+    width        : 23px;
+    height       : 28px;
+    padding-left : 10px;
+    background   : url(images/calendar_arrow_left.png) no-repeat 50% 50%;
     .rounded(0);
 
     span { display: none; }
   }
 
   .ui-datepicker-next {
-    top        : 8px;
-    right      : 4px;
-    width      : 23px;
-    height     : 28px;
-    background : url(images/calendar_arrow_right.png);
+    top          : 8px;
+    right        : 4px;
+    width        : 23px;
+    height       : 28px;
+    padding-left : 10px;
+    background   : url(images/calendar_arrow_right.png) no-repeat 50% 50%;
     .rounded(0);
 
     span { display: none; }
@@ -206,35 +214,45 @@ html,body { background: #000 url(images/gradient_background.png) repeat-y 50% 0;
 
   .ui-datepicker-calendar {
     th {
-      border         : 6px solid transparent;
+      border         : 6px solid #1a1b1c;
       padding        : 2px 0;
       color          : #fff;
-      font-size      : 10px;
+      font           : 10px helvetica, arial, sans-serif;
+      font-weight    : bold;
       text-transform : uppercase;
       background     : #5d5d5d;
     }
 
     td {
-      border         : 6px solid transparent;
+      border     : 6px solid transparent;
       background : transparent;
 
       a {
         display     : block;
-        padding     : 11px;
-        color       : #000;
+        width       : 41px;
+        height      : 41px;
+        color       : #fff;
         font-size   : 14px;
         font-weight : bold;
-        background  : #ec7000;
-        .rounded(20px);
+        line-height : 41px;
+        text-align  : center;
+        background  : url(images/calendar_circle.png);
       }
 
-      .ui-state-active { background: #fff; }
+      .ui-state-active {
+        color      : #000;
+        background : url(images/calendar_circle_active.png);
+      }
     }
 
     td:hover a {
+      color: #fff;
+      background: url(images/calendar_circle.png);
+    }
+
+    td:hover a.ui-state-active {
       color      : #000;
-      background : #ec7000;
-      .rounded(20px);
+      background : url(images/calendar_circle_active.png);
     }
   }
 }
