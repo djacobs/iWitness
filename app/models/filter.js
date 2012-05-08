@@ -6,5 +6,5 @@ IWitness.filter = Ember.Object.create({
   mediaTypes: function() {
     return this.get('availableMediaTypes').filterProperty('active')
                                           .mapProperty('type');
-  }.property('availableMediaTypes.@each').cacheable()
+  }.property('availableMediaTypes.@each.active').cacheable()
 });
