@@ -3,6 +3,7 @@
 <head>
   <title>iWitness</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0">
   <link type='text/css' rel='stylesheet' href="application.css">
   <script type='text/javascript' src="application.js"></script>
   <script type='text/javascript' src="http://maps.googleapis.com/maps/api/js?key=AIzaSyACxJ7JWqPV6inY-zzKIRdVbOAa6BnFMCs&sensor=false&libraries=geometry"></script>
@@ -12,7 +13,7 @@
     
       var _gaq = _gaq || [];
 
-      _gaq.push(['_setAccount', 'UA-29639865-1']);
+      _gaq.push(['_setAccount', 'UA-29643339-1']);
 
       
 
@@ -27,14 +28,13 @@
   </script>
 </head>
 <body>
-  <div id="master-container">
-    <div id="container">
-      <script type='text/x-handlebars'>
-        {{view IWitness.SearchView}}
-        {{view IWitness.StarredView}}
-      </script>
-    </div>
+  <div id="radar-background"></div>
+  <div id="container">
+    <script type='text/x-handlebars'>
+      {{view IWitness.SearchView}}
+      {{view IWitness.StarredView}}
+    </script>
   </div>
 </body>
 </html>
-<!-- fd5974d -->
+<!-- f1b1153 -->
