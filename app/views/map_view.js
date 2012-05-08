@@ -24,7 +24,7 @@ IWitness.MapView = Ember.View.extend(IWitness.MapControl, {
       });
 
       this.set("pins", Ember.CollectionView.create({
-        contentBinding: 'IWitness.resultSetController.content',
+        contentBinding: 'IWitness.resultSetController.filtered',
         contentControllerBinding: 'IWitness.resultSetController',
         itemViewClass: "IWitness.ResultMapPinView",
         map: map

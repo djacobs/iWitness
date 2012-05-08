@@ -5,6 +5,7 @@ IWitness.TwitterResult = IWitness.Result.extend({
 
   init: function(){
     this._initMedia();
+    this._setMediaTypes();
     this.setProperties({
       avatarSrc: this.get("profileImageUrl"),
       userNamePrimary: this.get("fromUserName"),
@@ -61,13 +62,13 @@ IWitness.TwitterResult = IWitness.Result.extend({
     this.set("media", media);
   },
 
-  mediaTypes: function() {
+  _setMediaTypes: function() {
     var types = this.get('media').map(function(media) {
       return media.get('canDisplay') ? media.get('serviceType') : null;
     }).compact();
 
-    return types.length ? types : ['text'];
-  }.property('media.content.@each'),
+    this.set("mediaTypes", (types.length ? types : ['text']));
+  },
 
   fetchEmbed: function(){
     var self = this;

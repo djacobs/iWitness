@@ -12,6 +12,7 @@ IWitness.MapPinView = Ember.View.extend({
   },
 
   willDestroy: function() {
+    this._super();
     var marker = this.get("marker");
     if (marker) this.get("map").removeMarker(marker);
   },
