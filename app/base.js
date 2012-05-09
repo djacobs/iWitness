@@ -28,7 +28,9 @@ IWitness.config = _.extend({
   perPage: 100,
   pollInterval: 30, //seconds
   searchDelay: 3000,
-  services: ['twitter', 'flickr']
+  services: ['twitter', 'flickr'],
+  minMapZoom: 8,
+  maxMapZoom: 21
 }, window['IWitnessConfig'] || {}); // allow specs to override these values.
 
 timezoneJS.timezone.zoneFileBasePath = 'tzdata';

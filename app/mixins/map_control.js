@@ -3,8 +3,8 @@ IWitness.MapControl = Ember.Mixin.create({
     var self = this;
     this.sliderEl = this.$('.map-zoom-control .slider').slider({
       value: this.get("zoomLevel"),
-      min: 1,
-      max: 21,
+      min: IWitness.config.minMapZoom,
+      max: IWitness.config.maxMapZoom,
       step: 1,
       slide: function(event, ui) {
         self.set("zoomLevel", ui.value);
@@ -23,11 +23,11 @@ IWitness.MapControl = Ember.Mixin.create({
   }.property('zoomLevel'),
 
   zoomIn: function() {
-    this.incrementProperty("zoomLevel");
+    if (this.get("zoomLevel") < IWitness.config.maxMapZoom) this.incrementProperty("zoomLevel");
   },
 
   zoomOut: function() {
-    this.decrementProperty("zoomLevel");
+    if (this.get("zoomLevel") > IWitness.config.minMapZoom) this.decrementProperty("zoomLevel");
   },
 
   refreshMap: function() {
