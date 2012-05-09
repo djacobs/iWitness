@@ -37,19 +37,22 @@
   }
 
   .status {
+    /*
+      If status is 'scanning' don't display background image
+      Show .radar div
+    */
     position : absolute;
     top      : 0;
     bottom   : 0;
     left     : 0;
-    padding  : 0 33px 0 15px;
-    background-position : 100% 50%;
-    background-repeat   : no-repeat;
+    padding  : 0 0 0 45px;
+    background-repeat: no-repeat;
 
     .radar {
       display    : none;
       position   : absolute;
       top        : 50%;
-      right      : 0;
+      left       : 10px;
       width      : 25px;
       height     : 25px;
       margin-top :-12px;
@@ -64,13 +67,13 @@
     &.finished {
       padding-right       : 25px;
       background-image    : url(images/check_orange.png);
-      background-position : 100% 8px;
+      background-position : 15px 8px;
     }
 
     &.somethings_wrong    {
       padding-right       : 25px;
       background-image    : url(images/attention_orange.png);
-      background-position : 100% 10px;
+      background-position : 15px 10px;
     }
   }
 }
@@ -80,7 +83,6 @@
   top      : 1px;
   left     : 6px;
   display  : none;
-  width    : 195px;
   z-index  : 3;
 
   .services-header {
@@ -90,7 +92,7 @@
     height        : 30px;
     border        : 3px solid #fff;
     border-bottom-width: 1px;
-    padding       : 0 33px 0 6px;
+    padding       : 0 33px 0 36px;
     line-height   : 30px;
     background    : #f1f1f1;
     background-repeat: no-repeat;
@@ -101,7 +103,7 @@
   .services-status-icon {
     position : absolute;
     top      : 1px;
-    right    : 2px;
+    left     : 6px;
     width    : 25px;
     height   : 25px;
   }
@@ -114,18 +116,15 @@
       overflow     : hidden;
       height       : 40px;
       border       : 3px solid #fff;
-      border-bottom-width: 1px;
-      border-top-width: 0;
+      border-bottom-width : 1px;
+      border-top-width    : 0;
       padding-left : 35px;
       color        : #484848;
       font         : 12px helvetica, arial, sans-serif;
       background   : #f1f1f1;
       z-index      : 0;
 
-      &:first-child {
-        border-top-width : 3px;
-        .border-radius(0, 8px, 0, 0);
-      }
+      &:first-child { border-top-width: 3px; }
 
       &:last-child {
         border-bottom-width : 3px;
@@ -197,7 +196,7 @@
   .services-header { color: #003a6e; }
 
   .services-status-icon {
-    background: url(images/radar_sweep_blue.png) no-repeat 50% 50%;
+    background: url(images/radar_sweep_blue.png) no-repeat 0% 50%;
   }
 }
 
@@ -205,15 +204,15 @@
   .services-header { color: #199019; }
 
   .services-status-icon {
-    background: url(images/check_green.png) no-repeat 50% 50%;
+    background: url(images/check_green.png) no-repeat 0% 50%;
   }
 }
 
-.status.error #services-menu {
-  .services-header { color: #e10000; }
+.status.somethings_wrong #services-menu {
+  .services-header { color: #e10000; white-space: nowrap; }
 
   .services-status-icon {
-    background: url(images/attention_red.png) no-repeat 50% 50%;
+    background: url(images/attention_red.png) no-repeat 0% 50%;
   }
 }
 
