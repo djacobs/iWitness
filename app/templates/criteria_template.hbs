@@ -4,9 +4,9 @@
 
   <div id="date_and_time_selectors">
     <div id="live_stream_time">
-      <div class="time-element hour">12</div>
-      <div class="time-element minute">00</div>
-      <div class="time-element period">PM</div>
+      <div class="time-element hour">{{format model.streamingTime format="hh"}}</div>
+      <div class="time-element minute">{{format model.streamingTime format="mm"}}</div>
+      <div class="time-element period">{{format model.streamingTime format="A"}}</div>
     </div>
 
     {{#view streamSelector id="stream_selector"}}

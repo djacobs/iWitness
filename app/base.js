@@ -19,6 +19,7 @@ window.IWitness = Ember.Application.create({
       return false;
     }
   }
+
 });
 
 IWitness.log = _.bind(Ember.Logger.log, Ember.Logger);
