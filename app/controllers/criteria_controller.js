@@ -6,21 +6,14 @@ IWitness.criteriaController = Ember.Object.create({
     this._executeSearch();
 
   }.observes('content.zoom', 'content.center', 'content.northEast', 'content.southWest', 'content.radius',
-             'content.stream', 'content.keyword', 'content.rawStart', 'content.rawEnd'),
+             'content.stream', 'content.keyword', 'content.rawStart', 'content.rawEnd', 'IWitness.spaceTime.isLoaded'),
 
   _executeSearch: _.debounce( function() {
     Ember.run.sync();
 
-    if (this.getPath('content.isValid')) {
+    if (this.getPath('content.isValid') && IWitness.spaceTime.get('isLoaded')) {
       IWitness.resultSetController.resume();
-
-      if (IWitness.spaceTime.get("isLoaded")) {
-        IWitness.searchController.search(this.get('content').getParams());
-      } else {
-        setTimeout(function() {
-          IWitness.searchController.search(this.get('content').getParams());
-        } , 10);
-      }
+      IWitness.searchController.search(this.get('content').getParams());
     }
   }, IWitness.config.searchDelay),
 

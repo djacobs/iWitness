@@ -1,6 +1,6 @@
 {{#if IWitness.resultSetController.content.length}}
   <div id="result_set">
-    {{#each IWitness.resultSetController.filtered}}
+    {{#each IWitness.resultSetController.content}}
       {{view IWitness.ResultView modelBinding="this"}}
     {{/each}}
   </div>

@@ -290,10 +290,16 @@ _.extend(Map.prototype, {
     return [point.lat(), point.lng()];
   },
 
-  addMarker: function(lat, lng, pinName) {
+  addMarker: function(lat, lng, pinName, visible) {
     if (lat && lng) {
       var position = new google.maps.LatLng(lat, lng);
-      return new google.maps.Marker({position: position, map: this.map, icon: this.pinImages[pinName], visible: false, animation: google.maps.Animation.DROP});
+      return new google.maps.Marker({
+        position: position,
+        map: this.map,
+        icon: this.pinImages[pinName],
+        visible: false,
+        animation: google.maps.Animation.DROP
+      });
     }
   },
 

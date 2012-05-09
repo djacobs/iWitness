@@ -1,9 +1,10 @@
 IWitness.ResultView = Ember.View.extend(IWitness.PostedDateTime, {
   templateName:      'result_template',
   typeBinding:       'model.resultType',
-  classNames:        ['hidden', 'item-wrapper'],
+  classNames:        ['item-wrapper'],
   classNameBindings: ['isSelected:selected', 'type'],
   attributeBindings: ['data-posted-time'],
+  isVisibleBinding:  "visibilityMonitor.isVisible",
 
   'data-posted-time': function(){
     return this.getPath('postedTime');
@@ -13,9 +14,8 @@ IWitness.ResultView = Ember.View.extend(IWitness.PostedDateTime, {
   // unless we're currently paused. this is a work-around for lack of
   // one time class name calculation.
   didInsertElement: function(){
-    if(!IWitness.hiddenItemsController.get('paused')){
-      this.$().removeClass('hidden');
-    }
+    var visibilityMonitor = IWitness.VisibilityMonitor.create({result: this.get("model")});
+    this.set("visibilityMonitor", visibilityMonitor);
   },
 
   isSelected: function() {
@@ -82,4 +82,8 @@ IWitness.ResultView = Ember.View.extend(IWitness.PostedDateTime, {
     var lng = this.getPath('model.lng');
     IWitness.criteria.set("center", [lat, lng]);
   }
+});
+
+IWitness.StarredResultView = IWitness.ResultView.extend({
+  isVisible: true
 });
