@@ -16,6 +16,6 @@ IWitness.VisibilityMonitor = Ember.Object.extend({
     if (this.get("shownOnce")) return false;
     if (!IWitness.hiddenItemsController.get('paused')) this.set("shownOnce", true);
     return IWitness.hiddenItemsController.get('paused');
-  }.property("IWitness.hiddenItemsController.paused"),
+  }.property("IWitness.hiddenItemsController.paused")
 
 });

@@ -47,32 +47,4 @@ describe("IWitness.ResultSetController", function() {
     });
   });
 
-  describe("filtered", function() {
-    beforeEach(function() {
-      var types = IWitness.filter.get("availableMediaTypes");
-      types.forEach(function(type) {
-        if (type.get("type") == "text") type.set("active", true);
-        if (type.get("type") == "picture") type.set("active", false);
-      });
-    });
-
-    it("includes media types matching the filter", function(){
-      var text = Ember.Object.create({mediaTypes: ['text']});
-      controller.pushObject(text);
-      expect(controller.get("filtered")).toContain(text);
-    });
-
-    it("excludes media types not matching the filter", function(){
-      var pic = Ember.Object.create({mediaTypes: ['picture']});
-      controller.pushObject(pic);
-      expect(controller.get("filtered")).not.toContain(pic);
-    });
-
-    it("includes media types that match any filter", function(){
-      var multi = Ember.Object.create({mediaTypes: ['text', 'picture']});
-      controller.pushObject(multi);
-      expect(controller.get("filtered")).toContain(multi);
-    });
-  });
-
 });
