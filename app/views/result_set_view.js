@@ -71,19 +71,11 @@ IWitness.ResultSetView = Ember.View.extend({
     var self = this;
     return _.debounce(function(e){
       if($(window).scrollTop() > 100) {
-        self._pause();
+        IWitness.hiddenItemsController.pause();
       } else {
-        self._unpause();
+        IWitness.hiddenItemsController.unpause();
       }
     }, 100);
-  },
-
-  _pause: function(){
-    IWitness.hiddenItemsController.pause();
-  },
-
-  _unpause: function(){
-    IWitness.hiddenItemsController.unpause();
-    $('.item-wrapper.hidden').removeClass('hidden');
   }
+
 });

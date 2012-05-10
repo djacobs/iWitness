@@ -46,4 +46,5 @@ describe("IWitness.ResultSetController", function() {
       expect(controller.get("length")).toEqual(1);
     });
   });
+
 });

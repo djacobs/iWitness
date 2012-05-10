@@ -55,7 +55,7 @@ describe("Criteria", function() {
       var stub = {length: function() { return 10000 }};
       spyOn(Map, 'Line').andReturn(stub);
 
-      expect(subject.get('radius')).toEqual(9320);
+      expect(subject.get('radius')).toEqual(9350);
 
       // make sure we're taking the correct lat,lng values for our 'top' point
       expect(Map.Line).toHaveBeenCalledWith([0,1], [2,1]);

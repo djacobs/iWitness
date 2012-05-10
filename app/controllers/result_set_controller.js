@@ -12,8 +12,9 @@ IWitness.resultSetController = Ember.ArrayController.create(IWitness.ResultSorti
     results.forEach(function(result) {
       var result = IWitness.resultFactory.create(type, result);
       var idx = self._findInsertionPoint(result);
-      if (idx !== null)
+      if (idx !== null) {
         self.insertAt(idx, result);
+      }
     });
 
     this.set('isDone', true);
@@ -30,4 +31,3 @@ IWitness.resultSetController = Ember.ArrayController.create(IWitness.ResultSorti
   }
 
 });
-

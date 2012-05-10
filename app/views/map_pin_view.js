@@ -1,17 +1,22 @@
 IWitness.MapPinView = Ember.View.extend({
-  mapBinding: 'parentView.map',
+  mapBinding:               'parentView.map',
   contentControllerBinding: 'parentView.contentController',
+  isVisibleBinding:         'visibilityMonitor.isVisible',
+  allReadyBinding:          Ember.Binding.and("map", "content", "content.lat", "content.lng"),
 
-  init: function() {
-    this._super();
-    var map = this.getPath("parentView.map"); // map binding not yet synced
+  _addMarker: function() {
+    if (this.get("initialized") || !this.get("allReady")) return;
+
+    var map = this.getPath("map");
     var result = this.get("content");
+    var visibilityMonitor = IWitness.VisibilityMonitor.create({result: result});
     var marker = map.addMarker(result.get("lat"), result.get("lng"), this.get("pinName"));
     google.maps.event.addListener(marker, 'click', _.bind(this.click, this));
-    this.set("marker", marker);
-  },
+    this.setProperties({marker: marker, visibilityMonitor: visibilityMonitor, initialized: true});
+  }.observes('allReady'),
 
   willDestroy: function() {
+    this._super();
     var marker = this.get("marker");
     if (marker) this.get("map").removeMarker(marker);
   },
@@ -28,6 +33,11 @@ IWitness.MapPinView = Ember.View.extend({
   isStarred: function() {
     return IWitness.starredSetController.isStarred(this.get('content'));
   }.property('content', 'IWitness.starredSetController.@each'),
+
+  setVisible: function() {
+    var marker = this.get("marker");
+    if (marker) marker.setVisible(this.get("isVisible"));
+  }.observes("isVisible"),
 
   pinName: function() {
     var starred = this.get("isStarred");
@@ -56,16 +66,6 @@ IWitness.MapPinView = Ember.View.extend({
 
 });
 
-IWitness.ResultMapPinView = IWitness.MapPinView.extend({
-  init: function(){
-    this._super();
-    IWitness.hiddenItemsController.executeWhenVisible(this, this._makeVisible);
-  }
-});
-
 IWitness.StarredMapPinView = IWitness.MapPinView.extend({
-  init: function(){
-    this._super();
-    this._makeVisible();
-  }
+  isVisible: true
 });

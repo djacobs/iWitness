@@ -22,7 +22,6 @@ IWitness.searchController = Ember.Object.create({
     search.fetch(IWitness.config.perPage);
   },
 
-  // called from routes.js when URL changes
   search: function(params) {
     var self = this;
 
