@@ -13,9 +13,9 @@ IWitness.DateTimeSelector = Ember.View.extend({
   },
 
   pickDate: function(e){
-    e.stopPropagation();
     var datepicker = this.datepicker;
-
+    $(document).trigger("click.pickDate");
+    e.stopPropagation();
     datepicker.show();
     $(document).on('click.pickDate', function(e){
       $(document).off("click.pickDate");
@@ -34,14 +34,13 @@ IWitness.DateTimeSelector = Ember.View.extend({
   pickTime: function(e) {
     e.stopPropagation();
     var timepicker = this.timepicker;
-
-    timepicker.find('.hour a[data-val="'+ this.get("hours") +'"]').addClass("active");
+    $(document).trigger("click.pickDate");
+    timepicker.find('.hour   a[data-val="'+ this.get("hours")   +'"]').addClass("active");
     timepicker.find('.minute a[data-val="'+ this.get("minutes") +'"]').addClass("active");
-    timepicker.find('.period a[data-val="'+ this.get("period") +'"]').addClass("active");
+    timepicker.find('.period a[data-val="'+ this.get("period")  +'"]').addClass("active");
     timepicker.show();
-
-    $(document).on('click.pickTime', function(e){
-      $(document).off("click.pickTime");
+    $(document).on('click.pickDate', function(e){
+      $(document).off("click.pickDate");
       timepicker.hide();
     });
   },
