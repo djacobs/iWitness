@@ -29,7 +29,7 @@ IWitness.config = _.extend({
   pollInterval: 30, //seconds
   searchDelay: 3000,
   services: ['twitter', 'flickr'],
-  minMapZoom: 8,
+  minMapZoom: 9,
   maxMapZoom: 21
 }, window['IWitnessConfig'] || {}); // allow specs to override these values.
 
