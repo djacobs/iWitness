@@ -409,3 +409,52 @@ html,body { background: #000 url(images/gradient_background.png) repeat-y 50% 0;
     background : url(images/info_icon.png);
   }
 }
+
+
+.service-switch {
+  display        : block;
+  position       : absolute;
+  top            : 50%;
+  right          : 6px;
+  width          : 54px;
+  height         : 20px;
+  margin-top     :-10px;
+  color          : #717171;
+  font           : 11px helvetica, arial, sans-serif;
+  font-weight    : bold;
+  line-height    : 22px;
+  text-transform : uppercase;
+  .rounded(10px);
+  .box-shadow(inset 0 2px 2px rgba(0,0,0, 0.5));
+  .box-sizing(border-box);
+  .user-select(none);
+
+  .handle {
+    position   : absolute;
+    top        : 0;
+    width      : 23px;
+    height     : 24px;
+    background : url(images/service_switch_handle.png);
+  }
+
+  &.on {
+    padding-left  : 11px;
+    color         : #fff;
+    text-shadow   : 0 -1px 0 rgba(0,0,0, 0.3);
+    .gradient(#ff8200, #ff8200, #c54700);
+
+    .handle { right: -2px; }
+    .on     { display: inline; }
+    .off    { display: none; }
+  }
+
+  &.off {
+    padding-right : 6px;
+    text-align    : right;
+    .gradient(#f4f4f4, #f4f4f4, #c8c8c8);
+
+    .handle { left: -2px; }
+    .on     { display: none; }
+    .off    { display: inline; }
+  }
+}

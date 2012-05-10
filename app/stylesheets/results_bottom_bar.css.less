@@ -1,0 +1,39 @@
+@import "/app/stylesheets/mixins.css.less";
+
+#results-bottom-bar {
+  position    : absolute;
+  top         : 39px;
+  right       : 0;
+  left        : 14px;
+  height      : 31px;
+  font-family : 'ArvoBold', georgia, serif;
+  font-size   : 12px;
+  background  : #752a00;
+  z-index     : 1;
+  pointer-events : auto;
+}
+
+#show-filters-button {
+  position    : absolute;
+  top         : 0;
+  bottom      : 0;
+  left        : 0;
+  padding     : 0 16px 0 21px;
+  line-height : 31px;
+  color       : #ff7c00;
+  cursor      : pointer;
+  background  : url(images/show_filters_arrow.png) no-repeat 100% 50%;
+}
+
+#back-to-top-button {
+  float       : right;
+  position    : relative;
+  top         : 6px;
+  right       : 17px;
+  padding     : 2px 26px 4px 13px;
+  color       : #fff;
+  text-shadow : 0 -1px 0 rgba(0,0,0, 0.3);
+  cursor      : pointer;
+  background  : #e36c00 url(images/back_to_top_arrow.png) no-repeat 100% 50%;
+  .rounded(5px);
+}
