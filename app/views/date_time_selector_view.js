@@ -94,29 +94,5 @@ IWitness.DateTimeSelector = Ember.View.extend({
       this.setPath("model."+type+"TimeString", value);
       return value
     }
-  }.property("model.startTimeString", "model.endTimeString"),
-
-  day: function(){
-    return this.get("moment").format("DD");
-  }.property("moment"),
-
-  month: function(){
-    return this.get("moment").format("MMM");
-  }.property("moment"),
-
-  year: function(){
-    return this.get("moment").year();
-  }.property("moment"),
-
-  hours: function(){
-    return this.get("moment").format("hh");
-  }.property("moment"),
-
-  minutes: function(){
-    return this.get("moment").format("mm");
-  }.property("moment"),
-
-  period: function(){
-    return this.get("moment").format("A");
-  }.property("moment")
+  }.property("model.startTimeString", "model.endTimeString")
 });
