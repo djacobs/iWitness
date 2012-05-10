@@ -62,7 +62,7 @@ IWitness.ResultSetView = Ember.View.extend({
       $(window).on('scroll', this._scrollPause() );
     } else {
       $(window).off('scroll', this._scrollPause() );
-      this._unpause();
+      IWitness.hiddenItemsController.unpause();
     }
   }.observes('IWitness.criteriaController.content.stream'),
 
