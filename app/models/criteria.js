@@ -135,7 +135,7 @@ IWitness.Criteria = Ember.Object.extend({
         center = [37.090301, -95.712919]; // Kansas!
       }
       IWitness.log('defaulting map center to', center);
-      self.setProperties({center: center, zoom: 12});
+      self.setProperties({center: center, zoom: 9});
     });
   }
 });
