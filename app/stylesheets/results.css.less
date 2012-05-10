@@ -28,8 +28,13 @@
 }
 
 #results-top-bar {
+  position       : absolute;
+  top            : 0;
+  right          : -14px;
+  left           : 0;
   pointer-events : auto;
-  .box-shadow(0 25px 50px #000);
+  z-index        : 2;
+  .box-shadow(0 3px 9px rgba(0,0,0, 0.5));
 
   .nav-button {
     float        : right;
@@ -148,42 +153,7 @@
         font-weight : bold;
       }
 
-      .service-switch {
-        display        : none;
-        position       : absolute;
-        top            : 50%;
-        right          : 6px;
-        width          : 50px;
-        height         : 23px;
-        margin-top     :-12px;
-        color          : #717171;
-        font-size      : 11px;
-        line-height    : 23px;
-        text-transform : uppercase;
-        background     : url(images/service_switch_background.png);
-        .box-sizing(border-box);
-
-        .handle {
-          position   : absolute;
-          top        : 0;
-          width      : 23px;
-          height     : 24px;
-          background : url(images/service_switch_handle.png);
-        }
-
-        &.on {
-          padding-left: 9px;
-
-          .handle { right: -2px; }
-        }
-
-        &.off {
-          text-align: right;
-          padding-right: 6px;
-
-          .handle { left: -2px; }
-        }
-      }
+      /* switch */
     }
   }
 }
@@ -230,35 +200,27 @@
   }
 }
 
-#results-fold {
+.fold {
   position   : absolute;
   top        : 39px;
-  left       : 0;
   width      : 14px;
-  height     : 14px;
+  height     : 9px;
   background : url(images/results-header-fold.png);
   z-index    : 1;
   pointer-events : auto;
+
+  &.left  { left  : 0; }
+  &.right { right : -14px; background-position: -14px; }
 }
 
 #results-filter {
-  position     : absolute;
-  top          : 39px;
-  right        : 0;
-  height       : 42px;
-  padding-left : 15px;
-  color        : #762b00;
-  font-size    : 15px;
-  line-height  : 43px;
-  background   : #ca7b04 url(images/results-filter-background.png) repeat-x;
-  z-index      : 1;
-  pointer-events : auto;
-  .border-radius(0, 0, 0, 8px);
+  border-bottom: 1px solid #682400;
+  padding: 15px 0 10px 0;
 
   input {
-    width        : 200px;
+    width        : 210px;
     border       : 1px solid #9c3b00;
-    margin       : 0 13px 0 8px;
+    margin       : 0 13px 0 14px;
     padding-left : 15px;
     color        : #ffffff;
     font-size    : 13px;
@@ -269,6 +231,7 @@
     .serif-bold();
   }
 }
+
 
 #starred_results {
   .item-wrapper {

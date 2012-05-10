@@ -10,9 +10,70 @@
 
 <div id="results-header">
   {{view IWitness.ResultsStatusView}}
-  {{view IWitness.KeywordFilterView}}
-  <div id="back-to-top">Back to top</div>
+
+  <div id="results-bottom-bar">
+    <div id="show-filters-button">Show filters</div>
+    <div id="back-to-top-button">Back to top</div>
+  </div>
+
 </div>
+
+<div id="filter-popover">
+  <div class="header"><span>Hide filters</span></div>
+  <div class="content">
+    {{view IWitness.KeywordFilterView}}
+
+    <div class="row">
+      Text
+      <div class="service-switch on">
+        <span class="on">on</span>
+        <span class="off">off</span>
+        <div class="handle"></div>
+      </div>
+    </div>
+
+    <div class="row">
+      Photos
+      <div class="service-switch off">
+        <span class="on">on</span>
+        <span class="off">off</span>
+        <div class="handle"></div>
+      </div>
+    </div>
+
+    <div class="row">
+      Video
+      <div class="service-switch on">
+        <span class="on">on</span>
+        <span class="off">off</span>
+        <div class="handle"></div>
+      </div>
+    </div>
+
+    <div class="row service_toggle_button">
+      <span>Hide services</span>
+    </div>
+
+    <div class="row with_icon twitter">
+      twitter
+      <div class="service-switch on">
+        <span class="on">on</span>
+        <span class="off">off</span>
+        <div class="handle"></div>
+      </div>
+    </div>
+
+    <div class="row with_icon flickr">
+      flickr
+      <div class="service-switch on">
+        <span class="on">ON</span>
+        <span class="off">OFF</span>
+        <div class="handle"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div id="results">
   <div id="timeline"></div>
   {{view IWitness.ResultSetView}}
