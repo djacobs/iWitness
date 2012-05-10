@@ -46,7 +46,7 @@ _.extend(TwitterQuery.prototype, {
     this.maxId = TwitterTimestampCache.getClosestTweetId(this.end);
 
     this.fetchResults({page: 15}, function(data) {
-      var lastTweet = _.last(data.results);
+      var lastTweet = _.last(data.results || []);
       var lastTweetAt;
 
       if (!lastTweet) return callback();
