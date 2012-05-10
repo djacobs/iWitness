@@ -1,14 +1,14 @@
 <div class="date-trigger" {{action "pickDate"}}>
-  <div class="time-element {{unbound whichDate}} day">{{format moment format="DD"}}</div>
-  <div class="time-element {{unbound whichDate}} month">{{format moment format="MMM"}}</div>
-  <div class="time-element {{unbound whichDate}} year">{{format moment format="YYYY"}}</div>
+  <div class="time-element {{unbound whichDate}} day">{{day}}</div>
+  <div class="time-element {{unbound whichDate}} month">{{month}}</div>
+  <div class="time-element {{unbound whichDate}} year">{{year}}</div>
 </div>
 <div class="datepicker {{unbound whichDate}}"></div>
 
 <div class="time-trigger" {{action "pickTime"}}>
-  <div class="time-element {{unbound whichDate}} hour">{{format moment format="hh"}}</div>
-  <div class="time-element {{unbound whichDate}} minute">{{format moment format="mm"}}</div>
-  <div class="time-element {{unbound whichDate}} period">{{format moment format="A"}}</div>
+  <div class="time-element {{unbound whichDate}} hour">{{hours}}</div>
+  <div class="time-element {{unbound whichDate}} minute">{{minutes}}</div>
+  <div class="time-element {{unbound whichDate}} period">{{period}}</div>
 </div>
 
 <div class="ui-widget ec-time-picker {{unbound whichDate}}">
