@@ -1,3 +1,6 @@
 [submodule "vendor/sproutcore-routing/sproutcore-routing"]
 	path = vendor/sproutcore-routing/sproutcore-routing
 	url = git://github.com/emberjs-addons/sproutcore-routing.git
+[submodule "vendor/javascripts/timezone-js"]
+	path = vendor/javascripts/timezone-js
+	url = https://github.com/mde/timezone-js.git
