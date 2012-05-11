@@ -3,6 +3,7 @@ describe("Criteria", function() {
 
   beforeEach(function() {
     subject = IWitness.Criteria.create({
+      stream:          false,
       startDateString: '1/1/2012',
       startTimeString: '9:00 AM',
       endDateString:   '1/1/2012',
