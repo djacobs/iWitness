@@ -1,6 +1,6 @@
 IWitness.Criteria = Ember.Object.extend({
   useLocalTime: true,
-  stream:       false,
+  stream:       true,
   keyword:      "",
   address:      "",
   center:       null,

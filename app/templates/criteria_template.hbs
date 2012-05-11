@@ -2,7 +2,7 @@
   <a href="http://adaptivepath.com" target="_blank" id="adaptive_path">Adaptive Path</a>
   <div id="iwitness_title"><i>i</i>Witness</div>
 
-  <div id="date_and_time_selectors">
+  <div id="date_and_time_selectors" {{bindAttr class="streamingClass"}}>
     <div id="live_stream_time">
       <div class="time-element hour">{{format model.streamingTime format="hh"}}</div>
       <div class="time-element minute">{{format model.streamingTime format="mm"}}</div>

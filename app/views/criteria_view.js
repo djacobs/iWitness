@@ -3,6 +3,10 @@ IWitness.CriteriaView = Ember.View.extend({
   modelBinding: 'IWitness.criteriaController.content',
   radius: 1,
 
+  streamingClass: function() {
+    return this.getPath('model.stream') ? 'streaming' : ''
+  }.property('model.stream'),
+
   streamSelector: Ember.View.extend({
     classNameBindings: ['streaming'],
     modelBinding: 'IWitness.criteriaController.content',
