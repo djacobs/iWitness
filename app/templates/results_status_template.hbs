@@ -17,23 +17,6 @@
     </div>
   </div>
 
-  <div id="filters-menu">
-    <div class="filters-header">
-      Filters 
-    </div>
-
-    <div class="filters-menu-content">
-      {{#collection contentBinding="IWitness.filter.availableMediaTypes"}}
-        <div class="service-title">
-          <label>
-            {{view Ember.Checkbox checkedBinding="content.active"}}
-            {{content.type}}
-          </label>
-        </div>
-      {{/collection}}
-    </div>
-  </div>
-
   <div id="show_starred_button" class="nav-button with-icon star-icon" {{action showStarred}}>
     Show starred items
   </div>
