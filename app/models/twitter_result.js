@@ -17,7 +17,7 @@ IWitness.TwitterResult = IWitness.Result.extend({
   }.property('idStr'),
 
   userNameSecondary: function() {
-    return '@' + this.get('fromUser');
+    return this.get('fromUser');
   }.property('fromUser'),
 
   postedMoment: function() {
