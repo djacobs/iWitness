@@ -41,7 +41,11 @@ IWitness.routes = Ember.Object.create({
   }.observes('criteria.zoom', 'criteria.center', 'criteria.northEast', 'criteria.southWest', 'criteria.radius', 'criteria.address',
              'criteria.stream', 'criteria.keyword', 'criteria.rawStart', 'criteria.rawEnd', 'criteria.useLocalTime'),
 
- _setUrl: _.debounce( function() {
+  _setUrl: _.debounce( function() {
+    // we need to check for valid criteria again since this is
+    // debounced and could change since seturl was called
+    if (!this.getPath("criteria.isValid")) return;
+
     var route;
     var criteria = this.get('criteria');
     var props = criteria.getProperties('zoom', 'center', 'northEast', 'southWest', 'radius', 'address');
