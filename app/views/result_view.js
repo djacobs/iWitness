@@ -28,19 +28,19 @@ IWitness.ResultView = Ember.View.extend(IWitness.PostedDateTime, {
   },
 
   toggleCuration: function() {
-    IWitness.starredSetController.toggleCuration(this.get('model'));
+    IWitness.savedSetController.toggleCuration(this.get('model'));
     return false;
   },
 
   starButtonClass: function() {
     var model = this.get('model');
 
-    if (IWitness.starredSetController.isStarred(model)) {
+    if (IWitness.savedSetController.isSaved(model)) {
       return 'icon-heart';
     } else {
       return 'icon-heart-empty';
     }
-  }.property('IWitness.starredSetController.@each'),
+  }.property('IWitness.savedSetController.@each'),
 
   _ensureVisibilityWhenSelected: function() {
     if (this.get("isSelected")) {
@@ -117,6 +117,6 @@ IWitness.ResultView = Ember.View.extend(IWitness.PostedDateTime, {
   }.property("model.contentText")
 });
 
-IWitness.StarredResultView = IWitness.ResultView.extend({
+IWitness.SavedResultView = IWitness.ResultView.extend({
   isVisible: true
 });

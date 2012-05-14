@@ -1,21 +1,21 @@
-IWitness.StarredView = Ember.View.extend({
-  templateName: 'starred_template',
-  isVisibleBinding: 'IWitness.currentViewController.showingStarredResults',
+IWitness.SavedView = Ember.View.extend({
+  templateName: 'saved_template',
+  isVisibleBinding: 'IWitness.currentViewController.showingSavedResults',
 
   exportSectionClass: function() {
-    var num = IWitness.starredSetController.get('flaggedCount');
+    var num = IWitness.savedSetController.get('flaggedCount');
     return num > 0 ? '' : 'invisible';
-  }.property('IWitness.starredSetController.flaggedCount'),
+  }.property('IWitness.savedSetController.flaggedCount'),
 
   numberOfItems: function(){
-    var num = IWitness.starredSetController.get('length');
+    var num = IWitness.savedSetController.get('length');
     return num + " saved item" + (num == 1 ? "" : "s");
-  }.property('IWitness.starredSetController.length'),
+  }.property('IWitness.savedSetController.length'),
 
   numberFlaggedForExport: function(){
-    var num = IWitness.starredSetController.get('flaggedCount');
+    var num = IWitness.savedSetController.get('flaggedCount');
     return num + " flagged for export";
-  }.property('IWitness.starredSetController.flaggedCount'),
+  }.property('IWitness.savedSetController.flaggedCount'),
 
   showExportText: function() {
     this.$('#export-popover').show();
@@ -42,8 +42,8 @@ IWitness.StarredView = Ember.View.extend({
     },
 
     click: function(e) {
-      var exportSize = IWitness.starredSetController.getPath('content.length');
-      Analytics.track('starred results', 'exported', 'size of export', exportSize);
+      var exportSize = IWitness.savedSetController.getPath('content.length');
+      Analytics.track('saved results', 'exported', 'size of export', exportSize);
       e.target.href = this.makeHref();
     }
   })

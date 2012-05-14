@@ -30,9 +30,9 @@ IWitness.MapPinView = Ember.View.extend({
     return this.get('content') === this.getPath("contentController.selectedResult");
   }.property('content', 'contentController.selectedResult'),
 
-  isStarred: function() {
-    return IWitness.starredSetController.isStarred(this.get('content'));
-  }.property('content', 'IWitness.starredSetController.@each'),
+  isSaved: function() {
+    return IWitness.savedSetController.isSaved(this.get('content'));
+  }.property('content', 'IWitness.savedSetController.@each'),
 
   setVisible: function() {
     var marker = this.get("marker");
@@ -40,20 +40,20 @@ IWitness.MapPinView = Ember.View.extend({
   }.observes("isVisible"),
 
   pinName: function() {
-    var starred = this.get("isStarred");
+    var saved = this.get("isSaved");
     var selected = this.get("isSelected");
     var map = this.get("map");
 
-    if (selected && starred) {
-      return 'selected_starred';
+    if (selected && saved) {
+      return 'selected_saved';
     } else if (selected) {
       return 'selected';
-    } else if (starred) {
-      return 'starred';
+    } else if (saved) {
+      return 'saved';
     } else {
       return 'default';
     }
-  }.property("isStarred", "isSelected"),
+  }.property("isSaved", "isSelected"),
 
   updatePinImage: function() {
     var marker = this.get("marker");
@@ -66,6 +66,6 @@ IWitness.MapPinView = Ember.View.extend({
 
 });
 
-IWitness.StarredMapPinView = IWitness.MapPinView.extend({
+IWitness.SavedMapPinView = IWitness.MapPinView.extend({
   isVisible: true
 });

@@ -32,8 +32,8 @@ IWitness.ResultsStatusView = Ember.View.extend({
     return status == 'pending' || status == 'streaming' || status == 'searching';
   },
 
-  showStarred: function(e) {
-    IWitness.currentViewController.set('currentView', 'starred_results');
+  showSaved: function(e) {
+    IWitness.currentViewController.set('currentView', 'saved_results');
   }
 
 });

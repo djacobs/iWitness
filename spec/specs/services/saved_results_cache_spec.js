@@ -1,5 +1,5 @@
 describe("SavedResultsCache", function() {
-  var cache, result, result2;
+  var cache, result;
 
   beforeEach(function() {
     cache = SavedResultsCache;

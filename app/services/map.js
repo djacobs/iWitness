@@ -220,10 +220,10 @@ var Map = function(element, lat, lng, zoom) {
   var size = new google.maps.Size(24, 35);
   var width = 27;
   this.pinImages = {
-    default:          new google.maps.MarkerImage('images/pins.png', size, new google.maps.Point(width, 0)),
-    selected:         new google.maps.MarkerImage('images/pins.png', size, new google.maps.Point(width*3, 0)),
-    starred:          new google.maps.MarkerImage('images/pins.png', size, new google.maps.Point(0, 0)),
-    selected_starred: new google.maps.MarkerImage('images/pins.png', size, new google.maps.Point(width*2, 0)),
+    default:        new google.maps.MarkerImage('images/pins.png', size, new google.maps.Point(width, 0)),
+    selected:       new google.maps.MarkerImage('images/pins.png', size, new google.maps.Point(width*3, 0)),
+    saved:          new google.maps.MarkerImage('images/pins.png', size, new google.maps.Point(0, 0)),
+    selected_saved: new google.maps.MarkerImage('images/pins.png', size, new google.maps.Point(width*2, 0)),
     isPriority: function(pinName) { return pinName.match(/selected/) }
   };
   this.secondaryPinZIndex = google.maps.Marker.MAX_ZINDEX + 1;

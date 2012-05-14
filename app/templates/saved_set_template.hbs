@@ -1,0 +1,7 @@
+{{#if IWitness.savedSetController.content.length}}
+  <div id="saved-set">
+    {{#each IWitness.savedSetController.content}}
+      {{view IWitness.SavedResultView modelBinding="this"}}
+    {{/each}}
+  </div>
+{{/if}}

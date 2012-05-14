@@ -1,4 +1,4 @@
-var StarredResultsCache = {
+var SavedResultsCache = {
   add: function(result) {
     localStorage[this._key(result)] = result.serialize();
   },
@@ -26,10 +26,10 @@ var StarredResultsCache = {
   },
 
   _key: function(result){
-    return 'starred_' + result.get('resultId');
+    return 'saved_' + result.get('resultId');
   },
 
   _isKey: function(key) {
-    return key.substring(0,8) == 'starred_';
+    return key.substring(0,6) == 'saved_';
   }
 }

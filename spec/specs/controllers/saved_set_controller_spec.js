@@ -1,11 +1,11 @@
-describe("IWitness.starredSetController", function() {
+describe("IWitness.savedSetController", function() {
   var controller, result, duplicate;
 
   beforeEach(function() {
-    controller = IWitness.starredSetController;
-    spyOn(StarredResultsCache, 'add');
-    spyOn(StarredResultsCache, 'remove');
-    spyOn(StarredResultsCache, 'forEach');
+    controller = IWitness.savedSetController;
+    spyOn(SavedResultsCache, 'add');
+    spyOn(SavedResultsCache, 'remove');
+    spyOn(SavedResultsCache, 'forEach');
     controller.set('content', []);
     controller.set('_resultIds', []);
     result    = { get: function(){ return 1;}
@@ -14,20 +14,20 @@ describe("IWitness.starredSetController", function() {
                 , name: 'duplicate' };
   });
 
-  describe("an unstarred result", function(){
+  describe("an unsaved result", function(){
     it("is added when toggled", function() {
       controller.toggleCuration(result);
       expect(controller.get('content')).toContain(result);
     });
 
-    it("has an 'unstarred status", function() {
+    it("has an 'unsaved status", function() {
       controller.toggleCuration(result);
-      expect(controller.isStarred(result)).toBeTruthy();
-      expect(controller.isStarred(duplicate)).toBeTruthy();
+      expect(controller.isSaved(result)).toBeTruthy();
+      expect(controller.isSaved(duplicate)).toBeTruthy();
     });
   });
 
-  describe("a starred result", function(){
+  describe("a saved result", function(){
     beforeEach(function() {
       controller.toggleCuration(result);
     });
@@ -44,12 +44,12 @@ describe("IWitness.starredSetController", function() {
       expect(controller.get('content')).not.toContain(result);
     });
 
-    it("has a 'starred' status", function() {
-      expect(controller.isStarred(result)).toBeTruthy();
-      expect(controller.isStarred(duplicate)).toBeTruthy();
+    it("has a 'saved' status", function() {
+      expect(controller.isSaved(result)).toBeTruthy();
+      expect(controller.isSaved(duplicate)).toBeTruthy();
       controller.toggleCuration(result);
-      expect(controller.isStarred(result)).toBeFalsy();
-      expect(controller.isStarred(duplicate)).toBeFalsy();
+      expect(controller.isSaved(result)).toBeFalsy();
+      expect(controller.isSaved(duplicate)).toBeFalsy();
     });
 
   });
@@ -67,4 +67,3 @@ describe("IWitness.starredSetController", function() {
     });
   });
 });
-

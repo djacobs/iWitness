@@ -1,6 +1,6 @@
-{{view IWitness.StarredHeaderView}}
+{{view IWitness.SavedHeaderView}}
 
-<div id="starred-info">
+<div id="saved-info">
   <h1>{{numberOfItems}}</h1>
 
   <div {{bindAttr class="exportSectionClass"}} id="export-section">
@@ -21,17 +21,17 @@
     <div id="export-popover" class="popover left-heading">
       <div class="heading" {{action "hideExportText"}}>Copy as text</div>
       <div id="rendered-text-results" class="content linenums">
-        {{#if IWitness.starredSetController.flaggedCount}}
-          {{#each IWitness.starredSetController.flaggedResults}}
+        {{#if IWitness.savedSetController.flaggedCount}}
+          {{#each IWitness.savedSetController.flaggedResults}}
             {{view IWitness.TextResultView modelBinding="this"}}
           {{/each}}
         {{/if}}
       </div>
     </div>
   </div>
-  {{view IWitness.StarredMapView id="starred-map-container"}}
+  {{view IWitness.SavedMapView id="saved-map-container"}}
 </div>
 
-<div id="starred_results">
-  {{view IWitness.StarredSetView}}
+<div id="saved_results">
+  {{view IWitness.SavedSetView}}
 </div>
