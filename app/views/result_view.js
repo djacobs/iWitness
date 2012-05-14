@@ -36,9 +36,9 @@ IWitness.ResultView = Ember.View.extend(IWitness.PostedDateTime, {
     var model = this.get('model');
 
     if (IWitness.starredSetController.isStarred(model)) {
-      return 'icon-star';
+      return 'icon-heart';
     } else {
-      return 'icon-star-empty';
+      return 'icon-heart-empty';
     }
   }.property('IWitness.starredSetController.@each'),
 

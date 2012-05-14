@@ -9,7 +9,7 @@ IWitness.StarredView = Ember.View.extend({
 
   numberOfItems: function(){
     var num = IWitness.starredSetController.get('length');
-    return num + " starred item" + (num == 1 ? "" : "s");
+    return num + " saved item" + (num == 1 ? "" : "s");
   }.property('IWitness.starredSetController.length'),
 
   numberFlaggedForExport: function(){
