@@ -458,3 +458,43 @@ html,body { background: #000 url(images/gradient_background.png) repeat-y 50% 0;
     .off    { display: inline; }
   }
 }
+
+
+#copy-overlay {
+  display    : none;
+  position   : fixed;
+  top        : 45%;
+  left       : 50%;
+  width      : 520px;
+  height     : 330px;
+  margin     : -165px 0 0 -260px;
+  border     : 3px solid #fff;
+  background : #f1f1f1;
+  z-index    : 100;
+  .box-shadow(0 5px 5px rgba(0,0,0, 0.3));
+  .rounded(12px);
+}
+
+#copy-overlay-content {
+  overflow    : auto;
+  position    : absolute;
+  top         : 0;
+  right       : 0;
+  bottom      : 0;
+  left        : 0;
+  padding     : 25px;
+  color       : #000;
+  font-size   : 13px;
+  line-height : 125%;
+}
+
+#copy-overlay-close {
+  position    : absolute;
+  top         : -17px;
+  right       : -17px;
+  width       : 36px;
+  height      : 35px;
+  text-indent : -999em;
+  cursor      : pointer;
+  background  : url(images/overlay_close.png);
+}
