@@ -49,5 +49,9 @@ IWitness.CriteriaView = Ember.View.extend({
       return false;
     }
 
-  })
+  }),
+
+  showWelcome: function() {
+    IWitness.currentViewController.set("showWelcome", true);
+  }
 });
