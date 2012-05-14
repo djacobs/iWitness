@@ -8,9 +8,5 @@ IWitness.KeywordFilterView = Ember.View.extend({
 
   focusOut: function(e) {
     this.$('input').attr('placeholder', 'Enter keyword');
-  },
-
-  change: function(e) {
-    IWitness.criteriaController.initiateSearch();
   }
 });

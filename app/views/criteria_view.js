@@ -12,14 +12,11 @@ IWitness.CriteriaView = Ember.View.extend({
     modelBinding: 'IWitness.criteriaController.content',
 
     streaming: function() {
-      var isStreaming = this.getPath('model.stream');
-      $('#date_and_time_selectors')[isStreaming ? 'addClass' : 'removeClass' ]('streaming');
-      return isStreaming;
+      return this.getPath("model.stream");
     }.property('model.stream'),
 
     click: function() {
-      this.setPath('model.stream', !this.getPath('model.stream'));
-      IWitness.criteriaController.initiateSearch();
+      this.get("model").toggleProperty("stream");
     }
   }),
 

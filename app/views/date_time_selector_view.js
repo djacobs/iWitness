@@ -26,7 +26,6 @@ IWitness.DateTimeSelector = Ember.View.extend({
   setDate: function(dateText, ui){
     if (dateText != self.get("dateValue")) {
       this.set("dateValue", dateText);
-      IWitness.criteriaController.initiateSearch();
     }
     this.datepicker.hide();
   },
@@ -58,7 +57,6 @@ IWitness.DateTimeSelector = Ember.View.extend({
     var period = this.$('.period .active').data("val");
 
     this.set("timeValue", hour+":"+minute+" "+period);
-    IWitness.criteriaController.initiateSearch();
   },
 
   moment: function() {
