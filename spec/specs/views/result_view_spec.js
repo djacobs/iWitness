@@ -39,4 +39,16 @@ describe("IWitness.ResultView", function() {
         toEqual('Michigan players&#x27; tweets are possible violations <a target="_blank" href="http://t.co/wb4pTCTy">http://t.co/wb4pTCTy</a>&quot;;; NONSENSE');
     });
   });
+
+  describe("storifySrc", function() {
+    beforeEach(function() {
+      result.set("permalinkUrl", "http://twitter.com/superfakejohn");
+    });
+
+    it("includes all of the necessary params", function() {
+      uri = decodeURIComponent(view.get("storifySrc").toString());
+      expect(uri).toMatch(/storify\.com\/import/);
+      expect(uri).toMatch(/data-permalink=http:\/\/twitter\.com\/superfakejohn/);
+    });
+  });
 });

@@ -29,5 +29,4 @@ IWitness.Result = Ember.Object.extend(Ember.Comparable, {
       return -1;
     }
   }
-
 });

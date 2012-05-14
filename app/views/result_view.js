@@ -32,15 +32,18 @@ IWitness.ResultView = Ember.View.extend(IWitness.PostedDateTime, {
     return false;
   },
 
-  starButtonClass: function() {
+  isSaved: function() {
     var model = this.get('model');
+    return IWitness.savedSetController.isSaved(model)
+  }.property('IWitness.savedSetController.@each'),
 
-    if (IWitness.savedSetController.isSaved(model)) {
+  starButtonClass: function() {
+    if (this.get("isSaved")) {
       return 'icon-heart';
     } else {
       return 'icon-heart-empty';
     }
-  }.property('IWitness.savedSetController.@each'),
+  }.property('isSaved'),
 
   _ensureVisibilityWhenSelected: function() {
     if (this.get("isSelected")) {
@@ -114,7 +117,16 @@ IWitness.ResultView = Ember.View.extend(IWitness.PostedDateTime, {
     }
 
     return new Handlebars.SafeString(result);
-  }.property("model.contentText")
+  }.property("model.contentText"),
+
+  storifySrc: function() {
+    return new Handlebars.SafeString(
+      "http://storify.com/import" +
+        "?data-via=" + encodeURIComponent("http://iwitness.adaptivepath.com")+
+        "&data-lang=en"+
+        "&data-permalink="+ encodeURIComponent(this.getPath("model.permalinkUrl")));
+  }.property("model.permalinkUrl")
+
 });
 
 IWitness.SavedResultView = IWitness.ResultView.extend({
