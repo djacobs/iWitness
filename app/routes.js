@@ -15,6 +15,7 @@ IWitness.routes = Ember.Object.create({
   search: function(params) {
     params.rawStart = moment(params.rawStart, "YYYY-MM-DDTHH:mm");
     params.rawEnd   = moment(params.rawEnd, "YYYY-MM-DDTHH:mm");
+    params.stream   = false;
     this._setSearchParams(params);
   },
 
