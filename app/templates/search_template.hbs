@@ -17,40 +17,43 @@
   </div>
 </div>
 
-  <div id="filter-popover">
-    <div class="header" {{action "hideFilters"}}><span>Hide filters</span></div>
-    <div class="content">
-      {{view IWitness.KeywordFilterView}}
+<div id="filter-popover">
+  <div class="header" {{action "hideFilters"}}><span>Hide filters</span></div>
+  <div class="content">
+    {{view IWitness.KeywordFilterView}}
 
-      {{#each IWitness.filter.availableMediaTypes}}
-        {{view IWitness.ServiceSwitchView modelBinding="this"}}
-      {{/each}}
+    {{#each IWitness.filter.availableMediaTypes}}
+    {{view IWitness.ServiceSwitchView modelBinding="this"}}
+    {{/each}}
 
-      <div class="row service_toggle_button">
-        <span>Hide services</span>
+    <div class="row service_toggle_button">
+      <span>Hide services</span>
+    </div>
+
+    <div class="row with_icon twitter">
+      twitter
+      <div class="service-switch on">
+        <span class="on">on</span>
+        <span class="off">off</span>
+        <div class="handle"></div>
       </div>
+    </div>
 
-      <div class="row with_icon twitter">
-        twitter
-        <div class="service-switch on">
-          <span class="on">on</span>
-          <span class="off">off</span>
-          <div class="handle"></div>
-        </div>
-      </div>
-
-      <div class="row with_icon flickr">
-        flickr
-        <div class="service-switch on">
-          <span class="on">ON</span>
-          <span class="off">OFF</span>
-          <div class="handle"></div>
-        </div>
+    <div class="row with_icon flickr">
+      flickr
+      <div class="service-switch on">
+        <span class="on">ON</span>
+        <span class="off">OFF</span>
+        <div class="handle"></div>
       </div>
     </div>
   </div>
+</div>
+
 
 <div id="results">
+  {{view IWitness.InlineInfoView}}
+
   <div id="timeline"></div>
   {{view IWitness.ResultSetView}}
 </div>
