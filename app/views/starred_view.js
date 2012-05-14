@@ -27,7 +27,6 @@ IWitness.StarredView = Ember.View.extend({
 
   exportLink: Ember.View.extend({
     tagName:    'a',
-    classNames: 'button',
 
     makeHref: function() {
       var results = [];

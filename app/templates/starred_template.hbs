@@ -6,8 +6,17 @@
   <div {{bindAttr class="exportSectionClass"}} id="export-section">
     <h2>{{numberFlaggedForExport}}</h2>
 
-    <div class="button" {{action "showExportText"}}>Copy as text</div>
-    {{#view exportLink}}Email{{/view}}
+    <div class="drop-down">
+      <div class="label">
+        Pick one
+        <div class="arrow"></div>
+      </div>
+      <div class="items">
+        <div>Get embed code</div>
+        {{#view exportLink}}Send as email{{/view}}
+        <div {{action "showExportText"}}>Copy as text</div>
+      </div>
+    </div>
 
     <div id="export-popover" class="popover left-heading">
       <div class="heading" {{action "hideExportText"}}>Copy as text</div>

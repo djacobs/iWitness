@@ -174,9 +174,9 @@ html,body { background: #000 url(images/gradient_background.png) repeat-y 50% 0;
 .ui-datepicker, .ec-time-picker {
   width       : auto;
   border      : 3px solid #ec7000;
-  font-family : 'ArvoBold', georgia, serif;
   background  : #1a1b1d;
   .rounded(14px);
+  .serif-bold();
 
   .ui-datepicker-header {
     padding    : 2px 0;
@@ -394,12 +394,12 @@ html,body { background: #000 url(images/gradient_background.png) repeat-y 50% 0;
   padding     : 24px 24px 24px 64px;
   color       : #fff;
   font-size   : 16px;
-  font-family : 'ArvoRegular', georgia, serif;
   line-height : 137%;
   z-index     : 100;
   .box-shadow(~"0 5px 5px rgba(0,0,0, 0.5), inset 0 1px 1px rgba(255,255,255, 0.3)");
   .gradient(#2a6c98, #2a6c98, #124162);
   .rounded(10px);
+  .serif();
 
   .icon {
     position   : absolute;
@@ -463,6 +463,82 @@ html,body { background: #000 url(images/gradient_background.png) repeat-y 50% 0;
 }
 
 
+/* Drop Down -------------------------------- */
+
+.drop-down {
+  position : relative;
+  color    : #000;
+  font     : 16px;
+  .serif-bold();
+
+  .label {
+    position        : relative;
+    height          : 35px;
+    padding-left    : 15px;
+    line-height     : 35px;
+    .gradient(#d9d7d4, #d9d7d4, #ffffff);
+    .rounded(10px);
+
+    .arrow {
+      position   : absolute;
+      top        : 50%;
+      right      : 15px;
+      width      : 16px;
+      height     : 14px;
+      margin-top : -5px;
+      background : url(images/drop-down-arrows.png);
+    }
+  }
+
+  .items {
+    display  : none;
+    position : absolute;
+    top      : 35px;
+    left     : 0;
+    z-index  : 2;
+
+    div, a {
+      display         : block;
+      height          : 35px;
+      border          : 2px solid #183957;
+      border-bottom   : 0;
+      padding-left    : 15px;
+      line-height     : 35px;
+      color           : #000;
+      text-decoration : none;
+      cursor          : pointer;
+      .gradient(#d9d7d4, #d9d7d4, #ffffff);
+
+      &:hover {
+        color       : #fff;
+        text-shadow : 0 -1px 0 rgba(0,0,0, 0.3);
+        .gradient(#b64800, #b64800, #fa9300);
+      }
+
+      &:last-child {
+        .border-radius(0, 0, 10px, 10px);
+        border-bottom-width: 2px;
+      }
+    }
+  }
+}
+
+.drop-down.active {
+  .label {
+    opacity: 0.4;
+    .border-radius(10px, 10px, 0, 0);
+
+    .arrow {
+      background-position: 0 -14px;
+    }
+  }
+
+  .items {
+    display: block;
+  }
+}
+
+
 /* Copy Overlay -------------------------------- */
 
 #copy-overlay {
@@ -515,11 +591,11 @@ html,body { background: #000 url(images/gradient_background.png) repeat-y 50% 0;
   width       : 860px;
   margin      : -290px 0 0 -430px;
   border      : 3px solid #fff;
-  font-family : 'ArvoRegular', georgia, serif;
   background  : #f5f5f5;
   z-index     : 100;
   .box-shadow(0 5px 5px rgba(0,0,0, 0.3));
   .rounded(12px);
+  .serif();
 
   a { text-decoration: none; }
 }
@@ -583,8 +659,8 @@ html,body { background: #000 url(images/gradient_background.png) repeat-y 50% 0;
 
     h1 {
       color       : #3070a3;
-      font-family : 'ArvoBold', georgia, serif;
       font-size   : 17px;
+      .serif-bold();
     }
 
     p {
@@ -600,15 +676,16 @@ html,body { background: #000 url(images/gradient_background.png) repeat-y 50% 0;
     background  : url(images/welcome_overlay_shadow.png) no-repeat 50% 0;
 
     .start {
-      display         : inline-block;
-      margin-bottom   : 11px;
-      border          : 1px solid #f28900;
-      padding         : 10px 30px;
-      color           : #fff;
-      font            : 17px 'ArvoBold', georgia, serif;
-      text-shadow     : 0 1px 0 rgba(0,0,0, 0.2);
+      display       : inline-block;
+      margin-bottom : 11px;
+      border        : 1px solid #f28900;
+      padding       : 10px 30px;
+      color         : #fff;
+      font-size     : 17px;
+      text-shadow   : 0 1px 0 rgba(0,0,0, 0.2);
       .gradient(#e36c00, #e36c00, #ffa200);
       .rounded(10px);
+      .serif-bold();
     }
 
     p {
@@ -624,9 +701,10 @@ html,body { background: #000 url(images/gradient_background.png) repeat-y 50% 0;
 #made_possible_by {
   padding    : 5px 0;
   color      : #333;
-  font       : 11px 'ArvoRegular', georgia, serif;
+  font-size  : 11px;
   text-align : center;
   background : #b0b1b1;
+  .serif();
 
   a { color: #005090; }
 }
