@@ -28,5 +28,15 @@ IWitness.Result = Ember.Object.extend(Ember.Comparable, {
     } else {
       return -1;
     }
-  }
+  },
+
+  staticMapUrl: function() {
+    return "http://maps.googleapis.com/maps/api/staticmap"+
+      "?markers=icon:/images/pin_small.png%7C" + this.get("lat") + "," + this.get("lng") +
+      "&zoom=15" +
+      "&size=248x236" +
+      "&maptype=roadmap" +
+      "&sensor=false" +
+      "&" + Map.StaticStyle;
+  }.property("lat", "lng")
 });
