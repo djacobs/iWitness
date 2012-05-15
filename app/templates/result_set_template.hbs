@@ -1,5 +1,6 @@
 {{#if IWitness.resultSetController.content.length}}
   <div id="result_set">
+    <div id="timeline"></div>
     {{#each IWitness.resultSetController.content}}
       {{view IWitness.ResultView modelBinding="this"}}
     {{/each}}

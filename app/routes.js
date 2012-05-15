@@ -47,6 +47,9 @@ IWitness.routes = Ember.Object.create({
     // debounced and could change since seturl was called
     if (!this.getPath("criteria.isValid")) return;
 
+    // don't change location when running specs
+    if (window.location.pathname.match("/specs")) return;
+
     var route;
     var criteria = this.get('criteria');
     var props = criteria.getProperties('zoom', 'center', 'northEast', 'southWest', 'radius', 'address');
