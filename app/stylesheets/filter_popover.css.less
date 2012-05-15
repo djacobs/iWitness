@@ -51,9 +51,20 @@
       line-height : 39px;
       .box-shadow(inset 0 12px 12px rgba(0,0,0, 0.2));
 
-      span {
+      &.open {
+        span.open   { display : inline; }
+        span.closed { display : none; }
+      }
+
+      span.open {
         padding-right : 18px;
         background    : url(images/orange_hide_arrow.png) no-repeat 100% 50%;
+        display       : none;
+      }
+
+      span.closed {
+        padding-right : 18px;
+        background    : url(images/show_filters_arrow.png) no-repeat 100% 50%;
       }
     }
 
@@ -70,4 +81,6 @@
 
     .service-switch { right: 14px; }
   }
+
+  #available_services { display: none; }
 }

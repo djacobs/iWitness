@@ -28,6 +28,11 @@ IWitness.SearchView = Ember.View.extend({
         button.hide();
       }
     }, 100);
+  },
+
+  toggleServiceFilters: function() {
+    this.$(".service_toggle_button").toggleClass('open');
+    this.$("#available_services").toggle();
   }
 
 });

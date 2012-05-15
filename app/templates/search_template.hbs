@@ -26,13 +26,16 @@
       {{view IWitness.ServiceSwitchView modelBinding="this"}}
     {{/each}}
 
-    <div class="row service_toggle_button">
-      <span>Hide services</span>
+    <div class="row service_toggle_button" {{action "toggleServiceFilters"}}>
+      <span class="open">Hide services</span>
+      <span class="closed">Show services</span>
     </div>
 
-    {{#each IWitness.filter.availableServices}}
-      {{view IWitness.ServiceSwitchView modelBinding="this"}}
-    {{/each}}
+    <div id="available_services">
+      {{#each IWitness.filter.availableServices}}
+        {{view IWitness.ServiceSwitchView modelBinding="this"}}
+      {{/each}}
+    </div>
   </div>
 </div>
 
