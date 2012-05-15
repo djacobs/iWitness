@@ -3,8 +3,23 @@ IWitness.filter = Ember.Object.create({
     return Ember.Object.create({type: type, active: true});
   }),
 
+  availableServices: ['flickr', 'twitter'].map(function(type) {
+    return Ember.Object.create({type: type, active: true});
+  }),
+
   mediaTypes: function() {
-    return this.get('availableMediaTypes').filterProperty('active')
-                                          .mapProperty('type');
-  }.property('availableMediaTypes.@each.active').cacheable()
+    return this.get('availableMediaTypes').filterProperty('active').mapProperty('type');
+  }.property('availableMediaTypes.@each.active').cacheable(),
+
+  services: function() {
+    return this.get('availableServices').filterProperty('active').mapProperty('type');
+  }.property('availableServices.@each.active').cacheable(),
+
+  shouldDisplay: function(result) {
+    if (_.include(this.get('services'), result.get('resultType'))) {
+      return _.intersection(result.get('mediaTypes'), this.get('mediaTypes')).length > 0;
+    } else {
+      return false;
+    }
+  }
 });

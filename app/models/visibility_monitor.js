@@ -2,11 +2,12 @@ IWitness.VisibilityMonitor = Ember.Object.extend({
   shownOnce: false,
 
   isVisible: function(){
-    if (this.get("isHiddenByScroll")) return false;
-
-    var matchingFilters = _.intersection(this.getPath('result.mediaTypes'), IWitness.filter.get('mediaTypes'));
-    return matchingFilters.length > 0;
-  }.property("IWitness.filter.mediaTypes.@each", "result.mediaTypes", "isHiddenByScroll"),
+    if (this.get("isHiddenByScroll")) {
+      return false;
+    } else {
+      return IWitness.filter.shouldDisplay(this.get("result"));
+    }
+  }.property("IWitness.filter.mediaTypes.@each", "IWitness.filter.services.@each", "result.mediaTypes", "result", "isHiddenByScroll"),
 
   // scrolling down the list of results in live streaming mode
   // causes new items to be invisible until the user scrolls back to
