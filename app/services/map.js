@@ -7,205 +7,7 @@ var Map = function(element, lat, lng, zoom) {
     mapTypeId:      google.maps.MapTypeId.ROADMAP,
     scrollwheel:    false,
     backgroundColor:"000",
-    styles: [
-      {
-        featureType: "landscape",
-        elementType: "geometry",
-        stylers: [
-          { invert_lightness: true },
-          { visibility: "off" },
-          { saturation: -100 },
-          { lightness: 15 }
-        ]
-      },{
-        featureType: "poi",
-        elementType: "geometry",
-        stylers: [
-          { invert_lightness: true },
-          { lightness: 15 },
-          { saturation: -100 }
-        ]
-      },{
-        featureType: "road",
-        elementType: "geometry",
-        stylers: [
-          { invert_lightness: true },
-          { saturation: -100 },
-          { lightness: 10 }
-        ]
-      },{
-        featureType: "transit",
-        stylers: [
-          { invert_lightness: true },
-          { saturation: -99 },
-          { lightness: 15 }
-        ]
-      },{
-        featureType: "water",
-        elementType: "geometry",
-        stylers: [
-          { saturation: -51 },
-          { lightness: -44 }
-        ]
-      },{
-        featureType: "administrative",
-        elementType: "geometry",
-        stylers: [
-          { visibility: "on" },
-          { saturation: -99 },
-          { lightness: -71 }
-        ]
-      },{
-        featureType: "administrative",
-        elementType: "labels",
-        stylers: [
-          { invert_lightness: true },
-          { saturation: -100 },
-          { lightness: 25 },
-          { gamma: 0.84 }
-        ]
-      },{
-        featureType: "landscape",
-        elementType: "labels",
-        stylers: [
-          { invert_lightness: true },
-          { saturation: -100 }
-        ]
-      },{
-        featureType: "poi",
-        elementType: "labels",
-        stylers: [
-          { invert_lightness: true },
-          { saturation: -99 },
-          { gamma: 0.87 },
-          { lightness: 17 }
-        ]
-      },{
-        featureType: "road",
-        elementType: "labels",
-        stylers: [
-          { invert_lightness: true },
-          { saturation: -100 }
-        ]
-      },{
-        featureType: "transit",
-        elementType: "labels",
-        stylers: [
-          { invert_lightness: true },
-          { saturation: -100 }
-        ]
-      },{
-        featureType: "water",
-        elementType: "labels",
-        stylers: [
-          { invert_lightness: true },
-          { saturation: -100 },
-          { lightness: 18 },
-          { gamma: 1.34 }
-        ]
-      },{
-      },{
-        featureType: "landscape.man_made",
-        elementType: "geometry",
-        stylers: [
-          { visibility: "on" }
-        ]
-      },{
-        featureType: "road.arterial",
-        elementType: "geometry",
-        stylers: [
-          { visibility: "on" },
-          { lightness: 12 }
-        ]
-      },{
-        featureType: "road.local",
-        elementType: "geometry",
-        stylers: [
-          { visibility: "simplified" },
-          { saturation: -100 },
-          { lightness: 33 }
-        ]
-      },{
-        featureType: "road.local",
-        elementType: "labels",
-        stylers: [
-          { visibility: "on" },
-          { lightness: 23 },
-          { gamma: 0.95 }
-        ]
-      },{
-        featureType: "poi",
-        elementType: "geometry",
-        stylers: [
-          { saturation: -60 },
-          { lightness: 5 },
-          { visibility: "off" }
-        ]
-      },{
-        featureType: "poi",
-        elementType: "geometry",
-        stylers: [
-          { visibility: "off" }
-        ]
-      },{
-        featureType: "landscape",
-        elementType: "geometry",
-        stylers: [
-          { visibility: "off" }
-        ]
-      },{
-        featureType: "poi.business",
-        elementType: "geometry",
-        stylers: [
-          { visibility: "off" }
-        ]
-      },{
-        featureType: "transit",
-        elementType: "geometry",
-        stylers: [
-          { visibility: "off" }
-        ]
-      },{
-        featureType: "administrative.land_parcel",
-        stylers: [
-          { visibility: "off" }
-        ]
-      },{
-        featureType: "transit",
-        elementType: "labels",
-        stylers: [
-          { visibility: "on" },
-          { invert_lightness: true }
-        ]
-      },{
-        featureType: "road.highway",
-        elementType: "labels",
-        stylers: [
-          { visibility: "on" },
-          { saturation: -98 },
-          { lightness: -5 }
-        ]
-      },{
-        featureType: "road.arterial",
-        elementType: "geometry",
-        stylers: [
-          { visibility: "simplified" }
-        ]
-      },{
-        featureType: "road.arterial",
-        elementType: "labels",
-        stylers: [
-          { visibility: "on" },
-          { lightness: 11 }
-        ]
-      },{
-        featureType: "landscape",
-        stylers: [
-          { visibility: "off" }
-        ]
-      },{
-      }
-    ]
+    styles: Map.Style
   });
 
   var circleOverlay = window.CIRCLE =
@@ -356,3 +158,103 @@ _.extend(Map.Box.prototype, {
     return this.box.contains(point);
   }
 });
+
+Map.createStyle = function(baseLightness) {
+  return [
+    {
+      elementType: "geometry",
+      stylers: [
+        { invert_lightness: true },
+        { lightness: baseLightness },
+        { saturation: -98 }
+      ]
+    },{
+      featureType: "water",
+      elementType: "geometry",
+      stylers: [
+        { saturation: 20 },
+        { lightness: 15 }
+      ]
+    }, {
+      featureType: "landscape",
+      elementType: "geometry",
+      stylers: [
+        { visibility: "off" },
+      ]
+    }, {
+      featureType: "administrative",
+      elementType: "geometry",
+      stylers: [
+        { visibility: "on" },
+        { saturation: -99 },
+        { lightness: 5 }
+      ]
+    }, {
+      elementType: "labels",
+      stylers: [
+        { invert_lightness: true },
+        { saturation: -100 },
+        { lightness: 17 },
+        { gamma: 0.8 }
+      ]
+    }, {
+      featureType: "road.arterial",
+      elementType: "geometry",
+      stylers: [
+        { visibility: "on" },
+        { lightness: 12 }
+      ]
+    }, {
+      featureType: "road.local",
+      elementType: "geometry",
+      stylers: [
+        { visibility: "simplified" },
+        { saturation: -100 },
+        { lightness: 33 }
+      ]
+    }, {
+      featureType: "poi",
+      elementType: "geometry",
+      stylers: [
+        { visibility: "off" }
+      ]
+    }, {
+      featureType: "administrative.land_parcel",
+      stylers: [
+        { visibility: "off" }
+      ]
+    }, {
+      featureType: "road.highway",
+      elementType: "labels",
+      stylers: [
+        { visibility: "on" },
+        { saturation: -98 },
+      ]
+    }, {
+      featureType: "road.arterial",
+      elementType: "geometry",
+      stylers: [
+        { visibility: "simplified" }
+      ]
+    }
+  ]};
+
+Map.Style = Map.createStyle(15);
+
+Map.StaticStyle = "style=" +
+  _(Map.createStyle(25)).map(function(style){
+    var args = [];
+    if (style.featureType)
+      args.push("feature:" + style.featureType);
+    if (style.elementType)
+      args.push("element:" + style.elementType);
+
+    _.each(style.stylers, function(s){
+      _.each(s, function(value, key) {
+        args.push(key + ':' + value);
+      });
+    });
+
+    return args.join("%7C");
+
+  }).join("&style=");

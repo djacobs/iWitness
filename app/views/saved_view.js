@@ -18,10 +18,18 @@ IWitness.SavedView = Ember.View.extend({
   }.property('IWitness.savedSetController.flaggedCount'),
 
   showExportText: function() {
-    this.$('#copy-overlay').show();
+    this.$('#copy-overlay').show().find("#text-content").show().end()
+                                  .find("#html-content").hide();
   },
 
-  hideExportText: function() {
+  showExportHtml: function() {
+    var view = IWitness.EmbedModuleView.create();
+    // this.$("#html-content").html(view.html()).show(); // For Testing
+    this.$("#html-content").text(view.html()).show();
+    this.$('#copy-overlay').show().find("#text-content").hide();
+  },
+
+  hideExportOverlay: function() {
     this.$('#copy-overlay').hide();
   },
 

@@ -19,7 +19,6 @@ window.IWitness = Ember.Application.create({
       return false;
     }
   }
-
 });
 
 IWitness.log = _.bind(Ember.Logger.log, Ember.Logger);
@@ -35,3 +34,4 @@ IWitness.config = _.extend({
 
 timezoneJS.timezone.zoneFileBasePath = 'tzdata';
 timezoneJS.timezone.init();
+IWitness.Templates = {};
