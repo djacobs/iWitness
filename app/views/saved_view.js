@@ -18,11 +18,11 @@ IWitness.SavedView = Ember.View.extend({
   }.property('IWitness.savedSetController.flaggedCount'),
 
   showExportText: function() {
-    this.$('#export-popover').show();
+    this.$('#copy-overlay').show();
   },
 
   hideExportText: function() {
-    this.$('#export-popover').hide();
+    this.$('#copy-overlay').hide();
   },
 
   exportLink: Ember.View.extend({
@@ -32,7 +32,7 @@ IWitness.SavedView = Ember.View.extend({
       var results = [];
       var datetime = moment().format('MM/DD/YY h:mm a');
 
-      $('#rendered-text-results div pre').each(function(i, result) {
+      $('#copy-overlay-content div pre').each(function(i, result) {
         results.push($(result).text());
       });
       results = results.join("\n");
@@ -46,6 +46,9 @@ IWitness.SavedView = Ember.View.extend({
       Analytics.track('saved results', 'exported', 'size of export', exportSize);
       e.target.href = this.makeHref();
     }
-  })
+  }),
 
+  toggleDropDown: function() {
+    this.$(".drop-down").toggleClass("active");
+  }
 });

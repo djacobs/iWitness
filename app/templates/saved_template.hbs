@@ -7,7 +7,7 @@
     <h2>{{numberFlaggedForExport}}</h2>
 
     <div class="drop-down">
-      <div class="label">
+      <div class="label" {{action "toggleDropDown"}}>
         Pick one
         <div class="arrow"></div>
       </div>
@@ -18,9 +18,9 @@
       </div>
     </div>
 
-    <div id="export-popover" class="popover left-heading">
-      <div class="heading" {{action "hideExportText"}}>Copy as text</div>
-      <div id="rendered-text-results" class="content linenums">
+    <div id="copy-overlay">
+      <div id="copy-overlay-close" {{action "hideExportText"}}>close</div>
+      <div id="copy-overlay-content">
         {{#if IWitness.savedSetController.flaggedCount}}
           {{#each IWitness.savedSetController.flaggedResults}}
             {{view IWitness.TextResultView modelBinding="this"}}
