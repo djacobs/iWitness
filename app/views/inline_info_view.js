@@ -19,7 +19,6 @@ IWitness.InlineInfoView = Ember.View.extend({
         messages.push("There's not much here.");
       }
 
-      console.log("inside message", endDate, endDate && endDate.isBefore(moment().subtract("days", 7)));
       if (endDate && endDate.isBefore(moment().subtract("days", 7))) {
         messages.push("Twitter doesn't let us look back in time more than about a week, so that might be why.");
       }
