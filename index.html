@@ -33,10 +33,15 @@
     <script type='text/x-handlebars'>
       {{view IWitness.SearchView}}
       {{view IWitness.SavedView}}
-      {{view IWitness.WelcomeView id="welcome-overlay"}}
+      {{view IWitness.WelcomeView id="welcome-overlay-cover"}}
+    </script>
+    <script>
+      $(function() {
+        window.onorientationchange = function() { window.scrollBy(-300,0); };
+      });
     </script>
 
   </div>
 </body>
 </html>
-<!-- 5d800c8 -->
+<!-- db3d606 -->
