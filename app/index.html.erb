@@ -38,6 +38,11 @@
       {{view IWitness.SavedView}}
       {{view IWitness.WelcomeView id="welcome-overlay-cover"}}
     </script>
+    <script>
+      $(function() {
+        window.onorientationchange = function() { window.scrollBy(-300,0); };
+      });
+    </script>
 
   </div>
 </body>
