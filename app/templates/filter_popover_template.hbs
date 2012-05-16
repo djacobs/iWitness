@@ -1,0 +1,19 @@
+<div class="header" {{action "hide"}}><span>Hide filters</span></div>
+<div class="content">
+  {{view IWitness.KeywordFilterView}}
+
+  {{#each IWitness.filter.availableMediaTypes}}
+    {{view IWitness.ServiceSwitchView modelBinding="this"}}
+  {{/each}}
+
+  <div class="row service_toggle_button" {{action "toggleServiceFilters"}}>
+    <span class="open">Hide services</span>
+    <span class="closed">Show services</span>
+  </div>
+
+  <div id="available_services">
+    {{#each IWitness.filter.availableServices}}
+      {{view IWitness.ServiceSwitchView modelBinding="this"}}
+    {{/each}}
+  </div>
+</div>

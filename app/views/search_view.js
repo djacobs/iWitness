@@ -1,28 +1,20 @@
 IWitness.SearchView = Ember.View.extend({
   templateName: 'search_template',
   isVisibleBinding: 'IWitness.currentViewController.showingSearchResults',
+  showingFilters: false,
 
   didInsertElement: function() {
-    var self = this;
     var button = this.$("#back-to-top-button");
     button.hide();
     $(window).on("scroll.backToTop", this._backToTopButton(button));
-
-    $(document).click(function(e) {
-      var clicked = $(e.target);
-      if (!clicked.closest('#show-filters-button').length &&
-          !clicked.closest('#filter-popover .content').length) {
-        self.hideFilters();
-      }
-    });
   },
 
   showFilters: function() {
-    this.$("#filter-popover").show();
+    this.set('showingFilters', true);
   },
 
   hideFilters: function() {
-    this.$("#filter-popover").hide();
+    this.set('showingFilters', false);
   },
 
   backToTop: function() {
@@ -37,11 +29,6 @@ IWitness.SearchView = Ember.View.extend({
         button.hide();
       }
     }, 100);
-  },
-
-  toggleServiceFilters: function() {
-    this.$(".service_toggle_button").toggleClass('open');
-    this.$("#available_services").toggle();
   }
 
 });
