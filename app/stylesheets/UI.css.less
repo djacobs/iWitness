@@ -587,6 +587,16 @@ html,body { background: #000 url(images/gradient_background.png) repeat-y 50% 0;
 
 /* Welcome Overlay  ---------------------------------- */
 
+#welcome-overlay-cover {
+  position   : fixed;
+  top        : 0;
+  right      : 0;
+  bottom     : 0;
+  left       : 0;
+  background : rgba(0,0,0, 0.6);
+  z-index    : 1000;
+}
+
 #welcome-overlay {
   position    : fixed;
   top         : 48%;
@@ -595,7 +605,7 @@ html,body { background: #000 url(images/gradient_background.png) repeat-y 50% 0;
   margin      : -290px 0 0 -430px;
   border      : 3px solid #fff;
   background  : #f5f5f5;
-  z-index     : 100;
+  z-index     : 1001;
   .box-shadow(0 5px 5px rgba(0,0,0, 0.3));
   .rounded(12px);
   .serif();
