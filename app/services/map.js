@@ -1,4 +1,4 @@
-var Map = function(element, lat, lng, zoom) {
+var Map = function(element, lat, lng, zoom, styles) {
   this.map = new google.maps.Map(element, {
     center:         new google.maps.LatLng(lat, lng),
     zoom:           zoom,
@@ -7,7 +7,7 @@ var Map = function(element, lat, lng, zoom) {
     mapTypeId:      google.maps.MapTypeId.ROADMAP,
     scrollwheel:    false,
     backgroundColor:"000",
-    styles: Map.Style
+    styles: styles
   });
 
   var circleOverlay = window.CIRCLE =
@@ -34,7 +34,7 @@ var Map = function(element, lat, lng, zoom) {
   var circle = circleOverlay.get(0);
   circle.index = -1;
 
-  this.map.controls[google.maps.ControlPosition.TOP_LEFT].push(circle);
+  // this.map.controls[google.maps.ControlPosition.TOP_LEFT].push(circle);
 
   this.geocoder = new google.maps.Geocoder();
 };
@@ -161,6 +161,95 @@ _.extend(Map.Box.prototype, {
 
 Map.Style = [
   {
+    elementType: "geometry",
+    stylers: [
+      { invert_lightness: true },
+      { saturation: -100 },
+      { lightness: 15 }
+    ]
+  },
+  {
+    featureType: "landscape",
+    elementType: "geometry",
+    stylers: [
+      { visibility: "off" },
+    ]
+  },
+  {
+    featureType: "water",
+    elementType: "geometry",
+    stylers: [
+      { saturation: 20 },
+      { lightness: 15 }
+    ]
+  },
+  {
+    featureType: "administrative",
+    elementType: "geometry",
+    stylers: [
+      { visibility: "on" },
+      { saturation: -99 },
+      { lightness: 5 }
+    ]
+  },
+  {
+    elementType: "labels",
+    stylers: [
+      { invert_lightness: true },
+      { saturation: -100 },
+      { lightness: 17 },
+      { gamma: 0.8 }
+    ]
+  },
+  {
+    featureType: "road.arterial",
+    elementType: "geometry",
+    stylers: [
+      { visibility: "on" },
+      { lightness: 12 }
+    ]
+  },
+  {
+    featureType: "road.local",
+    elementType: "geometry",
+    stylers: [
+      { visibility: "simplified" },
+      { saturation: -100 },
+      { lightness: 33 }
+    ]
+  },
+  {
+    featureType: "poi",
+    elementType: "geometry",
+    stylers: [
+      { visibility: "off" }
+    ]
+  },
+  {
+    featureType: "administrative.land_parcel",
+    stylers: [
+      { visibility: "off" }
+    ]
+  },
+  {
+    featureType: "road.highway",
+    elementType: "labels",
+    stylers: [
+      { visibility: "on" },
+      { saturation: -98 },
+    ]
+  },
+  {
+    featureType: "road.arterial",
+    elementType: "geometry",
+    stylers: [
+      { visibility: "simplified" }
+    ]
+  }
+];
+
+Map.OldStyle = [
+  {
     featureType: "landscape",
     elementType: "geometry",
     stylers: [
@@ -199,7 +288,7 @@ Map.Style = [
       { saturation: -51 },
       { lightness: -44 }
     ]
-  },{
+  },{ // REM
     featureType: "administrative",
     elementType: "geometry",
     stylers: [
@@ -207,7 +296,7 @@ Map.Style = [
       { saturation: -99 },
       { lightness: -71 }
     ]
-  },{
+  },{ 
     featureType: "administrative",
     elementType: "labels",
     stylers: [

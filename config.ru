@@ -15,6 +15,12 @@ map '/' do
   }
 end
 
+map '/maptest' do
+  run proc { |env|
+    [200, { 'Content-Type' => 'text/html' }, [SprocketsApp['maptest.html'].to_s]]
+  }
+end
+
 map '/specs' do
   run proc { |env|
     if env['PATH_INFO'] == ''
