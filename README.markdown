@@ -81,10 +81,10 @@ bugs. We love to receive pull requests for new features or bug fixes. When
 appropriate, please include tests (more info on running tests below).
 
 If you lack the technical expertise to fix a bug yourself, please create an 
-issue for it. Please be as descriptive in your issue as possible.  Include 
-screenshots and links to reproduce the issue. There is no guarantee that your 
-issue will be addressed, but it's much more likely if you're clear and thorough 
-in your description.
+issue for it. Be as descriptive in your issue as possible.  Include screenshots 
+and links to reproduce the issue. There is no guarantee that your issue will be 
+addressed, but it's much more likely if you're clear and thorough in your 
+description.
 
 ### Running the tests
 
@@ -92,7 +92,8 @@ We have a suite of JavaScript specs written using
 [Jasmine](http://pivotal.github.com/jasmine/). The specs can be run in two 
 ways:
 
-1. with the server running, navigate to [http://localhost:9292/specs]()
+1. with the development server running, navigate to 
+   [http://localhost:9292/specs]()
 2. run headless with `rake test` (requires [PhantomJS](http://phantomjs.org/))
 
 ### Understanding the code
@@ -192,7 +193,7 @@ If you require technical support running the app, please remember that this is
 open source. There is no technical support included. Your best bet is to open 
 an issue and be patient.
 
-## LICENSE
+## License
 
 Code is under the GPL v3 license. The full text of which can be found in LICENSE.
 Visual assets are under the Creative Commons Attribution-ShareAlike 3.0 
