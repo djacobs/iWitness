@@ -262,6 +262,6 @@ Map.StaticStyle = "style=" +
       });
     });
 
-    return args.join("|");
+    return args.join("%7C");
 
   }).join("&style=");

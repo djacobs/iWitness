@@ -18,12 +18,7 @@ window.IWitness = Ember.Application.create({
       document.write('');
       return false;
     }
-  },
-
-  imagePath: function() {
-    return window.location.origin + window.location.pathname + "images/";
-  }.property()
-
+  }
 });
 
 IWitness.log = _.bind(Ember.Logger.log, Ember.Logger);
@@ -39,3 +34,4 @@ IWitness.config = _.extend({
 
 timezoneJS.timezone.zoneFileBasePath = 'tzdata';
 timezoneJS.timezone.init();
+IWitness.Templates = {};

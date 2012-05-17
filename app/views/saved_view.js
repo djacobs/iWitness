@@ -23,12 +23,24 @@ IWitness.SavedView = Ember.View.extend({
   },
 
   showExportHtml: function() {
-    var buffer = Ember.RenderBuffer("div");
-    var embedView = IWitness.EmbedModuleView.create();
-    embedView.renderToBuffer(buffer);
-    var $template = $(buffer.string());
-    $template.find('.iwitness_item:last').addClass('iwitness_last_item');
-    this.$("#html-content").text($template.html()).show();
+    var flaggedResults = IWitness.savedSetController.get("flaggedResults");
+    var resultViews = flaggedResults.map(function(result) {
+      return IWitness.ResultView.create({model: result});
+    });
+    Ember.run.sync();
+    var resultViewModels = resultViews.map(function(view) {
+      return view.getProperties.apply(view, "type postedDate postedTime staticMapUrl avatarSrc userNameSecondary userNamePrimary contentText".w());
+    });
+    if (resultViewModels.length){
+      resultViewModels[resultViewModels.length-1].additionalClasses = "iwitness_last_item";
+    }
+    debugger;
+    var viewModel = {
+      imagePath: window.location.origin + window.location.pathname + "images/",
+      flaggedResults: resultViewModels
+    };
+
+    this.$("#html-content").text(IWitness.Templates.embed_module_template(viewModel)).show();
     this.$('#copy-overlay').show().find("#text-content").hide();
   },
 

@@ -13,8 +13,8 @@
 //= require javascripts/kdtree
 //= require javascripts/timezone-js/src/date
 //= require javascripts/timezone-js-jquery/src/timezone-js-jquery
-//= require_tree ./templates
 //= require base
+//= require_tree ./templates
 //= require_tree ./services
 //= require_tree ./mixins
 //= require models/space_time
