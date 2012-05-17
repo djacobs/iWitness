@@ -1,0 +1,20 @@
+<div class="iwitness_item iwitness_{{unbound model.resultType}}">
+  <div class="iwitness_item_left">
+    <div class="iwitness_item_meta">
+      <div class="iwitness_item_date_posted">{{unbound posteDate}}</div>
+      <div class="iwitness_item_time_posted">{{unbound postedTime}}</div>
+    </div>
+    <img src="{{unbound model.staticMapUrl}}" alt="Map" class="iwitness_map">
+  </div>
+  <div class="iwitness_item_right">
+    <a href="#" class="iwitness_user_info" target="_blank">
+      <img src="{{unbound model.avatarSrc}}" alt="User Photo">
+      <div class="iwitness_user_name">{{unbound model.userNameSecondary}}</div>
+      <div class="iwitness_user_handle">{{unbound model.userNamePrimary}}</div>
+    </a>
+
+    <div class="iwitness_item_content">
+      {{unbound contentText}}
+    </div>
+  </div>
+</div>

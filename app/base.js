@@ -18,7 +18,11 @@ window.IWitness = Ember.Application.create({
       document.write('');
       return false;
     }
-  }
+  },
+
+  imagePath: function() {
+    return window.location.origin + window.location.pathname + "images/";
+  }.property()
 
 });
 

@@ -12,7 +12,7 @@
         <div class="arrow"></div>
       </div>
       <div class="items">
-        <div>Get embed code</div>
+        <div {{action "showExportHtml"}}>Get embed code</div>
         {{#view exportLink}}Send as email{{/view}}
         <div {{action "showExportText"}}>Copy as text</div>
       </div>
@@ -21,11 +21,15 @@
     <div id="copy-overlay">
       <div id="copy-overlay-close" {{action "hideExportText"}}>close</div>
       <div id="copy-overlay-content">
-        {{#if IWitness.savedSetController.flaggedCount}}
-          {{#each IWitness.savedSetController.flaggedResults}}
-            {{view IWitness.TextResultView modelBinding="this"}}
-          {{/each}}
-        {{/if}}
+        <div id="text-content">
+          {{#if IWitness.savedSetController.flaggedCount}}
+            {{#each IWitness.savedSetController.flaggedResults}}
+              {{view IWitness.TextResultView modelBinding="this"}}
+            {{/each}}
+          {{/if}}
+        </div>
+        <div id="html-content">
+        </div>
       </div>
     </div>
   </div>
