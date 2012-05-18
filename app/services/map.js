@@ -177,7 +177,6 @@ Map.Style =
     ]
   }, {
     featureType: "landscape",
-    elementType: "geometry",
     stylers: [
       { visibility: "off" },
     ]
