@@ -159,31 +159,29 @@ _.extend(Map.Box.prototype, {
   }
 });
 
-Map.Style = [
+Map.Style =
+  [
   {
     elementType: "geometry",
     stylers: [
       { invert_lightness: true },
-      { saturation: -100 },
-      { lightness: 15 }
+      { lightness: 15 },
+      { saturation: -98 }
     ]
-  },
-  {
-    featureType: "landscape",
-    elementType: "geometry",
-    stylers: [
-      { visibility: "off" },
-    ]
-  },
-  {
+  },{
     featureType: "water",
     elementType: "geometry",
     stylers: [
       { saturation: 20 },
       { lightness: 15 }
     ]
-  },
-  {
+  }, {
+    featureType: "landscape",
+    elementType: "geometry",
+    stylers: [
+      { visibility: "off" },
+    ]
+  }, {
     featureType: "administrative",
     elementType: "geometry",
     stylers: [
@@ -191,8 +189,7 @@ Map.Style = [
       { saturation: -99 },
       { lightness: 5 }
     ]
-  },
-  {
+  }, {
     elementType: "labels",
     stylers: [
       { invert_lightness: true },
@@ -200,16 +197,14 @@ Map.Style = [
       { lightness: 17 },
       { gamma: 0.8 }
     ]
-  },
-  {
+  }, {
     featureType: "road.arterial",
     elementType: "geometry",
     stylers: [
       { visibility: "on" },
       { lightness: 12 }
     ]
-  },
-  {
+  }, {
     featureType: "road.local",
     elementType: "geometry",
     stylers: [
@@ -217,29 +212,25 @@ Map.Style = [
       { saturation: -100 },
       { lightness: 33 }
     ]
-  },
-  {
+  }, {
     featureType: "poi",
     elementType: "geometry",
     stylers: [
       { visibility: "off" }
     ]
-  },
-  {
+  }, {
     featureType: "administrative.land_parcel",
     stylers: [
       { visibility: "off" }
     ]
-  },
-  {
+  }, {
     featureType: "road.highway",
     elementType: "labels",
     stylers: [
       { visibility: "on" },
       { saturation: -98 },
     ]
-  },
-  {
+  }, {
     featureType: "road.arterial",
     elementType: "geometry",
     stylers: [
@@ -247,6 +238,7 @@ Map.Style = [
     ]
   }
 ];
+
 
 Map.OldStyle = [
   {
@@ -296,7 +288,7 @@ Map.OldStyle = [
       { saturation: -99 },
       { lightness: -71 }
     ]
-  },{ 
+  },{
     featureType: "administrative",
     elementType: "labels",
     stylers: [
