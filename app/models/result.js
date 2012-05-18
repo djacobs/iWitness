@@ -32,7 +32,7 @@ IWitness.Result = Ember.Object.extend(Ember.Comparable, {
 
   staticMapUrl: function() {
     return "http://maps.googleapis.com/maps/api/staticmap"+
-      "?markers=icon:/images/pin_small.png%7C" + this.get("lat") + "," + this.get("lng") +
+      "?markers=" + this.get("lat") + "," + this.get("lng") +
       "&zoom=15" +
       "&size=246x233" +
       "&maptype=roadmap" +

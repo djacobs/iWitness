@@ -84,12 +84,6 @@ IWitness.Templates.embed_module_template = Handlebars.compile(
 '      width: 253px;' +
 '      margin-bottom: -4000px;' +
 '      padding-bottom: 4000px;' +
-'      background-image: -o-linear-gradient(bottom, rgb(237,237,238) 36%, rgb(255,255,255) 100%);' +
-'      background-image: -moz-linear-gradient(bottom, rgb(237,237,238) 36%, rgb(255,255,255) 100%);' +
-'      background-image: -ms-linear-gradient(bottom, rgb(237,237,238) 36%, rgb(255,255,255) 100%);' +
-'      background-image: -webkit-linear-gradient(bottom, rgb(237,237,238) 36%, rgb(255,255,255) 100%);' +
-'      background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0.36, rgb(237,237,238)), color-stop(1, rgb(255,255,255)));' +
-'      background-image: linear-gradient(bottom, rgb(237,237,238) 36%, rgb(255,255,255) 100%);' +
 '      -webkit-border-top-right-radius: 10px;' +
 '      -webkit-border-bottom-right-radius: 10px;' +
 '      -moz-border-radius-topright: 10px;' +

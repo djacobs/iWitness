@@ -34,13 +34,12 @@ IWitness.SavedView = Ember.View.extend({
     if (resultViewModels.length){
       resultViewModels[resultViewModels.length-1].additionalClasses = "iwitness_last_item";
     }
-    debugger;
-    var viewModel = {
+    var html = IWitness.Templates.embed_module_template({
       imagePath: window.location.origin + window.location.pathname + "images/",
       flaggedResults: resultViewModels
-    };
+    });
 
-    this.$("#html-content").text(IWitness.Templates.embed_module_template(viewModel)).show();
+    this.$("#html-content").html(html).show();
     this.$('#copy-overlay').show().find("#text-content").hide();
   },
 
