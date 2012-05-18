@@ -1,10 +1,10 @@
 IWitness.ResultView = Ember.View.extend(IWitness.PostedDateTime, IWitness.LinkifiedContent, {
-  templateName:             'result_template',
-  typeBinding:              'model.resultType',
-  classNames:               ['item-wrapper'],
-  classNameBindings:        ['isSelected:selected', 'type'],
-  attributeBindings:        ['data-posted-time'],
-  isVisibleBinding:         "visibilityMonitor.isVisible",
+  templateName:      'result_template',
+  typeBinding:       'model.resultType',
+  classNames:        ['item-wrapper'],
+  classNameBindings: ['isSelected:selected', 'type'],
+  attributeBindings: ['data-posted-time'],
+  isVisibleBinding:  "visibilityMonitor.isVisible",
 
   'data-posted-time': function(){
     return this.getPath('postedTime');
