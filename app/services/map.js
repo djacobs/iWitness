@@ -177,7 +177,6 @@ Map.createStyle = function(baseLightness) {
       ]
     }, {
       featureType: "landscape",
-      elementType: "geometry",
       stylers: [
         { visibility: "off" },
       ]
