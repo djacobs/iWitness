@@ -159,97 +159,90 @@ _.extend(Map.Box.prototype, {
   }
 });
 
-Map.Style = [
-  {
-    elementType: "geometry",
-    stylers: [
-      { invert_lightness: true },
-      { saturation: -100 },
-      { lightness: 15 }
-    ]
-  },
-  {
-    featureType: "landscape",
-    elementType: "geometry",
-    stylers: [
-      { visibility: "off" },
-    ]
-  },
-  {
-    featureType: "water",
-    elementType: "geometry",
-    stylers: [
-      { saturation: 20 },
-      { lightness: 15 }
-    ]
-  },
-  {
-    featureType: "administrative",
-    elementType: "geometry",
-    stylers: [
-      { visibility: "on" },
-      { saturation: -99 },
-      { lightness: 5 }
-    ]
-  },
-  {
-    elementType: "labels",
-    stylers: [
-      { invert_lightness: true },
-      { saturation: -100 },
-      { lightness: 17 },
-      { gamma: 0.8 }
-    ]
-  },
-  {
-    featureType: "road.arterial",
-    elementType: "geometry",
-    stylers: [
-      { visibility: "on" },
-      { lightness: 12 }
-    ]
-  },
-  {
-    featureType: "road.local",
-    elementType: "geometry",
-    stylers: [
-      { visibility: "simplified" },
-      { saturation: -100 },
-      { lightness: 33 }
-    ]
-  },
-  {
-    featureType: "poi",
-    elementType: "geometry",
-    stylers: [
-      { visibility: "off" }
-    ]
-  },
-  {
-    featureType: "administrative.land_parcel",
-    stylers: [
-      { visibility: "off" }
-    ]
-  },
-  {
-    featureType: "road.highway",
-    elementType: "labels",
-    stylers: [
-      { visibility: "on" },
-      { saturation: -98 },
-    ]
-  },
-  {
-    featureType: "road.arterial",
-    elementType: "geometry",
-    stylers: [
-      { visibility: "simplified" }
-    ]
-  }
-];
+Map.createStyle = function(baseLightness) {
+  return [
+    {
+      elementType: "geometry",
+      stylers: [
+        { invert_lightness: true },
+        { lightness: baseLightness },
+        { saturation: -98 }
+      ]
+    },{
+      featureType: "water",
+      elementType: "geometry",
+      stylers: [
+        { saturation: 20 },
+        { lightness: 15 }
+      ]
+    }, {
+      featureType: "landscape",
+      elementType: "geometry",
+      stylers: [
+        { visibility: "off" },
+      ]
+    }, {
+      featureType: "administrative",
+      elementType: "geometry",
+      stylers: [
+        { visibility: "on" },
+        { saturation: -99 },
+        { lightness: 5 }
+      ]
+    }, {
+      elementType: "labels",
+      stylers: [
+        { invert_lightness: true },
+        { saturation: -100 },
+        { lightness: 17 },
+        { gamma: 0.8 }
+      ]
+    }, {
+      featureType: "road.arterial",
+      elementType: "geometry",
+      stylers: [
+        { visibility: "on" },
+        { lightness: 12 }
+      ]
+    }, {
+      featureType: "road.local",
+      elementType: "geometry",
+      stylers: [
+        { visibility: "simplified" },
+        { saturation: -100 },
+        { lightness: 33 }
+      ]
+    }, {
+      featureType: "poi",
+      elementType: "geometry",
+      stylers: [
+        { visibility: "off" }
+      ]
+    }, {
+      featureType: "administrative.land_parcel",
+      stylers: [
+        { visibility: "off" }
+      ]
+    }, {
+      featureType: "road.highway",
+      elementType: "labels",
+      stylers: [
+        { visibility: "on" },
+        { saturation: -98 },
+      ]
+    }, {
+      featureType: "road.arterial",
+      elementType: "geometry",
+      stylers: [
+        { visibility: "simplified" }
+      ]
+    }
+  ]};
+
+Map.Style = Map.createStyle(15);
 
 Map.StaticStyle = "style=" +
-  _(Map.Style).map(function(style){
+  _(Map.createStyle(25)).map(function(style){
     var args = [];
     if (style.featureType)
       args.push("feature:" + style.featureType);

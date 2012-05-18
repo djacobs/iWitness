@@ -23,29 +23,13 @@ IWitness.SavedView = Ember.View.extend({
   },
 
   showExportHtml: function() {
-    var flaggedResults = IWitness.savedSetController.get("flaggedResults");
-    var resultViews = flaggedResults.map(function(result) {
-      return IWitness.ResultView.create({model: result});
-    });
-    Ember.run.sync();
-    var resultViewModels = resultViews.map(function(view) {
-      return view.getProperties.apply(view, "type postedDate postedTime staticMapUrl avatarSrc userNameSecondary userNamePrimary contentText".w());
-    });
-    if (resultViewModels.length){
-      resultViewModels[resultViewModels.length-1].additionalClasses = "iwitness_last_item";
-    }
-    var html = IWitness.Templates.embed_module_template({
-      imagePath: window.location.origin + window.location.pathname + "images/",
-      flaggedResults: resultViewModels
-    });
-
-    this.$("#html-content").html(html).show();
+    var view = IWitness.EmbedModuleView.create();
+    // this.$("#html-content").html(view.html()).show(); // For Testing
+    this.$("#html-content").text(view.html()).show();
     this.$('#copy-overlay').show().find("#text-content").hide();
   },
 
-  // TODO: rename to hideCopyOverlay
-
-  hideExportText: function() {
+  hideExportOverlay: function() {
     this.$('#copy-overlay').hide();
   },
 

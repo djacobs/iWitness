@@ -164,6 +164,15 @@ IWitness.Templates.embed_module_template = Handlebars.compile(
 '      </a>' +
 
 '      <div class="iwitness_item_content">' +
+'        {{#each displayableMedia}}' +
+'          {{#if isIFrame}}' +
+'            <iframe class="content-link" type="text/html" src="{{mediaUrl}}" frameborder="0"></iframe>' +
+'          {{else}}' +
+'            <a class="content-link" target="_blank" href="{{linkUrl}}">' +
+'              <img src="{{mediaUrl}}">' +
+'            </a>' +
+'          {{/if}}' +
+'        {{/each}}' +
 '        {{contentText}}' +
 '      </div>' +
 '    </div>' +
