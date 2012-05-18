@@ -5,11 +5,6 @@ IWitness.ResultView = Ember.View.extend(IWitness.PostedDateTime, IWitness.Linkif
   classNameBindings:        ['isSelected:selected', 'type'],
   attributeBindings:        ['data-posted-time'],
   isVisibleBinding:         "visibilityMonitor.isVisible",
-  staticMapUrlBinding:      "model.staticMapUrl",
-  avatarSrcBinding:         "model.avatarSrc",
-  userNamePrimaryBinding:   "model.userNamePrimary",
-  userNameSecondaryBinding: "model.userNameSecondary",
-  displayableMediaBinding:  "model.media.displayable",
 
   'data-posted-time': function(){
     return this.getPath('postedTime');

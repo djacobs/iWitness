@@ -11,7 +11,7 @@ IWitness.EmbedModuleView = Ember.Object.extend({
   },
 
   _makeViewModel: function(resultViews) {
-    var resultViewModels = resultViews.map(this._makeResult);
+    var resultViewModels = resultViews.map(_.bind(this._makeResult, this));
     resultViewModels[resultViewModels.length-1].additionalClasses = "iwitness_last_item";
     return {
       imagePath: this.get("imagePath"),
@@ -20,9 +20,8 @@ IWitness.EmbedModuleView = Ember.Object.extend({
   },
 
   _makeResult: function(view) {
-    fields = "type postedDate postedTime staticMapUrl avatarSrc userNameSecondary userNamePrimary contentText displayableMedia".w()
-    var media  = view.get("displayableMedia");
-    var result = view.getProperties.apply(view, fields);
+    var media  = view.getPath("model.media.displayable");
+    var result = this._getResultProperties(view);
     result.displayableMedia = [];
     (media || []).forEach(function(m) {
       result.displayableMedia.push({
@@ -32,5 +31,12 @@ IWitness.EmbedModuleView = Ember.Object.extend({
       });
     });
     return result;
+  },
+
+  _getResultProperties: function(view) {
+    var viewFields = view.getProperties("type postedDate postedTime contentText".w());
+    var modelFields = view.get("model").getProperties(
+      "staticMapUrl avatarSrc userNameSecondary userNamePrimary displayableMedia".w());
+    return _.extend(viewFields, modelFields);
   }
 });
