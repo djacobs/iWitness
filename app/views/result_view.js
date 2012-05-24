@@ -97,5 +97,7 @@ IWitness.ResultView = Ember.View.extend(IWitness.PostedDateTime, IWitness.Linkif
 });
 
 IWitness.SavedResultView = IWitness.ResultView.extend({
-  isVisible: true
+  isVisibleBinding: "alwaysTrue",
+
+  alwaysTrue: function() { return true; }.property()
 });

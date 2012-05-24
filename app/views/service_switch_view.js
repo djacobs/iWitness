@@ -1,4 +1,3 @@
-Ember.ENV.RAISE_ON_DEPRECATION = true;
 IWitness.ServiceSwitchView = Ember.View.extend({
   templateName: "service_switch_template",
   classNames: ["row"],
