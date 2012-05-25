@@ -3,14 +3,13 @@ IWitness.ResultsStatusView = Ember.View.extend({
   criteriaBinding: 'IWitness.criteriaController.content',
 
   status: function() {
-    if (this.getPath('criteria.isValid')) {
-      if (['isFlickrSearching', 'isTwitterSearching'].some(this.getPath, this)) {
-        return 'Scanning';
-      } else {
-        return 'Finished';
-      }
+    if (!this.getPath('criteria.isValid')) { return "Something's wrong"; }
+    if(this.getPath('criteria.stream')) {
+      return 'Streaming';
+    } else if (['isFlickrSearching', 'isTwitterSearching'].some(this.getPath, this)) {
+      return 'Scanning';
     } else {
-      return "Something's wrong";
+      return 'Finished';
     }
   }.property('isFlickrSearching', 'isTwitterSearching', 'criteria.isValid'),
 
@@ -28,12 +27,11 @@ IWitness.ResultsStatusView = Ember.View.extend({
   }.property('IWitness.searchController.monitors.twitter.status', 'criteria.isValid'),
 
   _isSearching: function(service){
-    var status = IWitness.searchController.getPath('monitors.'+service+'.status')
+    var status = IWitness.searchController.getPath('monitors.'+service+'.status');
     return status == 'pending' || status == 'streaming' || status == 'searching';
   },
 
   showSaved: function(e) {
     IWitness.currentViewController.set('currentView', 'saved_results');
   }
-
 });
