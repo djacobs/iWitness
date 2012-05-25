@@ -99,8 +99,7 @@ _.extend(Map.prototype, {
         position: position,
         map: this.map,
         icon: this.pinImages[pinName],
-        visible: false,
-        animation: google.maps.Animation.DROP
+        visible: false
       });
     }
   },
