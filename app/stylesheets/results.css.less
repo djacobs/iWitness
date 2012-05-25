@@ -43,7 +43,7 @@
 
   .status {
     /*
-      If status is 'scanning' don't display background image
+      If status is 'scanning || streaming' don't display background image
       Show .radar div
     */
     position : absolute;
@@ -64,6 +64,7 @@
       background : url(images/radar_sweep_orange.png);
     }
 
+    &.streaming .radar,
     &.scanning .radar {
       display: block;
       .rotate();
@@ -176,6 +177,7 @@
   display: block;
 }
 
+.status.streaming #services-menu,
 .status.scanning #services-menu {
   .services-header { color: #003a6e; }
 
