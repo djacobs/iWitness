@@ -7,7 +7,9 @@ describe("Criteria", function() {
       startDateString: '1/1/2012',
       startTimeString: '9:00 AM',
       endDateString:   '1/1/2012',
-      endTimeString:   '10:00 AM'
+      endTimeString:   '10:00 AM',
+      northEast: [40.558703067949075,-82.38843461914064],
+      southWest: [39.79273537420398,-83.76996538085939]
     });
   });
 
@@ -68,35 +70,33 @@ describe("Criteria", function() {
   });
 
   describe("errors", function() {
-    describe("when searching events", function() {
-      it("returns an empty array for valid criteria", function() {
-        expect(subject.get('errors')).toEqual([]);
-      });
+    it("returns an empty array for valid criteria", function() {
+      expect(subject.get('errors')).toEqual([]);
+    });
+  });
 
-      it("includes an error if the start comes before the end", function() {
-        subject.set('endTimeString', '8:00 AM');
-        expect(subject.get('errors').length).toEqual(1);
-        expect(subject.get('errors')[0]).toMatch(/after the start date/i);
-      });
+  describe("timeError", function() {
+    it("includes an error if the start comes before the end", function() {
+      subject.set('endTimeString', '8:00 AM');
+      expect(subject.get('timeError')).toMatch(/after the start date/i);
+    });
+  });
 
-      it("includes an error if the radius is more than 75km", function() {
-        spyOnProperties(subject, {radius: 76000});
-        expect(subject.get('errors').length).toEqual(1);
-        expect(subject.get('errors')[0]).toMatch(/zoom/i);
-      });
+  describe("mapError", function() {
+    it("includes an error if the radius is more than 75km", function() {
+      spyOnProperties(subject, {radius: 76000});
+      expect(subject.get('mapError')).toMatch(/zoom/i);
     });
 
-    describe("when streaming", function() {
-      beforeEach(function() {
-        subject.set('stream', true);
-      });
+    it("includes an error if the coordinates are not set", function() {
+      subject.set('northEast', undefined);
+      expect(subject.get('mapError')).toMatch(/location/i);
 
-      it("includes an error if the radius is more than 75km", function() {
-        spyOnProperties(subject, {radius: 76000});
+      subject.set('northEast', [40, 40]);
+      expect(subject.get('mapError')).toBeFalsy();
 
-        expect(subject.get('errors').length).toEqual(1);
-        expect(subject.get('errors')[0]).toMatch(/zoom/i);
-      });
+      subject.set('southWest', undefined);
+      expect(subject.get('mapError')).toMatch(/location/i);
     });
   });
 

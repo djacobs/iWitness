@@ -99,11 +99,15 @@ IWitness.Criteria = Ember.Object.extend({
     }
   }.property("start", "end", "stream"),
 
-  mapError: function(){
-    if (this.get('radius') > 75000) {
-      return "Please zoom in to start scanning.";
+  mapError: function() {
+    if (!this.get('northEast') || !this.get('southWest')) {
+      return "Please choose your location to begin.";
     }
-  }.property("radius"),
+
+    if (this.get('radius') > 75000) {
+      return "Please zoom in to begin.";
+    }
+  }.property("radius", "northEast", "southWest"),
 
   trackCurrentTime: function() {
     var self = this;
