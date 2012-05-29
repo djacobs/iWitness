@@ -1,14 +1,14 @@
 # iWitness
 
 iWitness is a web-based software tool that enables individuals and news 
-organizations to aggregate and cross-reference news events with user-generated 
-online content related by time and place. If you know when and where something 
-happened, iWitness will show you first-person photos, videos and messages from 
-people who were there, integrating diverse media types in a unified interface.
+organizations to explore social media content by time and place. If you know
+when and where something happened, iWitness will show you first-person photos,
+videos and messages from people who were there, integrating diverse media types
+in a unified interface.
 
-iWitness was originally created by [AdaptivePath](http://adaptivepath.com/) and 
-[EdgeCase](http://edgecase.com) with funding from the [Knight News 
-Challenge](http://www.knightfoundation.org/press-room/press-release/knight-foundation-media-innovation-contest-announc/).
+iWitness was originally created by [Adaptive Path](http://adaptivepath.com/)
+and [EdgeCase](http://edgecase.com) with funding from the [Knight News 
+Challenge](http://www.knightfoundation.org/grants/20110148/).
 It is free to use and community-driven. You are also free to fork this project 
 and deploy it with your own modifications. See the LICENSE file for details.
 
@@ -18,7 +18,7 @@ one of the largest open source Ember applications.
 
 ## Running it locally
 
-iWitness uses Ruby to run it's devlopment server and build process. To develop 
+iWitness uses Ruby to run its development server and build process. To develop 
 on iWitness, you must have the following on your system:
 
 - Ruby 1.9.x (not tested on Ruby 1.8)
@@ -113,7 +113,7 @@ directory structure is as follows:
 
     app/
       controllers/   -> ember controllers
-      ext/           -> extentions to plugins or native types
+      ext/           -> extensions to plugins or native types
       fonts/         -> fonts used by the stylesheets
       images/        -> images used by stylesheets and markup
       json/          -> static data used by timezone logic
