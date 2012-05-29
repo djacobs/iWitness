@@ -6,6 +6,11 @@ describe("IWitness.InlineInfoView", function() {
     criteria = IWitness.criteriaController.get("content");
     twitterMonitor = IWitness.searchController.getPath("monitors.twitter");
     flickrMonitor = IWitness.searchController.getPath("monitors.flickr");
+
+    criteria.setProperties({
+      rawEnd: moment().add('days', 1),
+      zoom: 10
+    });
   });
 
   describe("message", function() {
