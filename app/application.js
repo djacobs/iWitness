@@ -15,6 +15,7 @@
 //= require javascripts/timezone-js-jquery/src/timezone-js-jquery
 //= require base
 //= require_tree ./templates
+//= require_tree ./utilities
 //= require_tree ./services
 //= require_tree ./mixins
 //= require models/space_time

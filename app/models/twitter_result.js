@@ -4,11 +4,14 @@ IWitness.TwitterResult = IWitness.Result.extend({
   isTweet:                true,
 
   init: function(){
+    var urlData = _.union(this.getPath("entities.urls"), this.getPath("entities.media"));
+    urlData = _.compact(urlData);
+
     this._initMedia();
     this.setProperties({
       avatarSrc: this.get("profileImageUrl"),
       userNamePrimary: this.get("fromUserName"),
-      contentText: this.get("text")
+      contentText: IWitness.URLExpander.expand(this.get("text"), urlData)
     });
   },
 
