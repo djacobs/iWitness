@@ -4,9 +4,11 @@ require './boot'
 require 'ap'
 require 'fileutils'
 
+BUILD_DIR = File.join(File.dirname(__FILE__), "assets")
+
 Dir.glob('lib/tasks/*.rake').each { |r| import r }
 
-directory BUILD_DIR.to_s
+directory BUILD_DIR
 
 desc "remove all built assets"
 task :clean do
@@ -57,7 +59,7 @@ namespace :publish do
     next if remote =~ /^\.{1,2}$/ # skip . and ..
     remote_branch = "assets/.git/refs/remotes/#{remote}/gh-pages"
 
-    file remote_branch do
+    file remote_branch => BUILD_DIR do
       repo_url = `git config --get remote.#{remote}.url`.strip
 
       cd BUILD_DIR do
