@@ -16,6 +16,11 @@ The application is a pure client-side web application with no backend. It is
 written using the [Ember.js](http://emberjs.com) JavaScript framework, and is 
 one of the largest open source Ember applications.
 
+## Restrictions
+
+Due to time constraints, iWitness currently only runs in Webkit browsers. Pull 
+requests that expand browser support are welcomed and encouraged.
+
 ## Running it locally
 
 iWitness uses Ruby to run its development server and build process. To develop 
