@@ -2,6 +2,16 @@ IWitness.SavedView = Ember.View.extend({
   templateName: 'saved_template',
   isVisibleBinding: 'IWitness.currentViewController.showingSavedResults',
 
+  didInsertElement: function() {
+    var self = this;
+
+    IWitness.get('body').on('click', function(e) {
+      if ($(e.target).closest('.drop-down').length == 0) {
+        self.$(".drop-down").removeClass("active");
+      }
+    });
+  },
+
   exportSectionClass: function() {
     var num = IWitness.savedSetController.get('flaggedCount');
     return num > 0 ? '' : 'invisible';
