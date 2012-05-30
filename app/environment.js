@@ -1,0 +1,2 @@
+ENV = {};
+ENV.CP_DEFAULT_CACHEABLE = true;

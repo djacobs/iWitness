@@ -9,11 +9,11 @@ IWitness.filter = Ember.Object.create({
 
   mediaTypes: function() {
     return this.get('availableMediaTypes').filterProperty('active').mapProperty('type');
-  }.property('availableMediaTypes.@each.active').cacheable(),
+  }.property('availableMediaTypes.@each.active'),
 
   services: function() {
     return this.get('availableServices').filterProperty('active').mapProperty('type');
-  }.property('availableServices.@each.active').cacheable(),
+  }.property('availableServices.@each.active'),
 
   shouldDisplay: function(result) {
     if (_.include(this.get('services'), result.get('resultType'))) {

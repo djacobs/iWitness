@@ -37,15 +37,15 @@ IWitness.TwitterResult = IWitness.Result.extend({
 
   coordinates: function() {
     return this.getPath('geo.coordinates') || [];
-  }.property('geo').cacheable(),
+  }.property('geo'),
 
   lat: function() {
     return this.get('coordinates')[0];
-  }.property('coordinates').cacheable(),
+  }.property('coordinates'),
 
   lng: function() {
     return this.get('coordinates')[1];
-  }.property('coordinates').cacheable(),
+  }.property('coordinates'),
 
   _initMedia: function(){
     var entities = this.get("entities"); // returns a normal JS object

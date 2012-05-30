@@ -1,3 +1,4 @@
+//= require environment
 //= require javascripts/jquery
 //= require jquery-ui/jquery-ui/ui/jquery.ui.core
 //= require jquery-ui/jquery-ui/ui/jquery.ui.datepicker

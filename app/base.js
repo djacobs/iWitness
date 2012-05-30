@@ -3,7 +3,7 @@ window.IWitness = Ember.Application.create({
 
   body: function() {
     return $('#container, body');
-  }.property().cacheable(),
+  }.property(),
 
   ready: function() {
     if (this.isValidBrowser()) {

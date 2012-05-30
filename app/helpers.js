@@ -8,7 +8,7 @@ Ember.HandlebarsTransformView = Ember.View.extend(Ember.Metamorph, {
     var rawValue = this.get('rawValue'),
         transformFunc = this.get('transformFunc');
     return transformFunc(rawValue);
-  }.property('rawValue', 'transformFunc').cacheable(),
+  }.property('rawValue', 'transformFunc'),
 
   render: function(buffer) {
     var value = this.get('value');

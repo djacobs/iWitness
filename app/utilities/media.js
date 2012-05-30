@@ -41,7 +41,7 @@ IWitness.TwitterLinkedMedia = IWitness.Media.extend({
     return _.find(this._mediaServices, function(svc) {
       return linkUrl.match(svc.regex);
     });
-  }.property("linkUrl").cacheable(),
+  }.property("linkUrl"),
 
   // regex must contain one match group
   // replacementPattern specifies where to insert that match group with "$1"

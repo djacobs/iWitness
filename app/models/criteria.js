@@ -14,7 +14,7 @@ IWitness.Criteria = Ember.Object.extend({
 
   timezoneOffset: function() {
     return (new Date()).getTimezoneOffset() / -60;
-  }.property().cacheable(),
+  }.property(),
 
   mapTimezoneOffset: function() {
     var center, dt;
@@ -25,11 +25,11 @@ IWitness.Criteria = Ember.Object.extend({
     } else {
       return this.get("timezoneOffset");
     }
-  }.property('center', 'IWitness.spaceTime.isLoaded', 'rawStart').cacheable(),
+  }.property('center', 'IWitness.spaceTime.isLoaded', 'rawStart'),
 
   timezoneDifference: function() {
     return this.get('timezoneOffset') - this.get('mapTimezoneOffset');
-  }.property('timezoneOffset', 'mapTimezoneOffset').cacheable(),
+  }.property('timezoneOffset', 'mapTimezoneOffset'),
 
   rawStart: function(key, value) {
     if (arguments.length === 1) {
@@ -51,15 +51,15 @@ IWitness.Criteria = Ember.Object.extend({
       this.set('endTimeString', value.format('h:mm A'));
       return value;
     }
-  }.property('endDateString', 'endTimeString').cacheable(),
+  }.property('endDateString', 'endTimeString'),
 
   start: function() {
     return this._getAdjustedForMap('rawStart');
-  }.property('rawStart', 'useLocalTime', 'timezoneDifference').cacheable(),
+  }.property('rawStart', 'useLocalTime', 'timezoneDifference'),
 
   end: function() {
     return this._getAdjustedForMap('rawEnd');
-  }.property('rawEnd', 'useLocalTime', 'timezoneDifference').cacheable(),
+  }.property('rawEnd', 'useLocalTime', 'timezoneDifference'),
 
   radius: function() {
     var center = this.get('center');
@@ -70,7 +70,7 @@ IWitness.Criteria = Ember.Object.extend({
     var height = new Map.Line(center, top);
 
     return height.length() * Map.circleRadiusRatio;
-  }.property('center', 'northEast').cacheable(),
+  }.property('center', 'northEast'),
 
   getParams: function() {
     return this.getProperties('mapTimezoneOffset',
@@ -87,7 +87,7 @@ IWitness.Criteria = Ember.Object.extend({
 
   errors: function() {
     return _.compact([this.get("mapError"), this.get("timeError")]);
-  }.property("mapError", "timeError").cacheable(),
+  }.property("mapError", "timeError"),
 
   isValid: function() {
     return _.isEmpty(this.get('errors'));

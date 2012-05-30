@@ -33,7 +33,7 @@ IWitness.savedSetController = Ember.ArrayController.create(IWitness.ResultSortin
 
   flaggedResults: function() {
     return this.filterProperty('flagged', true);
-  }.property('content.@each.flagged').cacheable(),
+  }.property('content.@each.flagged'),
 
   flaggedCount: function() {
     return this.get('flaggedResults').length;
