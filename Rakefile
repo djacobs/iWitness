@@ -23,7 +23,7 @@ task :compile => [:clean, BUILD_DIR.to_s] do
 
   bundles.each do |bundle|
     assets = SprocketsApp.find_asset(bundle)
-    assets.write_to(BUILD_DIR.join(bundle).to_s)
+    assets.write_to File.join(BUILD_DIR, bundle)
   end
 
   cp_r TZDATA_DIR, BUILD_DIR, :verbose => true
