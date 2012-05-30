@@ -1,10 +1,10 @@
 # iWitness
 
 iWitness is a web-based software tool that enables individuals and news 
-organizations to explore social media content by time and place. If you know
-when and where something happened, iWitness will show you first-person photos,
-videos and messages from people who were there, integrating diverse media types
-in a unified interface.
+organizations to explore social media content by time and place. If you know 
+when and where something happened, iWitness will show you first-person photos, 
+videos and messages from people who were there, integrating diverse media 
+types in a unified interface.
 
 iWitness was originally created by [Adaptive Path](http://adaptivepath.com/)
 and [EdgeCase](http://edgecase.com) with funding from the [Knight News 
@@ -16,10 +16,31 @@ The application is a pure client-side web application with no backend. It is
 written using the [Ember.js](http://emberjs.com) JavaScript framework, and is 
 one of the largest open source Ember applications.
 
-## Restrictions
+## Browser and service support
 
-Due to time constraints, iWitness currently only runs in Webkit browsers. Pull 
-requests that expand browser support are welcomed and encouraged.
+The initial release of iWitness only runs in Webkit browsers such as Chrome 
+and Safari. Pull requests that expand browser support are welcomed and 
+encouraged.
+
+The initial release of iWitness supports two services:
+
+1. Twitter
+1. Flickr
+
+In addition, iWitness will pull in media linked from Twitter. The following 
+media types and sources are currently supported:
+
+Photos:
+1. Twitter (photos)
+1. Instagram (photos)
+1. Twitpic (photos)
+1. Twitgoo (photos)
+1. Lockerz (photos)
+
+Video:
+1. Youtube (video)
+1. Twitvid (video)
+1. Vimeo (video)
 
 ## Running it locally
 
@@ -143,22 +164,6 @@ directory structure is as follows:
 
 ### Extending for new services and media sources
 
-At the time of this writing, iWitness supports two services:
-
-1. Twitter
-1. Flickr
-
-In addition, iWitness will pull in media linked to from Twitter. The following 
-media sources are currently supported:
-
-1. Instagram (photos)
-1. Twitpic (photos)
-1. Twitgoo (photos)
-1. Lockerz (photos)
-1. Twitter (photos)
-1. Youtube (video)
-1. Twitvid (video)
-1. Vimeo (video)
 
 #### Adding a service
 
@@ -204,7 +209,8 @@ an issue and be patient.
 
 ## License
 
-Code is under the GPL v3 license. The full text of which can be found in LICENSE.
+Code is under the GPL v3 license, the full text of which can be found in LICENSE.
+
 Visual assets are under the Creative Commons Attribution-ShareAlike 3.0 
 United States License.
 
