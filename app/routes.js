@@ -4,7 +4,7 @@ IWitness.routes = Ember.Object.create({
 
   draw: function() {
     SC.routes.add('', this, this._firstLoadOnly('search', this.findLocation));
-    SC.routes.add('/search/:keyword/:rawStart/:rawEnd/:useTimezone', this, this._firstLoadOnly('search', this.search));
+    SC.routes.add('/scan/:keyword/:rawStart/:rawEnd/:useTimezone', this, this._firstLoadOnly('search', this.search));
     SC.routes.add('/stream/:keyword', this, this._firstLoadOnly('stream', this.stream));
   },
 
@@ -57,7 +57,7 @@ IWitness.routes = Ember.Object.create({
     if(criteria.get('stream')) {
       route = '/stream/' + criteria.get('keyword');
     } else {
-      route = '/search/' + criteria.get('keyword') +
+      route = '/scan/' + criteria.get('keyword') +
                      '/' + criteria.get('rawStart').format('YYYY-MM-DDTHH:mm') +
                      '/' + criteria.get('rawEnd').format('YYYY-MM-DDTHH:mm') +
                      '/' + (criteria.get('useLocalTime') ? 'local' : 'map');
