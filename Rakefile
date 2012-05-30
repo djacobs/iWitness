@@ -63,6 +63,7 @@ namespace :publish do
       repo_url = `git config --get remote.#{remote}.url`.strip
 
       cd BUILD_DIR do
+        sh "git init"
         sh "git remote add #{remote} #{repo_url}"
         sh "git fetch #{remote}"
         sh "git checkout gh-pages"
