@@ -35,25 +35,6 @@ task :not_dirty do
   fail "Directory not clean" if /nothing to commit/ !~ `git status`
 end
 
-# file 'assets/.git/refs/heads/gh-pages' do
-#   repo_url = `git config --get remote.origin.url`.strip
-
-#   cd BUILD_DIR do
-#     sh "git init"
-#     sh "git remote add #{remote} #{repo_url}"
-#     sh "git fetch origin"
-#     sh "git checkout gh-pages"
-#   end
-# end
-
-# task :prepare_gh_pages => [:clean, 'assets/.git/refs/heads/gh-pages']
-
-# task :get_latest => :prepare_gh_pages do
-#   cd BUILD_DIR do
-#     sh 'git pull origin gh-pages'
-#   end
-# end
-
 namespace :publish do
   Dir.entries(".git/refs/remotes").each do |remote|
     next if remote =~ /^\.{1,2}$/ # skip . and ..
@@ -96,26 +77,6 @@ end
 desc "Publish to Github Pages; remote=origin."
 task :publish => :"publish:origin"
 
-
-# desc "Publish the app to Github Pages."
-# task :oldpublish => [:not_dirty, :prepare_gh_pages, :get_latest, :compile] do
-#   head = `git log --pretty="%h" -n1`.strip
-#   message = "Site updated to #{head}"
-
-#   File.open 'assets/index.html', 'a' do |file|
-#     file << "<!-- #{head} -->"
-#   end
-
-#   cd BUILD_DIR do
-#     sh 'git add --all'
-#     if /nothing to commit/ =~ `git status`
-#       puts "No changes to deploy"
-#     else
-#       sh "git commit -m \"#{message}\""
-#       sh 'git push origin gh-pages'
-#     end
-#   end
-# end
 
 desc "Run tests with phantomjs"
 task :test do

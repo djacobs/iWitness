@@ -6,7 +6,6 @@ require 'logger'
 LOGGER     = Logger.new(STDOUT)
 
 ROOT       = Pathname(File.dirname(__FILE__))
-BUILD_DIR  = ROOT.join("assets")
 SOURCE_DIR = ROOT.join("app")
 CSS_DIR    = ROOT.join("app", 'stylesheets')
 IMAGES_DIR = ROOT.join("app", 'images')
