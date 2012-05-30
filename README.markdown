@@ -74,6 +74,10 @@ This does a few things:
 
 *note: make sure you've created a remote gh-pages branch first*
 
+If you choose to use a custom CNAME for your Github Pages deployment, you must 
+specify the cname option in the config.yml file. This will create the CNAME 
+file in the gh-pages branch for you.
+
 ## Contributing and reporting bugs
 
 iWitness relies on community contributions to evolve, add new features, and fix 

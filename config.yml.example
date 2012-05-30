@@ -15,3 +15,4 @@ production:
   analytics:
     enabled: true
     account_id: 'YOUR ACCT ID'
+  cname: 'yourdeployurl.com' # GH Pages only

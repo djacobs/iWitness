@@ -4,6 +4,10 @@ require './boot'
 require 'ap'
 require 'fileutils'
 
+def config
+  CONFIG[ENVIRONMENT]
+end
+
 BUILD_DIR = File.join(File.dirname(__FILE__), "assets")
 
 Dir.glob('lib/tasks/*.rake').each { |r| import r }
@@ -18,7 +22,7 @@ task :clean do
 end
 
 desc "compile all files into the assets directory"
-task :compile => [:clean, BUILD_DIR.to_s] do
+task :compile => [:clean, BUILD_DIR] do
   bundles = [ 'index.html', 'application.css', 'application.js', 'timezones.json' ]
 
   bundles.each do |bundle|
@@ -29,6 +33,10 @@ task :compile => [:clean, BUILD_DIR.to_s] do
   cp_r TZDATA_DIR, BUILD_DIR, :verbose => true
   cp_r IMAGES_DIR, BUILD_DIR, :verbose => true
   cp_r FONTS_DIR, BUILD_DIR, :verbose => true
+
+  if config['cname']
+    File.open("#{BUILD_DIR}/CNAME", 'w') { |f| f << config['cname'] }
+  end
 end
 
 task :not_dirty do

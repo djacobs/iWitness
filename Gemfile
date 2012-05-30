@@ -9,6 +9,7 @@ gem 'yui-compressor', :require => 'yui/compressor'
 gem 'rasputin', :git => 'git://github.com/edgecase/rasputin.git', :branch => 'sprockets'
 
 
+gem 'pry'
 group :development do
   gem 'ruby-debug19', :require => 'ruby-debug'
   gem 'awesome_print', :require => 'ap'
