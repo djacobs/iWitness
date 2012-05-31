@@ -1,5 +1,9 @@
 <div class="icon"></div>
-<p>{{message}}</p>
+
+{{#each message}}
+  <p>{{this}}</p>
+{{/each}}
+
 <p>
   iWitness only shows content that has location data associated with it.
   People in this place may have been posting content but not including their location.

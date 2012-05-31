@@ -28,7 +28,7 @@ IWitness.InlineInfoView = Ember.View.extend({
       }
     }
 
-    return messages.join(" ");
+    return messages;
   }.property("twitterStatus", "flickrStatus", "criteria.rawEnd", "criteria.zoom"),
 
   isVisible: function() {
