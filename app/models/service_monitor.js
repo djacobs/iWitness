@@ -3,21 +3,9 @@ IWitness.ServiceMonitor = Ember.Object.extend({
   hasData: false,
   hasMorePages: true,
   total: 0,
+  search: null,
 
-  search: function(key, search){
-    if(arguments.length > 1) { // setter
-      this.reset();
-      Ember.addListener(search, 'fetch', this, this._startFetch);
-      Ember.addListener(search, 'streaming', this, this._startStreaming);
-      Ember.addListener(search, 'data', this, this._handleResults);
-      Ember.addListener(search, 'done', this, this._endFetch);
-      this.set('_search', search);
-    } else { // getter
-      return this.get('_search');
-    }
-  }.property(),
-
-  reset: function(){
+  _clearOldSearch: function() {
     var search = this.get('search');
     if (search){
       Ember.removeListener(search, 'fetch', this, this._startFetch);
@@ -25,9 +13,26 @@ IWitness.ServiceMonitor = Ember.Object.extend({
       Ember.removeListener(search, 'data', this, this._handleResults);
       Ember.removeListener(search, 'done', this, this._endFetch);
     }
-    this.set('status', 'pending');
-    this.set('hasData', false);
-    this.set('hasMorePages', true);
+
+    this.setProperties({
+      status: 'pending',
+      hasData: false,
+      hasMorePages: true
+    });
+  }.observesBefore('search'),
+
+  _attachSearchListeners: function() {
+    var search = this.get('search');
+    if(search){
+      Ember.addListener(search, 'fetch', this, this._startFetch);
+      Ember.addListener(search, 'streaming', this, this._startStreaming);
+      Ember.addListener(search, 'data', this, this._handleResults);
+      Ember.addListener(search, 'done', this, this._endFetch);
+    }
+  }.observes('search'),
+
+  reset: function(){
+    this.set('search', null);
   },
 
   _handleResults: function(search, e, results){
