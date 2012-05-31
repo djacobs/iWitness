@@ -2,15 +2,6 @@ IWitness.SavedView = Ember.View.extend({
   templateName: 'saved_template',
   isVisibleBinding: 'IWitness.currentViewController.showingSavedResults',
 
-  didInsertElement: function() {
-    var self = this;
-
-    IWitness.get('body').on('click', function(e) {
-      if ($(e.target).closest('.drop-down').length == 0) {
-        self.$(".drop-down").removeClass("active");
-      }
-    });
-  },
 
   exportSectionClass: function() {
     var num = IWitness.savedSetController.get('flaggedCount');
@@ -66,7 +57,16 @@ IWitness.SavedView = Ember.View.extend({
     }
   }),
 
-  toggleDropDown: function() {
-    this.$(".drop-down").toggleClass("active");
+  toggleDropDown: function(e) {
+    var dropdown = this.$(".drop-down");
+    if(!dropdown.hasClass("active")) {
+      $(document).trigger("click.toggleDropDown");
+      e.stopPropagation();
+      dropdown.toggleClass("active");
+      $(document).on('click.toggleDropDown', function(e){
+        $(document).off("click.toggleDropDown");
+        dropdown.toggleClass("active");
+      });
+    }
   }
 });

@@ -11,7 +11,7 @@
         Pick one
         <div class="arrow"></div>
       </div>
-      <div class="items">
+      <div class="items" {{action "toggleDropDown"}}>
         <div {{action "showExportHtml"}}>Get embed code</div>
         {{#view exportLink}}Send as email{{/view}}
         <div {{action "showExportText"}}>Copy as text</div>
