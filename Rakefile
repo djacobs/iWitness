@@ -1,7 +1,6 @@
 ENVIRONMENT = 'production'
 
 require './boot'
-require 'ap'
 require 'fileutils'
 
 def config
