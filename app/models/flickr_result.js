@@ -1,7 +1,7 @@
 IWitness.FlickrResult = IWitness.Result.extend({
   resultType: 'flickr',
   permalinkText: 'flickr',
-  mediaTypes: ['picture'],
+  mediaTypes: ['photo'],
 
   init: function(){
     this._initMedia();

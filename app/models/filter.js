@@ -1,5 +1,5 @@
 IWitness.filter = Ember.Object.create({
-  availableMediaTypes: ['text', 'picture', 'video'].map(function(type) {
+  availableMediaTypes: ['text', 'photo', 'video'].map(function(type) {
     return Ember.Object.create({type: type, active: true});
   }),
 

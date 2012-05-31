@@ -7,7 +7,7 @@ describe("IWitness.VisibilityMonitor", function() {
     var types = IWitness.filter.get("availableMediaTypes");
     types.forEach(function(type) {
       if (type.get("type") == "text") type.set("active", true);
-      if (type.get("type") == "picture") type.set("active", false);
+      if (type.get("type") == "photo") type.set("active", false);
     });
 
     var services = IWitness.filter.get("availableServices");
@@ -48,12 +48,12 @@ describe("IWitness.VisibilityMonitor", function() {
     });
 
     it("excludes media types not matching the filter", function(){
-      result.set("mediaTypes", ["picture"]);
+      result.set("mediaTypes", ["photo"]);
       expect(monitor.get("isVisible")).toBeFalsy();
     });
 
     it("includes media types that match any filter", function(){
-      result.set("mediaTypes", ["text", "picture"]);
+      result.set("mediaTypes", ["text", "photo"]);
       expect(monitor.get("isVisible")).toBeTruthy();
     });
   });

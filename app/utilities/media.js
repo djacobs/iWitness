@@ -6,7 +6,7 @@ IWitness.Media = Ember.Object.extend({
 });
 
 IWitness.TwitterHostedMedia = IWitness.Media.extend({
-  serviceType: 'picture',
+  serviceType: 'photo',
   linkUrlBinding: 'url',
 
   mediaUrl: function(){
@@ -47,19 +47,19 @@ IWitness.TwitterLinkedMedia = IWitness.Media.extend({
   // replacementPattern specifies where to insert that match group with "$1"
   _mediaServices: [
     {
-      serviceType:        "picture",
+      serviceType:        "photo",
       regex:              /instagr\.am\/p\/(.*?)\//,
       replacementPattern: "http://instagr.am/p/$1/media/?size=m"
     }, {
-      serviceType:        "picture",
+      serviceType:        "photo",
       regex:              /twitpic\.com\/(\w+)/,
       replacementPattern: "http://twitpic.com/show/large/$1"
     }, {
-      serviceType:        "picture",
+      serviceType:        "photo",
       regex:              /twitgoo\.com\/(\w+)/,
       replacementPattern: "http://twitgoo.com/$1/img"
     }, {
-      serviceType:        "picture",
+      serviceType:        "photo",
       regex:              /lockerz\.com\/s\/(\w+)/,
       replacementPattern: "http://api.plixi.com/api/tpapi.svc/imagefromurl?size=medium&url=http%3A%2F%2Flockerz.com%2Fs%2F$1"
     }, {
@@ -80,5 +80,5 @@ IWitness.TwitterLinkedMedia = IWitness.Media.extend({
       replacementPattern: "http://player.vimeo.com/video/$1"
     }
   ]
-  //  new MediaService("picture", /yfrog\.com\/(\w+)/,       "http://yfrog.com/$1:iphone"),
+  //  new MediaService("photo", /yfrog\.com\/(\w+)/,       "http://yfrog.com/$1:iphone"),
 });

@@ -50,8 +50,8 @@ describe("TwitterLinkedMedia", function() {
   });
 
   describe("instagram service", function() {
-    it("is type picture", function() {
-      expect(media.get("serviceType")).toEqual("picture");
+    it("is type photo", function() {
+      expect(media.get("serviceType")).toEqual("photo");
     });
     it("has a mediaUrl", function() {
       expect(media.get("mediaUrl")).toEqual("http://instagr.am/p/HxOi-1wLe_/media/?size=m");
@@ -63,8 +63,8 @@ describe("TwitterLinkedMedia", function() {
       media.set("expanded_url", "http://twitpic.com/8s7vs5");
       Ember.run.sync();
     });
-    it("is type picture", function() {
-      expect(media.get("serviceType")).toEqual("picture");
+    it("is type photo", function() {
+      expect(media.get("serviceType")).toEqual("photo");
     });
     it("has a mediaUrl", function() {
       expect(media.get("mediaUrl")).toEqual("http://twitpic.com/show/large/8s7vs5");
@@ -76,8 +76,8 @@ describe("TwitterLinkedMedia", function() {
       media.set("expanded_url", "http://twitgoo.com/5prg5z");
       Ember.run.sync();
     });
-    it("is type picture", function() {
-      expect(media.get("serviceType")).toEqual("picture");
+    it("is type photo", function() {
+      expect(media.get("serviceType")).toEqual("photo");
     });
     it("has a mediaUrl", function() {
       expect(media.get("mediaUrl")).toEqual("http://twitgoo.com/5prg5z/img");
@@ -89,8 +89,8 @@ describe("TwitterLinkedMedia", function() {
       media.set("expanded_url", "http://lockerz.com/s/204335287");
       Ember.run.sync();
     });
-    it("is type picture", function() {
-      expect(media.get("serviceType")).toEqual("picture");
+    it("is type photo", function() {
+      expect(media.get("serviceType")).toEqual("photo");
     });
     it("has a mediaUrl", function() {
       expect(media.get("mediaUrl")).toEqual("http://api.plixi.com/api/tpapi.svc/imagefromurl?size=medium&url=http%3A%2F%2Flockerz.com%2Fs%2F204335287");
@@ -102,8 +102,8 @@ describe("TwitterLinkedMedia", function() {
       media.set("expanded_url", "http://yfrog.com/neot4xj");
       Ember.run.sync();
     });
-    it("is type picture", function() {
-      expect(media.get("serviceType")).toEqual("picture");
+    it("is type photo", function() {
+      expect(media.get("serviceType")).toEqual("photo");
     });
     it("has a mediaUrl", function() {
       expect(media.get("mediaUrl")).toEqual("http://yfrog.com/neot4xj:iphone");
