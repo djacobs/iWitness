@@ -5,7 +5,11 @@ IWitness.ServiceMonitor = Ember.Object.extend({
   total: 0,
   search: null,
 
-  _clearOldSearch: function() {
+  reset: function(){
+    this.set('search', null);
+  },
+
+  _clearPreviousStatus: function() {
     var search = this.get('search');
     if (search){
       Ember.removeListener(search, 'fetch', this, this._startFetch);
@@ -30,10 +34,6 @@ IWitness.ServiceMonitor = Ember.Object.extend({
       Ember.addListener(search, 'done', this, this._endFetch);
     }
   }.observes('search'),
-
-  reset: function(){
-    this.set('search', null);
-  },
 
   _handleResults: function(search, e, results){
     if (results.length) {
