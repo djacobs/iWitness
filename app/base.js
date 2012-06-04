@@ -17,8 +17,7 @@ window.IWitness = Ember.Application.create({
     if ($.browser.webkit) {
       return true;
     } else {
-      alert("iWitness is currently in beta and does not yet support your browser.\n\n" +
-            "Please download Google Chrome to use iWitness.");
+      alert("Thanks for checking out iWitness. At this time, iWitness works only on WebKit-based browsers such as Google Chrome and Safari. Sorry for the inconvenience.");
       document.write('');
       return false;
     }
