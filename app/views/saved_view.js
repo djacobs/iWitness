@@ -19,15 +19,22 @@ IWitness.SavedView = Ember.View.extend({
   }.property('IWitness.savedSetController.flaggedCount'),
 
   showExportText: function() {
-    this.$('#copy-overlay').show().find("#text-content").show().end()
+    var results = [];
+
+    $('#text-content pre').each(function(i, result) {
+      results.push($(result).text());
+    });
+    results = results.join("\n");
+    results += "\n\nShared via iWitness\n<http://"+ window.location.hostname +">";
+
+    this.$('#copy-overlay').show().find("#text-area-content").text(results).show().end()
                                   .find("#html-content").hide();
   },
 
   showExportHtml: function() {
     var view = IWitness.EmbedModuleView.create();
-    // this.$("#html-content").html(view.html()).show(); // For Testing
-    this.$("#html-content").text(view.html()).show();
-    this.$('#copy-overlay').show().find("#text-content").hide();
+    this.$('#copy-overlay').show().find("#html-content").text(view.html()).show().end()
+                                  .find("#text-content").hide();
   },
 
   hideExportOverlay: function() {
