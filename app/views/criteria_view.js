@@ -49,6 +49,6 @@ IWitness.CriteriaView = Ember.View.extend({
   }),
 
   showWelcome: function() {
-    IWitness.currentViewController.set("showWelcome", true);
+    $('#welcome-overlay-cover').show();
   }
 });

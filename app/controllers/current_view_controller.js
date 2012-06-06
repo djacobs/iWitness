@@ -1,6 +1,5 @@
 IWitness.currentViewController = Ember.Object.create({
   currentView: 'search_results',
-  showWelcome: false,
 
   showingSearchResults: function(){
     return this.get('currentView') === 'search_results';
@@ -8,9 +7,5 @@ IWitness.currentViewController = Ember.Object.create({
 
   showingSavedResults: function(){
     return this.get('currentView') === 'saved_results';
-  }.property('currentView'),
-
-  showingWelcomeOverlay: function() {
-    return this.get("showWelcome");
-  }.property('showWelcome')
+  }.property('currentView')
 });
