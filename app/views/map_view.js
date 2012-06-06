@@ -80,6 +80,7 @@ IWitness.MapView = Ember.View.extend(IWitness.MapControl, {
     valueBinding: 'parentView.model.address',
 
     insertNewline: function(e) {
+      this.$().blur();
       this.get('parentView').findAddress();
     },
 
