@@ -75,6 +75,10 @@ IWitness.ResultView = Ember.View.extend(IWitness.PostedDateTime, IWitness.Linkif
       return this.getPath('parentView.model.flagged');
     }.property('parentView.model.flagged'),
 
+    flaggedText: function() {
+      return this.get('flagged') ? "Flagged" : "Flag";
+    }.property('flagged'),
+
     click: function() {
       this.getPath('parentView.model').toggleProperty('flagged');
     }
