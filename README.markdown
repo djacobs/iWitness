@@ -31,16 +31,18 @@ In addition, iWitness will pull in media linked from Twitter. The following
 media types and sources are currently supported:
 
 Photos:
-1. Twitter (photos)
-1. Instagram (photos)
-1. Twitpic (photos)
-1. Twitgoo (photos)
-1. Lockerz (photos)
+
+1. Twitter
+1. Instagram
+1. Twitpic
+1. Twitgoo
+1. Lockerz
 
 Video:
-1. Youtube (video)
-1. Twitvid (video)
-1. Vimeo (video)
+
+1. YouTube
+1. Twitvid
+1. Vimeo
 
 ## Running it locally
 
