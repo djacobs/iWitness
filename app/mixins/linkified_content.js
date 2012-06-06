@@ -7,6 +7,10 @@ IWitness.LinkifiedContent = Ember.Mixin.create({
     var links = {};
     var placeholder;
 
+    var media_links = _.map(this.getPath('model.media.displayable'), function(media){
+      return media.get('expanded_url');
+    });
+
     // links
     while (match = linkRegex.exec(result)) {
       reCount++;
@@ -18,7 +22,12 @@ IWitness.LinkifiedContent = Ember.Mixin.create({
     result = Handlebars.Utils.escapeExpression(result);
 
     _.each(_(links).keys(), function(key) {
-      result = result.replace(key, '<a target="_blank" href="'+links[key]+'">'+links[key]+'</a>');
+      // we want to remove inlined media links from the text content rather than linkifying it.
+      if(_.indexOf(media_links, links[key]) > -1) {
+        result = result.replace(key, '');
+      } else {
+        result = result.replace(key, '<a target="_blank" href="'+links[key]+'">'+links[key]+'</a>');
+      }
     });
 
     if (this.getPath("model.isTweet")) {
