@@ -1,6 +1,7 @@
 IWitness.ResultsStatusView = Ember.View.extend({
   templateName: 'results_status_template',
   criteriaBinding: 'IWitness.criteriaController.content',
+  showingPopover: false,
 
   status: function() {
     if (!this.getPath('criteria.isValid')) { return "Something's wrong"; }
@@ -17,6 +18,10 @@ IWitness.ResultsStatusView = Ember.View.extend({
     var statusClass = this.get('status').replace(' ','_').replace("'",'').toLowerCase();
     return 'status ' + statusClass;
   }.property('status'),
+
+  showPopover: function(e) {
+    this.set('showingPopover', true);
+  },
 
   isFlickrSearching: function(){
     return this._isSearching('flickr');
