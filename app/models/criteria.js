@@ -132,16 +132,25 @@ IWitness.Criteria = Ember.Object.extend({
 
   setDefaultCenter: function() {
     var self = this, center, zoom;
-    $.getJSON('http://freegeoip.net/json/?callback=?', function(locData) {
-      if (locData.latitude && locData.longitude) {
-        center = [locData.latitude, locData.longitude];
-        zoom = 9;
-      } else {
-        center = [37.75771992816863 ,-122.43760000000003]; // SF
-        zoom = 11;
+    $.ajax('http://freegeoip.net/json/?callback=?', {
+      dataType: 'json',
+      success: function(locData) {
+        if (locData.latitude && locData.longitude) {
+          center = [locData.latitude, locData.longitude];
+          zoom = 9;
+        } else {
+          center = [37.75771992816863 ,-122.43760000000003]; // SF
+          zoom = 11;
+        }
+        IWitness.log('defaulting map center to', center);
+        self.setProperties({center: center, zoom: zoom});
+      },
+      fail: function() {
+        var center = [37.75771992816863 ,-122.43760000000003]; // SF
+        var zoom = 11;
+        IWitness.log('defaulting map center to', center);
+        self.setProperties({center: center, zoom: zoom});
       }
-      IWitness.log('defaulting map center to', center);
-      self.setProperties({center: center, zoom: zoom});
     });
   }
 });

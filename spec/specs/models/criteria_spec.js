@@ -156,4 +156,49 @@ describe("Criteria", function() {
       expect(subject.get("mapTimezoneOffset")).toEqual(-7);
     });
   });
+
+  describe("geo-location lookup", function() {
+    beforeEach(function() {
+      subject.setProperties({center: [1,2], zoom: 18});
+    });
+
+    it("sets map location to user's geolocation", function() {
+      var responseData = {latitude: 4, longitude: 5};
+
+      spyOn($, 'ajax').andCallFake(function(url, options) {
+        options.success(responseData);
+      });
+
+      subject.setDefaultCenter();
+
+      expect(subject.get('center')).toEqual([4,5]);
+      expect(subject.get('zoom')).toEqual(9);
+    });
+
+    it("defaults to San Francisco when geo-lookup returns no data", function() {
+      var responseData = {};
+
+      spyOn($, 'ajax').andCallFake(function(url, options) {
+        options.success(responseData);
+      });
+
+      subject.setDefaultCenter();
+
+      expect(subject.get('center')).toEqual([37.75771992816863 ,-122.43760000000003]); // SF
+      expect(subject.get('zoom')).toEqual(11);
+    });
+
+    it("defaults to San Francisco when geo-lookup fails", function() {
+      var responseData = {};
+
+      spyOn($, 'ajax').andCallFake(function(url, options) {
+        options.fail(responseData);
+      });
+
+      subject.setDefaultCenter();
+
+      expect(subject.get('center')).toEqual([37.75771992816863 ,-122.43760000000003]); // SF
+      expect(subject.get('zoom')).toEqual(11);
+    });
+  });
 });
