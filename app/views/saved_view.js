@@ -34,7 +34,7 @@ IWitness.SavedView = Ember.View.extend({
   showExportHtml: function() {
     var view = IWitness.EmbedModuleView.create();
     this.$('#copy-overlay').show().find("#html-content").text(view.html()).show().end()
-                                  .find("#text-content").hide();
+                                  .find("#text-area-content").hide();
   },
 
   hideExportOverlay: function() {
