@@ -2,19 +2,11 @@
 <div class="fold right"></div>
 
 <div id="results-top-bar" class="toolbar">
-  <div {{bindAttr class="statusClass"}}>
+  <div {{bindAttr class="statusClass"}} {{action "showPopover"}}>
     {{status}}
     <div class="radar"></div>
 
-    <div id="services-menu">
-      <div class="services-header">
-        {{status}} <div class="services-status-icon"></div>
-      </div>
-
-      <div class="services-menu-content">
-        {{collection contentBinding="IWitness.config.services" itemViewClass="IWitness.ServiceStatusView"}}
-      </div>
-    </div>
+    {{view IWitness.ServicePopoverView statusBinding="status"}}
   </div>
 
   <div id="show_saved_button" class="nav-button with-icon star-icon" {{action showSaved}}>
