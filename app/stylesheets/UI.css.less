@@ -643,6 +643,37 @@ html,body { background: #000 url(images/gradient_background.png) repeat-y 50% 0;
   .border-radius(10px, 10px, 0, 0);
 }
 
+#welcome-to-text {
+  position  : absolute;
+  top       : 20px;
+  left      : 322px;
+  color     : #fff;
+  font-size : 15px;
+  .serif();
+}
+
+#welcome-i-witness-text {
+  position  : absolute;
+  top       : 38px;
+  left      : 322px;
+  color     : #fff;
+  font-size : 48px;
+  .serif();
+
+  span { color: @iwitness-orange; }
+}
+
+#welcome-tagline-text {
+  position   : absolute;
+  top        : 97px;
+  right      : 0;
+  left       : 0;
+  color      : #fff;
+  font-size  : 24px;
+  text-align : center;
+  .serif();
+}
+
 #welcome-overlay-footer {
   position    : absolute;
   right       : 0;
@@ -664,7 +695,7 @@ html,body { background: #000 url(images/gradient_background.png) repeat-y 50% 0;
     top         : 0;
     right       : 0;
     bottom      : 0;
-    width       : 131px;
+    width       : 149px;
     text-indent : -999em;
     background  : url(images/welcome-overlay-newcontext.png) no-repeat 0 50%;
   }
@@ -677,6 +708,20 @@ html,body { background: #000 url(images/gradient_background.png) repeat-y 50% 0;
     width       : 135px;
     text-indent : -999em;
     background  : url(images/welcome-overlay-adaptive.png) no-repeat 15px 50%;
+  }
+}
+
+@media only screen and (-webkit-min-device-pixel-ratio: 1.5) {
+  #welcome-overlay-footer {
+    .adaptive {
+      background-image : url(images/welcome-overlay-adaptive@2x.png);
+      background-size  : 118px;
+    }
+
+    .newcontext {
+      background-image : url(images/welcome-overlay-newcontext@2x.png);
+      background-size  : 134px;
+    }
   }
 }
 
