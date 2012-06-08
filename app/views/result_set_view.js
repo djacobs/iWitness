@@ -7,6 +7,7 @@ IWitness.ResultSetView = Ember.View.extend({
     _.defer(function(){
       $(window).on('scroll', self.infiniteScrollDetection('twitter'));
       $(window).on('scroll', self.infiniteScrollDetection('flickr'));
+      self._toggleLivestreamPausing();
     });
   },
 
@@ -59,9 +60,9 @@ IWitness.ResultSetView = Ember.View.extend({
 
   _toggleLivestreamPausing: function(){
     if(IWitness.criteriaController.getPath('content.stream')){
-      $(window).on('scroll', this._scrollPause() );
+      $(window).on('scroll.pause', this._scrollPause() );
     } else {
-      $(window).off('scroll', this._scrollPause() );
+      $(window).off('scroll.pause');
       IWitness.hiddenItemsController.unpause();
     }
   }.observes('IWitness.criteriaController.content.stream'),
