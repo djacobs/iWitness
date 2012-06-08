@@ -7,17 +7,32 @@ def config
   CONFIG[ENVIRONMENT]
 end
 
+def all_remotes
+  Dir.entries(".git/refs/remotes").reject { |remote| remote =~ /^\.{1,2}$/ } # skip . and ..
+end
+
 BUILD_DIR = File.join(File.dirname(__FILE__), "assets")
 
 Dir.glob('lib/tasks/*.rake').each { |r| import r }
 
 directory BUILD_DIR
 
+namespace :clean do
+  all_remotes.each do |remote|
+    desc "Fetch and reset assets to #{remote}'s gh-pages branch."
+    task remote.to_sym do
+      cd(BUILD_DIR) do
+        sh "git fetch #{remote}"
+        sh "git reset --hard #{remote}/gh-pages"
+      end
+    end
+  end
+end
+
 desc "remove all built assets"
 task :clean do
   mkdir_p BUILD_DIR
   rm_rf Dir.glob(File.join(BUILD_DIR, '*'))
-  cd(BUILD_DIR) { sh "git init" }
 end
 
 desc "compile all files into the assets directory"
@@ -43,8 +58,7 @@ task :not_dirty do
 end
 
 namespace :publish do
-  Dir.entries(".git/refs/remotes").each do |remote|
-    next if remote =~ /^\.{1,2}$/ # skip . and ..
+  all_remotes.each do |remote|
     remote_branch = "assets/.git/refs/remotes/#{remote}/gh-pages"
 
     file remote_branch => BUILD_DIR do
@@ -60,7 +74,7 @@ namespace :publish do
     end
 
     desc "Publish to Github Pages; remote=#{remote}."
-    task remote.to_sym => [:not_dirty, remote_branch, :clean, :compile] do
+    task remote.to_sym => [:not_dirty, remote_branch, "clean:#{remote}", :clean, :compile] do
       head = `git log --pretty="%h" -n1`.strip
       message = "Site updated to #{head}"
 
@@ -161,3 +175,4 @@ END
     end
   end
 end
+
