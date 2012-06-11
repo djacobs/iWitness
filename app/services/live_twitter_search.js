@@ -5,7 +5,8 @@ var LiveTwitterSearch = function(params, search){
   this.total     = 0;
   this.isStopped = false;
   this.currentPage = 1;
-  Ember.addListener(search, 'streaming', this, this.start);
+  this.staticSearch = search;
+  Ember.addListener(this.staticSearch, 'streaming', this, this.start);
 };
 
 _.extend(LiveTwitterSearch.prototype, {
@@ -60,6 +61,7 @@ _.extend(LiveTwitterSearch.prototype, {
 
   stop: function(){
     clearInterval(this.interval);
+    Ember.removeListener(this.staticSearch, 'streaming', this.start);
   },
 
   fetchResults: function(callback) {

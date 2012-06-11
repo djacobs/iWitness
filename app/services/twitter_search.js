@@ -51,7 +51,7 @@ _.extend(TwitterSearch.prototype, {
   },
 
   _doneSearching: function(){
-    if (this.stream) {
+    if (this.stream && !this.isStopped) {
       Ember.sendEvent(this, 'streaming');
     } else {
       Ember.sendEvent(this, 'done');
