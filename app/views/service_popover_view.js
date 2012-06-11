@@ -6,7 +6,8 @@ IWitness.ServicePopoverView = Ember.View.extend({
     var self = this;
     $(document).click(function(e) {
       var clicked = $(e.target);
-      if (!clicked.closest('#results-top-bar .status, #services-menu').length) {
+      var isVisible = self.getPath('isVisible');
+      if (!clicked.closest('#results-top-bar .status, #services-menu').length || isVisible) {
         self.hide();
       }
     });
