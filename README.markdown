@@ -121,7 +121,7 @@ description.
 ### Running the tests
 
 We have a suite of JavaScript specs written using 
-[Jasmine](http://pivotal.github.com/jasmine/). The specs can be run in two 
+[Jasmine](https://jasmine.github.io/). The specs can be run in two 
 ways:
 
 1. with the development server running, navigate to 
